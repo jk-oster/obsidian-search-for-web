@@ -1,6 +1,6 @@
 <template>
     <div
-        class="p-3 mb-1 max-w-xs md:max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+        class="p-3 mt-1 max-w-xs md:max-w-md bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
         <a
             :href="'obsidian://advanced-uri?vault=' + encodeURIComponent(vaultName) + '&filepath=' + encodeURIComponent(filename)">
             <p class="text-xs tracking-tight text-gray-700 dark:text-gray-300" v-html="path"></p>
