@@ -3,10 +3,10 @@
         class="p-3 mb-1 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
         <a
             :href="'obsidian://advanced-uri?vault=' + encodeURIComponent(vaultName) + '&filepath=' + encodeURIComponent(filename)">
-            <p class="text-xs tracking-tight text-gray-900 dark:text-white" v-html="path"></p>
+            <p class="text-xs tracking-tight text-gray-700 dark:text-gray-300" v-html="path"></p>
             <h5 class="mb-1 text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
-                <span v-html="highlightedName"></span>
-                <span class="font-light text-xs"> ({{ matches.length }} matches) </span>
+                <span v-html="highlight(name)"></span>
+                <span class="font-light text-xs text-gray-700 dark:text-gray-300"> ({{ matches.length }} matches)</span>
             </h5>
         </a>
         <div class="text-xs font-normal text-gray-700 dark:text-gray-400">
@@ -42,9 +42,6 @@ export default {
         computedMatches() {
             return this.matches.slice(0, 2);
         },
-        highlightedName() {
-            return this.highlight(this.name);
-        },
         path() {
             return this.highlight(this.filename.replace(this.name, ''));
         },
@@ -58,7 +55,6 @@ export default {
         },
         regex(searchString) {
             const string = ('(' + searchString.split(' ').join('|') + ')').replace('|)', ')');
-            console.log(string);
             return new RegExp(string, 'gi')
         },
         highlight(string) {

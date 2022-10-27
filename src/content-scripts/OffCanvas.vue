@@ -4,13 +4,16 @@
     <button @click="searchInObsidianGui"
       class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Open
       Search in Obsidian</button>
-    <div>
-      Searching for: {{ searchString }}
+    <div class="text-xs tracking-tight text-gray-700 dark:text-gray-300 mb-2">
+      Searching for: "{{ searchString }}", {{ notes.length }} results
     </div>
     <div class="highlight-area">
       <Card v-for="note of computedNotes" :key="note.score" :filename="note.filename" :matches="note.matches"
         :searchString="searchString"></Card>
     </div>
+    <button v-if="notes?.length > 6" @click="numberOfNotes = numberOfNotes + 6"
+      class="ext-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+      Show more results</button>
   </div>
 </template>
 
@@ -35,6 +38,7 @@ export default {
       },
       searchString: '',
       contextLength: 50,
+      numberOfNotes: 6,
     };
   },
   computed: {
@@ -51,7 +55,7 @@ export default {
         return 0;
       });
 
-      return filteredNotes.slice(0, 5);
+      return filteredNotes.slice(0, this.numberOfNotes);
     },
   },
   async created() {
