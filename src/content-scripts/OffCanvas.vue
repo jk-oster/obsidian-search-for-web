@@ -1,12 +1,16 @@
 <template>
-  <div v-if="computedNotes" class="popup-container absolute right-5 top-5">
-    <button @click="searchInObsidianGui">Open Search in Obsidian</button>
-    <Card
-      v-for="note of computedNotes"
-      :key="note.score"
-      :filename="note.filename"
-      :matches="note.matches"
-    ></Card>
+  <div v-if="computedNotes?.length > 0 && searchString?.length > 2"
+    class="popup-container absolute right-5 top-10 dark">
+    <button @click="searchInObsidianGui"
+      class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Open
+      Search in Obsidian</button>
+    <div>
+      Searching for: {{ searchString }}
+    </div>
+    <div class="highlight-area">
+      <Card v-for="note of computedNotes" :key="note.score" :filename="note.filename" :matches="note.matches"
+        :searchString="searchString"></Card>
+    </div>
   </div>
 </template>
 
@@ -29,51 +33,57 @@ export default {
             "Bearer 3bd4d08075867557b5a563f7161f6da343e0d865c6ba2c819c575e197c6665be",
         },
       },
+      searchString: '',
+      contextLength: 50,
     };
   },
   computed: {
     computedNotes() {
-      return this.notes?.filter(this.filterFn).slice(0, 5);
+      const filteredNotes = this.notes?.filter(this.filterFn) ?? [];
+
+      const match = this.searchString?.toLowerCase();
+
+      filteredNotes?.sort((a, b) => {
+        const aIndexMatch = a.filename.toLowerCase().indexOf(match);
+        const bIndexMatch = b.filename.toLowerCase().indexOf(match);
+        if (aIndexMatch > bIndexMatch) return -1;
+        if (aIndexMatch < bIndexMatch) return 1;
+        return 0;
+      });
+
+      return filteredNotes.slice(0, 5);
     },
   },
   async created() {
     let params = new URLSearchParams(document.location.search);
-    let searchValue = params.get("q");
-    if (searchValue) {
+    this.searchString = params.get("q");
+    if (this.searchString) {
       this.notes = await fetch(
         "http://127.0.0.1:27123/search/simple/?query=" +
-          searchValue +
-          "&contextLength=30",
+        this.searchString +
+        "&contextLength=" + this.contextLength,
         this.reqOptions
       ).then((res) => res.json());
     }
 
-    document
-      .querySelector("input[aria-label=Suche]")
-      .addEventListener("keyup", async (event) => {
-        if (event.target.value) {
-          this.notes = await fetch(
-            "http://127.0.0.1:27123/search/simple/?query=" +
-              event.target.value +
-              "&contextLength=30",
-            this.reqOptions
-          ).then((res) => res.json());
-        } else {
-          this.notes = [];
-        }
-      });
+    document.querySelector("input[aria-label=Suche]")?.addEventListener("keyup", async (event) => {
+      this.searchString = event.target.value;
+      if (event.target.value && event.target.value.length > 2) {
+        this.notes = await fetch(
+          "http://127.0.0.1:27123/search/simple/?query=" +
+          this.searchString +
+          "&contextLength=" + this.contextLength,
+          this.reqOptions
+        ).then((res) => res.json());
+      } else {
+        this.notes = [];
+      }
+    });
   },
   methods: {
     searchInObsidianGui() {
-      const searchValue = document.querySelector("input[aria-label=Suche]")
-        .value;
-      const serachString = encodeURIComponent(
-        "file:(" + searchValue + ")  OR line:(" + searchValue + ")"
-      );
-      fetch(
-        "http://127.0.0.1:27123/search/gui/?query=" + serachString,
-        this.reqOptions
-      );
+      const searchValue = encodeURIComponent("file:(" + this.searchString + ")  OR line:(" + this.searchString + ")");
+      fetch("http://127.0.0.1:27123/search/gui/?query=" + searchValue, this.reqOptions);
     },
   },
 };

@@ -1,12 +1,19 @@
 <template>
-    <div class="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-    <a href="#">
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{filename}}</h5>
-    </a>
-    <div class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-        <p class="mb-1" v-for="match of computedMatches" :key="match.match.start">{{match.context}}</p>
+    <div
+        class="p-3 mb-1 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+        <a
+            :href="'obsidian://advanced-uri?vault=' + encodeURIComponent(vaultName) + '&filepath=' + encodeURIComponent(filename)">
+            <p class="text-xs tracking-tight text-gray-900 dark:text-white" v-html="path"></p>
+            <h5 class="mb-1 text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
+                <span v-html="highlightedName"></span>
+                <span class="font-light text-xs"> ({{ matches.length }} matches) </span>
+            </h5>
+        </a>
+        <div class="text-xs font-normal text-gray-700 dark:text-gray-400">
+            <p class="mt-1" v-for="match of computedMatches" :key="match.match.start" v-html="highlight(match.context)">
+            </p>
+        </div>
     </div>
-</div>
 </template>
 
 <script>
@@ -14,11 +21,49 @@ export default {
     props: {
         filename: String,
         matches: Array,
+        searchString: String
+    },
+    data() {
+        return {
+            reqOptions: {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization:
+                        "Bearer 3bd4d08075867557b5a563f7161f6da343e0d865c6ba2c819c575e197c6665be",
+                },
+            },
+            vaultName: '2nd Brain',
+            name: this.filename.split('/')[this.filename.split('/').length - 1],
+
+        };
     },
     computed: {
         computedMatches() {
-            return this.matches.slice(0, 1);
+            return this.matches.slice(0, 2);
+        },
+        highlightedName() {
+            return this.highlight(this.name);
+        },
+        path() {
+            return this.highlight(this.filename.replace(this.name, ''));
+        },
+    },
+    methods: {
+        openFile() {
+            fetch(
+                "http://127.0.0.1:27123/open/" + this.filename,
+                this.reqOptions
+            );
+        },
+        regex(searchString) {
+            const string = ('(' + searchString.split(' ').join('|') + ')').replace('|)', ')');
+            console.log(string);
+            return new RegExp(string, 'gi')
+        },
+        highlight(string) {
+            return '<span>' + string.replace(this.regex(this.searchString), '<span class="bg-yellow dark:bg-yellow text-black">$1</span>') + '</span>';
         }
-    }
-}
+    },
+};
 </script>
