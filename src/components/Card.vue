@@ -21,7 +21,8 @@ export default {
     props: {
         filename: String,
         matches: Array,
-        searchString: String
+        searchString: String,
+        showMatchesCount: Number
     },
     data() {
         return {
@@ -40,7 +41,7 @@ export default {
     },
     computed: {
         computedMatches() {
-            return this.matches.slice(0, 2);
+            return this.matches.slice(0, this.showMatchesCount);
         },
         path() {
             return this.highlight(this.filename.replace(this.name, ''));
