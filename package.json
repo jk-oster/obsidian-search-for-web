@@ -1,7 +1,7 @@
 {
   "name": "obsidian-search-for-chrome",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.6",
   "scripts": {
     "dev": "vite build --mode development",
     "build": "vite build",
@@ -17,7 +17,7 @@
     "@vue/compiler-sfc": "^3.0.5",
     "autoprefixer": "^10.3.1",
     "postcss": "^8.3.6",
-    "tailwindcss": "^2.2.7",
+    "tailwindcss": "^3.2.1",
     "vite": "^2.4.4",
     "vite-plugin-chrome-extension": "^0.0.7",
     "vite-plugin-components": "^0.13.2",

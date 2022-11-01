@@ -16,7 +16,15 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      input: "src/manifest.json"
+      input: "src/manifest.json",
+
+      output: {
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name == 'main.css')
+            return 'main.css';
+          return assetInfo.name;
+        },
+      }
     }
   },
   plugins: [
