@@ -1,6 +1,6 @@
 {
   "name": "Obsidian Search for Chrome",
-  "version": "0.0.1",
+  "version": "0.0.6",
   "manifest_version": 3,
   "content_scripts": [
     {
