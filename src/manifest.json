@@ -1,31 +1,30 @@
 {
-    "name": "Obsidian Search for Chrome",
-    "version": "0.0.1",
-    "manifest_version": 3,
-    "content_scripts": [
-      {
-        "matches" : [
-            "<all_urls>"
-        ],
-        "js" :  ["content-scripts/main.js"]
-      }
-    ],
-    "background": {
-        "service_worker": "background.js"
+  "name": "Obsidian Search for Chrome",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-scripts/main.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "32": "assets/obsidian32.png",
+    "128": "assets/obsidian128.png",
+    "512": "assets/obsidian512.png",
+    "48": "assets/obsidian48.png"
+  },
+  "action": {
+    "default_icon": {
+      "32": "assets/obsidian32.png",
+      "128": "assets/obsidian128.png",
+      "48": "assets/obsidian48.png"
     },
-    "icons": {              
-        "32": "assets/obsidian32.png",    
-        "128": "assets/obsidian128.png",    
-        "512": "assets/obsidian512.png",    
-        "48": "assets/obsidian48.png"
-    },
-    "action": {
-      "default_icon": {              
-        "32": "assets/obsidian32.png",  
-        "128": "assets/obsidian128.png",  
-        "48": "assets/obsidian48.png"
-      },
-      "default_title": "Open Popup"
-    },
-    "permissions": ["activeTab", "scripting", "tabs", "storage"]
-  }
+    "default_title": "Show Search Results"
+  },
+  "permissions": ["activeTab", "scripting", "tabs", "storage"],
+  "options_page": "options.html"
+}
