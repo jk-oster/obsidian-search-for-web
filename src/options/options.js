@@ -13,10 +13,10 @@ async function saveSettings(event) {
             apiKey: document.getElementById("apiKey").value,
             vault: document.getElementById("vault").value,
             protocol: document.getElementById("protocol").value,
-            customPort: document.getElementById("customPort").checked,
+            customPort: Boolean(document.getElementById("customPort").checked),
             port: Number(document.getElementById("port").value),
-            liveSearch: document.getElementById("liveSearch").checked,
-            showInPageIcon: document.getElementById("showInPageIcon").checked,
+            liveSearch: Boolean(document.getElementById("liveSearch").checked),
+            showInPageIcon: Boolean(document.getElementById("showInPageIcon").checked),
             minChars: Number(document.getElementById("minChars").value),
             contextLength: Number(document.getElementById("contextLength").value),
             matchCount: Number(document.getElementById("matchCount").value),
@@ -41,7 +41,6 @@ async function restoreSettings() {
             for (const [key, value] of Object.entries(data)) {
                 if (key == 'liveSearch' || key == 'showInPageIcon' || key == 'customPort') document.querySelector('#' + key).checked = value;
                 else if (document.querySelector('#' + key)) document.querySelector('#' + key).value = value;
-
                 if (key == 'vault') document.querySelector('#openVault').href = openObsidianUri + encodeURIComponent(value);
             }
             setStatus();
@@ -68,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (data.customPort) portElem.classList.remove('hidden');
             else portElem.classList.add('hidden');
         });
-        document.getElementById('customPort'), addEventListener('change', () => {
+        document.getElementById('customPort').addEventListener('change', () => {
             portElem.classList.toggle('hidden');
         });
         document.getElementById("settings").addEventListener("submit", saveSettings);

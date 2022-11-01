@@ -54,14 +54,10 @@ export default {
       noteNumber: 10,
       liveSearch: true,
       showInPageIcon: true,
-      searchUrls: [
-        'google.com', 'duckduckgo.com'
-      ],
-      mode: 'search',
-      excludes: [
-        'Assets', 'Template', '.excalidraw'
-      ],
-      obsidianRestUrl: 'http://127.0.0.1:27123',
+      searchUrls: [],
+      mode: '',
+      excludes: [],
+      obsidianRestUrl: '',
       vault: '',
       show: true,
       matchCount: 2,
@@ -118,14 +114,20 @@ export default {
   methods: {
     loadSettings(callback = () => { }) {
       browser.storage.sync.get().then((data) => {
-        console.log(data);
-        for (const [key, value] of Object.entries(data)) {
-          let dataField = this[key];
-          if (key == 'apiKey') this.reqOptions.headers.Authorization = "Bearer " + value;
-          else if (key == 'protocol') this.obsidianRestUrl = value;
-          else if (key == 'searchUrls' || key == 'excludes') dataField = data.searchUrls.split(',') ?? [];
-          else if (dataField) dataField = value;
-        }
+        this.reqOptions.headers.Authorization = "Bearer " + data.apiKey;
+        this.obsidianRestUrl = data.protocol;
+        this.searchUrls = data.searchUrls.split(',') ?? [];
+        this.excludes = data.excludes.split(',') ?? [];
+        this.noteNumber = data.noteNumber;
+        this.minChars = data.minChars;
+        this.show = data.show;
+        this.searchString = data?.searchString;
+        this.contextLength = data.contextLength;
+        this.liveSearch = data.liveSearch;
+        this.showInPageIcon = data?.showInPageIcon;
+        this.vault = data.vault;
+        this.matchCount = data.matchCount;
+
         callback(data);
       });
     },
