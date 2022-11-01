@@ -14,6 +14,9 @@ document.body.appendChild(mountEl);
 
 const vm = createApp(OffCanvas).mount(mountEl);
 
+window.obsidianSearch = vm;
+console.log(window.obsidianSearch);
+
 chrome.runtime.onMessage.addListener(message => {
   if (message.toggleVisible) {
     vm.visible = !vm.visible;

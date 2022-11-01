@@ -3,16 +3,19 @@ const color = {
   red: "#d53032",
   yellow: "#ffe834",
   green: "#8fce00",
-  gray: "#222222",
+  gray: "#444444",
 };
 
 let show = true;
-
-chrome.storage.sync.set({ show: true });
-chrome.storage.sync.set({ status: "offline" });
-chrome.storage.sync.set({ results: "off" });
+chrome.storage.sync.set({ show: true, status: "offline", results: "off" });
 chrome.action.setBadgeText({ text: "off" });
 chrome.action.setBadgeBackgroundColor({ color: color.gray });
+
+// Open Settings Page on installation
+chrome.runtime.onInstalled.addListener(async () => {
+  let url = chrome.runtime.getURL("options.html");
+  await chrome.tabs.create({ url });
+});
 
 // listen to event for changes from saved data in storage
 chrome.storage.onChanged.addListener((data, namespace) => {

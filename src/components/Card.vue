@@ -1,6 +1,6 @@
 <template>
     <div
-        class="p-3 mt-1 max-w-xs md:max-w-md bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+        class="p-3 mt-1 max-w-xs lg:max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
         <a
             :href="'obsidian://advanced-uri?vault=' + encodeURIComponent(vaultName) + '&filepath=' + encodeURIComponent(filename)">
             <p class="text-xs tracking-tight text-gray-700 dark:text-gray-300" v-html="path"></p>
@@ -48,12 +48,6 @@ export default {
         },
     },
     methods: {
-        openFile() {
-            fetch(
-                "http://127.0.0.1:27123/open/" + this.filename,
-                this.reqOptions
-            );
-        },
         regex(searchString) {
             const string = ('(' + searchString.split(' ').join('|') + ')').replace('|)', ')');
             return new RegExp(string, 'gi')
