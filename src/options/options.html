@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Obsidian Search for Chrome Settings</title>
-    <link rel="stylesheet" href="/content-scripts/main.74772aca.css" />
+    <link rel="stylesheet" href="/content-scripts/main.05140cd7.css" />
 </head>
 
 <body class="dark">
@@ -14,7 +14,7 @@
         <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900">
             <div class="container flex flex-wrap justify-between items-center mx-auto">
                 <a href="#" class="flex items-center">
-                    <img src="./assets/obsidian48.png" class="mr-3 h-6 sm:h-9" alt="" />
+                    <img src="../assets/obsidian48.png" class="mr-3 h-6 sm:h-9" alt="" />
                     <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Obsidian Search
                         for
                         Chrome</span>
@@ -23,7 +23,7 @@
                     class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                     aria-controls="navbar-default" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
-                    <img class="w-6 h-6" aria-hidden="true" href="./assets/obsidian48.png" />
+                    <img class="w-6 h-6" aria-hidden="true" href="../assets/obsidian48.png" />
                 </button>
                 <div class="hidden w-full md:block md:w-auto" id="navbar-default">
                     <ul
@@ -146,10 +146,21 @@
                         <input type="text" id="apiKey" name="apiKey"
                             placeholder="0b2087ee50e56d71fe7e429203b0d1cb9bfc610a238cc3be04edf6d01d5d57ef"
                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                            required="" />
+                            required />
                     </div>
 
                     <div class="mb-6">
+                        <label for="vault" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Obsidian Vault Name</label>
+                        <input type="text" id="vault" name="vault" placeholder="MyAwesomeSecondBrain"
+                            class="inline shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-3/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                            required />
+                        <a id="openVault" href=""
+                            class="w-1/4 focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                            Open Vault</a>
+                    </div>
+
+                    <div class=" mb-6">
                         <label for="protocol" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
                             Select Protocol
                         </label>

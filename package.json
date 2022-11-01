@@ -1,5 +1,5 @@
 {
-  "name": "obsidian-search-for-chrome",
+  "name": "obsidian-browser-search",
   "private": true,
   "version": "0.0.6",
   "scripts": {
@@ -21,6 +21,8 @@
     "vite": "^2.4.4",
     "vite-plugin-chrome-extension": "^0.0.7",
     "vite-plugin-components": "^0.13.2",
-    "vite-plugin-icons": "^0.6.5"
+    "vite-plugin-icons": "^0.6.5",
+    "vite-require": "^0.2.3",
+    "webextension-polyfill": "^0.10.0"
   }
 }

@@ -1,3 +1,10 @@
+import { config } from '@/config.js';
+
+var browser = require("webextension-polyfill");
+
+
+console.log(browser);
+
 const color = {
   blue: "#236dc9",
   red: "#d53032",
@@ -7,22 +14,27 @@ const color = {
 };
 
 let show = true;
-chrome.storage.sync.set({ show: true, status: "offline", results: "off" });
-chrome.action.setBadgeText({ text: "off" });
-chrome.action.setBadgeBackgroundColor({ color: color.gray });
+
+browser.storage.sync.get().then((data) => {
+  if (!data.apiKey) browser.storage.sync.set(config);
+});
+browser.action.setBadgeText({ text: " " });
+browser.action.setBadgeBackgroundColor({ color: color.gray }).catch(console.log);
 
 // Open Settings Page on installation
-chrome.runtime.onInstalled.addListener(async () => {
-  let url = chrome.runtime.getURL("options.html");
-  await chrome.tabs.create({ url });
+browser.runtime.onInstalled.addListener(async () => {
+  let url = browser.runtime.getURL("options/options.html");
+  await browser.tabs.create({ url });
 });
 
 // listen to event for changes from saved data in storage
-chrome.storage.onChanged.addListener((data, namespace) => {
+browser.storage.onChanged.addListener((data, namespace) => {
+
+  console.log(data);
   if (data.results) {
     let newText = data.results.newValue;
     if (typeof newText != "string") newText = JSON.stringify(newText);
-    chrome.action.setBadgeText({ text: newText ?? "" });
+    browser.action.setBadgeText({ text: newText ?? "" });
   }
 
   if (data.show) {
@@ -32,13 +44,13 @@ chrome.storage.onChanged.addListener((data, namespace) => {
   if (data.status) {
     let newColor;
     if (data.status.newValue == "noauth") newColor = color.red;
-    if (data.status.newValue == "search") newColor = color.green;
+    else if (data.status.newValue == "search") newColor = color.green;
     else if (data.status.newValue == "url") newColor = color.yellow;
     else if (data.status.newValue == "offline") newColor = color.gray;
-    chrome.action.setBadgeBackgroundColor({ color: newColor });
+    browser.action.setBadgeBackgroundColor({ color: newColor });
   }
 });
 
-chrome.action.onClicked.addListener((tab) => {
-  chrome.storage.sync.set({ show: !show });
+browser.action.onClicked.addListener((tab) => {
+  browser.storage.sync.set({ show: !show });
 });

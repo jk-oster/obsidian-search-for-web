@@ -22,7 +22,8 @@ export default {
         filename: String,
         matches: Array,
         searchString: String,
-        showMatchesCount: Number
+        showMatchesCount: Number,
+        vaultName: String
     },
     data() {
         return {
@@ -34,7 +35,6 @@ export default {
                         "Bearer 3bd4d08075867557b5a563f7161f6da343e0d865c6ba2c819c575e197c6665be",
                 },
             },
-            vaultName: '2nd Brain',
             name: this.filename.split('/')[this.filename.split('/').length - 1],
 
         };

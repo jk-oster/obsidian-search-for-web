@@ -4,6 +4,9 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { chromeExtension } from "vite-plugin-chrome-extension";
 import ViteComponents from "vite-plugin-components";
+// import vitePluginRequire from "vite-plugin-require";
+import { viteRequire } from 'vite-require'
+
 
 import ViteIcons, { ViteIconsResolver } from "vite-plugin-icons";
 
@@ -41,6 +44,8 @@ export default defineConfig({
       ]
     }),
     ViteIcons(),
-    chromeExtension()
+    chromeExtension(),
+    // vitePluginRequire(),
+    viteRequire()
   ]
 });

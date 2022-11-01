@@ -26,5 +26,5 @@
     "default_title": "Show Search Results"
   },
   "permissions": ["activeTab", "scripting", "tabs", "storage"],
-  "options_page": "options.html"
+  "options_page": "options/options.html"
 }

@@ -1,5 +1,7 @@
+var browser = require("webextension-polyfill");
+
 import { createApp } from 'vue'
-import OffCanvas from "./OffCanvas.vue";
+import OffCanvas from "@/components/OffCanvas.vue";
 import "@/style/main.css";
 
 const MOUNT_EL_ID = "obsidian-search-for-chrome";
@@ -17,7 +19,7 @@ const vm = createApp(OffCanvas).mount(mountEl);
 window.obsidianSearch = vm;
 console.log(window.obsidianSearch);
 
-chrome.runtime.onMessage.addListener(message => {
+browser.runtime.onMessage.addListener(message => {
   if (message.toggleVisible) {
     vm.visible = !vm.visible;
   }

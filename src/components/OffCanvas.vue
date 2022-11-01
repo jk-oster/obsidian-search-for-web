@@ -22,17 +22,20 @@
     </div>
     <div class="highlight-area">
       <Card v-for="note of computedNotes" :key="note.score" :filename="note.filename" :matches="note.matches"
-        :showMatchesCount="showMatchesCount" :searchString="searchString"></Card>
+        :showMatchesCount="matchCount" :searchString="searchString" :vaultName="vault"></Card>
     </div>
-    <button v-if="notes?.length > 6" @click="numberOfNotes = numberOfNotes + 6"
+    <button v-if="notes?.length > 6" @click="noteNumber = noteNumber + 6"
       class="text-white mt-2 bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-1.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
       Show more results</button>
   </div>
 </template>
 
 <script>
-import Card from "@/components/Card.vue";
+import Card from "./Card.vue";
 import { checkApiKey } from '@/util.js';
+import { config } from '@/config.js';
+var browser = require("webextension-polyfill");
+
 export default {
   components: [Card],
   data() {
@@ -48,7 +51,7 @@ export default {
       },
       searchString: '',
       contextLength: 50,
-      numberOfNotes: 10,
+      noteNumber: 10,
       liveSearch: true,
       showInPageIcon: true,
       searchUrls: [
@@ -59,8 +62,9 @@ export default {
         'Assets', 'Template', '.excalidraw'
       ],
       obsidianRestUrl: 'http://127.0.0.1:27123',
+      vault: '',
       show: true,
-      showMatchesCount: 2,
+      matchCount: 2,
       minChars: 2,
     };
   },
@@ -84,12 +88,13 @@ export default {
         return 0;
       });
 
-      return filteredNotes.slice(0, this.numberOfNotes) ?? [];
+      return filteredNotes.slice(0, this.noteNumber) ?? [];
     },
   },
   created() {
     // listen to event for changes from saved data in storage
-    chrome.storage.onChanged.addListener((data, namespace) => {
+    browser.storage.onChanged.addListener((data, namespace) => {
+      console.log(data);
       if (data.show) {
         this.show = data.show.newValue;
       }
@@ -107,46 +112,25 @@ export default {
     });
 
     addEventListener('keydown', () => {
-
+      // add short cut for toggling sidebar
     })
   },
   methods: {
-    loadSettings(callback = null) {
-      chrome.storage.sync.get(
-        {
-          apiKey: "",
-          protocol: "https://127.0.0.1:27124",
-          customPort: false,
-          port: "27124",
-          liveSearch: true,
-          showInPageIcon: true,
-          minChars: 2,
-          contextLength: 50,
-          matchCount: 2,
-          noteNumber: 10,
-          searchUrls: 'google.com,duckduckgo.com,bing.com,startpage.com,google.at',
-          excludes: 'Assets,Template,.excalidraw',
-          status: 'offline'
-        },
-        (data) => {
-          this.reqOptions.headers.Authorization = "Bearer " + data.apiKey;
-          this.apiKey = data.apiKey;
-          this.obsidianRestUrl = data.protocol;
-          this.liveSearch = data.liveSearch;
-          this.showInPageIcon = data.showInPageIcon;
-          this.minChars = data.minChars;
-          this.contextLength = data.contextLength;
-          this.showMatchesCount = data.matchCount;
-          this.numberOfNotes = data.noteNumber;
-          this.searchUrls = data.searchUrls.split(',') ?? [];
-          this.excludes = data.excludes.split(',') ?? [];
-          // console.log('⚙️ loaded Settings: ', data);
-          callback(data);
+    loadSettings(callback = () => { }) {
+      browser.storage.sync.get().then((data) => {
+        console.log(data);
+        for (const [key, value] of Object.entries(data)) {
+          let dataField = this[key];
+          if (key == 'apiKey') this.reqOptions.headers.Authorization = "Bearer " + value;
+          else if (key == 'protocol') this.obsidianRestUrl = value;
+          else if (key == 'searchUrls' || key == 'excludes') dataField = data.searchUrls.split(',') ?? [];
+          else if (dataField) dataField = value;
         }
-      );
+        callback(data);
+      });
     },
     toggleSidebar() {
-      chrome.storage.sync.set({ show: !this.show });
+      browser.storage.sync.set({ show: !this.show });
     },
     getInputElement() {
       const input = document.querySelector("input[aria-label=Suche]") ?? document.querySelector("input[name=q]");
@@ -165,7 +149,7 @@ export default {
       )
         .then((res) => res.json())
         .then(data => {
-          chrome.storage.sync.set({ results: data ? data.length : '' });
+          browser.storage.sync.set({ results: data ? data.length : '' });
           this.notes = data;
         })
         .catch(e => {
@@ -182,7 +166,7 @@ export default {
 
       // If on a search page from settings array
       if (this.searchUrls.some(url => location.origin.includes(url))) {
-        chrome.storage.sync.set({ status: 'search' });
+        browser.storage.sync.set({ status: 'search' });
         if (this.searchString) {
           this.fetchNotes();
         }
@@ -192,7 +176,7 @@ export default {
             if (event.target.value && event.target.value.length > this.minChars) {
               this.fetchNotes();
             } else {
-              chrome.storage.sync.set({ results: 0 });
+              browser.storage.sync.set({ results: 0 });
               this.notes = [];
             }
           });
@@ -201,7 +185,7 @@ export default {
       else {
         // If page url is not matching a search engine check inf notes contain current page URL
         this.mode = 'urlMatch';
-        chrome.storage.sync.set({ status: 'url' });
+        browser.storage.sync.set({ status: 'url' });
         addEventListener('hashchange', this.getUrlMatches);
         addEventListener('popstate', this.getUrlMatches);
         this.getUrlMatches();
