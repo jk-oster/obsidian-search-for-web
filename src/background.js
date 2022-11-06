@@ -1,7 +1,6 @@
 import { config } from '@/config.js';
 
-var browser = require("webextension-polyfill");
-
+const browser = require("webextension-polyfill");
 
 console.log(browser);
 
@@ -14,6 +13,16 @@ const color = {
 };
 
 let show = true;
+
+async function getCurrTabId() {
+  return browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+    var currTab = tabs[0];
+    if (currTab) {
+      return currTab.id;
+    }
+    return undefined;
+  })
+}
 
 browser.storage.sync.get().then((data) => {
   if (!data.apiKey) browser.storage.sync.set(config);
@@ -28,13 +37,19 @@ browser.runtime.onInstalled.addListener(async () => {
 });
 
 // listen to event for changes from saved data in storage
-browser.storage.onChanged.addListener((data, namespace) => {
+browser.storage.onChanged.addListener(async (data, namespace) => {
 
   console.log(data);
   if (data.results) {
-    let newText = data.results.newValue;
-    if (typeof newText != "string") newText = JSON.stringify(newText);
-    browser.action.setBadgeText({ text: newText ?? "" });
+    let details = {};
+    details.text = data.results.newValue;
+    if (typeof details.text != "string") details.text = JSON.stringify(details.text);
+    if (!details.text) details.text = " ";
+
+    const currTabId = await getCurrTabId();
+    if (currTabId) details.tabId = currTabId;
+
+    browser.action.setBadgeText(details);
   }
 
   if (data.show) {
@@ -42,15 +57,22 @@ browser.storage.onChanged.addListener((data, namespace) => {
   }
 
   if (data.status) {
-    let newColor;
-    if (data.status.newValue == "noauth") newColor = color.red;
-    else if (data.status.newValue == "search") newColor = color.green;
-    else if (data.status.newValue == "url") newColor = color.yellow;
-    else if (data.status.newValue == "offline") newColor = color.gray;
-    browser.action.setBadgeBackgroundColor({ color: newColor });
+    let details = {};
+    if (data.status.newValue == "noauth") details.color = color.red;
+    else if (data.status.newValue == "search") details.color = color.green;
+    else if (data.status.newValue == "url") details.color = color.yellow;
+    else if (data.status.newValue == "offline") details.color = color.gray;
+
+    console.log(details);
+
+    const currTabId = await getCurrTabId();
+    if (currTabId) details.tabId = currTabId;
+
+    browser.action.setBadgeBackgroundColor(details);
   }
 });
 
 browser.action.onClicked.addListener((tab) => {
+  console.log('clicked');
   browser.storage.sync.set({ show: !show });
 });

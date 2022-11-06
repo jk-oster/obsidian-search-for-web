@@ -6,7 +6,7 @@
     </div>
   </button>
   <div
-    :class="(showPopup ? 'translate-x-0 ' : 'translate-x-full ') + ' max-h-screen popup-container fixed duration-300 ease-in-out right-0 top-0 dark bg-gray-900 p-2 rounded overflow-auto'">
+    :class="(showPopup ? ' translate-x-0 ' : ' translate-x-full ') + ' max-h-screen popup-container fixed duration-300 ease-in-out right-0 top-0 dark bg-gray-900 p-2 rounded overflow-auto'">
     <div class="flex justify-between">
       <button v-if="mode != 'urlMatch'" @click="searchInObsidianGui"
         class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
@@ -17,7 +17,7 @@
         Hide
       </button>
     </div>
-    <div class="text-xs tracking-tight text-gray-700 dark:text-gray-300 mb-2">
+    <div class="text-xs max-w-xs lg:max-w-sm tracking-tight text-gray-700 dark:text-gray-300 mb-2">
       Searching for: "{{ searchString }}", {{ notes.length }} result(s)
     </div>
     <div class="highlight-area">
@@ -33,8 +33,7 @@
 <script>
 import Card from "./Card.vue";
 import { checkApiKey } from '@/util.js';
-import { config } from '@/config.js';
-var browser = require("webextension-polyfill");
+const browser = require("webextension-polyfill");
 
 export default {
   components: [Card],
@@ -66,6 +65,7 @@ export default {
   },
   computed: {
     showPopup() {
+      console.log(this.notes?.length > 0, this.searchString?.length > this.minChars, this.show);
       return this.notes?.length > 0 && this.searchString?.length > this.minChars && this.show;
     },
     computedNotes() {
