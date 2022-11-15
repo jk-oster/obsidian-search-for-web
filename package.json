@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite build --mode development",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start:firefox": "web-ext run --source-dir ./dist/"
   },
   "dependencies": {
     "vue": "^3.0.5"

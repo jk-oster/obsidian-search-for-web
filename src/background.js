@@ -75,4 +75,7 @@ browser.storage.onChanged.addListener(async (data, namespace) => {
 browser.action.onClicked.addListener((tab) => {
   console.log('clicked');
   browser.storage.sync.set({ show: !show });
+  browser.storage.sync.get({ vault, status }).then(data => {
+    if (data.status == "offline") fetch('obsidian://open?vault=' + data.vault);
+  })
 });

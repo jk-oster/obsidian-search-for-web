@@ -1,5 +1,5 @@
 <template>
-  <button v-if="showInPageIcon && !show && notes?.length > 0" class="popup-button absolute right-1 top-1/2 rounded-full"
+  <button v-if="showInPageIcon && !show && notes?.length > 0" class="popup-button fixed right-1 top-1/2 rounded-full"
     @click="toggleSidebar">
     <div class="relative">
       <img src="../assets/obsidian32.png" alt="Show Obsidian Search">
@@ -131,18 +131,22 @@ export default {
         callback(data);
       });
     },
+
     toggleSidebar() {
       browser.storage.sync.set({ show: !this.show });
     },
+
     getInputElement() {
-      const input = document.querySelector("input[aria-label=Suche]") ?? document.querySelector("input[name=q]");
+      const input = document.querySelector("input[aria-label=Suche]") ?? document.querySelector("input[name=q]") ?? document.querySelector("input[data-testid='search-input']");
       if (!input) console.warn('No search input element detected 😢');
       return input;
     },
+
     searchInObsidianGui() {
       const searchValue = encodeURIComponent("file:(" + this.searchString + ")  OR line:(" + this.searchString + ")");
       fetch(this.obsidianRestUrl + "/search/gui/?query=" + searchValue, this.reqOptions);
     },
+
     fetchNotes() {
       console.log('fetching: ', this.obsidianRestUrl + "/search/simple/?query=" + this.searchString + "&contextLength=" + this.contextLength);
       fetch(
