@@ -68,6 +68,7 @@ export default {
     showPopup() {
       return this.notes?.length > 0 && this.searchString?.length > this.minChars && this.show;
     },
+
     computedNotes() {
       // Exclude search results matching exclude list
       const filteredNotes = this.notes?.filter(note => {
@@ -87,6 +88,7 @@ export default {
       return filteredNotes.slice(0, this.numberOfNotes) ?? [];
     },
   },
+
   created() {
     // listen to event for changes from saved data in storage
     chrome.storage.onChanged.addListener((data, namespace) => {
@@ -110,6 +112,7 @@ export default {
 
     })
   },
+
   methods: {
     loadSettings(callback = null) {
       chrome.storage.sync.get(
@@ -145,18 +148,25 @@ export default {
         }
       );
     },
+
     toggleSidebar() {
       chrome.storage.sync.set({ show: !this.show });
     },
+
     getInputElement() {
-      const input = document.querySelector("input[aria-label=Suche]") ?? document.querySelector("input[name=q]");
+      const input = document.querySelector("input[aria-label=Suche]") ?? 
+        document.querySelector("input[aria-label=Search]") ?? 
+        document.querySelector("input[name=q]") ?? 
+        document.querySelector("input[type=search]");
       if (!input) console.warn('No search input element detected 😢');
       return input;
     },
+
     searchInObsidianGui() {
       const searchValue = encodeURIComponent("file:(" + this.searchString + ")  OR line:(" + this.searchString + ")");
       fetch(this.obsidianRestUrl + "/search/gui/?query=" + searchValue, this.reqOptions);
     },
+
     fetchNotes() {
       console.log('fetching: ', this.obsidianRestUrl + "/search/simple/?query=" + this.searchString + "&contextLength=" + this.contextLength);
       fetch(
