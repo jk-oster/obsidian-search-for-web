@@ -18,7 +18,7 @@
       </button>
     </div>
     <div class="text-xs max-w-xs lg:max-w-sm tracking-tight text-gray-700 dark:text-gray-300 mb-2 break-words">
-      Searching for: "{{ searchString }}", {{ notes.length }} result(s)
+      Searching for: "{{ searchString }}", {{ computedNotes.length }} result(s)
     </div>
     <div class="highlight-area">
       <Card v-for="note of computedNotes" :key="note.score" :filename="note.filename" :matches="note.matches"
@@ -65,14 +65,20 @@ export default {
   },
   computed: {
     showPopup() {
-      console.log(this.notes?.length > 0, this.searchString?.length > this.minChars, this.show);
+      // console.log(this.notes?.length > 0, this.searchString?.length > this.minChars, this.show);
       return this.notes?.length > 0 && this.searchString?.length > this.minChars && this.show;
     },
     computedNotes() {
+      let filteredNotes = this.notes ?? [];
+
+      // console.log(this.excludes?.length);
+
       // Exclude search results matching exclude list
-      const filteredNotes = this.notes?.filter(note => {
-        return this.excludes.every(exclude => !note.filename.includes(exclude))
-      }) ?? [];
+      if (this.excludes?.length > 0 && this.excludes[0] != '') {
+        filteredNotes = this.notes?.filter(note => {
+          return this.excludes.every(exclude => !note.filename.includes(exclude))
+        }) ?? [];
+      }
 
       // Rank notes with filename matching search first
       const match = this.searchString?.toLowerCase();
@@ -90,7 +96,7 @@ export default {
   created() {
     // listen to event for changes from saved data in storage
     browser.storage.onChanged.addListener((data, namespace) => {
-      console.log(data);
+      // console.log(data);
       if (data.show) {
         this.show = data.show.newValue;
       }
