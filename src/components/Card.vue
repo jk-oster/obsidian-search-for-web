@@ -10,7 +10,8 @@
             </h5>
         </a>
         <div class="text-xs font-normal text-gray-700 dark:text-gray-400">
-            <p class="mt-1" v-for="match of computedMatches" :key="match.match.start" v-html="highlight(match.context)">
+            <p class="mt-1 break-words" v-for="match of computedMatches" :key="match.match.start"
+                v-html="highlight(match.context)">
             </p>
         </div>
     </div>
@@ -27,14 +28,6 @@ export default {
     },
     data() {
         return {
-            reqOptions: {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization:
-                        "Bearer 3bd4d08075867557b5a563f7161f6da343e0d865c6ba2c819c575e197c6665be",
-                },
-            },
             name: this.filename.split('/')[this.filename.split('/').length - 1],
 
         };

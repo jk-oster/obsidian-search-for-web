@@ -17,7 +17,7 @@
         Hide
       </button>
     </div>
-    <div class="text-xs max-w-xs lg:max-w-sm tracking-tight text-gray-700 dark:text-gray-300 mb-2">
+    <div class="text-xs max-w-xs lg:max-w-sm tracking-tight text-gray-700 dark:text-gray-300 mb-2 break-words">
       Searching for: "{{ searchString }}", {{ notes.length }} result(s)
     </div>
     <div class="highlight-area">
