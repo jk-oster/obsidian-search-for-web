@@ -10,7 +10,7 @@ For all of you who are missing the Evernote browser search extension in Obsidian
 - ✅ Customize how much context you want to see
 
 ### 🛡️ Privacy
-This extension just communicates between your local Obsidian REST Api and the browser. The only data that is stored permanently in the browser are the settings you find below. Feel free to check out the code base on GitHub
+This extension just communicates between your local Obsidian REST Api and the browser. The only data that is stored permanently in the browser are the settings including the Obsidian REST API-Key.
 
 ### 🌐 Browser compatibility
 This extension has been tested with Chrome and Firefox to be working.
