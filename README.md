@@ -1,3 +1,5 @@
+❗note that this extension is still experimental - furthermore this extension requires the Obsidian REST API Plugin!
+
 # Obsidian Web Search
 ## 🔍 Have a Evernote like search experience
 For all of you who are missing the Evernote browser search extension in Obsidian - here is your solution. This extension lets you search your Obsidian Vault simultaneously as you type your search in your favourite search engine.
@@ -27,7 +29,7 @@ This extension has been tested with Chrome and Firefox to be working.
 Clone the repository and run `yarn build` and choose the *dist* folder als target when installing the extension in the chrome extensions tab.
 
 ## Contact & contribution
-If you need any support feel free to comment in de discussions or open up an issue. You can contact me though my [website](https://jakobosterberger.com). Contribution, pull requests and suggestions for improvements are very welcome.
+If you need any support feel free to comment in de discussions or open up an issue. You can also contact me though my [website](https://jakobosterberger.com/contact). Contribution, pull requests and suggestions for improvements are very welcome.
 
 ## Credits
 Thank's to the creator of the Obsidian Local REST Api Plugin @Adam Coddington for his awesome work. Furthermore, kodos to the creator of the Vite Chrome Extension Plugin for enabeling fast and easy development with Vue! Big thanks to the team of Flowbite™ for providing such awesome free Tailwind components!
