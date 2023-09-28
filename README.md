@@ -15,7 +15,7 @@ For all of you who are missing the Evernote browser search extension in Obsidian
 This extension just communicates between your local Obsidian REST Api and the browser. The only data that is stored permanently in the browser are the settings including the Obsidian REST API-Key.
 
 ### 🌐 Browser compatibility
-This extension has been tested with Chrome to be working. By using the webextension-polyfill library og mozilla it should also be compatible with Firefox though.
+This extension has been tested with Chrome on Windows to be working. By using the webextension-polyfill library of mozilla.org it should also be compatible with Firefox though.
 
 ## 🚧 Test the extension
 ❗note that this extension is still experimental - furthermore this extension requires the Obsidian REST API Plugin!
