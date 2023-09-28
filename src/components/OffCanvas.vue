@@ -1,6 +1,6 @@
 <template>
-  <button v-if="showInPageIcon && !show && notes?.length > 0" class="popup-button fixed right-1 top-1/2 rounded-full"
-    @click="toggleSidebar">
+  <button v-if="store.showInPageIcon && !store.show && notes?.length > 0"
+    class="popup-button fixed right-1 top-1/2 rounded-full" @click="toggleSidebar">
     <div class="relative">
       <img src="../assets/obsidian32.png" alt="Show Obsidian Search">
     </div>
@@ -18,13 +18,13 @@
       </button>
     </div>
     <div class="text-xs max-w-xs lg:max-w-sm tracking-tight text-gray-700 dark:text-gray-300 mb-2 break-words">
-      Searching for: "{{ searchString }}", {{ computedNotes.length }} result(s)
+      Searching for: "{{ store.searchString }}", {{ computedNotes.length }} result(s)
     </div>
     <div class="highlight-area">
       <Card v-for="note of computedNotes" :key="note.score" :filename="note.filename" :matches="note.matches"
-        :showMatchesCount="matchCount" :searchString="searchString" :vaultName="vault"></Card>
+        :showMatchesCount="store.matchCount" :searchString="store.searchString" :vaultName="store.vault"></Card>
     </div>
-    <button v-if="notes?.length > 6" @click="noteNumber = noteNumber + 6"
+    <button v-if="notes?.length > 6" @click="store.noteNumber = store.noteNumber + 6"
       class="text-white mt-2 bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-1.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
       Show more results</button>
   </div>
@@ -33,40 +33,23 @@
 <script>
 import Card from "./Card.vue";
 import { checkApiKey } from '@/util.js';
-const browser = require("webextension-polyfill");
+import { store, loadAllFromExtStorageTo, initStorageListeners, saveToExtStorageAnd } from '@/store.js';
+import { sendToRuntime } from '@/service.js';
 
 export default {
   components: [Card],
   data() {
     return {
       notes: [],
-      reqOptions: {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization:
-            "Bearer ",
-        },
-      },
-      searchString: '',
-      contextLength: 50,
-      noteNumber: 10,
-      liveSearch: true,
-      showInPageIcon: true,
-      searchUrls: [],
       mode: '',
-      excludes: [],
-      obsidianRestUrl: '',
-      vault: '',
-      show: true,
-      matchCount: 2,
-      minChars: 2,
+      store,
+      initialized: false,
     };
   },
   computed: {
     showPopup() {
       // console.log(this.notes?.length > 0, this.searchString?.length > this.minChars, this.show);
-      return this.notes?.length > 0 && this.searchString?.length > this.minChars && this.show;
+      return this.notes?.length > 0 && store.searchString?.length > store.minChars && store.show;
     },
     computedNotes() {
       let filteredNotes = this.notes ?? [];
@@ -74,14 +57,16 @@ export default {
       // console.log(this.excludes?.length);
 
       // Exclude search results matching exclude list
-      if (this.excludes?.length > 0 && this.excludes[0] != '') {
+      if (store.excludes?.length > 0 && store.excludes[0] != '') {
+        console.log('excludes', store.excludes);
+        console.log('notes', this.notes);
         filteredNotes = this.notes?.filter(note => {
-          return this.excludes.every(exclude => !note.filename.includes(exclude))
+          return store.excludes.every(exclude => !note.filename.includes(exclude))
         }) ?? [];
       }
 
       // Rank notes with filename matching search first
-      const match = this.searchString?.toLowerCase();
+      const match = store.searchString?.toLowerCase();
       filteredNotes?.sort((a, b) => {
         const aIndexMatch = a.filename.toLowerCase().indexOf(match);
         const bIndexMatch = b.filename.toLowerCase().indexOf(match);
@@ -90,105 +75,115 @@ export default {
         return 0;
       });
 
-      return filteredNotes.slice(0, this.noteNumber) ?? [];
+      return filteredNotes.slice(0, store.noteNumber) ?? [];
     },
-  },
-  created() {
-    // listen to event for changes from saved data in storage
-    browser.storage.onChanged.addListener((data, namespace) => {
-      // console.log(data);
-      if (data.show) {
-        this.show = data.show.newValue;
-      }
-      else if (data.results || data.status) {
-        // DO Nothing
-      }
-      else {
-        this.loadSettings();
-      }
-    });
 
-    this.loadSettings(async (data) => {
-      this.show = data?.show ?? true;
-      checkApiKey(this.obsidianRestUrl, data.apiKey, this.initSearch);
-    });
+    reqOptions() {
+      return {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer " + store.apiKey,
+        },
+      }
+    }
+  },
+  async created() {
+    addEventListener('search', () => {
+      if (!this.initialized) {
+        this.initialized = true;
+        this.initSearch();
+        console.log('search initialized with notes:', this.notes);
+      }
+    })
+
+    await loadAllFromExtStorageTo(store);
+    initStorageListeners(store);
+    await checkApiKey(store.obsidianRestUrl, store.apiKey);
+
+    // start a timer that checks every 10 seconds if the API key is still valid
+    // -> update the badge
+    // setInterval(async () => {
+    //   await checkApiKey(store.obsidianRestUrl, store.apiKey);
+    // }, 10 * 1000);
+
+    console.log('notes', this.notes);
 
     addEventListener('keydown', () => {
       // add short cut for toggling sidebar
     })
   },
   methods: {
-    loadSettings(callback = () => { }) {
-      browser.storage.sync.get().then((data) => {
-        this.reqOptions.headers.Authorization = "Bearer " + data.apiKey;
-        this.obsidianRestUrl = data.protocol;
-        this.searchUrls = data.searchUrls.split(',') ?? [];
-        this.excludes = data.excludes.split(',') ?? [];
-        this.noteNumber = data.noteNumber;
-        this.minChars = data.minChars;
-        this.show = data.show;
-        this.searchString = data?.searchString;
-        this.contextLength = data.contextLength;
-        this.liveSearch = data.liveSearch;
-        this.showInPageIcon = data?.showInPageIcon;
-        this.vault = data.vault;
-        this.matchCount = data.matchCount;
-
-        callback(data);
-      });
-    },
 
     toggleSidebar() {
-      browser.storage.sync.set({ show: !this.show });
+      saveToExtStorageAnd(store, 'show', !store.show);
     },
 
     getInputElement() {
-      const input = document.querySelector("input[aria-label=Suche]") ?? document.querySelector("input[name=q]") ?? document.querySelector("input[data-testid='search-input']");
+      const input = false
+        || document.querySelector("input[aria-label=Suche]")
+        || document.querySelector("input[aria-label=Search]")
+        || document.querySelector("input[name=q]")
+        || document.querySelector("input[data-testid='search-input']")
+        || document.querySelector("input[type=search]")
+        || document.querySelector("textarea[name=q]")
+        || document.querySelector("textarea[type=search]")
+        || document.querySelector("textarea[aria-label=Suche]")
+        || document.querySelector("textarea[aria-label=Search]");
       if (!input) console.warn('No search input element detected 😢');
       return input;
     },
 
     searchInObsidianGui() {
-      const searchValue = encodeURIComponent("file:(" + this.searchString + ")  OR line:(" + this.searchString + ")");
-      fetch(this.obsidianRestUrl + "/search/gui/?query=" + searchValue, this.reqOptions);
+      const searchValue = encodeURIComponent("file:(" + store.searchString + ")  OR line:(" + store.searchString + ")");
+      fetch(store.obsidianRestUrl + "/search/gui/?query=" + searchValue, this.reqOptions);
     },
 
     fetchNotes() {
-      console.log('fetching: ', this.obsidianRestUrl + "/search/simple/?query=" + this.searchString + "&contextLength=" + this.contextLength);
+      console.log('fetching: ', store.obsidianRestUrl + "/search/simple/?query=" + store.searchString + "&contextLength=" + store.contextLength);
       fetch(
-        this.obsidianRestUrl + "/search/simple/?query=" + this.searchString + "&contextLength=" + this.contextLength,
+        store.obsidianRestUrl + "/search/simple/?query=" + store.searchString + "&contextLength=" + store.contextLength,
         this.reqOptions
       )
         .then((res) => res.json())
         .then(data => {
-          browser.storage.sync.set({ results: data ? data.length : '' });
-          this.notes = data;
+          if (data.errorCode) {
+            throw new Error(data);
+          }
+          saveToExtStorageAnd(store, 'results', data ? data.length : 0);
+          sendToRuntime({ action: 'badge', results: data ? data.length : 0 });
+          this.notes = data.length ? data : [];
         })
         .catch(e => {
-          console.log(e);
+          console.log(e, store, this.reqOptions);
         });
     },
     async getUrlMatches() {
-      this.searchString = document.location.href;
+      store.searchString = document.location.href;
       this.fetchNotes();
     },
     async initSearch() {
       let params = new URLSearchParams(document.location.search);
-      this.searchString = params.get("q");
+      store.searchString = params.get("q");
 
       // If on a search page from settings array
-      if (this.searchUrls.some(url => location.origin.includes(url))) {
-        browser.storage.sync.set({ status: 'search' });
-        if (this.searchString) {
+      if (store.searchUrls.some(url => location.origin.includes(url))) {
+        saveToExtStorageAnd(store, 'status', 'search');
+        sendToRuntime({ action: 'badge', status: 'search' });
+
+        if (store.searchString) {
           this.fetchNotes();
         }
-        if (this.liveSearch) {
+        if (store.liveSearch) {
           this.getInputElement()?.addEventListener("keyup", async (event) => {
-            this.searchString = event.target.value;
-            if (event.target.value && event.target.value.length > this.minChars) {
+            console.log('keyup', event.target.value);
+            store.searchString = event.target.value;
+            if (event.target.value && event.target.value.length > store.minChars) {
               this.fetchNotes();
             } else {
-              browser.storage.sync.set({ results: 0 });
+              saveToExtStorageAnd(store, 'results', 0);
+              sendToRuntime({ action: 'badge', results: 0 });
               this.notes = [];
             }
           });
@@ -197,12 +192,13 @@ export default {
       else {
         // If page url is not matching a search engine check inf notes contain current page URL
         this.mode = 'urlMatch';
-        browser.storage.sync.set({ status: 'url' });
+        saveToExtStorageAnd(store, 'status', 'url');
+        sendToRuntime('badge', { status: 'url' });
         addEventListener('hashchange', this.getUrlMatches);
         addEventListener('popstate', this.getUrlMatches);
         this.getUrlMatches();
       }
-      console.log('Obsidian Search Initialized 🥳 mode: ' + this.mode + ', search: ' + this.searchString);
+      console.log('Obsidian Search Initialized 🥳 mode: ' + this.mode + ', search: ' + store.searchString);
     },
     async delay(ms) {
       return new Promise((resolve) => setTimeout(resolve, ms));
@@ -212,6 +208,8 @@ export default {
 </script>
 
 <style scoped>
+@import "@/style/main.css";
+
 html {
   scrollbar-face-color: #646464;
   scrollbar-base-color: #646464;

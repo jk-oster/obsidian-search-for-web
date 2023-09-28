@@ -79,12 +79,6 @@ export async function saveToExtStorageFrom(store) {
 
 // Save a single value to extension storage to persist it across sessions, pages & devices
 export function saveToExtStorage(name, value) {
-    if (!process || !browser) {
-        chrome.storage.sync.set({
-            [name]: value,
-        });
-        return;
-    }
     browser.storage.sync.set({
         [name]: value,
     });

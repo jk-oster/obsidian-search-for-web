@@ -56,6 +56,12 @@ browser.runtime.onInstalled.addListener(async () => {
   browser.action.setBadgeBackgroundColor({ color: color.gray }).catch(console.log);
   let url = browser.runtime.getURL("options/options.html");
   await browser.tabs.create({ url });
+
+  addExtensionMessageListener('badge', (data) => {
+    setBadgeStatus(data.status);
+    setBadgeText(data.results);
+  });
+
 });
 
 // listen to event for changes from saved data in storage
@@ -79,10 +85,7 @@ browser.storage.onChanged.addListener(async (data, namespace) => {
   }
 });
 
-addExtensionMessageListener('badge', (data) => {
-  setBadgeStatus(data.status);
-  setBadgeText(data.results);
-});
+
 
 browser.action.onClicked.addListener((tab) => {
   console.log('clicked');

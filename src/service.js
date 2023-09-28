@@ -33,8 +33,6 @@ export async function sendToRuntime({ action = '', data = null }, windowEvent = 
             dispatchWindowMessage(action, data);
         }
 
-        if (!process || !browser) return chrome.runtime.sendMessage({ action, data });
-
         return await browser.runtime.sendMessage({ action, data });
     } catch (e) {
         console.log(e)

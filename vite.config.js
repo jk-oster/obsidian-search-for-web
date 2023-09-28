@@ -21,13 +21,12 @@ export default defineConfig({
     }
   },
   define: {
-    'process.env': process.env
+    'process.env': process.env,
   },
   build: {
     rollupOptions: {
       input: "src/manifest.json",
     },
-    sourcemap: 'inline',
   },
   plugins: [
     vue(),

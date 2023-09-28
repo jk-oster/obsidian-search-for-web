@@ -1068,13 +1068,13 @@
 
         return function onRequestFinished(req) {
           const wrappedReq = wrapObject(req, {}
-          /* wrappers */
-          , {
-            getContent: {
-              minArgs: 0,
-              maxArgs: 0
-            }
-          });
+            /* wrappers */
+            , {
+              getContent: {
+                minArgs: 0,
+                maxArgs: 0
+              }
+            });
           listener(wrappedReq);
         };
       });

@@ -51,3 +51,23 @@ export default {
     },
 };
 </script>
+<style scoped>
+@import "@/style/main.css";
+</style>
+
+<style>
+.bg-yellow {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 51 / var(--tw-bg-opacity))
+}
+
+.text-black {
+    --tw-text-opacity: 1;
+    color: rgb(0 0 0 / var(--tw-text-opacity))
+}
+
+:is(.dark .dark\:bg-yellow) {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 51 / var(--tw-bg-opacity))
+}
+</style>

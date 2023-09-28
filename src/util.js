@@ -37,7 +37,7 @@ export async function checkApiKey(url, apiKey) {
 
     if (data.status == 'OK' && data.authenticated) {
       statusText = "✅ Succcessfully connected to Obsidian";
-      data = { status: 'search', results: ' ', statusText };
+      data = { status: 'search', statusText };
       action = 'search';
     }
     else {
@@ -57,12 +57,9 @@ export async function checkApiKey(url, apiKey) {
   try {
     browser.storage.sync.set(data);
     console.log('stored', data);
+    browser.runtime.sendMessage({ action: 'badge', data });
+    console.log('sent', action, data)
 
-    const tabId = await getCurrTabId(/https?:\/\//);
-    if (tabId) {
-      browser.runtime.sendMessage(tabId, { action: 'badge', data });
-      console.log('sent', action, data)
-    }
   } catch (e) {
     console.log('runtimeMsgError', e);
   }
