@@ -23,7 +23,8 @@ This extension has been tested with Chrome to be working. By using the webextens
 2. extracting the files
 3. [installing the folder from the chrome extension tab](https://bashvlas.com/blog/install-chrome-extension-in-developer-mode/)
 4. open the settings tab of the extension
-5. insert the obsidian REST API key
+5. insert the obsidian REST API key and input vault name
+6. go to any webpage and see the number of matching notes in the extension icon
 
 ## 🏗️ Build it yourself
 Clone the repository, install dependencies `npm install` (or better use `pnpm install`) and run `npm build` / `pnpm build` and choose the *dist* folder als target when installing the extension in the chrome extensions tab.
