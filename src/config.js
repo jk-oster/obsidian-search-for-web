@@ -10,9 +10,14 @@ export const config = {
     contextLength: 50,
     matchCount: 2,
     noteNumber: 10,
-    searchUrls: '', // google.com,duckduckgo.com,bing.com,startpage.com,google.at
-    excludes: '', // Assets,Template,.excalidraw
+    searchUrls: 'google.com,duckduckgo.com,bing.com,startpage.com,google.at',
+    excludes: 'Assets,Template,.excalidraw',
     status: 'offline',
     results: 0,
-    searchString: ''
+    searchString: '',
+
+    status: "offline",
+    statusText: "❗ Make sure Obsidian is running and set your Protocol settings to connect to your Obsidian REST Api!",
+    results: " ",
+    color: "gray",
 };
