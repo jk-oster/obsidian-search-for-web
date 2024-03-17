@@ -5,12 +5,8 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev:new": "vite",
-    "build:new": "vue-tsc && vite build",
-    "dev": "vite build --watch --mode development",
-    "build": "vite build --mode production && node ./copyFiles.js",
-    "preview": "vite preview",
-    "start:firefox": "web-ext run --source-dir ./dist/"
+    "dev": "vite",
+    "build": "vue-tsc && vite build"
   },
   "dependencies": {
     "vue": "^3.3.4"

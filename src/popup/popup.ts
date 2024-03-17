@@ -1,3 +1,4 @@
+// @ts-ignore
 import OffCanvas from "@/components/OffCanvas.vue";
 import { createApp } from "vue";
 
