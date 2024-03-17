@@ -33,9 +33,11 @@ export async function loadAllFromExtStorageTo(store: ExtensionConfig) {
         store.minChars = Number(data.minChars);
         store.show = Boolean(data.show);
         store.searchString = data?.searchString ?? '';
+        store.currentUrl = data?.currentUrl ?? '';
         store.contextLength = Number(data.contextLength);
         store.liveSearch = Boolean(data.liveSearch);
         store.showInPageIcon = Boolean(data?.showInPageIcon);
+        store.sidePanelOpen = Boolean(data?.sidePanelOpen);
         store.vault = data.vault;
         store.matchCount = Number(data.matchCount);
 
@@ -59,9 +61,11 @@ export async function saveToExtStorageFrom(store: ExtensionConfig) {
         minChars: Number(store.minChars),
         show: Boolean(store.show),
         searchString: store.searchString,
+        currentUrl: store.currentUrl,
         contextLength: Number(store.contextLength),
         liveSearch: Boolean(store.liveSearch),
         showInPageIcon: Boolean(store.showInPageIcon),
+        sidePanelOpen: Boolean(store.sidePanelOpen),
         vault: store.vault,
         matchCount: Number(store.matchCount),
 

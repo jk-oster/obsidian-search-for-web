@@ -1,6 +1,5 @@
 // @ts-ignore
 import OffCanvas from "@/components/OffCanvas.vue";
-import '../style/main.css';
 import { createApp } from "vue";
 
 const MOUNT_EL_ID = "obsidian-search-for-chrome";

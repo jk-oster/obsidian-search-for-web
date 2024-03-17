@@ -1,5 +1,6 @@
 export enum MessageAction {
     BADGE = 'badge',
+    OPEN_URL = 'open-url',
 }
 
 export interface Message {
@@ -50,6 +51,7 @@ export interface ExtensionConfig {
     port: number,
     show: boolean,
     liveSearch: boolean,
+    sidePanelOpen: boolean,
     showInPageIcon: boolean,
     minChars: number,
     contextLength: number,
@@ -57,6 +59,7 @@ export interface ExtensionConfig {
     noteNumber: number,
     searchUrls: string,
     excludes: string,
+    currentUrl: string,
     searchString: string,
     status: Status,
     color: Color,
