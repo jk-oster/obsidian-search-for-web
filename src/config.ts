@@ -1,9 +1,15 @@
-export const config = {
+import {Color, Status, ExtensionConfig} from "./types.js";
+
+
+
+export const config: ExtensionConfig = {
     apiKey: "",
     vault: "",
-    protocol: "https://127.0.0.1:27124",
-    customPort: false,
-    port: "27124",
+    openObsidianUri: "obsidian://open?vault=",
+    obsidianRestUrl: "127.0.0.1",
+    protocol: "https://",
+    port: 27124,
+    show: true,
     liveSearch: true,
     showInPageIcon: true,
     minChars: 2,
@@ -12,12 +18,10 @@ export const config = {
     noteNumber: 10,
     searchUrls: 'google.com,duckduckgo.com,bing.com,startpage.com,google.at',
     excludes: 'Assets,Template,.excalidraw',
-    // status: 'offline',
-    // results: 0,
     searchString: '',
 
-    status: "offline",
     statusText: "❗ Make sure Obsidian is running and set your Protocol settings to connect to your Obsidian REST Api!",
     results: " ",
-    color: "gray",
+    status: Status.offline,
+    color: Color.gray,
 };

@@ -4,7 +4,7 @@
   "content_scripts": [
     {
       "matches": ["https://*/*", "http://*/*"],
-      "js": ["src/content-scripts/main.js"]
+      "js": ["src/content-scripts/content.ts"]
     }
   ],
 
@@ -24,7 +24,6 @@
       "96": "icon/96.png",
       "128": "icon/128.png"
     },
-    "default_popup": "src/popup/popup.html",
     "default_title": "Show Search Results"
   },
   "{{firefox}}.browser_action": {

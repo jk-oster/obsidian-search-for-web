@@ -6,7 +6,7 @@ import webExtension, { readJsonFile } from "vite-plugin-web-extension";
 
 const _dirname = typeof __dirname !== 'undefined'
     ? __dirname
-    : dirname(fileURLToPath(import.meta.url))
+    : dirname(fileURLToPath(import.meta.url));
 
 function generateManifest() {
   const manifest = readJsonFile("src/manifest.json");
