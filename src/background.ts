@@ -1,6 +1,6 @@
-import { config } from '@/config.js';
-
-import browserPolyfill from "webextension-polyfill";
+import browser from "webextension-polyfill";
+// @ts-ignore
+import { config } from './config.js';
 
 console.log('browser polyfill', browser);
 
@@ -24,7 +24,8 @@ let show = true;
 
 async function getCurrTabId(matches = null) {
   return browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-    var currTab = tabs[0];
+    const currTab = tabs[0];
+    // @ts-ignore
     if (currTab && (!matches || matches.test(currTab.url))) {
       return currTab.id;
     }
@@ -32,7 +33,7 @@ async function getCurrTabId(matches = null) {
   })
 }
 
-export async function addExtensionMessageListener(action = 'update', callbackFn = (data) => {
+export async function addExtensionMessageListener(action = 'update', callbackFn = (data: any) => {
 }) {
   try {
     // Add a listener for the runtime message from the background service
@@ -84,8 +85,6 @@ browser.storage.onChanged.addListener(async (data, namespace) => {
   }
 });
 
-
-
 browser.action.onClicked.addListener((tab) => {
   console.log('clicked');
   browser.storage.sync.set({ show: !show });
@@ -95,19 +94,22 @@ browser.action.onClicked.addListener((tab) => {
   // })
 });
 
-async function setBadgeText(text) {
+async function setBadgeText(text: string) {
   const tabId = await getCurrTabId();
   browser.action.setBadgeText({ text, tabId });
 }
 
-async function setBadgeColor(colorName) {
+async function setBadgeColor(colorName: string) {
   const tabId = await getCurrTabId();
   if (!tabId) return;
+  // @ts-ignore
   const col = color[colorName];
   browser.action.setBadgeBackgroundColor({ color: col, tabId });
 }
 
-async function setBadgeStatus(status) {
+async function setBadgeStatus(status: string) {
+
+  // @ts-ignore
   const colorName = statusColorMapping[status];
   setBadgeColor(colorName);
 }
@@ -165,3 +167,4 @@ async function setBadgeStatus(status) {
 //     browser.sidePanel.setOptions({ path: mainPage });
 //   }
 // });
+

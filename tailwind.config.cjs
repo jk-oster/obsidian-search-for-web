@@ -1,4 +1,5 @@
 module.exports = {
+  prefix: 'ob-',
   content: [
     "./src/**/*.{vue,js,ts,jsx,tsx,html}",
   ],

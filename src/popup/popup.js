@@ -1,5 +1,3 @@
-const browser = require("webextension-polyfill");
-
 import { createApp } from 'vue'
 import OffCanvas from "@/components/OffCanvas.vue";
 

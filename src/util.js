@@ -1,5 +1,3 @@
-// import browserPolyfill from "webextension-polyfill";
-// const browser = browserPolyfill ?? chrome;
 import browser from "webextension-polyfill";
 
 

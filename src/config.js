@@ -12,8 +12,8 @@ export const config = {
     noteNumber: 10,
     searchUrls: 'google.com,duckduckgo.com,bing.com,startpage.com,google.at',
     excludes: 'Assets,Template,.excalidraw',
-    status: 'offline',
-    results: 0,
+    // status: 'offline',
+    // results: 0,
     searchString: '',
 
     status: "offline",

@@ -1,10 +1,5 @@
 import { reactive, watch } from "vue";
 import { config } from "./config";
-
-// Import webextension-polyfill to allow for cross-browser compatibility
-// Wraps the chrome browser-API in a promise-based API
-// import browserPolyfill from "webextension-polyfill";
-// const browser = browserPolyfill ?? chrome;
 import browser from "webextension-polyfill";
 
 /**
@@ -104,13 +99,13 @@ export function initStorageListeners(store = {}) {
 }
 
 // Initializes watcher to sync reactive store changes to the extension storage (store->ext)
-export function initReactiveStoreListeners(store = {}) {
+export async function initReactiveStoreListeners(store = {}) {
     watch(
         () => store, // Getter function to access the reactive object
-        (newVal, oldVal) => {
+        async (newVal, oldVal) => {
             for (const key in newVal) {
                 if (newVal[key] === oldVal[key]) continue;
-                if (loadFromExtStorage(key) === newVal[key]) continue;
+                if (await loadFromExtStorage(key) === newVal[key]) continue;
                 saveToExtStorage(key, newVal[key]);
             }
         },

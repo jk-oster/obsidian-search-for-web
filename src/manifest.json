@@ -1,33 +1,52 @@
 {
-  "name": "Obsidian Search for Chrome",
-  "version": "0.1.0",
-  "manifest_version": 3,
+  "{{chrome}}.manifest_version": 3,
+  "{{firefox}}.manifest_version": 2,
   "content_scripts": [
     {
-      "matches": [
-        "https://*/*",
-        "http://*/*"
-      ],
-      "js": ["content-scripts/main.js"]
+      "matches": ["https://*/*", "http://*/*"],
+      "js": ["src/content-scripts/main.js"]
     }
   ],
-  "background": {
-    "service_worker": "background.js"
-  },
+
   "icons": {
-    "32": "assets/obsidian32.png",
-    "128": "assets/obsidian128.png",
-    "512": "assets/obsidian512.png",
-    "48": "assets/obsidian48.png"
+    "16": "icon/16.png",
+    "32": "icon/32.png",
+    "48": "icon/48.png",
+    "96": "icon/96.png",
+    "128": "icon/128.png"
   },
-  "action": {
+
+  "{{chrome}}.action": {
     "default_icon": {
-      "32": "assets/obsidian32.png",
-      "128": "assets/obsidian128.png",
-      "48": "assets/obsidian48.png"
+      "16": "icon/16.png",
+      "32": "icon/32.png",
+      "48": "icon/48.png",
+      "96": "icon/96.png",
+      "128": "icon/128.png"
     },
+    "default_popup": "src/popup/popup.html",
     "default_title": "Show Search Results"
   },
-  "permissions": ["activeTab", "scripting", "tabs", "storage"],
-  "options_page": "options/options.html"
+  "{{firefox}}.browser_action": {
+    "default_icon": {
+      "16": "icon/16.png",
+      "32": "icon/32.png",
+      "48": "icon/48.png",
+      "96": "icon/96.png",
+      "128": "icon/128.png"
+    },
+    "default_popup": "src/popup/popup.html",
+    "default_title": "Show Search Results"
+  },
+
+  "background": {
+    "{{chrome}}.service_worker": "src/background.ts",
+    "{{firefox}}.scripts": ["src/background.ts"]
+  },
+
+  "side_panel": {
+    "default_path": "src/side-panel/side-panel.html"
+  },
+  "permissions": ["activeTab", "scripting", "tabs", "storage", "sidePanel"],
+  "options_page": "src/options/options.html"
 }

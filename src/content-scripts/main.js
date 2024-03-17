@@ -1,8 +1,8 @@
-var browser = require("webextension-polyfill");
+import browser from "webextension-polyfill";
 
 import { createApp } from 'vue'
 import OffCanvas from "@/components/OffCanvas.vue";
-// import "@/style/main.css";
+import "@/style/main.css";
 
 const MOUNT_EL_ID = "obsidian-search-for-chrome";
 

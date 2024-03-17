@@ -1,23 +1,23 @@
 <template>
   <button v-if="store.showInPageIcon && !store.show && notes?.length > 0"
-    class="popup-button fixed right-1 top-1/2 rounded-full" @click="toggleSidebar">
+    class="popup-button ob-fixed ob-right-1 ob-top-1/2 ob-rounded-full" @click="toggleSidebar">
     <div class="relative">
-      <img src="../assets/obsidian32.png" alt="Show Obsidian Search">
+      <img src="/icon/obsidian32.png" alt="Show Obsidian Search">
     </div>
   </button>
   <div
-    :class="(showPopup ? ' translate-x-0 ' : ' translate-x-full ') + ' max-h-screen popup-container fixed duration-300 ease-in-out right-0 top-0 dark bg-gray-900 p-2 rounded overflow-auto'">
-    <div class="flex justify-between">
+    :class="(showPopup ? ' ob-translate-x-0 ' : ' ob-translate-x-full ') + ' ob-max-h-screen popup-container ob-fixed ob-duration-300 ob-ease-in-out ob-right-0 ob-top-0 dark ob-bg-gray-900 ob-p-2 ob-rounded ob-overflow-auto'">
+    <div class="ob-flex ob-justify-between">
       <button v-if="mode != 'urlMatch'" @click="searchInObsidianGui"
-        class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+        class="focus:ob-outline-none ob-text-white ob-bg-purple-700 hover:ob- ob-focus:ring-4 focus:ob-ring-purple-300 ob-font-medium ob-rounded-lg ob-text-sm ob-px-3 ob-py-1.5 ob-mb-2 dark:ob-bg-purple-600 dark:hover:ob-bg-purple-700 dark:focus:ob-ring-purple-900">
         Open Search in Obsidian
       </button>
       <button @click="toggleSidebar"
-        class="py-1.5 px-3 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+        class="ob-py-1.5 ob-px-3 ob-mb-2 text-sm ob-font-medium ob-text-gray-900 focus:ob-outline-none ob-bg-white ob-rounded-lg ob-border ob-border-gray-200 hover:ob-bg-gray-100 hover:ob-text-blue-700 focus:ob-z-10 focus:ob-ring-4 focus:ob-ring-gray-200 dark:focus:ob-ring-gray-700 dark:ob-bg-gray-800 dark:ob-text-gray-400 dark:ob-border-gray-600 dark:hover:ob-text-white dark:hover:ob-bg-gray-700">
         Hide
       </button>
     </div>
-    <div class="text-xs max-w-xs lg:max-w-sm tracking-tight text-gray-700 dark:text-gray-300 mb-2 break-words">
+    <div class="ob-text-xs ob-max-w-xs ob-lg:max-w-sm ob-tracking-tight ob-text-gray-700 dark:ob-text-gray-300 ob-mb-2 ob-break-words">
       Searching for: "{{ store.searchString }}", {{ computedNotes.length }} result(s)
     </div>
     <div class="highlight-area">
@@ -25,7 +25,7 @@
         :showMatchesCount="store.matchCount" :searchString="store.searchString" :vaultName="store.vault"></Card>
     </div>
     <button v-if="notes?.length > 6" @click="store.noteNumber = store.noteNumber + 6"
-      class="text-white mt-2 bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-1.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+      class="ob-text-white ob-mt-2 ob-bg-gray-800 hover:ob-bg-gray-900 focus:ob-outline-none focus:ob-ring-4 focus:ob-ring-gray-300 ob-font-medium ob-rounded-lg ob-text-sm ob-px-3 ob-py-1.5 ob-mr-2 ob-mb-2 dark:ob-bg-gray-800 dark:hover:ob-bg-gray-700 dark:focus:ob-ring-gray-700 dark:ob-border-gray-700">
       Show more results</button>
   </div>
 </template>

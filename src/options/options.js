@@ -1,6 +1,6 @@
-const browser = require("webextension-polyfill");
-
+import browserPolyfill from "webextension-polyfill";
 import { checkApiKey } from '@/util.js';
+const browser = browserPolyfill ?? chrome;
 
 const openObsidianUri = 'obsidian://open?vault=';
 

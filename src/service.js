@@ -1,12 +1,10 @@
-
-// import browserPolyfill from "webextension-polyfill";
-// const browser = browserPolyfill ?? chrome;
 import browser from "webextension-polyfill";
 
 
 //----------------------------------------------------------------
 // Extension Messaging Service
 //----------------------------------------------------------------
+
 
 // Send a message to the current content script
 export async function sendToCurrentContentScript(message = { action: '', data: null }) {
@@ -95,3 +93,4 @@ export function dispatchWindowMessage(action = '', data = {}) {
     const event = new CustomEvent(action, data);
     window.dispatchEvent(event);
 }
+

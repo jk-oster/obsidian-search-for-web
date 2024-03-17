@@ -1,10 +1,14 @@
 {
-  "name": "obsidian-browser-search",
+  "name": "Obsidian Browser Search",
+  "description": "Search your Obsidian Vault simultaneously as you type your search in your favourite search engine.",
   "private": true,
   "version": "0.1.0",
+  "type": "module",
   "scripts": {
+    "dev:new": "vite",
+    "build:new": "vue-tsc && vite build",
     "dev": "vite build --watch --mode development",
-    "build": "vite build --mode production",
+    "build": "vite build --mode production && node ./copyFiles.js",
     "preview": "vite preview",
     "start:firefox": "web-ext run --source-dir ./dist/"
   },
@@ -12,18 +16,15 @@
     "vue": "^3.3.4"
   },
   "devDependencies": {
-    "@asigloo/prettier-config": "^0.2.0",
-    "@iconify/json": "^1.1.461",
-    "@vitejs/plugin-vue": "^1.10.2",
-    "@vue/compiler-sfc": "^3.3.4",
-    "autoprefixer": "^10.4.16",
-    "postcss": "^8.4.30",
-    "tailwindcss": "^3.3.3",
-    "vite": "^2.9.16",
-    "vite-plugin-chrome-extension": "^0.0.7",
-    "vite-plugin-components": "^0.13.3",
-    "vite-plugin-icons": "^0.6.5",
-    "vite-require": "^0.2.3",
+    "@types/webextension-polyfill": "^0.10.0",
+    "@vitejs/plugin-vue": "^4.5.0",
+    "autoprefixer": "^10.4.18",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.2",
+    "vite": "^5.0.0",
+    "vite-plugin-web-extension": "^4.0.0",
+    "vue-tsc": "^1.2.0",
     "webextension-polyfill": "^0.10.0"
   }
 }
