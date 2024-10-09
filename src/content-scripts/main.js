@@ -1,4 +1,4 @@
-import browserPolyfill from "webextension-polyfill";
+import browser from "webextension-polyfill";
 
 import { createApp } from 'vue'
 import OffCanvas from "@/components/OffCanvas.vue";
