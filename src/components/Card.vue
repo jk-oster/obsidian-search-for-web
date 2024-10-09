@@ -52,7 +52,7 @@ export default {
 };
 </script>
 <style scoped>
-@import "@/style/main.css";
+@import "@/content-scripts/main.css";
 </style>
 
 <style>

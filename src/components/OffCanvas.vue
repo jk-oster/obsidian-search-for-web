@@ -208,7 +208,7 @@ export default {
 </script>
 
 <style scoped>
-@import "@/style/main.css";
+@import "@/content-scripts/main.css";
 
 html {
   scrollbar-face-color: #646464;
