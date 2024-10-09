@@ -165,7 +165,7 @@ export default {
     },
     async initSearch() {
       let params = new URLSearchParams(document.location.search);
-      store.searchString = params.get("q");
+      store.searchString = params.get("q") ?? params.get("search");
 
       // If on a search page from settings array
       if (store.searchUrls.some(url => location.origin.includes(url))) {
