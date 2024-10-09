@@ -19,6 +19,7 @@ jobs:
           node-version: '20'  # or any version needed
 
       - name: Build project
+        id: build
         run: |
           npm install
           npm run build  # Customize this to fit your build process
@@ -33,6 +34,7 @@ jobs:
           fi
 
       - name: Zip dist folder (make sure it exists)
+        id: zip
         run: |
           if [ -d "dist" ]; then
             zip -r dist.zip dist/
@@ -54,7 +56,7 @@ jobs:
           prerelease: ${{ env.prerelease }}
 
       - name: Upload build artifact
-        if: success() && steps.zip.outputs.zip-path  # Check if zip step succeeded
+        # if: success() && steps.zip.outputs.zip-path  # Check if zip step succeeded
         uses: actions/upload-artifact@v3
         with:
           name: dist-files
