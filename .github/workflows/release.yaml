@@ -24,7 +24,7 @@ jobs:
       - name: Install Dependencies and Build
         run: |
           npm install
-          npm run build  # Ensure this script generates the 'dist' folder
+          npm run build
 
       # Step 4: Determine Release Type
       - name: Set Release Type (Draft or Pre-release)
@@ -43,7 +43,7 @@ jobs:
             echo "'dist' folder exists."
           else
             echo "Error: 'dist' folder does not exist."
-            exit 1  # Exit the workflow if 'dist' is missing
+            exit 1
           fi
 
       # Step 6: Zip 'dist' Folder
@@ -58,7 +58,7 @@ jobs:
             echo "'dist.zip' successfully created."
           else
             echo "Error: 'dist.zip' was not created."
-            exit 1  # Exit the workflow if zipping failed
+            exit 1
           fi
 
       # Step 8: List Files for Debugging (Optional)
@@ -67,7 +67,7 @@ jobs:
 
       # Step 9: Create GitHub Release with Asset
       - name: Create GitHub Release
-        uses: ncipollo/release-action@v1.8.0  # Use the latest stable version
+        uses: ncipollo/release-action@v1.14.0  # Use the latest stable version
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ github.ref_name }}  # Ensure this extracts the tag name correctly
@@ -77,4 +77,4 @@ jobs:
             - Add release notes here.
           draft: false
           prerelease: ${{ env.prerelease }}
-          files: dist.zip  # Ensure the path is correct
+          artifacts: dist.zip  # Ensure the path is correct
