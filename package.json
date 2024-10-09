@@ -1,14 +1,17 @@
 {
   "name": "obsidian-browser-search",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "scripts": {
     "dev": "vite build --watch --mode development",
     "build": "vite build --mode production && npm run rename-main-css",
     "preview": "vite preview",
     "start:firefox": "web-ext run --source-dir ./dist/",
     "rename-main-css": "mv $(find ./dist/ -name 'main.*.css') ./dist/main.css",
-    "zip": "zip -r dist.zip dist/"
+    "zip": "zip -r dist.zip dist/",
+    "post-version": "git push && git push --tags && npm publish",
+    "version-patch": "npm version patch --force -m \"[RELEASE] patch version %s\"",
+    "version-minor": "npm version minor --force -m \"[RELEASE] minor version %s\""
   },
   "dependencies": {
     "vue": "^3.3.4"
