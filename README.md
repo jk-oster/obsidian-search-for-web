@@ -1,4 +1,4 @@
-❗note that this extension is still experimental - furthermore this extension requires the Obsidian REST API Plugin!
+>❗note that this extension is still experimental - furthermore this extension requires the Obsidian REST API Plugin!
 
 # Obsidian Web Search
 ## 🔍 Have a Evernote like search experience
@@ -18,7 +18,7 @@ This extension just communicates between your local Obsidian REST Api and the br
 This extension has been tested with Chrome on Windows to be working. By using the webextension-polyfill library of mozilla.org it should also be compatible with Firefox though.
 
 ## 🚧 Test the extension
-❗note that this extension is still experimental - furthermore this extension requires the Obsidian REST API Plugin!
+>❗note that this extension is still experimental - furthermore this extension requires the Obsidian REST API Plugin!
 1. test it by downloading the released zip file
 2. extracting the files
 3. [installing the folder from the chrome extension tab](https://bashvlas.com/blog/install-chrome-extension-in-developer-mode/)
