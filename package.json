@@ -4,10 +4,10 @@
   "version": "1.0.7-beta",
   "scripts": {
     "dev": "vite build --watch --mode development",
-    "build": "vite build --mode production && npm run rename-main-css && npm run zip",
+    "build": "vite build --mode production && npm run zip",
     "preview": "vite preview",
     "start:firefox": "web-ext run --source-dir ./dist/",
-    "rename-main-css": "mv $(find ./dist/ -name 'main.*.css') ./dist/main.css",
+    "rename-main-css": "mv $(find ./dist/ -name 'main.*.css') ./dist/content-scripts/main.css",
     "zip": "zip -r dist.zip dist/",
     "post-version": "git push && git push --tags",
     "version-patch": "npm version patch --force -m \"[RELEASE] patch version %s\"",
