@@ -10,21 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout Repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js (if you're using Node.js)
+      # Step 2: Set Up Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'  # or any version needed
+          node-version: '20'  # Specify the Node.js version as needed
 
-      - name: Build project
-        id: build
+      # Step 3: Build Project
+      - name: Install Dependencies and Build
         run: |
           npm install
-          npm run build  # Customize this to fit your build process
+          npm run build  # Ensure this script generates the 'dist' folder
 
-      - name: Set release type (draft or pre-release)
+      # Step 4: Determine Release Type
+      - name: Set Release Type (Draft or Pre-release)
         id: release_type
         run: |
           if [[ "${GITHUB_REF}" == *"-beta"* || "${GITHUB_REF}" == *"-alpha"* || "${GITHUB_REF}" == *"-rc"* ]]; then
@@ -33,24 +36,45 @@ jobs:
             echo "prerelease=false" >> $GITHUB_ENV
           fi
 
-      - name: Zip dist folder (make sure it exists)
-        id: zip
+      # Step 5: Verify 'dist' Folder Exists
+      - name: Verify 'dist' Folder
         run: |
           if [ -d "dist" ]; then
-            zip -r dist.zip dist/
+            echo "'dist' folder exists."
           else
-            echo "dist folder not found, skipping zip step."
+            echo "Error: 'dist' folder does not exist."
+            exit 1  # Exit the workflow if 'dist' is missing
           fi
 
-      - name: Create GitHub release
-        uses: ncipollo/release-action@v1
+      # Step 6: Zip 'dist' Folder
+      - name: Zip 'dist' Folder
+        run: |
+          zip -r dist.zip dist/
+      
+      # Step 7: Confirm 'dist.zip' Creation
+      - name: Confirm 'dist.zip' Exists
+        run: |
+          if [ -f "dist.zip" ]; then
+            echo "'dist.zip' successfully created."
+          else
+            echo "Error: 'dist.zip' was not created."
+            exit 1  # Exit the workflow if zipping failed
+          fi
+
+      # Step 8: List Files for Debugging (Optional)
+      - name: List Directory Contents
+        run: ls -la
+
+      # Step 9: Create GitHub Release with Asset
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1.8.0  # Use the latest stable version
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ github.ref_name }}  # Corrected to use only the tag name
-          name: Release ${{ github.ref_name }}  # Consistent naming
+          tag: ${{ github.ref_name }}  # Ensure this extracts the tag name correctly
+          name: Release ${{ github.ref_name }}
           body: |
             ## Changes
             - Add release notes here.
           draft: false
           prerelease: ${{ env.prerelease }}
-          files: dist.zip  # Attach the zipped dist folder as a release asset
+          files: dist.zip  # Ensure the path is correct
