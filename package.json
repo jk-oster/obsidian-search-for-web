@@ -1,7 +1,7 @@
 {
   "name": "obsidian-browser-search",
   "private": true,
-  "version": "1.0.7-beta",
+  "version": "1.0.9-beta",
   "scripts": {
     "dev": "vite build --watch --mode development",
     "build": "vite build --mode production && npm run zip",
