@@ -1,10 +1,10 @@
 {
   "name": "obsidian-browser-search",
   "private": true,
-  "version": "1.0.0-beta",
+  "version": "1.0.1-beta",
   "scripts": {
     "dev": "vite build --watch --mode development",
-    "build": "vite build --mode production && npm run rename-main-css",
+    "build": "vite build --mode production && npm run rename-main-css && npm run zip",
     "preview": "vite preview",
     "start:firefox": "web-ext run --source-dir ./dist/",
     "rename-main-css": "mv $(find ./dist/ -name 'main.*.css') ./dist/main.css",

@@ -36,35 +36,6 @@ jobs:
             echo "prerelease=false" >> $GITHUB_ENV
           fi
 
-      # Step 5: Verify 'dist' Folder Exists
-      - name: Verify 'dist' Folder
-        run: |
-          if [ -d "dist" ]; then
-            echo "'dist' folder exists."
-          else
-            echo "Error: 'dist' folder does not exist."
-            exit 1
-          fi
-
-      # Step 6: Zip 'dist' Folder
-      - name: Zip 'dist' Folder
-        run: |
-          zip -r dist.zip dist/
-      
-      # Step 7: Confirm 'dist.zip' Creation
-      - name: Confirm 'dist.zip' Exists
-        run: |
-          if [ -f "dist.zip" ]; then
-            echo "'dist.zip' successfully created."
-          else
-            echo "Error: 'dist.zip' was not created."
-            exit 1
-          fi
-
-      # Step 8: List Files for Debugging (Optional)
-      - name: List Directory Contents
-        run: ls -la
-
       # Step 9: Create GitHub Release with Asset
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1.14.0  # Use the latest stable version
