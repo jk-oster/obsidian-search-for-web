@@ -46,18 +46,11 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ github.ref }}
-          name: Release ${{ github.ref }}
+          tag: ${{ github.ref_name }}  # Corrected to use only the tag name
+          name: Release ${{ github.ref_name }}  # Consistent naming
           body: |
             ## Changes
             - Add release notes here.
-
           draft: false
           prerelease: ${{ env.prerelease }}
-
-      - name: Upload build artifact
-        # if: success() && steps.zip.outputs.zip-path  # Check if zip step succeeded
-        uses: actions/upload-artifact@v3
-        with:
-          name: dist-files
-          path: dist.zip
+          files: dist.zip  # Attach the zipped dist folder as a release asset
