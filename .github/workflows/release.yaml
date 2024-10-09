@@ -1,0 +1,52 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # Trigger on tags like v1.0.0, v1.0.1-beta, v2.1.0-rc, etc.
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set release type (pre-release)
+        id: release_type
+        run: |
+          if [[ "${GITHUB_REF}" == *"-beta"* || "${GITHUB_REF}" == *"-alpha"* || "${GITHUB_REF}" == *"-rc"* ]]; then
+            echo "::set-output name=prerelease::true"
+          else
+            echo "::set-output name=prerelease::false"
+          fi
+
+      - name: Set release type (draft)
+        id: draft_type
+        run: |
+          if [[ "${GITHUB_REF}" == *"-draft"* ]]; then
+            echo "::set-output name=draft::true"
+          else
+            echo "::set-output name=draft::false"
+          fi
+
+      - name: Create GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref }}
+          name: Release ${{ github.ref }}
+          body: |
+            ## Changes
+            - Add release notes here.
+
+          draft: ${{ steps.draft_type.outputs.draft }}
+          prerelease: ${{ steps.release_type.outputs.prerelease }}
+
+      # Optionally upload assets
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-files
+          path: dist/  # Path to your built files (customize this)

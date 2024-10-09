@@ -6,7 +6,7 @@ For all of you who are missing the Evernote browser search extension in Obsidian
 
 ## 🚀 Features
 - ✅ LIVE SEARCH: Search your vault for notes matching your current search in e.q. the google search bar
-- ✅ URL MATCHING: Search your vault for matches of your current url
+- ✅ URL MATCHING: Search your vault for matches of your current url while browsing
 - ✅ Scroll and open your matched Obsidian notes in the sidebar
 - ✅ Exclude files and folders you don't want to show show up in the sidebar search
 - ✅ Customize how much context you want to see

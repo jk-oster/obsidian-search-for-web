@@ -20,12 +20,20 @@ export default defineConfig({
       "@": resolve(_dirname, "src")
     }
   },
+  content: [
+    './src/**/*.vue',
+    './src/**/*.html',
+  ],
   define: {
     'process.env': process.env,
   },
   build: {
     rollupOptions: {
       input: "src/manifest.json",
+      output: {
+        entryFileNames: `assets/[name].js`,
+        assetFileNames: `assets/[name].[ext]`
+      }
     },
   },
   plugins: [

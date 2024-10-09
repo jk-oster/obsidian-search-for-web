@@ -67,8 +67,7 @@ export async function addExtensionMessageListener(action = 'update', callbackFn 
                     callbackFn(message?.data ?? message);
                 }
             });
-        }
-        else {
+        } else {
             chrome.runtime.onMessage.addListener(async (message, sender) => {
                 if ('action' in message && message['action'] === action) {
                     console.log('received runtime message from browser: ' + action, message);

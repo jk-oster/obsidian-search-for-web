@@ -1,5 +1,5 @@
 import { reactive, watch } from "vue";
-import { config } from "./config";
+import { config } from "./config.js";
 
 // Import webextension-polyfill to allow for cross-browser compatibility
 // Wraps the chrome browser-API in a promise-based API
