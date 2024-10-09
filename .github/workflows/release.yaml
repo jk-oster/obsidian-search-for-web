@@ -13,22 +13,31 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set release type (pre-release)
+      - name: Set up Node.js (if you're using Node.js)
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'  # or any version needed
+
+      - name: Build project
+        run: |
+          npm install
+          npm run build  # Customize this to fit your build process
+
+      - name: Set release type (draft or pre-release)
         id: release_type
         run: |
           if [[ "${GITHUB_REF}" == *"-beta"* || "${GITHUB_REF}" == *"-alpha"* || "${GITHUB_REF}" == *"-rc"* ]]; then
-            echo "::set-output name=prerelease::true"
+            echo "prerelease=true" >> $GITHUB_ENV
           else
-            echo "::set-output name=prerelease::false"
+            echo "prerelease=false" >> $GITHUB_ENV
           fi
 
-      - name: Set release type (draft)
-        id: draft_type
+      - name: Zip dist folder (make sure it exists)
         run: |
-          if [[ "${GITHUB_REF}" == *"-draft"* ]]; then
-            echo "::set-output name=draft::true"
+          if [ -d "dist" ]; then
+            zip -r dist.zip dist/
           else
-            echo "::set-output name=draft::false"
+            echo "dist folder not found, skipping zip step."
           fi
 
       - name: Create GitHub release
@@ -41,12 +50,12 @@ jobs:
             ## Changes
             - Add release notes here.
 
-          draft: ${{ steps.draft_type.outputs.draft }}
-          prerelease: ${{ steps.release_type.outputs.prerelease }}
+          draft: false
+          prerelease: ${{ env.prerelease }}
 
-      # Optionally upload assets
       - name: Upload build artifact
+        if: success() && steps.zip.outputs.zip-path  # Check if zip step succeeded
         uses: actions/upload-artifact@v3
         with:
           name: dist-files
-          path: dist/  # Path to your built files (customize this)
+          path: dist.zip
