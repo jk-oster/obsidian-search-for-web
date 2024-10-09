@@ -10,7 +10,7 @@ export const config = {
     contextLength: 50,
     matchCount: 2,
     noteNumber: 10,
-    searchUrls: 'google.com,duckduckgo.com,bing.com,startpage.com,google.at',
+    searchUrls: 'google.com,duckduckgo.com,bing.com,startpage.com,google.at,search.brave.com',
     excludes: 'Assets,Template,.excalidraw',
     status: 'offline',
     results: 0,
