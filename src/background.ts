@@ -2,7 +2,7 @@ import browser from "webextension-polyfill";
 import {config} from './config.js';
 import {addExtensionMessageListener, } from "./service.js";
 import {Actions, Colors, StatusColorMapping } from "./config.js";
-import {Color, State, BadgeActionData, MessageData, OpenUrlActionData} from "./types.js";
+import {Color, State, BadgeActionData} from "./types.js";
 import { saveToExtStorage } from "./store.js";
 
 let show = true;
@@ -26,26 +26,26 @@ browser.runtime.onInstalled.addListener(async () => {
     let url = browser.runtime.getURL("src/options/options.html");
     await browser.tabs.create({url});
 
-    addExtensionMessageListener(Actions.badge, (data) => {
-        data = data as BadgeActionData;
-        if(data.status) {
-            setBadgeStatus(data.status.toString());
-            saveToExtStorage('status', data.status);
-        }
-        if(data.text) {
-            setBadgeText(data.text.toString());
-            saveToExtStorage('results', data.text);
-        }
-        if(data.statusText) {
-            saveToExtStorage('statusText', data.statusText);
-        }
-    });
+    // addExtensionMessageListener(Actions.openUrl, async (data) => {
+    //     data = data as OpenUrlActionData;
+    //     let url = browser.runtime.getURL(data.url);
+    //     await browser.tabs.create({url});
+    // });
+});
 
-    addExtensionMessageListener(Actions.openUrl, async (data) => {
-        data = data as OpenUrlActionData;
-        let url = browser.runtime.getURL(data.url);
-        await browser.tabs.create({url});
-    });
+addExtensionMessageListener(Actions.badge, (data) => {
+    data = data as BadgeActionData;
+    if(data.status) {
+        setBadgeStatus(data.status.toString());
+        saveToExtStorage('status', data.status);
+    }
+    if(data.text) {
+        setBadgeText(data.text.toString());
+        saveToExtStorage('results', data.text);
+    }
+    if(data.statusText) {
+        saveToExtStorage('statusText', data.statusText);
+    }
 });
 
 // listen to event for changes from saved data in storage

@@ -30,8 +30,8 @@ export const Status = {
 
 export const StatusColorMapping: Record<State, Color> = {
     active: Colors.green,
-    noauth: Colors.red,
-    url: Colors.yellow,
+    noauth: Colors.yellow,
+    url: Colors.green,
     search: Colors.green,
     offline: Colors.gray,
     error: Colors.red,
