@@ -48,6 +48,7 @@ export default defineComponent({
       notes: [] as NoteMatch[],
       store,
       initialized: false,
+      SearchModes,
     };
   },
 
