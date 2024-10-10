@@ -1,4 +1,4 @@
-❗note that this extension is still experimental - furthermore this extension requires the Obsidian REST API Plugin!
+>❗note that this extension is still experimental - furthermore this extension requires the Obsidian REST API Plugin!
 
 # Obsidian Web Search
 ## 🔍 Have a Evernote like search experience
@@ -7,7 +7,7 @@ This extension lets you search your Obsidian Vault simultaneously as you type yo
 
 ## 🚀 Features
 - ✅ LIVE SEARCH: Search your vault for notes matching your current search in e.q. the google search bar
-- ✅ URL MATCHING: Search your vault for matches of your current url
+- ✅ URL MATCHING: Search your vault for matches of your current url while browsing
 - ✅ Scroll and open your matched Obsidian notes in the sidebar
 - ✅ Exclude files and folders you don't want to show up in the sidebar search
 - ✅ Customize how much context you want to see
@@ -21,7 +21,7 @@ This extension has been tested with Chrome on Windows to be working.
 By using the webextension-polyfill library of mozilla.org it should also be compatible with Firefox though.
 
 ## 🚧 Test the extension
-❗note that this extension is still experimental - furthermore this extension requires the Obsidian REST API Plugin!
+>❗note that this extension is still experimental - furthermore this extension requires the Obsidian REST API Plugin!
 1. test it by downloading the released zip file
 2. extracting the files
 3. [installing the folder from the chrome extension tab](https://bashvlas.com/blog/install-chrome-extension-in-developer-mode/)

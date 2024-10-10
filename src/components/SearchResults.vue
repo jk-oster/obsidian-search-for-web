@@ -13,7 +13,7 @@
       class="ob-text-xs ob-max-w-xs ob-lg:max-w-sm ob-tracking-tight ob-text-gray-700 dark:ob-text-gray-300 ob-mb-2 ob-break-words">
     Searching for: "{{ store.searchString }}", {{ computedNotes.length }} result(s) of {{ notes?.length ?? 0 }}
   </div>
-  <div class="highlight-area">
+  <div class="obsidian-search-highlight-area">
     <template v-for="note of computedNotes" :key="note.score">
       <Card :filename="note.filename" :matches="note.matches"
             :showMatchesCount="store.matchCount" :searchString="store.searchString" :vaultName="store.vault"></Card>
@@ -32,20 +32,20 @@ import {defineComponent} from 'vue'
 
 import {checkApiKey} from '../util.js';
 import {
-  saveToExtStorageAnd,
+  // saveToSyncStorage,
   store,
   syncStoreWithExtStorage
 } from '../store.js';
 import {sendToRuntime} from '../service.js';
-import {Status, MessageAction, NoteMatch} from "../types.js";
-
+import {Status, Actions, NoteMatch} from "../types.js";
+import { useDebounceFn } from '@vueuse/core'
 
 export default defineComponent({
   name: "SearchResults",
   components: {Card},
   data() {
     return {
-      notes: [],
+      notes: [] as NoteMatch[],
       store,
       initialized: false,
     };
@@ -76,7 +76,7 @@ export default defineComponent({
     }
   },
   async mounted() {
-    await syncStoreWithExtStorage(store);
+    await syncStoreWithExtStorage();
     await checkApiKey(`${store.protocol}${store.obsidianRestUrl}:${store.port}`, store.apiKey);
 
     this.initSearch();
@@ -88,7 +88,8 @@ export default defineComponent({
   methods: {
 
     toggleSidebar(): void {
-      saveToExtStorageAnd(store, 'show', !store.show);
+      store.show = !store.show;
+      // saveToSyncStorage(store, 'show', !store.show);
     },
 
     getInputElement(): Element | null {
@@ -121,7 +122,7 @@ export default defineComponent({
               throw new Error(data.toString());
             }
 
-            let filteredNotes
+            let filteredNotes: NoteMatch[] = [];
             // Exclude search results matching exclude list
             if (store.excludes && store.excludes.split(',')[0] != '') {
               console.log('excludes', store.excludes);
@@ -141,18 +142,18 @@ export default defineComponent({
               return 0;
             });
 
-            saveToExtStorageAnd(store, 'results', data ? filteredNotes?.length : 0);
-            sendToRuntime({action: MessageAction.BADGE, data: {results: data ? filteredNotes?.length : 0}});
+            // saveToExtStorageAnd(store, 'results', data ? filteredNotes?.length : 0);
+            sendToRuntime({action: Actions.badge, data: {text: data ? filteredNotes?.length.toString() : '0'}});
 
             console.log(store.excludes, filteredNotes);
 
-            this.notes = filteredNotes.length ? filteredNotes : [];
+            this.notes = filteredNotes?.length ? filteredNotes : [];
           })
           .catch(e => {
             console.log(e, store, this.reqOptions);
 
-            saveToExtStorageAnd(store, 'results', 'x');
-            sendToRuntime({action: MessageAction.BADGE, data: {results: 'x', status: Status.noauth}});
+            // saveToExtStorageAnd(store, 'results', 'x');
+            sendToRuntime({action: Actions.badge, data: {text: 'x', status: Status.noauth}});
           });
     },
 
@@ -170,30 +171,30 @@ export default defineComponent({
 
       // If on a search page from settings array
       if (this.mode === 'search') {
-        saveToExtStorageAnd(store, 'status', Status.search);
-        sendToRuntime({action: MessageAction.BADGE, data: {status: Status.search}});
+        // saveToExtStorageAnd(store, 'status', Status.search);
+        sendToRuntime({action: Actions.badge, data: {status: Status.search}});
 
         if (store.searchString) {
           this.fetchNotes();
         }
         if (store.liveSearch) {
           // @ts-ignore
-          this.getInputElement()?.addEventListener("keyup", async (event: KeyboardEvent) => {
-            console.log('keyup', event.target.value);
-            store.searchString = event.target.value;
-            if (event.target.value && event.target.value.length > store.minChars) {
+          this.getInputElement()?.addEventListener('keyup', async (event: KeyboardEvent|any) => {
+            console.log('keyup', event.target?.value);
+            store.searchString = event.target?.value ?? '';
+            if (event.target?.value && event.target?.value?.length > store.minChars) {
               this.fetchNotes();
             } else {
-              saveToExtStorageAnd(store, 'results', 0);
-              sendToRuntime({action: MessageAction.BADGE, data: {results: 0, status: Status.search}});
+              // saveToExtStorageAnd(store, 'results', 0);
+              sendToRuntime({action: Actions.badge, data: {text: '0', status: Status.search}});
               this.notes = [];
             }
           });
         }
       } else {
         // If page url is not matching a search engine check inf notes contain current page URL
-        saveToExtStorageAnd(store, 'status', Status.url);
-        sendToRuntime({action: MessageAction.BADGE, data: {status: Status.url}});
+        // saveToExtStorageAnd(store, 'status', Status.url);
+        sendToRuntime({action: Actions.badge, data: {status: Status.url}});
         addEventListener('hashchange', this.getUrlMatches);
         addEventListener('popstate', this.getUrlMatches);
         this.getUrlMatches();

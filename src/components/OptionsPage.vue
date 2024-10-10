@@ -11,7 +11,7 @@
                 class="ob-inline-flex ob-items-center ob-p-2 ob-ml-3 ob-text-sm ob-text-gray-500 ob-rounded-lg md:ob-hidden hover:ob-bg-gray-100 focus:ob-outline-none focus:ob-ring-2 focus:ob-ring-gray-200 dark:ob-text-gray-400 dark:hover:ob-bg-gray-700 dark:focus:ob-ring-gray-600"
                 aria-controls="navbar-default" aria-expanded="false">
           <span class="ob-sr-only">Open main menu</span>
-          <img class="ob-w-6 ob-h-6" aria-hidden="true" src="../assets/obsidian48.png"/>
+          <img class="ob-w-6 ob-h-6" aria-hidden="true" src="/icon/obsidian48.png"/>
         </button>
         <div class="ob-hidden ob-w-full md:ob-block md:ob-w-auto" id="navbar-default">
           <ul
@@ -137,7 +137,7 @@
           <div class="ob-mb-6">
             <label for="apiKey"
                    class="ob-block ob-mb-2 ob-text-sm ob-font-medium ob-text-gray-900 dark:ob-text-gray-300">
-              Your Obsidian REST Api Key</label>
+              Your Obsidian REST Api Key *</label>
             <input v-model="store.apiKey" @change="checkApiKey" type="text" id="apiKey" name="apiKey"
                    placeholder="0b2087ee50e56d71fe7e429203b0d1cb9bfc610a238cc3be04edf6d01d5d57ef"
                    class="ob-shadow-sm ob-bg-gray-50 ob-border ob-border-gray-300 ob-text-gray-900 ob-text-sm ob-rounded-lg focus:ob-ring-blue-500 focus:ob-border-blue-500 ob-block ob-w-full ob-p-2.5 dark:ob-bg-gray-700 dark:ob-border-gray-600 dark:ob-placeholder-gray-400 dark:ob-text-white dark:focus:ob-ring-blue-500 dark:focus:ob-border-blue-500 dark:shadow-sm-light"
@@ -147,14 +147,14 @@
           <div class="ob-mb-6">
             <label for="vault"
                    class="ob-block ob-mb-2 ob-text-sm ob-font-medium ob-text-gray-900 dark:ob-text-gray-300">
-              Obsidian Vault Name</label>
+              Obsidian Vault Name *</label>
             <input v-model="store.vault" @change="checkApiKey" type="text" id="vault" name="vault"
                    placeholder="MyAwesomeSecondBrain"
                    class="ob-inline ob-shadow-sm ob-bg-gray-50 ob-border ob-border-gray-300 ob-text-gray-900 ob-text-sm ob-rounded-lg focus:ob-ring-blue-500 focus:ob-border-blue-500 ob-w-3/4 ob-p-2.5 dark:ob-bg-gray-700 dark:ob-border-gray-600 dark:ob-placeholder-gray-400 dark:ob-text-white dark:focus:ob-ring-blue-500 dark:focus:ob-border-blue-500 dark:shadow-sm-light"
                    required/>
-            <a id="openVault" :href="store.openObsidianUri + store.vault"
+            <a id="openVault" :href="store.openObsidianUri + store.vault" :disabled="!store.vault"
                class="ob-w-1/4 focus:ob-outline-none ob-text-white ob-bg-purple-700 hover:ob-bg-purple-800 focus:ob-ring-4 focus:ob-ring-purple-300 ob-font-medium ob-rounded-lg ob-text-sm ob-px-5 ob-py-2.5 ob-mt-2 dark:ob-bg-purple-600 dark:hover:ob-bg-purple-700 dark:focus:ob-ring-purple-900">
-              Open Vault</a>
+              Test Open Vault</a>
           </div>
 
           <div class=" ob-mb-6">
@@ -360,7 +360,7 @@ export default defineComponent({
   },
 
   async mounted() {
-    await syncStoreWithExtStorage(store);
+    await syncStoreWithExtStorage();
     await checkApiKey(store.obsidianRestUrl, store.apiKey);
   },
 
@@ -372,6 +372,6 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
-
+<style>
+@import "../style/main.css";
 </style>

@@ -1,0 +1,51 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # Trigger on tags like v1.0.0, v1.0.1-beta, v2.1.0-rc, etc.
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout Repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set Up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'  # Specify the Node.js version as needed
+
+      # Step 3: Build Project
+      - name: Install Dependencies and Build
+        run: |
+          npm install
+          npm run build
+
+      # Step 4: Determine Release Type
+      - name: Set Release Type (Draft or Pre-release)
+        id: release_type
+        run: |
+          if [[ "${GITHUB_REF}" == *"-beta"* || "${GITHUB_REF}" == *"-alpha"* || "${GITHUB_REF}" == *"-rc"* ]]; then
+            echo "prerelease=true" >> $GITHUB_ENV
+          else
+            echo "prerelease=false" >> $GITHUB_ENV
+          fi
+
+      # Step 9: Create GitHub Release with Asset
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1.14.0  # Use the latest stable version
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref_name }}  # Ensure this extracts the tag name correctly
+          name: Release ${{ github.ref_name }}
+          body: |
+            ## Changes
+            - Add release notes here.
+          draft: false
+          prerelease: ${{ env.prerelease }}
+          artifacts: dist.zip  # Ensure the path is correct

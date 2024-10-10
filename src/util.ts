@@ -1,6 +1,7 @@
 import browser from "webextension-polyfill";
-import {sendToRuntime} from "./service";
-import {Status, Message, MessageAction} from "./types";
+import {sendToRuntime} from "./service.js";
+import {Status, Actions, BadgeActionData, State} from "./types.js";
+import { getFromExtStorage } from "./store.js";
 
 export function escapeRegex(string: string) {
     return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
@@ -26,7 +27,10 @@ export async function checkApiKey(url: string, apiKey: string) {
     };
 
     let statusText = '';
-    let newConfig = {};
+    let newConfig: BadgeActionData = {
+        status: Status.unknown,
+        text: ' '
+    };
 
     try {
         const resp = await fetch(url + "/", options);
@@ -38,19 +42,21 @@ export async function checkApiKey(url: string, apiKey: string) {
             newConfig = {status: Status.search, statusText};
         } else {
             statusText = '🔑 Could reach Obsidian REST Api - API-Key is not valid. Please check and copy the key from Obsidian REST Api Plugin Settings';
-            newConfig = {status: Status.noauth, results: 'x', statusText};
+            newConfig = {status: Status.noauth, text: 'x', statusText};
         }
-        ;
     } catch (e) {
         console.log('error reason', e);
         statusText = '❗ Make sure Obsidian is running and set your Protocol / Port settings to connect to your Obsidian REST Api!';
-        newConfig = {status: Status.offline, results: 'off', statusText};
+        newConfig = {status: Status.offline, text: 'off', statusText};
     }
 
     // browser.storage.sync.set(newConfig);
     // console.log('stored', newConfig);
 
-    sendToRuntime({action: MessageAction.BADGE, data: newConfig}, true);
+    const currentStatus = await getFromExtStorage('status') as State;
+    if (newConfig.status != Status.unknown && newConfig.status != currentStatus) {
+        sendToRuntime({action: Actions.badge, data: newConfig}, true);
+    }
 
     return statusText;
 }

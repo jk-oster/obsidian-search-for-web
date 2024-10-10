@@ -1,14 +1,21 @@
 {
-  "name": "Obsidian Browser Search",
+  "name": "obsidian-browser-search",
   "description": "Search your Obsidian Vault simultaneously as you type your search in your favourite search engine.",
-  "private": true,
-  "version": "0.1.0",
+  "version": "1.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build"
+    "build": "vue-tsc && vite build && npm run rename && npm run rewrite && npm run zip",
+    "rename": "mv $(find ./dist/ -name '_plugin-vue_export-helper.js') ./dist/plugin-vue_export-helper.js",
+    "rewrite": "cd ./dist && grep -Ril '_plugin-vue_export-helper\\.js' | xargs sed -i 's/_plugin-vue_export-helper\\.js/plugin-vue_export-helper\\.js/g' && cd ../",
+    "zip": "zip -r dist.zip dist/",
+    "post-version": "git push && git push --tags",
+    "version-patch": "npm version patch --force -m \"[RELEASE] patch version %s\"",
+    "version-minor": "npm version minor --force -m \"[RELEASE] minor version %s\"",
+    "version-major": "npm version major --force -m \"[RELEASE] major version %s\""
   },
   "dependencies": {
+    "@vueuse/core": "^11.1.0",
     "vue": "^3.3.4"
   },
   "devDependencies": {
@@ -20,7 +27,7 @@
     "typescript": "^5.3.2",
     "vite": "^5.0.0",
     "vite-plugin-web-extension": "^4.0.0",
-    "vue-tsc": "^1.2.0",
+    "vue-tsc": "^2.1.6",
     "webextension-polyfill": "^0.10.0"
   }
 }

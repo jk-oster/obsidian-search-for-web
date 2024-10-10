@@ -1,4 +1,4 @@
-import {Color, Status, ExtensionConfig} from "./types.js";
+import {Colors, Status, ExtensionConfig} from "./types.js";
 
 
 
@@ -26,5 +26,5 @@ export const config: ExtensionConfig = {
     statusText: "❗ Make sure Obsidian is running and set your Protocol settings to connect to your Obsidian REST Api!",
     results: " ",
     status: Status.offline,
-    color: Color.gray,
+    color: Colors.gray,
 };

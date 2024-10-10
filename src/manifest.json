@@ -9,30 +9,27 @@
   ],
 
   "icons": {
-    "16": "icon/16.png",
-    "32": "icon/32.png",
-    "48": "icon/48.png",
-    "96": "icon/96.png",
-    "128": "icon/128.png"
+    "32": "icon/obsidian32.png",
+    "48": "icon/obsidian48.png",
+    "128": "icon/obsidian128.png",
+    "512": "icon/obsidian512.png"
   },
 
   "{{chrome}}.action": {
     "default_icon": {
-      "16": "icon/16.png",
-      "32": "icon/32.png",
-      "48": "icon/48.png",
-      "96": "icon/96.png",
-      "128": "icon/128.png"
+      "32": "icon/obsidian32.png",
+      "48": "icon/obsidian48.png",
+      "128": "icon/obsidian128.png",
+      "512": "icon/obsidian512.png"
     },
     "default_title": "Show Search Results"
   },
   "{{firefox}}.browser_action": {
     "default_icon": {
-      "16": "icon/16.png",
-      "32": "icon/32.png",
-      "48": "icon/48.png",
-      "96": "icon/96.png",
-      "128": "icon/128.png"
+      "32": "icon/obsidian32.png",
+      "48": "icon/obsidian48.png",
+      "128": "icon/obsidian128.png",
+      "512": "icon/obsidian512.png"
     },
     "default_popup": "src/popup/popup.html",
     "default_title": "Show Search Results"

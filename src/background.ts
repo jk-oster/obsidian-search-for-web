@@ -1,17 +1,8 @@
 import browser from "webextension-polyfill";
 import {config} from './config.js';
 import {addExtensionMessageListener, } from "./service.js";
-import {Color, Status, MessageAction} from "./types.js";
-
-
-const StatusColorMapping = {
-    active: Color.blue,
-    noauth: Color.red,
-    url: Color.yellow,
-    search: Color.green,
-    offline: Color.gray,
-};
-
+import {Colors, Color, Status, StatusColorMapping, State, Actions, BadgeActionData, MessageData, OpenUrlActionData} from "./types.js";
+import { saveToExtStorage } from "./store.js";
 
 let show = true;
 
@@ -26,21 +17,31 @@ async function getCurrTabId(matches = null) {
     })
 }
 
-
 // Open Settings Page on installation
 browser.runtime.onInstalled.addListener(async () => {
     browser.storage.sync.set(config);
     browser.action.setBadgeText({text: " "});
-    browser.action.setBadgeBackgroundColor({color: Color.gray}).catch(console.log);
+    browser.action.setBadgeBackgroundColor({color: Colors.gray}).catch(console.log);
     let url = browser.runtime.getURL("src/options/options.html");
     await browser.tabs.create({url});
 
-    addExtensionMessageListener(MessageAction.BADGE, (data) => {
-        setBadgeStatus(data.status);
-        setBadgeText(data.results);
+    addExtensionMessageListener(Actions.badge, (data) => {
+        data = data as BadgeActionData;
+        if(data.status) {
+            setBadgeStatus(data.status);
+            saveToExtStorage('status', data.status);
+        }
+        if(data.text) {
+            setBadgeText(data.text.toString());
+            saveToExtStorage('results', data.text);
+        }
+        if(data.statusText) {
+            saveToExtStorage('statusText', data.statusText);
+        }
     });
 
-    addExtensionMessageListener(MessageAction.OPEN_URL, async (data) => {
+    addExtensionMessageListener(Actions.openUrl, async (data) => {
+        data = data as OpenUrlActionData;
         let url = browser.runtime.getURL(data.url);
         await browser.tabs.create({url});
     });
@@ -48,18 +49,13 @@ browser.runtime.onInstalled.addListener(async () => {
 
 // listen to event for changes from saved data in storage
 browser.storage.onChanged.addListener(async (data, namespace) => {
-
     console.log('data changed', data);
     if (data.results) {
         let text = data.results.newValue;
-        if (typeof text != "string") text = JSON.stringify(text);
+        if (typeof text != "string") text = text.toString();
         if (!text) text = " ";
 
         setBadgeText(text);
-    }
-
-    if (data.show) {
-        show = data.show.newValue;
     }
 
     if (data.status) {
@@ -70,6 +66,7 @@ browser.storage.onChanged.addListener(async (data, namespace) => {
 browser.action.onClicked.addListener((tab) => {
     console.log('clicked');
     browser.storage.sync.set({show: !show});
+    show = !show;
     // Open Obsidian Vault on extension menu button click
     // browser.storage.sync.get(['vault', 'status']).then(data => {
     //   if (data.status == "offline") fetch('obsidian://open?vault=' + data.vault);
@@ -87,7 +84,7 @@ async function setBadgeColor(color: Color) {
     browser.action.setBadgeBackgroundColor({color: color, tabId});
 }
 
-async function setBadgeStatus(status: Status) {
+async function setBadgeStatus(status: State) {
     const colorName = StatusColorMapping[status];
     setBadgeColor(colorName);
 }

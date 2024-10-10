@@ -1,5 +1,5 @@
 import browser from "webextension-polyfill";
-import {Message, MessageAction} from "./types";
+import {Message, Action, MessageData} from "./types.js";
 
 //----------------------------------------------------------------
 // Extension Messaging Service
@@ -8,7 +8,7 @@ import {Message, MessageAction} from "./types";
 
 
 // Send a message to the current content script
-export async function sendToCurrentContentScript(message: Message) {
+export async function sendToCurrentContentScript(message: Message<any>) {
     try {
         browser.tabs.query({active: true, currentWindow: true}).then(async (tabs) => {
             if (tabs.length > 0 && /^https?:\/\//.test(tabs[0].url ?? '')) {
@@ -23,7 +23,7 @@ export async function sendToCurrentContentScript(message: Message) {
 }
 
 // Send a message to the background service
-export async function sendToRuntime(message: Message, windowEvent = false) {
+export async function sendToRuntime(message: Message<MessageData>, windowEvent = false) {
     try {
         console.log('sending to runtime from browser:', message.action, message.data);
 
@@ -39,7 +39,7 @@ export async function sendToRuntime(message: Message, windowEvent = false) {
 }
 
 // Send a message to all content scripts
-export async function sendToAllContentScripts(message: Message, responseCallback = (result: any) => {
+export async function sendToAllContentScripts(message: Message<MessageData>, responseCallback = (result: any) => {
 }) {
     try {
         await browser.tabs.query({}).then(async (tabs) => {
@@ -55,14 +55,14 @@ export async function sendToAllContentScripts(message: Message, responseCallback
 }
 
 // Add a listener for messages from the extension runtime
-export async function addExtensionMessageListener(action: MessageAction, callbackFn = (data: any) => {
+export async function addExtensionMessageListener(action: Action, callbackFn = (data: MessageData|Event|undefined) => {
 }) {
     try {
         // Add a listener for the runtime message from the background service
-        browser.runtime.onMessage.addListener(async (message: Message, sender) => {
-            if (message?.action === action) {
+        browser.runtime.onMessage.addListener(async (message: Message<MessageData>, sender) => {
+            if (message.action === action) {
                 console.log('received runtime message from browser: ' + action, message);
-                callbackFn(message?.data ?? message);
+                callbackFn(message.data);
             }
         });
 
@@ -79,7 +79,7 @@ export async function addExtensionMessageListener(action: MessageAction, callbac
 }
 
 // Dispatch a custom event to the window
-export function dispatchWindowMessage(action: MessageAction, data = {}) {
+export function dispatchWindowMessage(action: Action, data = {}) {
     if (!window) return;
     const event = new CustomEvent(action, data);
     window.dispatchEvent(event);
