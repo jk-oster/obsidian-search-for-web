@@ -53,5 +53,5 @@ export async function checkApiKey(url: string, apiKey: string) {
 
     sendToRuntime({action: Actions.badge, data: newConfig}, true);
 
-    return statusText;
+    return newConfig;
 }

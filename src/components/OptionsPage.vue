@@ -364,12 +364,12 @@ export default defineComponent({
 
   async mounted() {
     await syncStoreWithExtStorage();
-    this.infoText = await apiCheck(this.url, store.apiKey);
+    this.infoText = (await apiCheck(this.url, store.apiKey)).statusText || 'Not connected';
   },
 
   methods: {
     async checkApiKey() {
-      this.infoText = await apiCheck(this.url, this.store.apiKey);
+      this.infoText = (await apiCheck(this.url, this.store.apiKey)).statusText || 'Not connected';
     }
   }
 })

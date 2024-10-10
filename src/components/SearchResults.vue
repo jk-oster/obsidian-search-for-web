@@ -78,8 +78,10 @@ export default defineComponent({
   },
   async mounted() {
     await syncStoreWithExtStorage();
-    await checkApiKey(`${store.protocol}${store.obsidianRestUrl}:${store.port}`, store.apiKey);
-
+    const apiStatus = await checkApiKey(`${store.protocol}${store.obsidianRestUrl}:${store.port}`, store.apiKey);
+    if (apiStatus.status !== Status.search) {
+      return;
+    }
     await this.initSearch();
 
     addEventListener('keydown', () => {
@@ -150,7 +152,7 @@ export default defineComponent({
           })
           .catch(e => {
             // console.log(e, store, this.reqOptions);
-            sendToRuntime({action: Actions.badge, data: {text: 'x', status: Status.noauth}});
+            sendToRuntime({action: Actions.badge, data: {text: 'off', status: Status.offline}});
           });
     },
 
