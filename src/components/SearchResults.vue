@@ -1,16 +1,16 @@
 <template>
-  <div class="ob-flex ob-justify-between">
-    <button v-if="mode != 'urlMatch'" @click="searchInObsidianGui"
-            class="focus:ob-outline-none ob-text-white ob-bg-purple-700 hover:ob- ob-focus:ring-4 focus:ob-ring-purple-300 ob-font-medium ob-rounded-lg ob-text-sm ob-px-3 ob-py-1.5 ob-mb-2 dark:ob-bg-purple-600 dark:hover:ob-bg-purple-700 dark:focus:ob-ring-purple-900">
+  <div class="flex justify-between">
+    <button v-if="mode != SearchModes.urlMatch" @click="searchInObsidianGui"
+            class="focus:outline-none text-white bg-purple-700 hover: focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
       Open Search in Obsidian
     </button>
     <button @click="toggleSidebar"
-            class="ob-py-1.5 ob-px-3 ob-mb-2 text-sm ob-font-medium ob-text-gray-900 focus:ob-outline-none ob-bg-white ob-rounded-lg ob-border ob-border-gray-200 hover:ob-bg-gray-100 hover:ob-text-blue-700 focus:ob-z-10 focus:ob-ring-4 focus:ob-ring-gray-200 dark:focus:ob-ring-gray-700 dark:ob-bg-gray-800 dark:ob-text-gray-400 dark:ob-border-gray-600 dark:hover:ob-text-white dark:hover:ob-bg-gray-700">
+            class="py-1.5 px-3 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
       Hide
     </button>
   </div>
   <div
-      class="ob-text-xs ob-max-w-xs ob-lg:max-w-sm ob-tracking-tight ob-text-gray-700 dark:ob-text-gray-300 ob-mb-2 ob-break-words">
+      class="text-xs max-w-xs lg:max-w-sm tracking-tight text-gray-700 dark:text-gray-300 mb-2 break-words">
     Searching for: "{{ store.searchString }}", {{ computedNotes.length }} result(s) of {{ notes?.length ?? 0 }}
   </div>
   <div class="obsidian-search-highlight-area">
@@ -20,7 +20,7 @@
     </template>
   </div>
   <button v-if="notes?.length > 6" @click="store.noteNumber = store.noteNumber + 6"
-          class="ob-text-white ob-mt-2 ob-bg-gray-800 hover:ob-bg-gray-900 focus:ob-outline-none focus:ob-ring-4 focus:ob-ring-gray-300 ob-font-medium ob-rounded-lg ob-text-sm ob-px-3 ob-py-1.5 ob-mr-2 ob-mb-2 dark:ob-bg-gray-800 dark:hover:ob-bg-gray-700 dark:focus:ob-ring-gray-700 dark:ob-border-gray-700">
+          class="text-white mt-2 bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-1.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
     Show more results
   </button>
 </template>
@@ -32,12 +32,12 @@ import {defineComponent} from 'vue'
 
 import {checkApiKey} from '../util.js';
 import {
-  // saveToSyncStorage,
   store,
   syncStoreWithExtStorage
 } from '../store.js';
 import {sendToRuntime} from '../service.js';
-import {Status, Actions, NoteMatch} from "../types.js";
+import {Actions, Status, SearchModes} from "../config.js";
+import {NoteMatch, } from "../types.js";
 import { useDebounceFn } from '@vueuse/core'
 
 export default defineComponent({
@@ -52,12 +52,12 @@ export default defineComponent({
   },
 
   computed: {
-    computedNotes(): any[] {
+    computedNotes(): NoteMatch[] {
       return this.notes.slice(0, store.noteNumber ?? 10) ?? [];
     },
 
     mode(): string {
-      return store.searchUrls.split(',').some(url => store.currentUrl.includes(url)) ? 'search' : 'urlMatch';
+      return store.searchUrls.split(',').some(url => store.currentUrl.includes(url)) ? SearchModes.search : SearchModes.urlMatch;
     },
 
     reqOptions() {
@@ -79,7 +79,7 @@ export default defineComponent({
     await syncStoreWithExtStorage();
     await checkApiKey(`${store.protocol}${store.obsidianRestUrl}:${store.port}`, store.apiKey);
 
-    this.initSearch();
+    await this.initSearch();
 
     addEventListener('keydown', () => {
       // add short cut for toggling sidebar
@@ -89,7 +89,6 @@ export default defineComponent({
 
     toggleSidebar(): void {
       store.show = !store.show;
-      // saveToSyncStorage(store, 'show', !store.show);
     },
 
     getInputElement(): Element | null {
@@ -113,7 +112,7 @@ export default defineComponent({
     },
 
     fetchNotes(): void {
-      console.log('fetching: ', this.searchQueryUrl);
+      // console.log('fetching: ', this.searchQueryUrl);
       fetch(this.searchQueryUrl, this.reqOptions)
           .then((res) => res.json())
           .then((data: NoteMatch[]) => {
@@ -125,8 +124,8 @@ export default defineComponent({
             let filteredNotes: NoteMatch[] = [];
             // Exclude search results matching exclude list
             if (store.excludes && store.excludes.split(',')[0] != '') {
-              console.log('excludes', store.excludes);
-              console.log('notes', data);
+              // console.log('excludes', store.excludes);
+              // console.log('notes', data);
               filteredNotes = data?.filter((note: NoteMatch) => {
                 return store.excludes.split(',').every(exclude => !note.filename.includes(exclude))
               }) ?? [];
@@ -142,17 +141,14 @@ export default defineComponent({
               return 0;
             });
 
-            // saveToExtStorageAnd(store, 'results', data ? filteredNotes?.length : 0);
             sendToRuntime({action: Actions.badge, data: {text: data ? filteredNotes?.length.toString() : '0'}});
 
-            console.log(store.excludes, filteredNotes);
+            // console.log(store.excludes, filteredNotes);
 
             this.notes = filteredNotes?.length ? filteredNotes : [];
           })
           .catch(e => {
-            console.log(e, store, this.reqOptions);
-
-            // saveToExtStorageAnd(store, 'results', 'x');
+            // console.log(e, store, this.reqOptions);
             sendToRuntime({action: Actions.badge, data: {text: 'x', status: Status.noauth}});
           });
     },
@@ -166,13 +162,12 @@ export default defineComponent({
       let params = new URLSearchParams(store.currentUrl.split('?')[1] ?? '');
       store.searchString = params.get("q") ?? '';
 
-      console.log(store.currentUrl, store.searchUrls, store.searchString, this.mode);
-      console.log(store.searchUrls.split(',').some(url => store.currentUrl.includes(url)));
+      // console.log(store.currentUrl, store.searchUrls, store.searchString, this.mode);
+      // console.log(store.searchUrls.split(',').some(url => store.currentUrl.includes(url)));
 
       // If on a search page from settings array
-      if (this.mode === 'search') {
-        // saveToExtStorageAnd(store, 'status', Status.search);
-        sendToRuntime({action: Actions.badge, data: {status: Status.search}});
+      if (this.mode === SearchModes.search) {
+        sendToRuntime({action: Actions.badge, data: {status: Status.search, text: ' '}});
 
         if (store.searchString) {
           this.fetchNotes();
@@ -180,12 +175,11 @@ export default defineComponent({
         if (store.liveSearch) {
           // @ts-ignore
           this.getInputElement()?.addEventListener('keyup', async (event: KeyboardEvent|any) => {
-            console.log('keyup', event.target?.value);
+            // console.log('keyup', event.target?.value);
             store.searchString = event.target?.value ?? '';
             if (event.target?.value && event.target?.value?.length > store.minChars) {
               this.fetchNotes();
             } else {
-              // saveToExtStorageAnd(store, 'results', 0);
               sendToRuntime({action: Actions.badge, data: {text: '0', status: Status.search}});
               this.notes = [];
             }
@@ -193,17 +187,13 @@ export default defineComponent({
         }
       } else {
         // If page url is not matching a search engine check inf notes contain current page URL
-        // saveToExtStorageAnd(store, 'status', Status.url);
-        sendToRuntime({action: Actions.badge, data: {status: Status.url}});
+        sendToRuntime({action: Actions.badge, data: {status: Status.url , text: ' '}});
         addEventListener('hashchange', this.getUrlMatches);
         addEventListener('popstate', this.getUrlMatches);
         this.getUrlMatches();
       }
       console.log('Obsidian Search Initialized 🥳 mode: ' + this.mode + ', search: ' + store.searchString);
     },
-    async delay(ms: number) {
-      return new Promise((resolve) => setTimeout(resolve, ms));
-    }
   },
 });
 </script>

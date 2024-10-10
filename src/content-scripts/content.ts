@@ -17,4 +17,4 @@ const vm = createApp(OffCanvas).mount(mountEl);
 // @ts-ignore
 window.obsidianSearch = vm;
 // @ts-ignore
-console.log(window.obsidianSearch);
+// console.log(window.obsidianSearch);

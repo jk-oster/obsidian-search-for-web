@@ -1,7 +1,8 @@
 import browser from "webextension-polyfill";
 import {config} from './config.js';
 import {addExtensionMessageListener, } from "./service.js";
-import {Colors, Color, Status, StatusColorMapping, State, Actions, BadgeActionData, MessageData, OpenUrlActionData} from "./types.js";
+import {Actions, Colors, StatusColorMapping } from "./config.js";
+import {Color, State, BadgeActionData, MessageData, OpenUrlActionData} from "./types.js";
 import { saveToExtStorage } from "./store.js";
 
 let show = true;
@@ -28,7 +29,7 @@ browser.runtime.onInstalled.addListener(async () => {
     addExtensionMessageListener(Actions.badge, (data) => {
         data = data as BadgeActionData;
         if(data.status) {
-            setBadgeStatus(data.status);
+            setBadgeStatus(data.status.toString());
             saveToExtStorage('status', data.status);
         }
         if(data.text) {
@@ -49,7 +50,7 @@ browser.runtime.onInstalled.addListener(async () => {
 
 // listen to event for changes from saved data in storage
 browser.storage.onChanged.addListener(async (data, namespace) => {
-    console.log('data changed', data);
+    // console.log('data changed', data);
     if (data.results) {
         let text = data.results.newValue;
         if (typeof text != "string") text = text.toString();
@@ -64,13 +65,9 @@ browser.storage.onChanged.addListener(async (data, namespace) => {
 });
 
 browser.action.onClicked.addListener((tab) => {
-    console.log('clicked');
+    // console.log('clicked');
     browser.storage.sync.set({show: !show});
     show = !show;
-    // Open Obsidian Vault on extension menu button click
-    // browser.storage.sync.get(['vault', 'status']).then(data => {
-    //   if (data.status == "offline") fetch('obsidian://open?vault=' + data.vault);
-    // })
 });
 
 async function setBadgeText(text: string) {
@@ -81,11 +78,12 @@ async function setBadgeText(text: string) {
 async function setBadgeColor(color: Color) {
     const tabId = await getCurrTabId();
     if (!tabId) return;
-    browser.action.setBadgeBackgroundColor({color: color, tabId});
+    browser.action.setBadgeBackgroundColor({color, tabId});
 }
 
 async function setBadgeStatus(status: State) {
-    const colorName = StatusColorMapping[status];
+    const colorName: Color = StatusColorMapping[status];
+    if (!colorName) return;
     setBadgeColor(colorName);
 }
 

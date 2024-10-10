@@ -51,38 +51,8 @@ export async function loadAllFromExtStorageToStore() {
     });
 }
 
-// Save all store values to extension storage to persist them across sessions, pages & devices
-// export async function saveAllToExtStorage() {
-//     browser.storage.sync.set({
-//         protocol: store.protocol,
-//         port: Number(store.port),
-//         apiKey: store.apiKey,
-//         obsidianRestUrl: store.obsidianRestUrl,
-//         searchUrls: store.searchUrls,
-//         excludes: store.excludes,
-//         noteNumber: Number(store.noteNumber),
-//         minChars: Number(store.minChars),
-//         show: Boolean(store.show),
-//         searchString: store.searchString,
-//         currentUrl: store.currentUrl,
-//         contextLength: Number(store.contextLength),
-//         liveSearch: Boolean(store.liveSearch),
-//         showInPageIcon: Boolean(store.showInPageIcon),
-//         sidePanelOpen: Boolean(store.sidePanelOpen),
-//         vault: store.vault,
-//         matchCount: Number(store.matchCount),
-
-//         status: store.status,
-//         statusText: store.statusText,
-//         results: store.results,
-//         color: store.color,
-//     });
-// }
-
 // Save a single value to extension storage to persist it across sessions, pages & devices
 export async function saveToExtStorage(name: string, value: any) {
-    console.log('saveToExtStorage', name, value);
-
     // Check if value is different
     const current = await getFromExtStorage(name);
     if (current === value) return;
@@ -91,13 +61,6 @@ export async function saveToExtStorage(name: string, value: any) {
         [name]: value,
     });
 }
-
-// Save a single value to extension storage and additional store object to persist it across sessions, pages & devices
-// export function saveToSyncStorage(name: string, value: any) {
-//     store[name] = value;
-//     saveToExtStorage(name, value);
-//     return store;
-// }
 
 // Load a single value from extension storage
 export async function getFromExtStorage(propName: string) {
@@ -108,15 +71,13 @@ export async function getFromExtStorage(propName: string) {
 
 // Initializes watcher to sync reactive store changes to the extension storage (store->ext)
 export async function initDebouncedReactiveStoreListener() {
-    console.log('initReactiveStoreListeners', store);
-
     const setStorage = (newVal: any) => browser.storage.sync.set(newVal);
     const debouncedSet = useDebounceFn(setStorage, 250);
 
     watch(
         () => state.store, // Getter function to access the reactive object
         async (newVal: any, oldVal: any) => {
-            console.log('newVal', newVal, 'oldVal', oldVal);
+            // console.log('newVal', newVal, 'oldVal', oldVal);
             debouncedSet(newVal);
         },
         {deep: true} // Set deep to true if you want to watch nested properties
@@ -136,7 +97,7 @@ export const saveExtStorageChangesToStore  = (changes: any) => {
 // Set listeners for extension storage changes
 export function setExtStorageListeners(syncFunction: (changes: any) => void, localFunction:  (changes: any) => void|undefined) {
     browser.storage.onChanged.addListener((changes, areaName) => {
-        console.log('changes', changes, 'areaName', areaName);
+        // console.log('changes', changes, 'areaName', areaName);
 
         if (areaName === "sync" && syncFunction) {
             syncFunction(changes);

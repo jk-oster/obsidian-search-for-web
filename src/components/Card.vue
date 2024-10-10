@@ -1,18 +1,18 @@
 <template>
   <div
-      class="ob-p-3 ob-mt-1 ob-max-w-xs ob-lg:max-w-sm ob-bg-white ob-rounded-lg ob-border ob-border-gray-200 ob-shadow-md dark:ob-bg-gray-800 dark:ob-border-gray-700">
+      class="p-3 mt-1 max-w-xs lg:max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
     <a
         :href="'obsidian://advanced-uri?vault=' + encodeURIComponent(vaultName ?? '') + '&filepath=' + encodeURIComponent(filename ?? '')">
-      <p class="ob-text-xs ob-tracking-tight ob-text-gray-700 dark:ob-text-gray-300" v-html="path"></p>
-      <h5 class="ob-mb-1 ob-text-sm ob-font-semibold ob-tracking-tight ob-text-gray-900 dark:ob-text-white">
+      <p class="text-xs tracking-tight text-gray-700 dark:text-gray-300" v-html="path"></p>
+      <h5 class="mb-1 text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
         <span v-html="highlight(name)"></span>
-        <span class="ob-font-light ob-text-xs ob-text-gray-700 dark:ob-text-gray-300"> ({{
+        <span class="font-light text-xs text-gray-700 dark:text-gray-300"> ({{
             matches?.length ?? 0
           }} matches)</span>
       </h5>
     </a>
-    <div class="ob-text-xs ob-font-normal ob-text-gray-700 dark:ob-text-gray-400">
-      <p class="ob-mt-1 ob-break-words" v-for="match of computedMatches" :key="match.match.start"
+    <div class="text-xs font-normal text-gray-700 dark:text-gray-400">
+      <p class="mt-1 break-words" v-for="match of computedMatches" :key="match.match.start"
          v-html="highlight(match.context)">
       </p>
     </div>
