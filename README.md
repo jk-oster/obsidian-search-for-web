@@ -1,3 +1,5 @@
+![release badge](https://github.com/jk-oster/obsidian-search-for-web/actions/workflows/release.yaml/badge.svg)
+
 >❗note that this extension is still experimental - furthermore this extension requires the Obsidian REST API Plugin!
 
 # Obsidian Web Search
