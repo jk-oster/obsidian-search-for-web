@@ -24,10 +24,12 @@ export async function syncStoreWithExtStorage() {
 }
 
 // Load all extension storage values to store variable to sync them initially
-export async function loadAllFromExtStorageToStore() {
+export function loadAllFromExtStorageToStore() {
+
     return browser.storage.sync.get().then((data) => {
         store.protocol = data.protocol;
         store.port = Number(data.port);
+        store.provider = data.provider;
         store.apiKey = data.apiKey;
         store.obsidianRestUrl = data.obsidianRestUrl;
         store.searchUrls = data.searchUrls;

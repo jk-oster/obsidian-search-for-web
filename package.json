@@ -16,7 +16,8 @@
   },
   "dependencies": {
     "@vueuse/core": "^11.1.0",
-    "vue": "^3.3.4"
+    "vue": "^3.3.4",
+    "webextension-polyfill": "^0.10.0"
   },
   "devDependencies": {
     "@types/webextension-polyfill": "^0.10.0",
@@ -27,7 +28,6 @@
     "typescript": "^5.3.2",
     "vite": "^5.0.0",
     "vite-plugin-web-extension": "^4.0.0",
-    "vue-tsc": "^2.1.6",
-    "webextension-polyfill": "^0.10.0"
+    "vue-tsc": "^2.1.6"
   }
 }

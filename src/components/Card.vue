@@ -7,7 +7,7 @@
       <h5 class="mb-1 text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
         <span v-html="highlight(name)"></span>
         <span class="font-light text-xs text-gray-700 dark:text-gray-300"> ({{
-            matches?.length ?? 0
+           matchesCount ?? matches?.length ?? 0
           }} matches)</span>
       </h5>
     </a>
@@ -28,6 +28,7 @@ export default defineComponent({
   props: {
     filename: String,
     matches: Array,
+    matchesCount: Number,
     searchString: String,
     showMatchesCount: Number,
     vaultName: String
@@ -47,6 +48,7 @@ export default defineComponent({
   },
   methods: {
     regex(searchString: string): RegExp {
+      // build a regex from the search string: "foo bar" => (foo|bar)
       const string = ('(' + searchString.split(' ').join('|') + ')').replace('|)', ')');
       return new RegExp(string, 'gi')
     },

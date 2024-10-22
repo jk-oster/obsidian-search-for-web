@@ -44,6 +44,7 @@ export const config: ExtensionConfig = {
     openObsidianUri: "obsidian://open?vault=",
     obsidianRestUrl: "127.0.0.1",
     protocol: "https://",
+    provider: "local-rest",
     port: 27124,
     show: true,
     liveSearch: true,

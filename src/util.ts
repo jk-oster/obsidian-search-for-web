@@ -18,7 +18,7 @@ async function getCurrTabId(matches: RegExp | null) {
     })
 }
 
-export async function checkApiKey(url: string, apiKey: string) {
+export async function checkApiKey(url: string, apiKey: string, provider: string) {
     // console.log(url, apiKey);
     const options = {
         method: 'GET',
@@ -34,20 +34,31 @@ export async function checkApiKey(url: string, apiKey: string) {
     };
 
     try {
-        const resp = await fetch(url + "/", options);
-        const data = await resp.json();
-        // console.log('fetched data', data);
-
-        if (data.status == 'OK' && data.authenticated) {
-            statusText = "✅ Succcessfully connected to Obsidian";
-            newConfig = {status: Status.search, text: ' ', statusText};
-        } else {
-            statusText = '🔑 Could reach Obsidian REST Api - API-Key is not valid. Please check and copy the key from Obsidian REST Api Plugin Settings';
-            newConfig = {status: Status.noauth, text: '🔑', statusText};
+        console.log('fetched data', provider);
+        if (provider === 'omni-search') {
+            const resp = await fetch(url + "/search");
+            if (resp.ok) {
+                statusText = "✅ Succcessfully connected to Obsidian OmniSearch";
+                newConfig = {status: Status.search, text: ' ', statusText};
+            } else {
+                throw new Error('Could reach Obsidian OmniSearch');
+            }
+        }
+        
+        if (provider === 'local-rest') {
+            const resp = await fetch(url + "/", options);
+            const data = await resp.json();
+            if (resp.ok && data.status == 'OK' && data.authenticated) {
+                statusText = "✅ Succcessfully connected to Obsidian REST API";
+                newConfig = {status: Status.search, text: ' ', statusText};
+            } else {
+                statusText = '🔑 Could reach Obsidian REST Api - API-Key is not valid. Please check and copy the key from Obsidian REST Api Plugin Settings';
+                newConfig = {status: Status.noauth, text: '🔑', statusText};
+            }
         }
     } catch (e) {
         console.log('error reason', e);
-        statusText = '❗ Make sure Obsidian is running and set your Protocol / Port settings to connect to your Obsidian REST Api!';
+        statusText = '❗ Make sure Obsidian is running and set your Protocol / Port settings to connect to your Obsidian Search Provider!';
         newConfig = {status: Status.offline, text: 'off', statusText};
     }
 

@@ -15,7 +15,7 @@
   </div>
   <div class="obsidian-search-highlight-area">
     <template v-for="note of computedNotes" :key="note.score">
-      <Card :filename="note.filename" :matches="note.matches"
+      <Card :filename="note.filename" :matches="note.matches" :matchesCount="note.matchesCount ?? note.matches?.length ?? 0"
             :showMatchesCount="store.matchCount" :searchString="store.searchString" :vaultName="store.vault"></Card>
     </template>
   </div>
@@ -37,7 +37,7 @@ import {
 } from '../store.js';
 import {sendToRuntime} from '../service.js';
 import {Actions, Status, SearchModes} from "../config.js";
-import {NoteMatch, } from "../types.js";
+import {LocalRestNoteMatch, OmniSearchNoteMatch, } from "../types.js";
 import { useDebounceFn } from '@vueuse/core'
 
 export default defineComponent({
@@ -45,7 +45,7 @@ export default defineComponent({
   components: {Card},
   data() {
     return {
-      notes: [] as NoteMatch[],
+      notes: [] as LocalRestNoteMatch[],
       store,
       initialized: false,
       SearchModes,
@@ -53,7 +53,7 @@ export default defineComponent({
   },
 
   computed: {
-    computedNotes(): NoteMatch[] {
+    computedNotes(): LocalRestNoteMatch[] {
       return this.notes.slice(0, store.noteNumber ?? 10) ?? [];
     },
 
@@ -73,20 +73,22 @@ export default defineComponent({
     },
 
     searchQueryUrl(): string {
-      return `${store.protocol}${store.obsidianRestUrl}:${store.port}/search/simple/?query=${store.searchString}&contextLength=${store.contextLength}`;
+      if(store.provider === 'local-rest') {
+        return `${store.protocol}${store.obsidianRestUrl}:${store.port}/search/simple/?query=${store.searchString}&contextLength=${store.contextLength}`;
+      } else {
+        return `${store.protocol}${store.obsidianRestUrl}:${store.port}/search?q=${store.searchString}`;
+      }
     }
   },
   async mounted() {
-    await syncStoreWithExtStorage();
-    const apiStatus = await checkApiKey(`${store.protocol}${store.obsidianRestUrl}:${store.port}`, store.apiKey);
+    const data = await syncStoreWithExtStorage();
+
+    const apiStatus = await checkApiKey(`${store.protocol}${store.obsidianRestUrl}:${store.port}`, store.apiKey, store.provider);
     if (apiStatus.status !== Status.search) {
       return;
     }
-    await this.initSearch();
 
-    addEventListener('keydown', () => {
-      // add short cut for toggling sidebar
-    })
+    await this.initSearch();
   },
   methods: {
 
@@ -96,15 +98,7 @@ export default defineComponent({
 
     getInputElement(): Element | null {
       const input = false
-          || document.querySelector("input[aria-label=Suche]")
-          || document.querySelector("input[aria-label=Search]")
-          || document.querySelector("input[name=q]")
-          || document.querySelector("input[data-testid='search-input']")
-          || document.querySelector("input[type=search]")
-          || document.querySelector("textarea[name=q]")
-          || document.querySelector("textarea[type=search]")
-          || document.querySelector("textarea[aria-label=Suche]")
-          || document.querySelector("textarea[aria-label=Search]");
+          || document.querySelector("input[aria-label=Suche], input[aria-label=Search], input[name=q], input[data-testid='search-input'], input[type=search], textarea[name=q], textarea[type=search], textarea[aria-label=Suche], textarea[aria-label=Search]");
       if (!input) console.warn('No search input element detected 😢');
       return input;
     },
@@ -114,35 +108,55 @@ export default defineComponent({
       fetch(store.protocol + store.obsidianRestUrl + "/search/gui/?query=" + searchValue, this.reqOptions);
     },
 
+    omniSearchResultToRestNoteMatch(omniSearchResult: OmniSearchNoteMatch): LocalRestNoteMatch {
+      return {
+        filename: omniSearchResult.path,
+        score: omniSearchResult.score,
+        matchesCount: omniSearchResult.matches.length,
+        matches: [{
+            match: {
+                start: 0,
+                end: 0,
+            },
+            context: omniSearchResult.excerpt,
+        }]
+      };
+    },
+
     fetchNotes(): void {
       // console.log('fetching: ', this.searchQueryUrl);
-      fetch(this.searchQueryUrl, this.reqOptions)
+      fetch(this.searchQueryUrl, store.provider === 'local-rest' ? this.reqOptions : {})
           .then((res) => res.json())
-          .then((data: NoteMatch[]) => {
+          .then((data: LocalRestNoteMatch[]|OmniSearchNoteMatch[]) => {
             // @ts-ignore
             if (data?.errorCode) {
               throw new Error(data.toString());
             }
 
-            let filteredNotes: NoteMatch[] = [];
+            // @ts-ignore
+            let filteredNotes: LocalRestNoteMatch[] = data ?? [];
+            if(store.provider === 'omni-search') {
+              filteredNotes = data.map((note) => this.omniSearchResultToRestNoteMatch(note as OmniSearchNoteMatch));
+            }
+
             // Exclude search results matching exclude list
             if (store.excludes && store.excludes.split(',')[0] != '') {
-              // console.log('excludes', store.excludes);
-              // console.log('notes', data);
-              filteredNotes = data?.filter((note: NoteMatch) => {
+              filteredNotes = filteredNotes?.filter((note: LocalRestNoteMatch) => {
                 return store.excludes.split(',').every(exclude => !note.filename.includes(exclude))
               }) ?? [];
             }
 
-            // Rank notes with filename matching search first
-            const match = store.searchString?.toLowerCase();
-            filteredNotes?.sort((a: NoteMatch, b: NoteMatch) => {
-              const aIndexMatch = a.filename.toLowerCase().indexOf(match);
-              const bIndexMatch = b.filename.toLowerCase().indexOf(match);
-              if (aIndexMatch > bIndexMatch) return -1;
-              if (aIndexMatch < bIndexMatch) return 1;
-              return 0;
-            });
+            // Re-Rank notes with filename matching search first
+            if (store.provider === 'local-rest') {
+              const match = store.searchString?.toLowerCase();
+              filteredNotes?.sort((a: LocalRestNoteMatch, b: LocalRestNoteMatch) => {
+                const aIndexMatch = a.filename.toLowerCase().indexOf(match);
+                const bIndexMatch = b.filename.toLowerCase().indexOf(match);
+                if (aIndexMatch > bIndexMatch) return -1;
+                if (aIndexMatch < bIndexMatch) return 1;
+                return 0;
+              });
+            }
 
             sendToRuntime({action: Actions.badge, data: {text: data ? filteredNotes?.length.toString() : '0'}});
 
