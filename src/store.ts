@@ -45,6 +45,8 @@ export function loadAllFromExtStorageToStore() {
         store.sidePanelOpen = Boolean(data?.sidePanelOpen);
         store.vault = data.vault;
         store.matchCount = Number(data.matchCount);
+        store.highlight = Boolean(data.highlight);
+        store.embeddedResults = Boolean(data.embeddedResults);
 
         store.status = data.status;
         store.statusText = data.statusText;
@@ -70,6 +72,8 @@ export async function getFromExtStorage(propName: string) {
         return result[propName];
     });
 }
+
+
 
 // Initializes watcher to sync reactive store changes to the extension storage (store->ext)
 export async function initDebouncedReactiveStoreListener() {

@@ -2,7 +2,7 @@ import browser from "webextension-polyfill";
 import {config} from './config.js';
 import {addExtensionMessageListener, } from "./service.js";
 import {Actions, Colors, StatusColorMapping } from "./config.js";
-import {Color, State, BadgeActionData} from "./types.js";
+import {Color, State, BadgeActionData, OpenUrlActionData, FetchActionData} from "./types.js";
 import { saveToExtStorage } from "./store.js";
 
 let show = true;
@@ -33,7 +33,7 @@ browser.runtime.onInstalled.addListener(async () => {
     // });
 });
 
-addExtensionMessageListener(Actions.badge, (data) => {
+addExtensionMessageListener<BadgeActionData>(Actions.badge, (data) => {
     data = data as BadgeActionData;
     if(data.status) {
         setBadgeStatus(data.status.toString());
@@ -46,6 +46,21 @@ addExtensionMessageListener(Actions.badge, (data) => {
     if(data.statusText) {
         saveToExtStorage('statusText', data.statusText);
     }
+});
+
+addExtensionMessageListener<OpenUrlActionData>(Actions.openUrl, (data) => {
+    data = data as OpenUrlActionData;
+    browser.tabs.create({url: data.url});
+});
+
+addExtensionMessageListener(Actions.openOptionsPage, () => {
+    browser.runtime.openOptionsPage();
+});
+
+addExtensionMessageListener<FetchActionData>(Actions.fetch, async (data) => {
+    data = data as FetchActionData;
+    const response = await fetch(data.url, data.options);
+    return await response.text();
 });
 
 // listen to event for changes from saved data in storage
@@ -66,8 +81,8 @@ browser.storage.onChanged.addListener(async (data, namespace) => {
 
 browser.action.onClicked.addListener((tab) => {
     // console.log('clicked');
-    browser.storage.sync.set({show: !show});
     show = !show;
+    browser.storage.sync.set({show: show});
 });
 
 async function setBadgeText(text: string) {
@@ -86,58 +101,3 @@ async function setBadgeStatus(status: State) {
     if (!colorName) return;
     setBadgeColor(colorName);
 }
-
-// -------------------------------------------------------
-// Side Panel
-// -------------------------------------------------------
-
-// const GOOGLE_ORIGIN = 'https://www.google.com';
-
-// browser.tabs.onUpdated.addListener(async (tabId, info, tab) => {
-//   if (!tab.url) return;
-//   const url = new URL(tab.url);
-//   // Enables the side panel on google.com
-//   if (url.origin === GOOGLE_ORIGIN) {
-//     await browser.sidePanel.setOptions({
-//       tabId,
-//       path: 'side-panel/side-panel.html',
-//       enabled: true
-//     });
-//   } else {
-//     // Disables the side panel on all other sites
-//     await chrome.sidePanel.setOptions({
-//       tabId,
-//       enabled: false
-//     });
-//   }
-// });
-
-// browser.runtime.onInstalled.addListener(() => {
-//   browser.contextMenus.create({
-//     id: 'openSidePanel',
-//     title: 'Open side panel',
-//     contexts: ['all']
-//   });
-// });
-
-// browser.contextMenus.onClicked.addListener((info, tab) => {
-//   if (info.menuItemId === 'openSidePanel') {
-//     // This will open the panel in all the pages on the current window.
-//     browser.sidePanel.open({ windowId: tab.windowId });
-//   }
-// });
-
-// const welcomePage = 'sidepanels/welcome-sp.html';
-// const mainPage = 'sidepanels/main-sp.html';
-
-// browser.runtime.onInstalled.addListener(() => {
-//   browser.sidePanel.setOptions({ path: welcomePage });
-// });
-
-// browser.tabs.onActivated.addListener(async ({ tabId }) => {
-//   const { path } = await browser.sidePanel.getOptions({ tabId });
-//   if (path === welcomePage) {
-//     browser.sidePanel.setOptions({ path: mainPage });
-//   }
-// });
-

@@ -7,13 +7,12 @@
       <h5 class="mb-1 text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
         <span v-html="highlight(name)"></span>
         <span class="font-light text-xs text-gray-700 dark:text-gray-300"> ({{
-           matchesCount ?? matches?.length ?? 0
+           matchesCount ?? 0
           }} matches)</span>
       </h5>
     </a>
     <div class="text-xs font-normal text-gray-700 dark:text-gray-400">
-      <p class="mt-1 break-words" v-for="match of computedMatches" :key="match.match.start"
-         v-html="highlight(match.context)">
+      <p class="mt-1 break-words" v-html="highlight(excerpt ?? '')">
       </p>
     </div>
   </div>
@@ -27,7 +26,7 @@ export default defineComponent({
 
   props: {
     filename: String,
-    matches: Array,
+    excerpt: String,
     matchesCount: Number,
     searchString: String,
     showMatchesCount: Number,
@@ -39,9 +38,6 @@ export default defineComponent({
     };
   },
   computed: {
-    computedMatches(): any[] {
-      return this.matches?.slice(0, this.showMatchesCount) ?? [];
-    },
     path(): string {
       return this.highlight(this.filename?.replace(this.name, '') ?? '');
     },

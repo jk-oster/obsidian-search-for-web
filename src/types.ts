@@ -5,8 +5,8 @@ export type Mode = string;
 export type SearchProvider = 'local-rest' | 'omni-search';
 export type MessageData = BadgeActionData | OpenUrlActionData;
 
-export interface Message<T> {
-    action: Action;
+export interface Message<A, T> {
+    action: A;
     data?: T;
 }
 
@@ -15,12 +15,18 @@ export type BadgeActionData = {
     status?: State;
     statusText?: string;
 }
-export type BadgeAction = Message<BadgeActionData>;
+export type BadgeAction = Message<'badge', BadgeActionData>;
 
 export type OpenUrlActionData = {
     url: string;
 }
-export type OpenUrlAction = Message<OpenUrlActionData>;
+export type OpenUrlAction = Message<'open-url', OpenUrlActionData>;
+
+export type FetchActionData = {
+    url: string;
+    options?: object;
+}
+export type FetchAction = Message<'fetch', FetchActionData>;
 
 export type OmniSearchNoteMatch = {
   score: number
@@ -50,6 +56,16 @@ export interface LocalRestNoteMatch {
     }[];
 }
 
+export interface NoteMatch {
+    filename: string;
+    path: string;
+    basename: string;
+    score: number;
+    matchesCount: number;
+    excerpt: string;
+    url: string;
+}
+
 export interface ApiError {
     message: string,
     errorCode: number
@@ -73,6 +89,8 @@ export interface ExtensionConfig {
     noteNumber: number,
     searchUrls: string,
     excludes: string,
+    highlight: boolean,
+    embeddedResults: boolean,
 
     currentUrl: string,
     searchString: string,

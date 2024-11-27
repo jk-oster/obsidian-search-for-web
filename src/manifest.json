@@ -40,9 +40,6 @@
     "{{firefox}}.scripts": ["src/background.ts"]
   },
 
-  "side_panel": {
-    "default_path": "src/side-panel/side-panel.html"
-  },
-  "permissions": ["activeTab", "scripting", "tabs", "storage", "sidePanel"],
+  "permissions": ["activeTab", "scripting", "tabs", "storage"],
   "options_page": "src/options/options.html"
 }

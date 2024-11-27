@@ -1,3 +1,4 @@
+import { openOptionsPage } from "./service.js";
 import { Mode, Action, State, Color, ExtensionConfig} from "./types.js";
 
 export const SearchModes = {
@@ -8,6 +9,8 @@ export const SearchModes = {
 export const Actions = {
     badge: 'badge' as Action,
     openUrl: 'open-url' as Action,
+    openOptionsPage: 'open-options-page' as Action,
+    fetch: 'fetch' as Action,
 }
 
 export const Colors = {
@@ -53,9 +56,11 @@ export const config: ExtensionConfig = {
     minChars: 2,
     contextLength: 50,
     matchCount: 2,
-    noteNumber: 10,
-    searchUrls: 'google.com,duckduckgo.com,bing.com,startpage.com,google.at,search.brave.com',
+    noteNumber: 6,
+    searchUrls: 'google.com,duckduckgo.com,bing.com,startpage.com,google.at,search.brave.com,kagi.com',
     excludes: 'Assets,Template,.excalidraw',
+    highlight: true,
+    embeddedResults: true,
 
     currentUrl: '',
     searchString: '',
