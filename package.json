@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build && npm run rename && npm run rewrite && npm run zip",
+    "build": "vue-tsc && vite build && npm run zip",
     "rename": "mv $(find ./dist/ -name '_plugin-vue_export-helper.js') ./dist/plugin-vue_export-helper.js",
     "rewrite": "cd ./dist && grep -Ril '_plugin-vue_export-helper\\.js' | xargs sed -i 's/_plugin-vue_export-helper\\.js/plugin-vue_export-helper\\.js/g' && cd ../",
     "zip": "zip -r dist.zip dist/",
