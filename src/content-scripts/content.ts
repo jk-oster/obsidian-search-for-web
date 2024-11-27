@@ -48,6 +48,7 @@ pageOptions.forEach(async (option) => {
         
         const sidebar = document.createElement('div');
         sidebar.style.width = '100%';
+        sidebar.style.fontSize = '20px';
         sidebar.id = 'obsidian-search-for-chrome-sidebar';
         mountEl.insertBefore(sidebar, mountEl.firstChild);
         createApp(option.component).mount(sidebar);
@@ -61,10 +62,4 @@ if (mountEl) {
 mountEl = document.createElement("div");
 mountEl.setAttribute("id", MOUNT_EL_ID);
 document.body.appendChild(mountEl);
-
-const vm = createApp(OffCanvas).mount(mountEl);
-
-// @ts-ignore
-window.obsidianSearch = vm;
-// @ts-ignore
-// console.log(window.obsidianSearch);
+createApp(OffCanvas).mount(mountEl);
