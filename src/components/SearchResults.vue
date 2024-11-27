@@ -27,7 +27,7 @@
   </div>
   <div
       class="text-xs max-w-xs lg:max-w-sm tracking-tight text-gray-700 dark:text-gray-300 mb-2 break-words">
-    Searching for: "{{ store.searchString }}", {{ matches.length }} result(s) of {{ matches?.length ?? 0 }}
+    Searching for: "{{ store.searchString }}", {{ matches.length }} result(s) of {{ totalMatches ?? 0 }}
   </div>
   <div class="obsidian-search-highlight-area">
     <template v-for="note of matches" :key="note.score">
@@ -35,7 +35,7 @@
             :showMatchesCount="store.matchCount" :searchString="store.searchString" :vaultName="store.vault"></Card>
     </template>
   </div>
-  <button v-if="matches?.length > 6" @click="showMore()"
+  <button v-if="totalMatches > 6" @click="showMore()"
           class="text-white mt-2 bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-1.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
     Show more results
   </button>
@@ -59,6 +59,7 @@ const mode = ref<string>('');
 const matches = ref<NoteMatch[]>([]);
 const queryString = ref<string>('');
 const displayNotesCount = ref<number>(6);
+const totalMatches = ref<number>(0);
 
 onMounted(async () => {
   await syncStoreWithExtStorage();
@@ -66,6 +67,7 @@ onMounted(async () => {
   const {
     searchString,
     searchMode,
+    searchResults,
     initSearch,
     paginatedResults,
     displayNotesNumber
@@ -74,6 +76,7 @@ onMounted(async () => {
   watch(paginatedResults, (value) => { 
     // @ts-ignore
     matches.value = value;
+    totalMatches.value = searchResults.value.length;
   });
   syncRef(displayNotesNumber, displayNotesCount);
   syncRef(searchMode, mode);

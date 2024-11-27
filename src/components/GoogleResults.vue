@@ -27,8 +27,8 @@
                                                 <div>
                                                     <span class="VuuXrf">Obsidian</span>
                                                     <div class="byrV5b">
-                                                    <cite class="qLRx3b tjvcx GvPZzd cHaqb" role="text">
-                                                        <span class="dyjrff ob9lvb" role="text">
+                                                    <cite class="qLRx3b tjvcx GvPZzd dTxz9 cHaqb" role="text">
+                                                        <span class="dyjrff ob9lvb" role="text" style="font-size: 12px">
                                                         {{item.path}}
                                                         </span>
                                                     </cite>
@@ -43,7 +43,7 @@
                     </div>
                     <div class="kb0PBd cvP2Ce">
                         <div
-                            class="VwiC3b yXK7lf lyLwlc yDYNvb W8l4ac lEBKkf"
+                            class="VwiC3b yXK7lf p4wth r025kc hJNv6b Hdw6tb"
                             style="-webkit-line-clamp: 3"
                         >
                             <span> {{item.excerpt}} </span>

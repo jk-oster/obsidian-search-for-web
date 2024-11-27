@@ -5,7 +5,7 @@
     <a
         :href="'obsidian://advanced-uri?vault=' + encodeURIComponent(vaultName ?? '') + '&filepath=' + encodeURIComponent(filename ?? '')">
       <p class="text-xs tracking-tight text-gray-700 dark:text-gray-300" v-html="path"></p>
-      <h5 class="mb-1 text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
+      <h5 class="my-1 text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
         <span v-html="highlight(name)"></span>
         <span class="font-light text-xs text-gray-700 dark:text-gray-300"> ({{
            matchesCount ?? 0
@@ -66,17 +66,17 @@ export default defineComponent({
 <style>
 .obsidian-search-highlight-area {
   .bg-yellow {
-    --tw-bg-opacity: 1;
+    --tw-bg-opacity: .8;
     background-color: rgb(255 255 51 / var(--tw-bg-opacity))
   }
   
   .text-black {
-    --tw-text-opacity: 1;
+    --tw-text-opacity: .8;
     color: rgb(0 0 0 / var(--tw-text-opacity))
   }
   
   :is(.dark .dark\:bg-yellow) {
-    --tw-bg-opacity: 1;
+    --tw-bg-opacity: .8;
     background-color: rgb(255 255 51 / var(--tw-bg-opacity))
   }
 }

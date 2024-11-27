@@ -37,7 +37,7 @@
               </span>
             </a>
         </h2>
-        <p style="margin-bottom: 3px;">{{item.excerpt}}</p>
+        <p class="b_caption" style="margin-bottom: 3px;font-size: 14px;">{{item.excerpt}}</p>
       </div>
       <button style="margin-top: 0.5em; margin-bottom: 2em;" @click="showMore()">
         Show more Obsidian results

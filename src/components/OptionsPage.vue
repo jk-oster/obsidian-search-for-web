@@ -129,8 +129,8 @@
             </legend>
           </h2>
 
-          <div v-if="infoText" class="my-3 p-3 border border-gray rounded-lg">
-            <span>{{ infoText }}</span>
+          <div class="my-3 p-3 border border-gray rounded-lg">
+            <span>{{ infoText ? infoText : '🔄️ Checking your local Obsidian connection' }}</span>
             <span> - Requested {{ url }}</span>
           </div>
 
@@ -389,12 +389,12 @@ export default defineComponent({
 
   async mounted() {
     await syncStoreWithExtStorage();
-    this.infoText = (await apiCheck(this.url, this.store.apiKey, this.store.provider)).statusText || 'Not connected';
+    this.infoText = (await apiCheck(this.url, this.store.apiKey, this.store.provider)).statusText || '⚠️ Not connected with Obsidian';
   },
 
   methods: {
     async checkApiKey() {
-      this.infoText = (await apiCheck(this.url, this.store.apiKey, this.store.provider)).statusText || 'Not connected';
+      this.infoText = (await apiCheck(this.url, this.store.apiKey, this.store.provider)).statusText || '⚠️ Not connected with Obsidian';
     },
 
     providerChanged() {
