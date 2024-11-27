@@ -47,7 +47,7 @@ export const config: ExtensionConfig = {
     openObsidianUri: "obsidian://open?vault=",
     obsidianRestUrl: "127.0.0.1",
     protocol: "https://",
-    provider: "omni-search", // local-rest, omni-search
+    provider: "local-rest", // local-rest, omni-search
     port: 27124,
     show: true,
     liveSearch: true,
