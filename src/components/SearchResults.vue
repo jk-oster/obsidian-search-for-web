@@ -10,10 +10,10 @@
       </span>
     </button>
 
-    <button v-if="mode != SearchModes.urlMatch" @click="searchInObsidianGui"
-            class="focus:outline-none text-white text-sm bg-purple-700 hover: focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+    <a :href="'obsidian://search?query=' + encodeURIComponent(store.searchString) + '&vault=' + encodeURIComponent(store.vault)" v-if="mode != SearchModes.urlMatch" @click="searchInObsidianGui"
+            class="no-underline focus:outline-none text-white text-sm bg-purple-700 hover: focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-3 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
       Open Search in Obsidian
-    </button>
+    </a>
 
     <button @click="toggleSidebar" title="Hide"
       class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">

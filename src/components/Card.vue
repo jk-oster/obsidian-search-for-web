@@ -3,7 +3,7 @@
       style="min-width: min(100vw, 300px);"
       class="p-3 mt-1 max-w-xs lg:max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
     <a
-        :href="'obsidian://advanced-uri?vault=' + encodeURIComponent(vaultName ?? '') + '&filepath=' + encodeURIComponent(filename ?? '')">
+        :href="'obsidian://open?vault=' + encodeURIComponent(vaultName ?? '') + '&file=' + encodeURIComponent(name ?? '')">
       <p class="text-xs tracking-tight text-gray-700 dark:text-gray-300" v-html="path"></p>
       <h5 class="my-1 text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
         <span v-html="highlight(name)"></span>

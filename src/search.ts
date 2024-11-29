@@ -17,7 +17,8 @@ export async function useSearch() {
     const provider = await getFromExtStorage('provider');
     const excludes = await getFromExtStorage('excludes');
     const noteNumber = await getFromExtStorage('noteNumber');
-    
+    const vault = await getFromExtStorage('vault');
+
     const searchString = ref<string>('');
     const searchResults = ref<NoteMatch[]>([]);
     const isLoading = ref<boolean>(false);
@@ -168,6 +169,7 @@ export async function useSearch() {
             score: data.score,
             matchesCount: data.matches.length,
             excerpt: data.excerpt.replaceAll(/<br.?\/?>/g, ' '),
+            url: 'obsidian://open?vault=' + encodeURIComponent(vault ?? '') + '&file=' + encodeURIComponent(data.basename ?? '')
         }
     }
 
@@ -180,6 +182,7 @@ export async function useSearch() {
             score: data.score,
             matchesCount: data.matchesCount,
             excerpt: data.matches.join(' ').replaceAll(/<br.?\/?>/g, ' '),
+            url: 'obsidian://open?vault=' + encodeURIComponent(vault ?? '') + '&file=' + encodeURIComponent(baseName ?? '')
         }
     }
 

@@ -48,7 +48,7 @@
       </h1>
 
       <h2 class="text-4xl mb-6 font-extrabold dark:text-white">
-        Have a Evernote like search experience
+        Have a Evernote like search experience - but BETTER and with Obsidian
       </h2>
       <p>
         For all of you who are missing the Evernote browser search
@@ -78,7 +78,7 @@
                   d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                   clip-rule="evenodd"></path>
           </svg>
-          URL MATCHING: Search your vault for matches of your current url
+          URL MATCHING: Search your vault for matches of your current url, no matter on which page you are.
         </li>
         <li class="flex items-center">
           <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 flex-shrink-0"
@@ -88,7 +88,7 @@
                   d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                   clip-rule="evenodd"></path>
           </svg>
-          Scroll and open your matched Obsidian notes in the sidebar
+          SIDEBAR: Scroll and open your matched Obsidian notes in the sidebar on any page.
         </li>
         <li class="flex items-center">
           <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 flex-shrink-0"
@@ -98,7 +98,7 @@
                   d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                   clip-rule="evenodd"></path>
           </svg>
-          Exclude files and folders you don't want to show show up in the sidebar search
+          CUSTOMIZABEL SEARCH: Exclude files and folders you don't want to show show up in the sidebar search
         </li>
         <li class="flex items-center">
           <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 flex-shrink-0"
@@ -108,7 +108,7 @@
                   d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                   clip-rule="evenodd"></path>
           </svg>
-          Customize how much context you want to see
+          DIFFERENT SEARCH PLUGINS: Choose between the "Omni Search" Plugin and the "Local REST" Plugin to power your Obsidian Web Search
         </li>
       </ul>
       <h3 id="privacy" class="my-2 text-xl font-semibold text-gray-900 dark:text-white">
@@ -137,7 +137,7 @@
           <div class="mb-6">
             <label for="vault"
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-              Obsidian Vault Name *</label>
+              Obsidian Vault Name to open Links (only required if you are using multiple vaults)</label>
             <input v-model="store.vault" @change="checkApiKey" type="text" id="vault" name="vault"
                    placeholder="MyAwesomeSecondBrain"
                    class="inline shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-3/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
@@ -150,7 +150,7 @@
           <div class=" mb-6">
             <label for="provider"
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
-              Select Obsidian Search Provider
+              Select Obsidian Search Provider *
             </label>
             <select v-model="store.provider" @change="providerChanged" id="provider" name="provider" required
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -183,7 +183,7 @@
           <div v-if="store.provider === 'local-rest'" class="mb-6">
             <label for="apiKey"
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-              Your Obsidian REST Api Key *</label>
+              Your Obsidian REST Api Key * (Local REST API only)</label>
             <input v-model="store.apiKey" @change="checkApiKey" type="text" id="apiKey" name="apiKey"
                    placeholder="0b2087ee50e56d71fe7e429203b0d1cb9bfc610a238cc3be04edf6d01d5d57ef"
                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
@@ -251,7 +251,7 @@
           <div class="mb-6">
             <label for="contextLength"
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-              Search context length (default 50 characters)
+              Search context length (default 50 characters, Local REST API only)
             </label>
             <input v-model="store.contextLength"  min="1" max="500" type="number" id="contextLength" name="contextLength"
                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
@@ -261,7 +261,7 @@
           <div class="mb-6">
             <label for="matchCount"
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-              Number of matched lines shown per note (default 2)
+              Number of matched lines shown per note (default 2, Local REST API only)
             </label>
             <input v-model="store.matchCount" min="0" max="10" type="number" id="matchCount" name="matchCount"
                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
@@ -281,11 +281,11 @@
           <div class="mb-6">
             <label for="searchUrls"
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
-              Urls to look for search input (all others will be matched by url
-              instead of input) *separate urls by <code>,</code>
+              Live-Search-Domains (Pages on which to look for search input, all others will be matched by URL
+              instead of search input) *separate urls by <code>,</code>
             </label>
             <input v-model="store.searchUrls" type="text" id="searchUrls" name="searchUrls"
-                   placeholder="google.com,duckduckgo.com,bing.com,startpage.com,google.at"
+                   placeholder="google.com,duckduckgo.com,bing.com,startpage.com,google.at,kagi.com"
                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
           </div>
 
