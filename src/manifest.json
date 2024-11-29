@@ -40,6 +40,6 @@
     "{{firefox}}.scripts": ["src/background.ts"]
   },
 
-  "permissions": ["activeTab", "scripting", "tabs", "storage"],
+  "permissions": ["tabs", "storage"],
   "options_page": "src/options/options.html"
 }
