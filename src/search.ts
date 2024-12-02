@@ -14,6 +14,7 @@ export async function useSearch() {
     const port = await getFromExtStorage('port');
     const obsidianRestUrl = await getFromExtStorage('obsidianRestUrl');
     const contextLength = await getFromExtStorage('contextLength');
+    const matchCount = await getFromExtStorage('matchCount');
     const provider = await getFromExtStorage('provider');
     const excludes = await getFromExtStorage('excludes');
     const noteNumber = await getFromExtStorage('noteNumber');
@@ -168,12 +169,13 @@ export async function useSearch() {
             basename: data.basename,
             score: data.score,
             matchesCount: data.matches.length,
-            excerpt: data.excerpt.replaceAll(/<br.?\/?>/g, ' '),
+            excerpt: matchCount == 0 ? '' : data.excerpt.replaceAll(/<br.?\/?>/g, ' '),
             url: 'obsidian://open?vault=' + encodeURIComponent(vault ?? '') + '&file=' + encodeURIComponent(data.basename ?? '')
         }
     }
 
     function mapLocalRestToNoteMatch(data: LocalRestNoteMatch) {
+        console.log(data);
         const baseName = data.filename?.split('/')[data.filename?.split('/').length - 1] ?? '';
         return {
             filename: data.filename,
@@ -181,7 +183,7 @@ export async function useSearch() {
             basename: baseName,
             score: data.score,
             matchesCount: data.matchesCount,
-            excerpt: data.matches.join(' ').replaceAll(/<br.?\/?>/g, ' '),
+            excerpt: data.matches.map((match: any) => match.context).slice(0, matchCount).join(' ... ').replaceAll(/<br.?\/?>/g, ' '),
             url: 'obsidian://open?vault=' + encodeURIComponent(vault ?? '') + '&file=' + encodeURIComponent(baseName ?? '')
         }
     }
