@@ -10,7 +10,7 @@ import { Actions } from "../config";
 import { getFromExtStorage } from "../store";
 
 sendToRuntime({action: Actions.fetch, data: {url: window.location.href}}).then((data) => {
-    console.log('fetched data', data);
+    // console.log('fetched data', data);
 });
 
 const MOUNT_EL_ID = "obsidian-search-for-chrome";
@@ -43,7 +43,7 @@ pageOptions.forEach(async (option) => {
     const embeddedResults = await getFromExtStorage('embeddedResults');
 
     if (option.regex.test(window.location.href) && embeddedResults) {
-        console.log('Matched: ' + option.regex);
+        // console.log('Matched: ' + option.regex);
         if(!mountEl) return;
         
         const sidebar = document.createElement('div');

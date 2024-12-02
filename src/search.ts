@@ -65,10 +65,7 @@ export async function useSearch() {
 
             input.addEventListener('keyup', () => {
                 searchString.value = (input as HTMLInputElement).value;
-
-                if(searchString.value.length > minChars.value) {
-                    debouncedFetchNotes();
-                }
+                debouncedFetchNotes();
             });
         }
         return searchInputElement.value;
@@ -90,12 +87,20 @@ export async function useSearch() {
     const fetchNotes = async (query: string) => {
         isLoading.value = true;
 
+        // console.log('query: ', query);
+
+        if (!query || query.length < minChars.value) {
+            searchResults.value = [];
+            isLoading.value = false;
+            return;
+        }
+
         try {
 
             let data = [];
             if (provider === 'local-rest') {
                 data = await fetchLocalRest(query);
-                console.log('data', data);
+                // console.log('data', data);
                 const match = query?.toLowerCase();
                 data?.sort((a: any, b: any) => {
                     const aIndexMatch = a.filename.toLowerCase().indexOf(match);
@@ -104,14 +109,14 @@ export async function useSearch() {
                     if (aIndexMatch < bIndexMatch) return 1;
                     return 0;
                 });
-                data =data.map(mapLocalRestToNoteMatch);
+                data = data.map(mapLocalRestToNoteMatch);
             } else if (provider === 'omni-search') {
                 data = await fetchOmniSearch(query);
-                console.log('data', data);
+                // console.log('data', data);
                 data = data.map(mapOmniSearchToNoteMatch);
             }
 
-            console.log('data', data);
+            // console.log('data', data);
     
             if (excludes && excludes.split(',')[0] != '') {
                 data = data?.filter((note: NoteMatch) => {
@@ -175,7 +180,6 @@ export async function useSearch() {
     }
 
     function mapLocalRestToNoteMatch(data: LocalRestNoteMatch) {
-        console.log(data);
         const baseName = data.filename?.split('/')[data.filename?.split('/').length - 1] ?? '';
         return {
             filename: data.filename,

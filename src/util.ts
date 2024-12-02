@@ -34,7 +34,7 @@ export async function checkApiKey(url: string, apiKey: string, provider: string)
     };
 
     try {
-        console.log('fetched data', provider);
+        // console.log('fetched data', provider);
         if (provider === 'omni-search') {
             const resp = await fetch(url + "/search");
             if (resp.ok) {

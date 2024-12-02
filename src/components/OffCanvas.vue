@@ -35,7 +35,6 @@ export default defineComponent({
     await syncStoreWithExtStorage();
     store.currentUrl = location.href;
   },
-
   computed: {
     showPopup(): boolean {
       return Boolean(Number(this.matches.length) > 0 && store.searchString?.length > store.minChars && store.show);
@@ -47,7 +46,7 @@ export default defineComponent({
     },
 
     childMatches({matches, searchString}: {matches: NoteMatch[], searchString: string}) {
-      console.log(matches);
+      // console.log(matches);
       this.matches = matches;
       store.searchString = searchString;
     }

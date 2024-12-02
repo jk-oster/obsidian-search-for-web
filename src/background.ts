@@ -3,9 +3,8 @@ import {config} from './config.js';
 import {addExtensionMessageListener, } from "./service.js";
 import {Actions, Colors, StatusColorMapping } from "./config.js";
 import {Color, State, BadgeActionData, OpenUrlActionData, FetchActionData} from "./types.js";
-import { saveToExtStorage } from "./store.js";
+import { getFromExtStorage, saveToExtStorage } from "./store.js";
 
-let show = true;
 
 async function getCurrTabId(matches = null) {
     return browser.tabs.query({active: true, currentWindow: true}).then((tabs) => {
@@ -79,10 +78,10 @@ browser.storage.onChanged.addListener(async (data, namespace) => {
     }
 });
 
-browser.action.onClicked.addListener((tab) => {
+browser.action.onClicked.addListener(async (tab) => {
     // console.log('clicked');
-    show = !show;
-    browser.storage.sync.set({show: show});
+    const show = await getFromExtStorage('show');
+    browser.storage.sync.set({show: !show});
 });
 
 async function setBadgeText(text: string) {
