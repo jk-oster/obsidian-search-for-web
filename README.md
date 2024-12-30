@@ -2,13 +2,13 @@
 
 ![release badge](https://github.com/jk-oster/obsidian-search-for-web/actions/workflows/release.yaml/badge.svg)
 
->❗note that this extension is still experimental - furthermore this extension requires the Obsidian REST API Plugin!
-
+>❗note that this extension requires the Obsidian REST API or OmniSearch Plugin installed!
 
 ## 🔍 Have a Evernote like search experience
 
-For all of you who are missing the Evernote browser search extension in Obsidian - here is your solution.
-This extension lets you search your Obsidian Vault simultaneously as you type your search in your favourite search engine.
+For all of you who are missing the Evernote browser search extension in Obsidian - here is your solution. This extension lets you search your Obsidian Vault simultaneously as you type your search in your favourite search engine.
+
+This extension is a perfect companion for the official [Obsidian Web Clipper Extension](https://obsidian.md/clipper). With the Official Web Clipper you can save content to your Obsidian Vault while browsing, and this extension will allow you to resurface these saved notes as you revisit the page later or type a search for it in your search engine.
 
 ## 🚀 Features
 
@@ -30,28 +30,27 @@ By using the webextension-polyfill library of mozilla.org it should also be comp
 
 ## 🚧 Test the extension
 
->❗note that this extension is still experimental - furthermore this extension requires the Obsidian REST API Plugin!
-
-1. test it by downloading the released zip file
-2. extracting the files
-3. [installing the folder from the chrome extension tab](https://bashvlas.com/blog/install-chrome-extension-in-developer-mode/)
+0. open your obsidian vault in the app and install either the local REST API plugin or the omnisearch plugin
+1. test this extension by downloading the latest released zip file
+2. extract the files
+3. [install the folder from the chrome extension tab](https://bashvlas.com/blog/install-chrome-extension-in-developer-mode/)
 4. open the settings tab of the extension
-5. insert the obsidian REST API key and input vault name
+5. configure your search provider and input vault name in the settings
 6. go to any webpage and see the number of matching notes in the extension icon
 
 ## 🏗️ Build it yourself
 
-Clone the repository, install dependencies `npm install` (or better use `pnpm install`) and run `npm dev` / `pnpm dev`.
-THis should automatically start chrome with the extension installed.
+Clone the repository, install dependencies `npm install` (or better use `pnpm install`) and run `npm run dev` / `pnpm dev`.
+This should automatically start chrome with the extension installed.
 
 ## Contact & contribution
 
-If you need any support feel free to comment in de discussions or open up an issue. 
-You can also contact me though my [website](https://jakobosterberger.com/contact). 
+If you need any support feel free to comment in de discussions or open up an issue.
+You can also contact me though my [website](https://jakobosterberger.com/contact).
 Contribution, pull requests and suggestions for improvements are very welcome.
 
 ## Credits
 
-Thank's to the creator of the Obsidian Local REST Api Plugin @Adam Coddington for his awesome work as well as to @scambier for the obsidian-omnisearch plugin. 
-Furthermore, kodos to the creator of the Vite Chrome Extension Plugin for enabling fast and easy development with Vue! 
+Thank's to the creator of the Obsidian Local REST Api Plugin @Adam Coddington for his awesome work as well as to @scambier for the obsidian-omnisearch plugin.
+Furthermore, kodos to the creator of the Vite Chrome Extension Plugin for enabling fast and easy development with Vue!
 Big thanks to the team of Flowbite™ for providing such awesome free Tailwind components!

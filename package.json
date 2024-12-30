@@ -12,7 +12,9 @@
     "post-version": "git push && git push --tags",
     "version-patch": "npm version patch --force -m \"[RELEASE] patch version %s\"",
     "version-minor": "npm version minor --force -m \"[RELEASE] minor version %s\"",
-    "version-major": "npm version major --force -m \"[RELEASE] major version %s\""
+    "version-major": "npm version major --force -m \"[RELEASE] major version %s\"",
+    "deploy": "npm run ./deploy.js",
+    "upload": "npm run ./upload.js"
   },
   "dependencies": {
     "@vueuse/core": "^11.1.0",
@@ -23,11 +25,13 @@
     "@types/webextension-polyfill": "^0.10.0",
     "@vitejs/plugin-vue": "^4.5.0",
     "autoprefixer": "^10.4.18",
+    "chrome-webstore-upload": "^3.1.4",
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.2",
     "vite": "^5.0.0",
     "vite-plugin-web-extension": "^4.0.0",
-    "vue-tsc": "^2.1.6"
+    "vue-tsc": "^2.1.6",
+    "zip-folder": "^1.0.0"
   }
 }
