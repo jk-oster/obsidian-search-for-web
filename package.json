@@ -1,7 +1,7 @@
 {
   "name": "Obsidian Browser Search",
   "description": "Search your Obsidian vault simultaneously as you type your search in your favorite search engine.",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
