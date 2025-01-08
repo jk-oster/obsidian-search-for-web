@@ -2,6 +2,7 @@
   <button v-if="store.showInPageIcon && !store.show && Number(store.results) > 0"
           class="popup-button fixed right-1 top-1/2 rounded-full p-2 mr-2 text-sm font-medium text-gray-900 focus:outline-none bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" @click="toggleSidebar">
     <span style="font-size: 18px;">
+      <!-- <img src="/icon/icon128.png" alt=""> -->
       <Logo></Logo>
     </span>
     <span class="sr-only">

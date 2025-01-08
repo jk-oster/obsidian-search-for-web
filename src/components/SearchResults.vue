@@ -11,8 +11,10 @@
     </button>
 
     <a :href="'obsidian://search?query=' + encodeURIComponent(store.searchString) + '&vault=' + encodeURIComponent(store.vault)" v-if="mode != SearchModes.urlMatch" @click="searchInObsidianGui"
-            class="no-underline focus:outline-none text-white text-sm bg-purple-700 hover: focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-3 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
-      Open Search in Obsidian
+            class="no-underline focus:outline-none text-white text-sm bg-purple-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg px-3 pt-[0.67em] pb-1 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+      <span>
+        Open Search in Obsidian
+      </span>
     </a>
 
     <button @click="toggleSidebar" title="Hide"

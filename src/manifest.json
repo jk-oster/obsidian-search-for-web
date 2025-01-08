@@ -38,6 +38,13 @@
     "default_title": "Show Search Results"
   },
 
+  "web_accessible_resources": [
+    {
+      "resources": ["/style.css", "/icon/*"],
+      "matches": ["https://*/*", "http://*/*"]
+    }
+  ],
+
   "background": {
     "{{chrome}}.service_worker": "src/background.ts",
     "{{firefox}}.scripts": ["src/background.ts"]

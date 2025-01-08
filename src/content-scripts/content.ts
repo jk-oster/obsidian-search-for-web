@@ -8,12 +8,13 @@ import KagiResults from "../components/KagiResults.vue";
 import { sendToRuntime } from "../service";
 import { Actions } from "../config";
 import { getFromExtStorage } from "../store";
+import { createIsolatedElement } from '@webext-core/isolated-element';
+import browser from 'webextension-polyfill';
+
 
 sendToRuntime({action: Actions.fetch, data: {url: window.location.href}}).then((data) => {
     // console.log('fetched data', data);
 });
-
-const MOUNT_EL_ID = "obsidian-search-for-chrome";
 
 const pageOptions = [
     {
@@ -27,7 +28,7 @@ const pageOptions = [
         component: BingResults
     },
     {
-        regex: /^https:\/\/duckduckgo\.com/,
+        regex: /^https:\/\/(www\.)?duckduckgo\.com/,
         selector: '[data-area=sidebar]',
         component: DuckDuckGoResults
     },
@@ -35,6 +36,11 @@ const pageOptions = [
         regex: /^https:\/\/(www\.)?kagi\.com/,
         selector: '.right-content-box',
         component: KagiResults
+    },
+    {
+        regex: /^https:\/\/(www\.)?search\.brave\.com/,
+        selector: 'aside.sidebar',
+        component: BraveResults,
     }
 ];
 
@@ -43,23 +49,28 @@ pageOptions.forEach(async (option) => {
     const embeddedResults = await getFromExtStorage('embeddedResults');
 
     if (option.regex.test(window.location.href) && embeddedResults) {
-        // console.log('Matched: ' + option.regex);
+        console.log('Matched ', option);
         if(!mountEl) return;
         
         const sidebar = document.createElement('div');
         sidebar.style.width = '100%';
         sidebar.style.fontSize = '20px';
-        sidebar.id = 'obsidian-search-for-chrome-sidebar';
+        sidebar.id = 'obsidian-browser-search-embedded-results';
         mountEl.insertBefore(sidebar, mountEl.firstChild);
         createApp(option.component).mount(sidebar);
     }
-})
+});
 
-let mountEl = document.getElementById(MOUNT_EL_ID);
-if (mountEl) {
-    mountEl.innerHTML = "";
+async function setupSidebar(){
+    const { parentElement, isolatedElement } = await createIsolatedElement({
+        name: 'obsidian-browser-search-sidebar',
+        css: {
+            url: browser.runtime.getURL('/style.css'),
+        },
+        isolateEvents: true, // or array of event names to isolate, e.g., ['click', 'keydown']
+    });
+    document.body.appendChild(parentElement);
+    createApp(OffCanvas).mount(isolatedElement);
 }
-mountEl = document.createElement("div");
-mountEl.setAttribute("id", MOUNT_EL_ID);
-document.body.appendChild(mountEl);
-createApp(OffCanvas).mount(mountEl);
+
+setupSidebar();
