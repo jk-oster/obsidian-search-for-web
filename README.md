@@ -8,6 +8,8 @@
 
 For all of you who are missing the Evernote browser search extension in Obsidian - here is your solution. This extension lets you search your Obsidian Vault simultaneously as you type your search in your favourite search engine.
 
+## ✂️ Web Clipper Companion
+
 This extension is a perfect companion for the official [Obsidian Web Clipper Extension](https://obsidian.md/clipper). With the Official Web Clipper you can save content to your Obsidian Vault while browsing, and this extension will allow you to resurface these saved notes as you revisit the page later or type a search for it in your search engine.
 
 ## 🚀 Features
