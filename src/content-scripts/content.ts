@@ -5,12 +5,12 @@ import { createApp } from "vue";
 import BingResults from "../components/BingResults.vue";
 import DuckDuckGoResults from "../components/DuckDuckGoResults.vue";
 import KagiResults from "../components/KagiResults.vue";
+import BraveResults from "../components/BraveResults.vue";
 import { sendToRuntime } from "../service";
 import { Actions } from "../config";
 import { getFromExtStorage } from "../store";
 import { createIsolatedElement } from '@webext-core/isolated-element';
 import browser from 'webextension-polyfill';
-
 
 sendToRuntime({action: Actions.fetch, data: {url: window.location.href}}).then((data) => {
     // console.log('fetched data', data);
