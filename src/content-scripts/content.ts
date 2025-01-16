@@ -36,11 +36,6 @@ const pageOptions = [
         regex: /^https:\/\/(www\.)?kagi\.com/,
         selector: '.right-content-box',
         component: KagiResults
-    },
-    {
-        regex: /^https:\/\/(www\.)?search\.brave\.com/,
-        selector: 'aside.sidebar',
-        component: BraveResults,
     }
 ];
 
