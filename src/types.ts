@@ -91,6 +91,7 @@ export interface ExtensionConfig {
     excludes: string,
     highlight: boolean,
     embeddedResults: boolean,
+    darkMode: boolean,
 
     currentUrl: string,
     searchString: string,

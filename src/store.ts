@@ -46,6 +46,7 @@ export async function loadAllFromExtStorageToStore() {
         store.matchCount = Number(data.matchCount);
         store.highlight = Boolean(data.highlight);
         store.embeddedResults = Boolean(data.embeddedResults);
+        store.darkMode = Boolean(data.darkMode);
 
         store.status = data.status;
         store.statusText = data.statusText;
