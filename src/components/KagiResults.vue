@@ -16,7 +16,7 @@
                     style="cursor: pointer;"
                     :title="item.basename"
                     :href="item.url" rel="noopener noreferrer">
-                        ${item.basename}
+                        {{item.basename}}
                     </a>
                 </h3>
             </div>
