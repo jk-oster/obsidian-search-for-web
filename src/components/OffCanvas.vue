@@ -1,5 +1,5 @@
 <template>
-  <button v-if="store.showInPageIcon && !store.show && Number(store.results) > 0"
+  <button v-if="store.showInPageIcon && !store.show"
           class="popup-button fixed right-1 top-1/2 rounded-full p-2 mr-2 text-sm font-medium text-gray-900 focus:outline-none bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" @click="toggleSidebar">
     <span style="font-size: 18px;">
       <!-- <img src="/icon/icon128.png" alt=""> -->
@@ -9,50 +9,52 @@
       Show Obsidian Search
     </span>
   </button>
-  <div :class="(showPopup ? ' translate-x-0 ' : ' translate-x-full ') + ' max-h-screen popup-container fixed duration-300 ease-in-out right-0 top-0 rounded overflow-auto'">
+  <div ref="sidebar" :class="(showPopup ? ' translate-x-0 ' : ' translate-x-full ') + ' max-h-screen popup-container fixed duration-300 ease-in-out right-0 top-0 rounded overflow-auto'">
     <SearchResults @update:matches="childMatches($event)"></SearchResults>
   </div>
 </template>
 
-<script lang="ts">
-
+<script lang="ts" setup>
 import SearchResults from './SearchResults.vue';
 import Logo from './Logo.vue';
-import {defineComponent} from 'vue'
+import {onMounted, computed, ref} from 'vue'
 import { store, syncStoreWithExtStorage } from '../store.js';
 import {NoteMatch} from "../types.js";
+import {useTemplateRef} from 'vue';
+import { MaybeElementRef, useFocusWithin } from "@vueuse/core";
 
-export default defineComponent({
-  name: "OffCanvas",
-  components: { SearchResults, Logo },
+const sidebar = ref();
+const { focused } = useFocusWithin(sidebar);
+const noteMatches = ref<NoteMatch[]>([]);
 
-  data() {
-    return {
-      store,
-      matches: [] as NoteMatch[],
-    }
-  },
-  async mounted() {
-    await syncStoreWithExtStorage();
-    store.currentUrl = location.href;
-  },
-  computed: {
-    showPopup(): boolean {
-      return Boolean(Number(this.matches.length) > 0 && store.searchString?.length > store.minChars && store.show);
-    },
-  },
-  methods: {
-    toggleSidebar(): void {
-      store.show = !store.show;
-    },
-
-    childMatches({matches, searchString}: {matches: NoteMatch[], searchString: string}) {
-      // console.log(matches);
-      this.matches = matches;
-      store.searchString = searchString;
-    }
-  }
+onMounted(async () => {
+  await syncStoreWithExtStorage();
+  store.currentUrl = location.href;
 });
+
+
+const showPopup = computed(() => {
+  return Boolean(Number(noteMatches.value.length) > 0 && store.searchString?.length > store.minChars);
+});
+
+function toggleSidebar(): void {
+  store.show = !store.show;
+
+  if(store.show) {
+    // @ts-ignore
+    sidebar?.value?.focus();
+  } else {
+    // @ts-ignore
+    document.activeElement?.blur();
+    window.focus();
+  }
+}
+
+function childMatches({matches, searchString}: {matches: NoteMatch[], searchString: string}): void {
+  // console.log(matches);
+  noteMatches.value = matches;
+  store.searchString = searchString;
+}
 </script>
 
 <style scoped>

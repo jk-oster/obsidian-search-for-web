@@ -66,3 +66,13 @@ export async function checkApiKey(url: string, apiKey: string, provider: string)
 
     return newConfig;
 }
+
+export function inIframe() {
+    try {
+        return window.self !== window.top ||
+            window.window !== window.parent ||
+            window.frameElement;
+    } catch (e) {
+        return true;
+    }
+}

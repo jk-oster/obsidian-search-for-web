@@ -8,7 +8,6 @@ import { useDebounce, useDebounceFn } from "@vueuse/core";
 
 export async function useSearch() {
     const searchUrls = (await getFromExtStorage('searchUrls')).split(',').map((url: string) => url.trim());
-    const minChars = ref<number>(await getFromExtStorage('minChars'));
     const apiKey = await getFromExtStorage('apiKey');
     const protocol = await getFromExtStorage('protocol');
     const port = await getFromExtStorage('port');
@@ -19,7 +18,8 @@ export async function useSearch() {
     const excludes = await getFromExtStorage('excludes');
     const noteNumber = await getFromExtStorage('noteNumber');
     const vault = await getFromExtStorage('vault');
-
+    
+    const minChars = ref<number>(await getFromExtStorage('minChars'));
     const searchString = ref<string>('');
     const searchResults = ref<NoteMatch[]>([]);
     const isLoading = ref<boolean>(false);
@@ -211,6 +211,7 @@ export async function useSearch() {
         connectionStatus: connectionStatus,
         isLoading: isLoading,
         fetchNotes,
+        debouncedFetchNotes,
         detectSearchString,
         initSearch,
         detectConnection,

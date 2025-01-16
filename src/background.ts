@@ -25,6 +25,10 @@ browser.runtime.onInstalled.addListener(async () => {
     let url = browser.runtime.getURL("src/options/options.html");
     await browser.tabs.create({url});
 
+    if (__BROWSER__ === "chrome") {
+        chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true });
+    }
+
     // addExtensionMessageListener(Actions.openUrl, async (data) => {
     //     data = data as OpenUrlActionData;
     //     let url = browser.runtime.getURL(data.url);

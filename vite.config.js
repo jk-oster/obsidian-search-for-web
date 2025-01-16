@@ -4,6 +4,8 @@ import vue from "@vitejs/plugin-vue";
 import webExtension, { readJsonFile } from "vite-plugin-web-extension";
 
 
+const target = process.env.TARGET || "chrome";
+
 const _dirname = typeof __dirname !== 'undefined'
     ? __dirname
     : dirname(fileURLToPath(import.meta.url));
@@ -21,6 +23,9 @@ function generateManifest() {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+        __BROWSER__: JSON.stringify(target),
+  },
   resolve: {
     alias: {
       "@": resolve(_dirname, "src")

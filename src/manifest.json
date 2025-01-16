@@ -45,11 +45,17 @@
     }
   ],
 
+  "{{chrome}}.side_panel": {
+    "default_path": "src/side-panel/side-panel.html"
+  },
+
   "background": {
     "{{chrome}}.service_worker": "src/background.ts",
     "{{firefox}}.scripts": ["src/background.ts"]
   },
 
-  "permissions": ["tabs", "storage"],
+  "{{chrome}}.permissions": ["tabs", "storage", "sidePanel"],
+  "{{firefox}}.permissions": ["tabs", "storage"],
+  
   "options_page": "src/options/options.html"
 }
