@@ -1,7 +1,7 @@
 {
   "name": "Obsidian Browser Search",
   "description": "Search your Obsidian vault simultaneously as you type your search in your favorite search engine.",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -19,6 +19,9 @@
   "dependencies": {
     "@vueuse/core": "^11.1.0",
     "@webext-core/isolated-element": "^1.1.2",
+    "@webext-core/messaging": "^2.1.0",
+    "@webext-core/proxy-service": "^1.2.1",
+    "@webext-core/storage": "^1.2.0",
     "vue": "^3.3.4",
     "webextension-polyfill": "^0.10.0"
   },
