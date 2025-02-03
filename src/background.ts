@@ -19,12 +19,16 @@ async function getCurrTabId(matches = null) {
 
 // Open Settings Page on installation
 browser.runtime.onInstalled.addListener(async () => {
-    browser.storage.sync.set(config);
     browser.action.setBadgeText({text: " "});
     browser.action.setBadgeBackgroundColor({color: Colors.gray}).catch(console.log);
-    let url = browser.runtime.getURL("src/options/options.html");
-    await browser.tabs.create({url});
-
+    
+    const provider = await browser.storage.sync.get('provider').then((data) => data.provider);
+    
+    if (!provider) {
+        browser.storage.sync.set(config);
+        let url = browser.runtime.getURL("src/options/options.html");
+        await browser.tabs.create({url});
+    }
     // addExtensionMessageListener(Actions.openUrl, async (data) => {
     //     data = data as OpenUrlActionData;
     //     let url = browser.runtime.getURL(data.url);
