@@ -3,7 +3,7 @@ module.exports = {
   content: [
     "./src/**/*.{vue,js,ts,jsx,tsx,html}",
   ],
-  darkMode: "class", // or 'media' or 'class'
+  darkMode: "media", // or 'media' or 'class'
   theme: {
     extend: {
       colors: {
@@ -59,5 +59,7 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 };

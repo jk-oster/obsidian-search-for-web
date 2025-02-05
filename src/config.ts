@@ -1,5 +1,4 @@
-import { openOptionsPage } from "./service.js";
-import { Mode, Action, State, Color, ExtensionConfig} from "./types.js";
+import {Mode, Action, State, Color, ExtensionConfig} from "./types.js";
 
 export const SearchModes = {
     search: 'search' as Mode,
@@ -42,6 +41,7 @@ export const StatusColorMapping: Record<State, Color> = {
 };
 
 export const config: ExtensionConfig = {
+    version: "",
     apiKey: "",
     vault: "",
     openObsidianUri: "obsidian://open?vault=",

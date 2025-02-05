@@ -29,18 +29,18 @@ export type FetchActionData = {
 export type FetchAction = Message<'fetch', FetchActionData>;
 
 export type OmniSearchNoteMatch = {
-  score: number
-  vault: string
-  path: string
-  basename: string
-  foundWords: string[]
-  matches: SearchMatchApi[]
-  excerpt: string
+    score: number
+    vault: string
+    path: string
+    basename: string
+    foundWords: string[]
+    matches: SearchMatchApi[]
+    excerpt: string
 }
 
 type SearchMatchApi = {
-  match: string
-  offset: number
+    match: string
+    offset: number
 }
 
 export interface LocalRestNoteMatch {
@@ -54,6 +54,23 @@ export interface LocalRestNoteMatch {
         };
         context: string;
     }[];
+}
+
+export type Command = {
+    id: string;
+    name: string;
+}
+
+export interface Note {
+    content: string,
+    frontmatter: {},
+    path: string,
+    stat: {
+        ctime: number,
+        mtime: number,
+        size: number
+    },
+    tags: string[]
 }
 
 export interface NoteMatch {
@@ -72,6 +89,7 @@ export interface ApiError {
 }
 
 export interface ExtensionConfig {
+    version: string,
     apiKey: string,
     vault: string,
     openObsidianUri: string,

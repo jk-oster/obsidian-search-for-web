@@ -1,14 +1,15 @@
-import { reactive, watch, UnwrapNestedRefs } from "vue";
+import {reactive, watch, UnwrapNestedRefs} from "vue";
+import {useDebounceFn} from '@vueuse/core';
 import browser from "webextension-polyfill";
 import {config} from "./config.js";
 import {ExtensionConfig} from "./types.js";
-import { useDebounceFn } from '@vueuse/core'
 
 /**
  * Store for all data that needs to be shared across components & synced with extension storage
  */
-const state: UnwrapNestedRefs<{ store: ExtensionConfig}> = reactive({
-    store: config
+const state: UnwrapNestedRefs<{ store: ExtensionConfig, initialized: boolean }> = reactive({
+    store: config,
+    initialized: false
 });
 export const store: UnwrapNestedRefs<ExtensionConfig> = state.store;
 
@@ -18,14 +19,17 @@ export const store: UnwrapNestedRefs<ExtensionConfig> = state.store;
 
 // Two-Way-Sync extension storage with store variable (ext<->store)
 export async function syncStoreWithExtStorage() {
-    await loadAllFromExtStorageToStore();
-    setExtStorageListeners(saveExtStorageChangesToStore, saveExtStorageChangesToStore);
-    await initDebouncedReactiveStoreListener();
+    if (state.initialized === false) {
+        await loadAllFromExtStorageToStore();
+        setExtStorageListeners(saveExtStorageChangesToStore, saveExtStorageChangesToStore);
+        await initDebouncedReactiveStoreListener();
+        state.initialized = true;
+    }
 }
 
 // Load all extension storage values to store variable to sync them initially
 export async function loadAllFromExtStorageToStore() {
-    return await browser.storage.sync.get().then((data) => {
+    return await browser.storage.sync.get(config).then((data) => {
         store.protocol = data.protocol;
         store.port = Number(data.port);
         store.provider = data.provider;
@@ -59,7 +63,7 @@ export async function saveToExtStorage(name: string, value: any) {
     // Check if value is different
     const current = await getFromExtStorage(name);
     if (current === value) return;
-    
+
     return browser.storage.sync.set({
         [name]: value,
     });
@@ -71,8 +75,6 @@ export async function getFromExtStorage(propName: string) {
         return result[propName];
     });
 }
-
-
 
 // Initializes watcher to sync reactive store changes to the extension storage (store->ext)
 export async function initDebouncedReactiveStoreListener() {
@@ -90,7 +92,7 @@ export async function initDebouncedReactiveStoreListener() {
 }
 
 // Save all changes from extension storage event to store variable
-export const saveExtStorageChangesToStore  = (changes: any) => {
+export const saveExtStorageChangesToStore = (changes: any) => {
     for (const key in changes) {
         // @ts-ignore
         if (store[key] === changes[key].newValue) continue
@@ -100,7 +102,7 @@ export const saveExtStorageChangesToStore  = (changes: any) => {
 }
 
 // Set listeners for extension storage changes
-export function setExtStorageListeners(syncFunction: (changes: any) => void, localFunction:  (changes: any) => void|undefined) {
+export function setExtStorageListeners(syncFunction: (changes: any) => void, localFunction: (changes: any) => void | undefined) {
     browser.storage.onChanged.addListener((changes, areaName) => {
         // console.log('changes', changes, 'areaName', areaName);
 
