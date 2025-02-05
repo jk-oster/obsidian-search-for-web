@@ -24,7 +24,7 @@
       "128": "icon/icon128.png",
       "512": "icon/icon512.png"
     },
-    "default_title": "Show Search Results"
+    "default_title": "Pin / Unpin Search Results"
   },
   "{{firefox}}.browser_action": {
     "default_icon": {
@@ -35,7 +35,7 @@
       "512": "icon/icon512.png"
     },
     "default_popup": "src/popup/popup.html",
-    "default_title": "Show Search Results"
+    "default_title": "Pin / Unpin Search Results"
   },
 
   "web_accessible_resources": [
