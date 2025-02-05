@@ -17,13 +17,14 @@
       </span>
     </a>
 
-    <button @click="toggleSidebar" title="Hide"
+    <button @click="toggleSidebar" :title="store.show ? 'Unpin Sidebar' : 'Pin Sidebar'"
       class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
       <span class="sr-only">
-        Hide
+        {{ store.show ? 'Unpin Sidebar' : 'Pin Sidebar' }}
       </span>
       <span>
-        <Eye class="w-5 h-5"></Eye>
+        <Pin v-if="!store.show" class="h-5 w-5"></Pin>
+        <UnPin v-if="store.show" class="h-5 w-5"></UnPin>
       </span>
     </button>
   </div>
@@ -53,6 +54,8 @@ import Card from './Card.vue';
 import Eye from "./Eye.vue";
 import Cog from "./Cog.vue";
 import {getTabService} from "../background-services/TabService.js";
+import Pin from "./Pin.vue";
+import UnPin from "./UnPin.vue";
 
 const tabService = getTabService();
 
