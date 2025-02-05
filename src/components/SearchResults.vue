@@ -34,8 +34,16 @@
   </div>
   <div class="obsidian-search-highlight-area">
     <template v-for="note of paginatedResults" :key="note.score">
-      <Card :filename="note.filename" :excerpt="note.excerpt" :matchesCount="note.matchesCount ?? 0"
-            :showMatchesCount="store.matchCount" :searchString="store.searchString" :vaultName="store.vault"></Card>
+      <Card :filename="note.filename"
+            :basename="note.basename"
+            :path="note.path"
+            :excerpt="note.excerpt"
+            :matchesCount="note.matchesCount ?? 0"
+            :showMatchesCount="store.matchCount"
+            :searchString="store.searchString"
+            :highlighting="store.highlighting ?? false"
+            :vaultName="store.vault">
+      </Card>
     </template>
   </div>
   <button v-if="totalMatches > 6" @click="showMore()"

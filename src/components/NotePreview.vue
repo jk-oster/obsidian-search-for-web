@@ -35,7 +35,7 @@
     <div class="w-full flex justify-center">
       <LoadingSpinner v-if="isLoading && !previewNote"></LoadingSpinner>
     </div>
-    <div class="prose  dark:prose-invert" v-html="marked.parse(previewNote ?? '')"></div>
+    <div class="prose  dark:prose-invert" v-html="highlight(marked.parse(previewNote ?? ''), searchString)"></div>
   </div>
 </template>
 
@@ -47,15 +47,20 @@ import OpenLink from "./OpenLink.vue";
 import OpenEye from "./OpenEye.vue";
 import Close from "./Close.vue";
 import LoadingSpinner from "./LoadingSpinner.vue";
-import {ref, watchEffect} from "vue";
+import {ref} from "vue";
 import {usePreview} from "../preview";
 import {useElementHover} from "@vueuse/core";
+import {useHighlight} from "../highlighter";
 
 const props = defineProps({
   filename: String,
   searchString: String,
   vaultName: String,
   name: String,
+  highlighting: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 // @ts-ignore
@@ -72,6 +77,8 @@ const isPopoverHovered = useElementHover(popover, {
 });
 
 const {previewNote, fetchPreview, isLoading} = usePreview();
+
+const {highlight} = useHighlight();
 
 function openNotePreview() {
   fetchPreview(props.filename ?? '');
