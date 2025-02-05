@@ -1,5 +1,6 @@
 <template>
   <button v-if="store.provider === 'local-rest'"
+          ref="toggleButton"
           title="Open Note Preview"
           class="absolute top-2 right-2 text-gray-700 dark:text-gray-400"
           @click.prevent.stop="openNotePreview()">
@@ -46,8 +47,9 @@ import OpenLink from "./OpenLink.vue";
 import OpenEye from "./OpenEye.vue";
 import Close from "./Close.vue";
 import LoadingSpinner from "./LoadingSpinner.vue";
-import {ref} from "vue";
+import {ref, watchEffect} from "vue";
 import {usePreview} from "../preview";
+import {useElementHover} from "@vueuse/core";
 
 const props = defineProps({
   filename: String,
@@ -57,17 +59,27 @@ const props = defineProps({
 });
 
 // @ts-ignore
-const popover = ref<HTMLElement>(null);
+const popover = ref<HTMLElement|null>(null);
+const toggleButton = ref<HTMLElement|null>(null);
+
+const isToggleHovered = useElementHover(toggleButton, {
+  delayEnter: 500,
+  delayLeave: 500,
+});
+const isPopoverHovered = useElementHover(popover, {
+  delayEnter: 500,
+  delayLeave: 500,
+});
 
 const {previewNote, fetchPreview, isLoading} = usePreview();
 
 function openNotePreview() {
   fetchPreview(props.filename ?? '');
-  popover.value.showPopover();
+  popover.value?.showPopover();
 }
 
 function closeNotePreview() {
-  popover.value.hidePopover();
+  popover.value?.hidePopover();
 }
 </script>
 

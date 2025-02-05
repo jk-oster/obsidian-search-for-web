@@ -1,5 +1,5 @@
 <template>
-  <button id="obsidian-search-for-web-offcanvas-toggle"
+  <button ref="toggleButton" id="obsidian-search-for-web-offcanvas-toggle"
           v-if="store.showInPageIcon && !store.show && Number(searchResults.length) > 0"
           class="popup-button fixed right-1 top-1/2 rounded-full p-2 mr-2 text-sm font-medium text-gray-900 focus:outline-none bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
           @click="toggleSidebar">
@@ -8,12 +8,13 @@
       <Logo></Logo>
     </span>
     <span class="sr-only">
-      Show Obsidian Search
+      Show Obsidian Search Sidebar
     </span>
   </button>
-  <div id="obsidian-search-for-web-offcanvas-results"
-      :class="(showPopup ? ' translate-x-0 ' : ' translate-x-full ') + ' max-h-screen popup-container fixed duration-300 ease-in-out right-0 top-0 bg-white dark:bg-gray-900 p-2 rounded overflow-auto'">
-      <SearchResults @update:matches="childMatches($event)"></SearchResults>
+  <div ref="offCanvas"
+       id="obsidian-search-for-web-offcanvas-results"
+       :class="(showPopup ? ' translate-x-0 ' : ' translate-x-full ') + ' max-h-screen popup-container fixed duration-300 ease-in-out right-0 top-0 bg-white dark:bg-gray-900 p-2 rounded overflow-auto'">
+    <SearchResults @update:matches="childMatches($event)"></SearchResults>
   </div>
 </template>
 
@@ -24,11 +25,25 @@ import Logo from './Logo.vue';
 import {computed, onMounted, ref} from 'vue'
 import {store, syncStoreWithExtStorage} from '../store.js';
 import {NoteMatch} from "../types.js";
-import {useTheme} from "../theme.js";
+import {useElementHover} from '@vueuse/core'
 
 const searchResults = ref<NoteMatch[]>([]);
+const toggleButton = ref<HTMLElement | null>(null);
+const offCanvas = ref<HTMLElement | null>(null);
+const isToggleHovered = useElementHover(toggleButton, {
+  delayEnter: 300,
+  delayLeave: 500,
+});
+const isOffCanvasHovered = useElementHover(offCanvas, {
+  delayEnter: 300,
+  delayLeave: 1000,
+});
 
-const showPopup = computed(() => Boolean(Number(searchResults.value.length) > 0 && store.searchString?.length > store.minChars && store.show));
+const showPopup = computed(() => Boolean(
+    Number(searchResults.value.length) > 0
+    && store.searchString?.length > store.minChars &&
+    (store.show || isToggleHovered.value || isOffCanvasHovered.value)
+));
 
 onMounted(async () => {
   await syncStoreWithExtStorage();
