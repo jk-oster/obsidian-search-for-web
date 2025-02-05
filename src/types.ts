@@ -110,6 +110,7 @@ export interface ExtensionConfig {
     excludes: string,
     highlight: boolean,
     embeddedResults: boolean,
+    highlighting: boolean,
     theme: Theme,
 
     currentUrl: string,

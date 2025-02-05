@@ -125,8 +125,8 @@ class NoteService {
         vault: string
     }): NoteMatch {
         return {
-            filename: data.path + '/' + data.basename,
-            path: data.path,
+            filename: data.path,
+            path: data.path.replaceAll(data.basename + '.md', '') ?? '/',
             basename: data.basename,
             score: data.score,
             matchesCount: data.matches.length,

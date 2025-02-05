@@ -61,6 +61,7 @@ export const config: ExtensionConfig = {
     excludes: 'Assets,Template,.excalidraw',
     highlight: true,
     embeddedResults: true,
+    highlighting: true,
     theme: 'auto',
 
     currentUrl: '',

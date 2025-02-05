@@ -130,9 +130,11 @@
             </legend>
           </h2>
 
-          <div class="my-3 p-3 border border-gray rounded-lg">
-            <span>{{ infoText ? infoText : '🔄️ Checking your local Obsidian connection' }}</span>
-            <span> - Requested {{ url }}</span>
+          <div class="mb-3 p-3 border border-gray rounded-lg min-h-20 flex flex-wrap items-center justify-center">
+            <div class=" w-full">
+              <span>{{ infoText ? infoText : '🔄️ Checking your local Obsidian connection' }}</span>
+              <span> - Requested {{ url }}</span>
+            </div>
           </div>
 
           <div class="mb-6">
@@ -172,7 +174,6 @@
             </select>
           </div>
 
-
           <div id="port-container" class="mb-6">
             <label for="port" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
               Port number
@@ -181,12 +182,12 @@
                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
           </div>
 
-          <div v-if="store.provider === 'local-rest'" class="mb-6">
+          <div class="mb-6">
             <label for="apiKey"
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
               Your Obsidian REST Api Key * (Local REST API only)</label>
-            <input v-model="store.apiKey" @change="checkApiKey" type="text" id="apiKey" name="apiKey"
-                   placeholder="0b2087ee50e56d71fe7e429203b0d1cb9bfc610a238cc3be04edf6d01d5d57ef"
+            <input v-model="store.apiKey" @change="checkApiKey" :disabled="store.provider !== 'local-rest'" type="text" id="apiKey" name="apiKey"
+                   placeholder="Local REST API Key"
                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                    required/>
           </div>
@@ -241,6 +242,18 @@
               </span>
             </label>
           </div>
+          <div class="mb-6">
+            <label for="highlighting" class="inline-flex relative items-center mr-5 cursor-pointer">
+              <input v-model="store.highlighting" type="checkbox" id="highlighting" name="highlighting"
+                     class="sr-only peer" :checked="store.highlighting"/>
+              <div
+                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
+              </div>
+              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                  Enable highlighting of search term in results
+              </span>
+            </label>
+          </div>
 
           <div class=" mb-6">
             <label for="theme"
@@ -271,7 +284,7 @@
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
               Search context length (default 50 characters, Local REST API only)
             </label>
-            <input v-model="store.contextLength" min="1" max="500" type="number" id="contextLength" name="contextLength"
+            <input v-model="store.contextLength" :disabled="store.provider !== 'local-rest'" min="1" max="500" type="number" id="contextLength" name="contextLength"
                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                    required/>
           </div>
@@ -281,7 +294,7 @@
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
               Number of matched lines shown per note (default 2, Local REST API only)
             </label>
-            <input v-model="store.matchCount" min="0" max="10" type="number" id="matchCount" name="matchCount"
+            <input v-model="store.matchCount" :disabled="store.provider !== 'local-rest'" min="0" max="10" type="number" id="matchCount" name="matchCount"
                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                    required/>
           </div>
@@ -421,21 +434,22 @@ export default defineComponent({
 
     async setTheme(theme: Theme|null = null) {
       const {setColorScheme} = useTheme();
-      setColorScheme(document.body, theme ?? store.theme);
+      setColorScheme(document.body, theme ?? store.theme).then();
     },
 
     providerChanged() {
-      if (store.provider === 'local-rest') {
-        store.protocol = 'http://';
-        store.obsidianRestUrl = '127.0.0.1';
-        store.port = 27124;
-      } else {
-        store.protocol = 'http://';
-        store.obsidianRestUrl = 'localhost';
-        store.port = 51361;
-      }
-
-      this.checkApiKey().then();
+      setTimeout(()=>{
+        if (store.provider === 'local-rest') {
+          store.protocol = 'http://';
+          store.obsidianRestUrl = '127.0.0.1';
+          store.port = 27124;
+        } else {
+          store.protocol = 'http://';
+          store.obsidianRestUrl = 'localhost';
+          store.port = 51361;
+        }
+        this.checkApiKey().then();
+      },1);
     }
   }
 })
@@ -444,7 +458,7 @@ export default defineComponent({
 <style>
 @import "../style/main.css";
 
-#openVault[disabled=true] {
+[disabled] {
   pointer-events: none;
   opacity: 0.5;
   background: gray;
