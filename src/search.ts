@@ -130,7 +130,7 @@ export function useSearch(isLoadingInitial: boolean = false) {
             addEventListener('hashchange', detectSearchString);
             addEventListener('popstate', detectSearchString);
         } else {
-            setTimeout(initSearch, 5000);
+            setTimeout(initSearch, 100);
         }
     }
 

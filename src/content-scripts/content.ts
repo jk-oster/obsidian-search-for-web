@@ -4,54 +4,34 @@ import {createApp} from "vue";
 import {getFromExtStorage} from "../store.js";
 import {createIsolatedElement} from '@webext-core/isolated-element';
 import browser from 'webextension-polyfill';
-import GoogleResults from "../components/GoogleResults.vue";
-import BingResults from "../components/BingResults.vue";
-import DuckDuckGoResults from "../components/DuckDuckGoResults.vue";
-import KagiResults from "../components/KagiResults.vue";
+import {useTheme} from "../theme.js";
+import EmbeddedResults from "../components/EmbeddedResults.vue";
+import {extensionStorage} from "../storage.js";
+import {pageOptions} from "../config.js";
 
-const pageOptions = [
-    {
-        name: 'google',
-        regex: /^https:\/\/(www\.)?google\.com/,
-        selector: '#rhs',
-        component: GoogleResults
-    },
-    {
-        name: 'bing',
-        regex: /^https:\/\/(www\.)?bing\.com/,
-        selector: '#b_context',
-        component: BingResults
-    },
-    {
-        name: 'duckduckgo',
-        regex: /^https:\/\/(www\.)?duckduckgo\.com/,
-        selector: '[data-area=sidebar]',
-        component: DuckDuckGoResults
-    },
-    {
-        name: 'kagi',
-        regex: /^https:\/\/(www\.)?kagi\.com/,
-        selector: '.right-content-box',
-        component: KagiResults
+const {setColorScheme} = useTheme();
+
+async function setupEmbeddedResults() {
+    const embeddedResults = await extensionStorage.getItem('embeddedResults');
+
+    for (const option of pageOptions) {
+        const mountEl = document.querySelector(option.selector);
+
+        if (option.regex.test(window.location.href) && embeddedResults) {
+            console.log('Matched ', option);
+            if (!mountEl) continue;
+
+            const sidebar = document.createElement('div');
+            sidebar.style.width = '100%';
+            sidebar.style.fontSize = '20px';
+            sidebar.id = 'obsidian-browser-search-embedded-results';
+            mountEl.insertBefore(sidebar, mountEl.firstChild);
+            setColorScheme(sidebar).then();
+
+            createApp(EmbeddedResults).mount(sidebar);
+        }
     }
-];
-
-pageOptions.forEach(async (option) => {
-    const mountEl = document.querySelector(option.selector);
-    const embeddedResults = await getFromExtStorage('embeddedResults');
-
-    if (option.regex.test(window.location.href) && embeddedResults) {
-        console.log('Matched ', option);
-        if (!mountEl) return;
-
-        const sidebar = document.createElement('div');
-        sidebar.style.width = '100%';
-        sidebar.style.fontSize = '20px';
-        sidebar.id = 'obsidian-browser-search-embedded-results';
-        mountEl.insertBefore(sidebar, mountEl.firstChild);
-        createApp(option.component).mount(sidebar);
-    }
-});
+}
 
 async function setupSidebar() {
     const {parentElement, isolatedElement} = await createIsolatedElement({
@@ -64,8 +44,10 @@ async function setupSidebar() {
 
     document.body.appendChild(parentElement);
 
-    console.log(parentElement);
+    setColorScheme(isolatedElement).then();
+
     createApp(OffCanvas).mount(isolatedElement);
 }
 
+setupEmbeddedResults().then();
 setupSidebar().then();

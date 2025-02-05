@@ -14,9 +14,7 @@
           }} matches)</span>
       </h5>
     </a>
-    <div :role="store.provider === 'local-rest' ? 'button' : ''"
-         @click="store.provider === 'local-rest' ? openNotePreview() : null"
-         class="text-xs font-normal text-gray-700 dark:text-gray-400">
+    <div class="text-xs font-normal text-gray-700 dark:text-gray-400">
       <p class="mt-1 break-words" v-html="highlight(excerpt ?? '')">
       </p>
     </div>
@@ -28,7 +26,6 @@
 
 <script setup lang="ts">
 import {computed, ref} from "vue";
-import {store} from "../store.js";
 import NotePreview from "./NotePreview.vue";
 
 const props = defineProps({
@@ -45,22 +42,6 @@ const element = ref<HTMLElement>(null);
 
 const name = props.filename?.split('/')[props.filename?.split('/').length - 1] ?? '';
 const path = computed(() => highlight(props.filename?.replace(name, '') ?? ''))
-
-// watchEffect(() => {
-//   const showPopOver = isHovered.value && isSpecifiedKeyPressed.value;
-//   if (!HTMLElement.prototype.hasOwnProperty("popover")) {
-//     if(showPopOver) {
-//       // @ts-ignore
-//       popover.showPopover();
-//     } else {
-//       // @ts-ignore
-//       popover.hidePopover();
-//     }
-//   }
-// });
-
-function openNotePreview() {
-}
 
 function regex(searchString: string): RegExp {
   // build a regex from the search string: "foo bar" => (foo|bar)

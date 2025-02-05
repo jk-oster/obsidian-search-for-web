@@ -8,7 +8,7 @@
           </span>
     </div>
 
-    <div v-for="item of paginatedResults" class="b_algo" data-obsidian-result
+    <div v-for="item of paginatedResults" class="b_algo relative" data-obsidian-result
          style="padding-bottom: 10px; padding-top: 10px;">
 
       <h2 class="b_attribution">
@@ -28,7 +28,7 @@
                 <div class="tptt">Obsidian</div>
                 <div class="tpmeta">
                   <div style="line-height: 20px; font-size: 13px;">
-                    <cite>{{ item.path }}</cite>
+                    <cite>{{item.path ? item.path : '/'}}</cite>
                   </div>
                 </div>
               </div>
@@ -36,13 +36,15 @@
           </div>
 
           <span style="font-size: 20px;">
-                {{ item.basename }}
-              </span>
+            {{ item.basename }}
+          </span>
         </a>
       </h2>
       <p class="b_caption" style="margin-bottom: 3px;font-size: 14px;">{{ item.excerpt }}</p>
+      <NotePreview :filename="item.filename" :name="item.basename" :searchString="searchString"></NotePreview>
+
     </div>
-    <button style="margin-top: 0.5em; margin-bottom: 2em;" @click="showMore()">
+    <button v-if="totalMatches > paginatedResults.length" style="margin-top: 0.5em; margin-bottom: 2em;" @click="showMore()">
       Show more Obsidian results
     </button>
   </div>
@@ -50,15 +52,19 @@
 
 </template>
 
+
 <script lang="ts" setup>
 
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import {useSearch} from "../search.js";
 import Logo from "./Logo.vue";
 import {getTabService} from "../background-services/TabService.js";
+import LoadingSpinner from "./LoadingSpinner.vue";
+import NotePreview from "./NotePreview.vue";
+import {useTheme} from "../theme";
 
 const tabService = getTabService();
-const {paginatedResults, initSearch, displayNotesNumber} = useSearch(true);
+const {paginatedResults, totalMatches, initSearch, displayNotesNumber, isLoading, searchString} = useSearch(true);
 
 onMounted(async () => {
   await initSearch();
@@ -73,3 +79,7 @@ function openOptionsPage() {
 }
 
 </script>
+
+<style scoped>
+@import "../style/main.css";
+</style>

@@ -1,7 +1,7 @@
 <template>
   <LoadingSpinner class="scale-50" v-if="isLoading && paginatedResults?.length === 0"></LoadingSpinner>
 
-  <div v-if="paginatedResults?.length !== 0" style="width: 100%;">
+  <div ref="container" v-if="paginatedResults?.length !== 0" style="width: 100%;">
     <div style="margin-bottom: 1em">
       <span style="font-size: 18px; display: flex; align-items: baseline;">
           <Logo></Logo>
@@ -68,12 +68,13 @@
 
 <script lang="ts" setup>
 
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import {useSearch} from "../search.js";
 import Logo from "./Logo.vue";
 import {getTabService} from "../background-services/TabService.js";
 import LoadingSpinner from "./LoadingSpinner.vue";
 import NotePreview from "./NotePreview.vue";
+import {useTheme} from "../theme";
 
 const tabService = getTabService();
 const {paginatedResults, totalMatches, initSearch, displayNotesNumber, isLoading, searchString} = useSearch(true);

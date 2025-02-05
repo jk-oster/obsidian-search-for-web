@@ -61,6 +61,7 @@ export const config: ExtensionConfig = {
     excludes: 'Assets,Template,.excalidraw',
     highlight: true,
     embeddedResults: true,
+    theme: 'auto',
 
     currentUrl: '',
     searchString: '',
@@ -70,3 +71,26 @@ export const config: ExtensionConfig = {
     status: Status.offline,
     color: Colors.gray,
 };
+
+export const pageOptions = [
+    {
+        name: 'google',
+        regex: /^https:\/\/(www\.)?google\.com/,
+        selector: '#rhs',
+    },
+    {
+        name: 'bing',
+        regex: /^https:\/\/(www\.)?bing\.com/,
+        selector: '#b_context',
+    },
+    {
+        name: 'duckduckgo',
+        regex: /^https:\/\/(www\.)?duckduckgo\.com/,
+        selector: '[data-area=sidebar]',
+    },
+    {
+        name: 'kagi',
+        regex: /^https:\/\/(www\.)?kagi\.com/,
+        selector: '.right-content-box',
+    }
+];

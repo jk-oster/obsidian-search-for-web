@@ -242,6 +242,19 @@
             </label>
           </div>
 
+          <div class=" mb-6">
+            <label for="theme"
+                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
+              Select Color Scheme
+            </label>
+            <select v-model="store.theme" @change="setTheme(store.theme)" id="theme" name="theme" required
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option value="auto">Use Device Settings (default)</option>
+              <option value="light">Light Mode</option>
+              <option value="dark">Dark Mode</option>
+            </select>
+          </div>
+
           <div class="mb-6">
             <label for="minChars"
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -376,6 +389,7 @@
 import {defineComponent} from 'vue'
 import {syncStoreWithExtStorage, store} from "../store.js";
 import {getBadgeService} from "../background-services/BadgeService.js";
+import {useTheme} from "../theme.js";
 
 export default defineComponent({
   name: "OptionsPage",
@@ -402,6 +416,11 @@ export default defineComponent({
     async checkApiKey() {
       const badgeService = getBadgeService();
       this.infoText = (await badgeService.checkApiStatus(this.url, this.store.apiKey, this.store.provider)).statusText || '⚠️ Not connected with Obsidian';
+    },
+
+    async setTheme() {
+      const {setColorScheme} = useTheme();
+      setColorScheme(document.body, store.theme);
     },
 
     providerChanged() {
