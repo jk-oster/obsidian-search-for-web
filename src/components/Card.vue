@@ -40,6 +40,7 @@ const props = defineProps({
   vaultName: String,
 });
 
+// @ts-ignore
 const element = ref<HTMLElement>(null);
 
 const name = props.filename?.split('/')[props.filename?.split('/').length - 1] ?? '';

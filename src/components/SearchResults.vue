@@ -1,24 +1,24 @@
 <template>
   <div class="flex justify-between" style="font-size: 20px">
     <button @click="openOptionsPage" title="Open Settings"
-      class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+      class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
       <span class="sr-only">
         Settings
       </span>
       <span>
-        <Cog class="w-6 h-6"></Cog>
+        <Cog class="w-6 h-6 text-gray-900 dark:text-gray-400"></Cog>
       </span>
     </button>
 
     <a :href="'obsidian://search?query=' + encodeURIComponent(store.searchString) + '&vault=' + encodeURIComponent(store.vault)" v-if="searchMode != SearchModes.urlMatch" @click="searchInObsidianGui"
-            class="no-underline focus:outline-none text-white text-sm bg-purple-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg px-3 pt-[0.67em] pb-1 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+            class="no-underline focus:outline-hidden text-white text-sm bg-purple-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg px-3 pt-[0.67em] pb-1 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
       <span>
         Open Search in Obsidian
       </span>
     </a>
 
     <button @click="toggleSidebar" title="Hide"
-      class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+      class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
       <span class="sr-only">
         Hide
       </span>
@@ -38,7 +38,7 @@
     </template>
   </div>
   <button v-if="totalMatches > 6" @click="showMore()"
-          class="text-white mt-2 bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-1.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+          class="text-white mt-2 bg-gray-800 hover:bg-gray-900 focus:outline-hidden focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-1.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
     Show more results
   </button>
 </template>
@@ -64,7 +64,7 @@ const {
   paginatedResults,
   displayNotesNumber,
   totalMatches,
-} = await useSearch();
+} = useSearch();
 
 onMounted(async () => {
   await syncStoreWithExtStorage();
