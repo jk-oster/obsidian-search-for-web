@@ -1,4 +1,3 @@
-import {ref} from "vue";
 import {store} from "./store";
 
 export function useHighlight() {

@@ -1,6 +1,6 @@
 import {defineProxyService} from '@webext-core/proxy-service';
 import browser from "webextension-polyfill";
-import type {BadgeActionData, Color, SearchProvider, State} from "../types.js";
+import type {Color, SearchProvider, State} from "../types.js";
 import {Status, StatusColorMapping} from "../config.js";
 import {extensionStorage} from "../storage.js";
 
@@ -47,7 +47,6 @@ class BadgeService {
     }
 
     async checkApiStatus(url: string, apiKey: string | null, provider: SearchProvider) {
-        // console.log(url, apiKey);
         const options = {
             method: 'GET',
             headers: {
@@ -56,7 +55,7 @@ class BadgeService {
         };
 
         let statusText = '';
-        let status = Status.unknown;
+        let status: string;
         let text = ' ';
 
         try {

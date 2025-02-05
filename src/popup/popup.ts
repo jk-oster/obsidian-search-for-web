@@ -1,5 +1,5 @@
 // @ts-ignore
-import OffCanvas from "@/components/OffCanvas.vue";
+import SearchResults from "@/components/SearchResults.vue";
 import { createApp } from "vue";
 
-createApp(OffCanvas).mount("body");
+createApp(SearchResults).mount("body");

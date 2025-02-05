@@ -1,8 +1,7 @@
 // @ts-ignore
 import OffCanvas from "@/components/OptionsPage.vue";
 import { createApp } from "vue";
-import {detectColorScheme} from "../util";
-import {useTheme} from "../theme";
+import {useTheme} from "../theme.js";
 
 const {setColorScheme} = useTheme();
 setColorScheme(document.body).then();
