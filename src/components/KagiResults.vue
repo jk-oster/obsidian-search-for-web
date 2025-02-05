@@ -1,6 +1,8 @@
 <template>
 
-    <template v-if="matches?.length !== 0">
+    <LoadingSpinner v-if="isLoading && paginatedResults?.length === 0"></LoadingSpinner>
+
+    <template v-if="paginatedResults?.length !== 0">
             
         <div style="margin-bottom: 1em;">
             <span style="font-size: 1.2em"><Logo></Logo>&nbsp;Obsidian results</span>
@@ -9,7 +11,7 @@
             </span>
         </div> 
             
-        <div v-for="item of matches" class="_0_SRI search-result" data-highlight="" data-obsidian-result>
+        <div v-for="item of paginatedResults" class="_0_SRI search-result" data-highlight="" data-obsidian-result>
             <div class="_0_TITLE __sri-title">
                 <h3 class="__sri-title-box">
                     <a class="__sri_title_link _0_sri_title_link _0_URL"
@@ -47,28 +49,25 @@
 
 <script lang="ts" setup>
 
-import { ref, onMounted, watch } from "vue";
-import { syncRef } from "@vueuse/core";
-import { useSearch } from "../search.js";
-import { NoteMatch } from "../types.js";
+import {onMounted} from "vue";
+import {useSearch} from "../search.js";
 import Logo from "./Logo.vue";
-import { openOptionsPage } from "../service.js";
+import {getTabService} from "../background-services/TabService.js";
+import LoadingSpinner from "./LoadingSpinner.vue";
 
-const matches = ref<NoteMatch[]>([]);
-const displayNotesCount = ref<number>(6);
+const tabService = getTabService();
+const {paginatedResults, initSearch, displayNotesNumber, isLoading} = useSearch(true);
 
 onMounted(async () => {
-  const {paginatedResults, initSearch, displayNotesNumber} = await useSearch();
-  watch(paginatedResults, (value) => {
-    // @ts-ignore
-    matches.value = value;
-  });
-  syncRef(displayNotesNumber, displayNotesCount);
   await initSearch();
 });
 
 function showMore() {
-  displayNotesCount.value += 6;
+  displayNotesNumber.value += 6;
+}
+
+function openOptionsPage() {
+  tabService.openOptionsPage()
 }
 
 </script>

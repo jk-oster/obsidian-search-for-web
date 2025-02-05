@@ -108,7 +108,8 @@
                   d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                   clip-rule="evenodd"></path>
           </svg>
-          DIFFERENT SEARCH PLUGINS: Choose between the "Omni Search" Plugin and the "Local REST" Plugin to power your Obsidian Web Search
+          DIFFERENT SEARCH PLUGINS: Choose between the "Omni Search" Plugin and the "Local REST" Plugin to power your
+          Obsidian Web Search
         </li>
       </ul>
       <h3 id="privacy" class="my-2 text-xl font-semibold text-gray-900 dark:text-white">
@@ -232,7 +233,11 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                  Embed search results on Search-Engines (supports <a href="https://google.com" class="underline">Google</a>, <a href="https://duckduckgo.com" class="underline">DuckDuckGo</a>, <a href="https://bing.com" class="underline">Bing</a>, <a href="https://kagi.com" class="underline">Kagi</a>)
+                  Embed search results on Search-Engines (supports <a href="https://google.com"
+                                                                      class="underline">Google</a>, <a
+                  href="https://duckduckgo.com" class="underline">DuckDuckGo</a>, <a href="https://bing.com"
+                                                                                     class="underline">Bing</a>, <a
+                  href="https://kagi.com" class="underline">Kagi</a>)
               </span>
             </label>
           </div>
@@ -243,7 +248,7 @@
               Number of characters in search input to trigger live search (default
               2)
             </label>
-            <input v-model="store.minChars"  min="1" max="10" type="number" id="minChars" name="minChars"
+            <input v-model="store.minChars" min="1" max="10" type="number" id="minChars" name="minChars"
                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                    required/>
           </div>
@@ -253,7 +258,7 @@
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
               Search context length (default 50 characters, Local REST API only)
             </label>
-            <input v-model="store.contextLength"  min="1" max="500" type="number" id="contextLength" name="contextLength"
+            <input v-model="store.contextLength" min="1" max="500" type="number" id="contextLength" name="contextLength"
                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                    required/>
           </div>
@@ -316,7 +321,8 @@
           very welcome.
         </p>
         <p>
-          If you encounter any issues with the extension feel free to open an issue on <a class="underline" href="https://github.com/jk-oster/obsidian-search-for-web/issues">GitHub</a>.
+          If you encounter any issues with the extension feel free to open an issue on <a class="underline"
+                                                                                          href="https://github.com/jk-oster/obsidian-search-for-web/issues">GitHub</a>.
         </p>
 
         <h3 class="my-4 text-xl font-semibold text-gray-900 dark:text-white">
@@ -368,8 +374,8 @@
 
 <script lang="ts">
 import {defineComponent} from 'vue'
-import {checkApiKey as apiCheck} from '../util.js';
 import {syncStoreWithExtStorage, store} from "../store.js";
+import {getBadgeService} from "../background-services/BadgeService.js";
 
 export default defineComponent({
   name: "OptionsPage",
@@ -389,12 +395,13 @@ export default defineComponent({
 
   async mounted() {
     await syncStoreWithExtStorage();
-    this.infoText = (await apiCheck(this.url, this.store.apiKey, this.store.provider)).statusText || '⚠️ Not connected with Obsidian';
+    this.checkApiKey().then();
   },
 
   methods: {
     async checkApiKey() {
-      this.infoText = (await apiCheck(this.url, this.store.apiKey, this.store.provider)).statusText || '⚠️ Not connected with Obsidian';
+      const badgeService = getBadgeService();
+      this.infoText = (await badgeService.checkApiStatus(this.url, this.store.apiKey, this.store.provider)).statusText || '⚠️ Not connected with Obsidian';
     },
 
     providerChanged() {
@@ -408,7 +415,7 @@ export default defineComponent({
         store.port = 51361;
       }
 
-      this.checkApiKey();
+      this.checkApiKey().then();
     }
   }
 })

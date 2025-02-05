@@ -1,6 +1,7 @@
 <template>
-  <button v-if="store.showInPageIcon && !store.show && Number(store.results) > 0"
-          class="popup-button fixed right-1 top-1/2 rounded-full p-2 mr-2 text-sm font-medium text-gray-900 focus:outline-none bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" @click="toggleSidebar">
+  <button v-if="store.showInPageIcon && !store.show && Number(searchResults.length) > 0"
+          class="popup-button fixed right-1 top-1/2 rounded-full p-2 mr-2 text-sm font-medium text-gray-900 focus:outline-none bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+          @click="toggleSidebar">
     <span style="font-size: 18px;">
       <!-- <img src="/icon/icon128.png" alt=""> -->
       <Logo></Logo>
@@ -9,50 +10,40 @@
       Show Obsidian Search
     </span>
   </button>
-  <div :class="(showPopup ? ' translate-x-0 ' : ' translate-x-full ') + ' max-h-screen popup-container fixed duration-300 ease-in-out right-0 top-0 dark bg-gray-900 p-2 rounded overflow-auto'">
-    <SearchResults @update:matches="childMatches($event)"></SearchResults>
+  <div
+      :class="(showPopup ? ' translate-x-0 ' : ' translate-x-full ') + ' max-h-screen popup-container fixed duration-300 ease-in-out right-0 top-0 dark bg-gray-900 p-2 rounded overflow-auto'">
+    <Suspense>
+      <SearchResults @update:matches="childMatches($event)"></SearchResults>
+    </Suspense>
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 
 import SearchResults from './SearchResults.vue';
 import Logo from './Logo.vue';
-import {defineComponent} from 'vue'
-import { store, syncStoreWithExtStorage } from '../store.js';
+import {computed, onMounted, ref} from 'vue'
+import {store, syncStoreWithExtStorage} from '../store.js';
 import {NoteMatch} from "../types.js";
 
-export default defineComponent({
-  name: "OffCanvas",
-  components: { SearchResults, Logo },
+const searchResults = ref<NoteMatch[]>([]);
 
-  data() {
-    return {
-      store,
-      matches: [] as NoteMatch[],
-    }
-  },
-  async mounted() {
-    await syncStoreWithExtStorage();
-    store.currentUrl = location.href;
-  },
-  computed: {
-    showPopup(): boolean {
-      return Boolean(Number(this.matches.length) > 0 && store.searchString?.length > store.minChars && store.show);
-    },
-  },
-  methods: {
-    toggleSidebar(): void {
-      store.show = !store.show;
-    },
+const showPopup = computed(() => Boolean(Number(searchResults.value.length) > 0 && store.searchString?.length > store.minChars && store.show))
 
-    childMatches({matches, searchString}: {matches: NoteMatch[], searchString: string}) {
-      // console.log(matches);
-      this.matches = matches;
-      store.searchString = searchString;
-    }
-  }
+onMounted(async () => {
+  await syncStoreWithExtStorage();
+  store.currentUrl = location.href;
 });
+
+function toggleSidebar(): void {
+  store.show = !store.show;
+}
+
+function childMatches({matches, searchString}: { matches: NoteMatch[], searchString: string }) {
+  // console.log(matches);
+  searchResults.value = matches;
+  store.searchString = searchString;
+}
 </script>
 
 <style scoped>

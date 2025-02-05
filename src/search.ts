@@ -1,55 +1,48 @@
-import { getFromExtStorage } from "./store.js";
-import { Actions, Status, SearchModes } from "./config.js";
-import { LocalRestNoteMatch, NoteMatch, OmniSearchNoteMatch } from "./types";
-import { sendToRuntime } from "./service.js";
-import { ref, readonly, computed } from 'vue';
-import {checkApiKey} from './util.js';
-import { useDebounce, useDebounceFn } from "@vueuse/core";
+import {getFromExtStorage, store} from "./store.js";
+import {Status, SearchModes} from "./config.js";
+import {NoteMatch} from "./types.js";
+import {ref, computed, watch} from 'vue';
+import {useDebounceFn} from "@vueuse/core";
+import {getNoteService} from "./background-services/NoteService.js";
+import {getBadgeService} from "./background-services/BadgeService.js";
 
-export async function useSearch() {
-    const searchUrls = (await getFromExtStorage('searchUrls')).split(',').map((url: string) => url.trim());
-    const minChars = ref<number>(await getFromExtStorage('minChars'));
-    const apiKey = await getFromExtStorage('apiKey');
-    const protocol = await getFromExtStorage('protocol');
-    const port = await getFromExtStorage('port');
-    const obsidianRestUrl = await getFromExtStorage('obsidianRestUrl');
-    const contextLength = await getFromExtStorage('contextLength');
-    const matchCount = await getFromExtStorage('matchCount');
-    const provider = await getFromExtStorage('provider');
-    const excludes = await getFromExtStorage('excludes');
-    const noteNumber = await getFromExtStorage('noteNumber');
-    const vault = await getFromExtStorage('vault');
+const noteService = getNoteService();
+const badgeService = getBadgeService();
+
+export function useSearch(isLoadingInitial: boolean = false) {
+
+    const config = store;
+    const searchUrls = computed(() => config.searchUrls.split(',').map((url: string) => url.trim()));
 
     const searchString = ref<string>('');
     const searchResults = ref<NoteMatch[]>([]);
-    const isLoading = ref<boolean>(false);
+    const isLoading = ref<boolean>(isLoadingInitial);
     const searchMode = ref<string>('');
     const searchInputElement = ref<Element | null>(null);
     const connectionStatus = ref<string>('');
-    const displayNotesNumber = ref<number>(noteNumber);
+    const displayNotesNumber = ref<number>(store.noteNumber);
     const paginatedResults = computed(() => searchResults.value?.slice(0, displayNotesNumber.value));
-    
+    const totalMatches = computed(() => searchResults.value.length ?? 0);
+
     const debouncedFetchNotes = useDebounceFn(() => {
         fetchNotes(searchString.value);
     });
 
-    const detectConnection = async() => {
-        
-        const url = protocol + obsidianRestUrl + ':' + port;
-        const {status} = await checkApiKey(url, apiKey, provider);
+    const detectConnection = async () => {
+        const url = store.protocol + store.obsidianRestUrl + ':' + store.port;
+        const {status} = await badgeService.checkApiStatus(url, store.apiKey, store.provider);
         connectionStatus.value = status ?? Status.unknown;
-
         return connectionStatus.value;
     }
 
     const detectSearchMode = () => {
-        if(searchUrls.length === 0) {
+        if (searchUrls.value.length === 0) {
             searchMode.value = SearchModes.urlMatch;
             return;
         }
 
         const currentUrl = window.location.href;
-        if(searchUrls.some((url: string) => currentUrl.includes(url))) {
+        if (searchUrls.value.some((url: string) => currentUrl.includes(url))) {
             searchMode.value = SearchModes.search;
         } else {
             searchMode.value = SearchModes.urlMatch;
@@ -63,16 +56,19 @@ export async function useSearch() {
         if (input && input !== searchInputElement.value) {
             searchInputElement.value = input;
 
-            input.addEventListener('keyup', () => {
-                searchString.value = (input as HTMLInputElement).value;
-                debouncedFetchNotes();
+            input.addEventListener('keyup', (event) => {
+                // @ts-ignore
+                if (!event?.ctrlKey) {
+                    searchString.value = (input as HTMLInputElement).value;
+                    debouncedFetchNotes();
+                }
             });
         }
         return searchInputElement.value;
     }
 
     const detectSearchString = () => {
-        if(detectSearchMode() === SearchModes.urlMatch) {
+        if (detectSearchMode() === SearchModes.urlMatch) {
             searchString.value = window.location.href;
             debouncedFetchNotes();
             return;
@@ -87,9 +83,9 @@ export async function useSearch() {
     const fetchNotes = async (query: string) => {
         isLoading.value = true;
 
-        // console.log('query: ', query);
+        console.log('query: ', query);
 
-        if (!query || query.length < minChars.value) {
+        if (!query || query.length < store.minChars) {
             searchResults.value = [];
             isLoading.value = false;
             return;
@@ -97,103 +93,39 @@ export async function useSearch() {
 
         try {
 
-            let data = [];
-            if (provider === 'local-rest') {
-                data = await fetchLocalRest(query);
-                // console.log('data', data);
-                const match = query?.toLowerCase();
-                data?.sort((a: any, b: any) => {
-                    const aIndexMatch = a.filename.toLowerCase().indexOf(match);
-                    const bIndexMatch = b.filename.toLowerCase().indexOf(match);
-                    if (aIndexMatch > bIndexMatch) return -1;
-                    if (aIndexMatch < bIndexMatch) return 1;
-                    return 0;
-                });
-                data = data.map(mapLocalRestToNoteMatch);
-            } else if (provider === 'omni-search') {
-                data = await fetchOmniSearch(query);
-                // console.log('data', data);
-                data = data.map(mapOmniSearchToNoteMatch);
+            let notes: NoteMatch[] = [];
+            if (store.provider === 'local-rest') {
+                notes = await noteService.fetchLocalRest(query, config);
+            } else if (store.provider === 'omni-search') {
+                notes = await noteService.fetchOmniSearch(query, config);
             }
 
-            // console.log('data', data);
-    
-            if (excludes && excludes.split(',')[0] != '') {
-                data = data?.filter((note: NoteMatch) => {
-                    return excludes.split(',').every((exclude: string) => !note.filename.includes(exclude))
+            if (store.excludes && store.excludes.split(',')[0] != '') {
+                notes = notes?.filter((note: NoteMatch) => {
+                    return store.excludes.split(',').every((exclude: string) => !note.filename.includes(exclude))
                 }) ?? [];
             }
-    
-            sendToRuntime({action: Actions.badge, data: {text: data ? data?.length.toString() : '0'}});
-    
-            searchResults.value = data;
+
+            badgeService.setBadgeStatus(Status.search).then();
+            badgeService.setBadgeText(notes ? notes?.length.toString() : '0').then();
+
+            searchResults.value = notes;
         } catch (error) {
             console.log(error);
-            sendToRuntime({action: Actions.badge, data: {text: 'off', status: Status.offline}});
-            
+
+            badgeService.setBadgeStatus(Status.offline).then();
+            badgeService.setBadgeText('off').then();
+
             searchResults.value = [];
+        } finally {
+            isLoading.value = false;
         }
-        isLoading.value = false;
+
+        console.log(searchResults.value);
     }
 
-    const fetchLocalRest = async(query: string) => {
-        const options = {
-            method: "POST",
-            headers: {
-            "Content-Type": "application/json",
-            Authorization:
-                "Bearer " + apiKey,
-            }
-        };
-
-        const url = protocol + obsidianRestUrl + ':' + port + "/search/simple/?query=" + query + "&contextLength=" + contextLength;
-
-        const resp = await fetch(url, options);
-        const data = await resp.json();
-        return data
-    }
-
-    const fetchOmniSearch = async(query: string) => {
-        const options = {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        };
-
-        const url = protocol + obsidianRestUrl + ':' + port + "/search?q=" + query;
-        const resp = await fetch(url, options);
-        const data = await resp.json();
-        return data
-    }
-
-    function mapOmniSearchToNoteMatch(data: OmniSearchNoteMatch) {
-        return {
-            filename: data.path + '/' + data.basename,
-            path: data.path,
-            basename: data.basename,
-            score: data.score,
-            matchesCount: data.matches.length,
-            excerpt: matchCount == 0 ? '' : data.excerpt.replaceAll(/<br.?\/?>/g, ' '),
-            url: 'obsidian://open?vault=' + encodeURIComponent(vault ?? '') + '&file=' + encodeURIComponent(data.basename ?? '')
-        }
-    }
-
-    function mapLocalRestToNoteMatch(data: LocalRestNoteMatch) {
-        const baseName = data.filename?.split('/')[data.filename?.split('/').length - 1] ?? '';
-        return {
-            filename: data.filename,
-            path: data.filename?.replace(baseName,''),
-            basename: baseName,
-            score: data.score,
-            matchesCount: data.matchesCount,
-            excerpt: data.matches.map((match: any) => match.context).slice(0, matchCount).join(' ... ').replaceAll(/<br.?\/?>/g, ' '),
-            url: 'obsidian://open?vault=' + encodeURIComponent(vault ?? '') + '&file=' + encodeURIComponent(baseName ?? '')
-        }
-    }
-
-    const initSearch = async() => {
-        if(await detectConnection() === Status.search) {
+    const initSearch = async () => {
+        if (await detectConnection() === Status.search) {
             detectSearchString();
             addEventListener('hashchange', detectSearchString);
             addEventListener('popstate', detectSearchString);
@@ -210,6 +142,7 @@ export async function useSearch() {
         searchInputElement: searchInputElement,
         connectionStatus: connectionStatus,
         isLoading: isLoading,
+        totalMatches: totalMatches,
         fetchNotes,
         detectSearchString,
         initSearch,

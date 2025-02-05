@@ -10,7 +10,7 @@
       </span>
     </button>
 
-    <a :href="'obsidian://search?query=' + encodeURIComponent(store.searchString) + '&vault=' + encodeURIComponent(store.vault)" v-if="mode != SearchModes.urlMatch" @click="searchInObsidianGui"
+    <a :href="'obsidian://search?query=' + encodeURIComponent(store.searchString) + '&vault=' + encodeURIComponent(store.vault)" v-if="searchMode != SearchModes.urlMatch" @click="searchInObsidianGui"
             class="no-underline focus:outline-none text-white text-sm bg-purple-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg px-3 pt-[0.67em] pb-1 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
       <span>
         Open Search in Obsidian
@@ -29,10 +29,10 @@
   </div>
   <div
       class="text-xs max-w-xs lg:max-w-sm tracking-tight text-gray-700 dark:text-gray-300 mb-2 break-words">
-    Searching for: "{{ store.searchString }}", {{ matches.length }} result(s) of {{ totalMatches ?? 0 }}
+    Searching for: "{{ store.searchString }}", {{ paginatedResults.length }} result(s) of {{ totalMatches ?? 0 }}
   </div>
   <div class="obsidian-search-highlight-area">
-    <template v-for="note of matches" :key="note.score">
+    <template v-for="note of paginatedResults" :key="note.score">
       <Card :filename="note.filename" :excerpt="note.excerpt" :matchesCount="note.matchesCount ?? 0"
             :showMatchesCount="store.matchCount" :searchString="store.searchString" :vaultName="store.vault"></Card>
     </template>
@@ -45,53 +45,37 @@
 
 <script lang="ts" setup>
 
-import { ref, onMounted, watchEffect, watch, defineEmits } from "vue";
-import { syncRef } from "@vueuse/core";
-import { computed } from 'vue';
+import { onMounted, watchEffect, defineEmits } from "vue";
 import { store, syncStoreWithExtStorage } from '../store.js';
 import {SearchModes} from "../config.js";
 import { useSearch } from '../search.js';
-import type {NoteMatch} from "../types.js";
 import Card from './Card.vue';
 import Eye from "./Eye.vue";
 import Cog from "./Cog.vue";
-import { openOptionsPage } from "../service.js";
+import {getTabService} from "../background-services/TabService.js";
 
-const mode = ref<string>('');
-const matches = ref<NoteMatch[]>([]);
-const queryString = ref<string>('');
-const displayNotesCount = ref<number>(6);
-const totalMatches = ref<number>(0);
+const tabService = getTabService();
+
+const {
+  searchString,
+  searchMode,
+  searchResults,
+  initSearch,
+  paginatedResults,
+  displayNotesNumber,
+  totalMatches,
+} = await useSearch();
 
 onMounted(async () => {
   await syncStoreWithExtStorage();
-
-  const {
-    searchString,
-    searchMode,
-    searchResults,
-    initSearch,
-    paginatedResults,
-    displayNotesNumber
-  } = await useSearch();
-
-  watch(paginatedResults, (value) => { 
-    // @ts-ignore
-    matches.value = value;
-    totalMatches.value = searchResults.value.length;
-  });
-  syncRef(displayNotesNumber, displayNotesCount);
-  syncRef(searchMode, mode);
-  syncRef(searchString, queryString);
-
   await initSearch();
 });
 
 const emit = defineEmits(['update:matches']);
 watchEffect(() => {
   emit('update:matches', {
-    matches: matches.value,
-    searchString: queryString.value
+    matches: searchResults.value,
+    searchString: searchString.value
   });
 });
 
@@ -105,7 +89,11 @@ function searchInObsidianGui(): void {
 }
 
 function showMore() {
-  displayNotesCount.value = displayNotesCount.value + 6;
+  displayNotesNumber.value = displayNotesNumber.value + 6;
+}
+
+function openOptionsPage() {
+  tabService.openOptionsPage();
 }
 </script>
 
