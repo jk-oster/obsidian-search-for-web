@@ -2,6 +2,7 @@ export type Color = string;
 export type State = string;
 export type Action = string;
 export type Mode = string;
+export type Theme = 'auto' | 'light' | 'dark';
 export type SearchProvider = 'local-rest' | 'omni-search';
 export type MessageData = BadgeActionData | OpenUrlActionData;
 
@@ -109,6 +110,7 @@ export interface ExtensionConfig {
     excludes: string,
     highlight: boolean,
     embeddedResults: boolean,
+    theme: Theme,
 
     currentUrl: string,
     searchString: string,

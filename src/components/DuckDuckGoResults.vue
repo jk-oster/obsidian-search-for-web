@@ -1,4 +1,6 @@
 <template>
+  <LoadingSpinner class="scale-50" v-if="isLoading && paginatedResults?.length === 0"></LoadingSpinner>
+
   <div v-if="paginatedResults?.length !== 0" style="width: 100%;">
     <div style="margin-bottom: 1em;">
       <span class="Ee2e63EzQ9F3xq9wsGDY" style="font-size: 1.2em">
@@ -10,7 +12,7 @@
       </span>
     </div>
 
-    <div v-for="item of paginatedResults" data-omnisearch-result style="margin-bottom: 2rem;">
+    <div v-for="item of paginatedResults" class="relative" data-omnisearch-result style="margin-bottom: 2rem;">
 
       <div>
         <a :href="item.url" style="cursor: pointer;" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
@@ -42,9 +44,12 @@
           </p>
         </div>
       </div>
+
+      <NotePreview :filename="item.filename" :name="item.basename" :searchString="searchString"></NotePreview>
+
     </div>
 
-    <button style="margin-bottom: 1em;" @click="showMore()">
+    <button v-if="totalMatches > paginatedResults.length" style="margin-bottom: 1em;" @click="showMore()">
       Show more Obsidian results
     </button>
   </div>
@@ -54,13 +59,16 @@
 
 <script lang="ts" setup>
 
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import {useSearch} from "../search.js";
 import Logo from "./Logo.vue";
 import {getTabService} from "../background-services/TabService.js";
+import LoadingSpinner from "./LoadingSpinner.vue";
+import NotePreview from "./NotePreview.vue";
+import {useTheme} from "../theme";
 
 const tabService = getTabService();
-const {paginatedResults, initSearch, displayNotesNumber} = useSearch(true);
+const {paginatedResults, totalMatches, initSearch, displayNotesNumber, isLoading, searchString} = useSearch(true);
 
 onMounted(async () => {
   await initSearch();
@@ -75,3 +83,7 @@ function openOptionsPage() {
 }
 
 </script>
+
+<style scoped>
+@import "../style/main.css";
+</style>

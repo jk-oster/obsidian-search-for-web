@@ -11,7 +11,7 @@
             </span>
         </div> 
             
-        <div v-for="item of paginatedResults" class="_0_SRI search-result" data-highlight="" data-obsidian-result>
+        <div v-for="item of paginatedResults" class="_0_SRI search-result relative" data-highlight="" data-obsidian-result>
             <div class="_0_TITLE __sri-title">
                 <h3 class="__sri-title-box">
                     <a class="__sri_title_link _0_sri_title_link _0_URL"
@@ -26,7 +26,7 @@
             <div class="__sri-url-box">
                 <a class="_0_URL __sri-url" :href="item.url" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
                     <div class="__sri_url_path_box">
-                        <span class="host"> <Logo></Logo> Obsidian</span>&nbsp;<span class="path">› {{item.path}}</span>
+                        <span class="host"> <Logo></Logo> Obsidian</span>&nbsp;<span class="path">› {{item.path ? item.path : '/'}}</span>
                     </div>
                 </a>
             </div>
@@ -37,9 +37,10 @@
                     </div>
                 </div>
             </div>
+          <NotePreview :filename="item.filename" :name="item.basename" :searchString="searchString"></NotePreview>
         </div>
 
-        <button style="margin-bottom: 1em;" @click="showMore()">
+        <button v-if="totalMatches > paginatedResults.length" style="margin-bottom: 1em;" @click="showMore()">
             Show more Obsidian results
         </button>
                         
@@ -49,14 +50,16 @@
 
 <script lang="ts" setup>
 
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import {useSearch} from "../search.js";
 import Logo from "./Logo.vue";
 import {getTabService} from "../background-services/TabService.js";
 import LoadingSpinner from "./LoadingSpinner.vue";
+import NotePreview from "./NotePreview.vue";
+import {useTheme} from "../theme";
 
 const tabService = getTabService();
-const {paginatedResults, initSearch, displayNotesNumber, isLoading} = useSearch(true);
+const {paginatedResults, totalMatches, initSearch, displayNotesNumber, isLoading, searchString} = useSearch(true);
 
 onMounted(async () => {
   await initSearch();
@@ -71,3 +74,7 @@ function openOptionsPage() {
 }
 
 </script>
+
+<style scoped>
+@import "../style/main.css";
+</style>
