@@ -16,24 +16,13 @@ browser.runtime.onInstalled.addListener(async () => {
     browser.action.setBadgeText({text: ' '}).then();
     browser.action.setBadgeBackgroundColor({color: Colors.gray}).catch(console.log);
 
-    // Set default config
+    // Set default config on first launch & install
     const provider = await extensionStorage.getItem('provider');
     if (!provider) {
         browser.storage.sync.set(config).then();
         browser.runtime.openOptionsPage().then();
     }
 });
-
-async function getCurrTabId(matches = null) {
-    return browser.tabs.query({active: true, currentWindow: true}).then((tabs) => {
-        const currTab = tabs[0];
-        // @ts-ignore
-        if (currTab && (!matches || matches.test(currTab.url))) {
-            return currTab.id;
-        }
-        return undefined;
-    })
-}
 
 browser.action.onClicked.addListener(async (tab) => {
     // console.log('clicked');

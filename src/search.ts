@@ -25,7 +25,7 @@ export function useSearch(isLoadingInitial: boolean = false) {
     const totalMatches = computed(() => searchResults.value.length ?? 0);
 
     const debouncedFetchNotes = useDebounceFn(() => {
-        fetchNotes(searchString.value);
+        fetchNotes(searchString.value).then();
     });
 
     const detectConnection = async () => {
@@ -60,7 +60,7 @@ export function useSearch(isLoadingInitial: boolean = false) {
                 // @ts-ignore
                 if (!event?.ctrlKey) {
                     searchString.value = (input as HTMLInputElement).value;
-                    debouncedFetchNotes();
+                    debouncedFetchNotes().then();
                 }
             });
         }
@@ -70,13 +70,13 @@ export function useSearch(isLoadingInitial: boolean = false) {
     const detectSearchString = () => {
         if (detectSearchMode() === SearchModes.urlMatch) {
             searchString.value = window.location.href;
-            debouncedFetchNotes();
+            debouncedFetchNotes().then();
             return;
         }
 
         let params = new URLSearchParams(window.location.href.split('?')[1] ?? '');
         searchString.value = params.get('q') ?? params.get('query') ?? params.get('search') ?? '';
-        debouncedFetchNotes();
+        debouncedFetchNotes().then();
         detectInputElement();
     }
 

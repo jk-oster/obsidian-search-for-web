@@ -1,4 +1,3 @@
-<!--suppress ALL -->
 <template>
   <div
       ref="element"

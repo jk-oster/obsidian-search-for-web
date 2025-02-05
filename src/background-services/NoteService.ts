@@ -1,5 +1,5 @@
 import {defineProxyService} from '@webext-core/proxy-service';
-import type {LocalRestNoteMatch, Note, NoteMatch, OmniSearchNoteMatch} from "../types.js";
+import type {LocalRestNoteMatch, NoteMatch, OmniSearchNoteMatch} from "../types.js";
 
 class NoteService {
 

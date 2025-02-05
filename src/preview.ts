@@ -1,11 +1,10 @@
 import {store} from "./store.js";
-import {ref, watch} from 'vue';
-import {useDebounceFn} from "@vueuse/core";
+import {ref} from 'vue';
 import {getNoteService} from "./background-services/NoteService.js";
 
 const noteService = getNoteService();
 
-export function usePreview(initialFileName: string = '') {
+export function usePreview() {
 
     const config = store;
 
