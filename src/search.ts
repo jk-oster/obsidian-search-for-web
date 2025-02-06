@@ -52,7 +52,7 @@ export function useSearch(isLoadingInitial: boolean = false) {
     }
 
     const detectInputElement = () => {
-        const input = document.querySelector("input[aria-label=Suche], input[aria-label=Search], input[name=q], input[data-testid='search-input'], input[type=search], textarea[name=q], textarea[type=search], textarea[aria-label=Suche], textarea[aria-label=Search]");
+        const input = document.querySelector("input[placeholder='Search the web'],input[aria-label=Suche], input[aria-label=Search], input[name=q], input[data-testid='search-input'], input[type=search], textarea[name=q], textarea[type=search], textarea[aria-label=Suche], textarea[aria-label=Search]");
         if (input && input !== searchInputElement.value) {
             searchInputElement.value = input;
 
@@ -74,10 +74,12 @@ export function useSearch(isLoadingInitial: boolean = false) {
             return;
         }
 
+        const searchInput = detectInputElement() as HTMLInputElement|null;
         let params = new URLSearchParams(window.location.href.split('?')[1] ?? '');
-        searchString.value = params.get('q') ?? params.get('query') ?? params.get('search') ?? '';
+        searchString.value = params.get('q') ?? params.get('query') ?? params.get('search') ?? searchInput?.value ?? '';
         debouncedFetchNotes().then();
-        detectInputElement();
+
+        console.log(searchString.value);
     }
 
     const fetchNotes = async (query: string) => {

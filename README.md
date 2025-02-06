@@ -37,6 +37,7 @@ This extension supports embedding search results in the following search engines
 - qwant.com
 - kagi.com
 - duckduckgo.com
+- search.yahoo.com
 
 Evaluated and not supported are:
 - search.brave.com
