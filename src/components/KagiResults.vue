@@ -26,7 +26,7 @@
             <div class="__sri-url-box">
                 <a class="_0_URL __sri-url" :href="item.url" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
                     <div class="__sri_url_path_box">
-                        <span class="host"> <Logo></Logo> Obsidian</span>&nbsp;<span class="path">› {{item.path ? item.path : '/'}}</span>
+                        <span class="host"> <Logo></Logo> Obsidian</span>&nbsp;<span class="path">› {{item.filename ? item.filename : '/'}}</span>
                     </div>
                 </a>
             </div>

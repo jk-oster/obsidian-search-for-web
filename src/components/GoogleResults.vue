@@ -37,7 +37,7 @@
                                     <span class="VuuXrf">Obisidan</span>
                                   </div>
                                   <div class="byrV5b">
-                                    <cite  style="font-size: 12px" class="qLRx3b tjvcx GvPZzd cHaqb" role="text">{{ item.path ? item.path : '/' }}</cite>
+                                    <cite  style="font-size: 12px" class="qLRx3b tjvcx GvPZzd cHaqb" role="text">{{ item.filename ? item.filename : '/' }}</cite>
                                   </div>
                                 </div>
                             </div>
