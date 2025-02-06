@@ -1,6 +1,5 @@
 import browser from "webextension-polyfill";
-import {config} from './config.js';
-import {Colors} from "./config.js";
+import {config, Colors, MIGRATION} from './config.js';
 import {getFromExtStorage} from "./store.js";
 import {extensionStorage} from "./storage.js";
 import {registerBadgeService} from "./background-services/BadgeService.js";
@@ -18,14 +17,15 @@ browser.runtime.onInstalled.addListener(async () => {
 
     // Set default config on first launch & install
     const provider = await extensionStorage.getItem('provider');
-    if (!provider) {
+    const version = await extensionStorage.getItem('version');
+    if (!provider || version !== MIGRATION) {
         browser.storage.sync.set(config).then();
         browser.runtime.openOptionsPage().then();
     }
 });
 
+// Toggle Pinning Sidebar
 browser.action.onClicked.addListener(async (tab) => {
-    // console.log('clicked');
     const show = await getFromExtStorage('show');
     browser.storage.sync.set({show: !show}).then();
 });

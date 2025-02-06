@@ -1,5 +1,7 @@
 import {Mode, Action, State, Color, ExtensionConfig} from "./types.js";
 
+export const MIGRATION = '2.0.0';
+
 export const SearchModes = {
     search: 'search' as Mode,
     urlMatch: 'urlMatch' as Mode,
@@ -41,7 +43,7 @@ export const StatusColorMapping: Record<State, Color> = {
 };
 
 export const config: ExtensionConfig = {
-    version: "",
+    version: MIGRATION,
     apiKey: "",
     vault: "",
     openObsidianUri: "obsidian://open?vault=",
