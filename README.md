@@ -18,6 +18,7 @@ This extension is a perfect companion for the official [Obsidian Web Clipper Ext
 - ✅ URL MATCHING: Search your vault for matches of your current url while browsing
 - ✅ EMBEDDED RESULTS: See your notes embedded in the search engine results
 - ✅ NOTE PREVIEW: Peek into the note contents without leaving the browser
+- ✅ DARK MODE: Supports dark and light mode
 - ✅ Choose your favourite search provider Local REST API or OmniSearch Plugin
 - ✅ Scroll and open your matched Obsidian notes in the sidebar
 - ✅ Exclude files and folders you don't want to show up in the sidebar search
