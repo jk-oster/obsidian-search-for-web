@@ -3,15 +3,25 @@
       ref="element"
       style="min-width: min(100vw, 333px);"
       class="p-3 relative mt-1 max-w-xs lg:max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-    <a
+    <a class="flex justify-start items-center"
         :href="'obsidian://open?vault=' + encodeURIComponent(vaultName ?? '') + '&file=' + encodeURIComponent(basename ? basename + '.md' : '')">
-      <p class="text-xs tracking-tight text-gray-700 dark:text-gray-300" v-html="highlight(path ?? '', searchString)"></p>
-      <h5 class="my-1 text-sm font-semibold tracking-tight text-gray-900 dark:text-white hover:underline">
-        <span v-html="highlight(basename ?? '', searchString)"></span>
-        <span class="font-light text-xs text-gray-700 dark:text-gray-300"> ({{
-            matchesCount ?? 0
-          }} matches)</span>
-      </h5>
+      <div v-if="showIcon"
+            class="rounded-full p-1.5 mr-2 text-sm font-medium text-gray-900 focus:outline-none bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+        <span style="font-size: 16px;">
+          <Logo></Logo>
+        </span>
+      </div>
+
+      <div>
+        <p v-if="path" class="text-xs leading-none tracking-tight text-gray-700 dark:text-gray-300" v-html="highlight(path ?? '', searchString)"></p>
+        <h5 class="my-1 text-sm leading-none font-semibold tracking-tight text-gray-900 dark:text-white hover:underline">
+          <span v-html="highlight(basename ?? '', searchString)"></span>
+          <span class="font-light text-xs text-gray-700 dark:text-gray-300"> ({{
+              matchesCount ?? 0
+            }} matches)</span>
+        </h5>
+      </div>
+
     </a>
     <div class="text-xs font-normal text-gray-700 dark:text-gray-400">
       <p class="mt-1 break-words obsidian-search-highlight-area" v-html="highlight(excerpt ?? '', searchString)">
@@ -26,6 +36,7 @@
 <script setup lang="ts">
 import NotePreview from "./NotePreview.vue";
 import {useHighlight} from "../highlighter";
+import Logo from "./Logo.vue";
 
 const props = defineProps({
   filename: String,
@@ -40,6 +51,10 @@ const props = defineProps({
   showMatchesCount: Number,
   vaultName: String,
   highlighting: Boolean,
+  showIcon: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const {highlight} = useHighlight();

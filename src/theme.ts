@@ -14,13 +14,7 @@ export function useTheme() {
     }
 
     async function setColorScheme(element: HTMLElement|null, theme: Theme|null = null) {
-
-        console.log(await extensionStorage.getItem('theme'));
-
         const themeSetting = theme ?? await extensionStorage.getItem('theme');
-
-        console.log(themeSetting);
-
         if(themeSetting === 'dark' || (themeSetting === 'auto' && detectPreferredColorScheme() === 'dark')) {
             element?.classList.add('dark');
         } else {

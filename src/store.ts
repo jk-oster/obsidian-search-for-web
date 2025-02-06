@@ -51,6 +51,7 @@ export async function loadAllFromExtStorageToStore() {
         store.highlight = Boolean(data.highlight);
         store.embeddedResults = Boolean(data.embeddedResults);
         store.highlighting = Boolean(data.highlighting);
+        store.nativeResults = Boolean(data.nativeResults);
         store.theme = data.theme;
 
         store.status = data.status;
