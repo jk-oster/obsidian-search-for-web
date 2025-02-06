@@ -111,6 +111,7 @@ export interface ExtensionConfig {
     highlight: boolean,
     embeddedResults: boolean,
     highlighting: boolean,
+    nativeResults: boolean,
     theme: Theme,
 
     currentUrl: string,

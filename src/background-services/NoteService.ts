@@ -80,12 +80,8 @@ class NoteService {
         options.method = 'POST';
         const url = protocol + obsidianRestUrl + ':' + port + '/search/simple/?query=' + encodeURIComponent(query) + '&contextLength=' + contextLength;
 
-        console.log('searchUrl', url);
-
         const resp = await fetch(url, options);
         const data: LocalRestNoteMatch[] = await resp.json();
-
-        console.log('searchResults', data);
 
         const match = query?.toLowerCase();
         data?.sort((a: any, b: any) => {

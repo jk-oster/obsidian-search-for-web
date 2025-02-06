@@ -16,6 +16,8 @@ This extension is a perfect companion for the official [Obsidian Web Clipper Ext
 
 - ✅ LIVE SEARCH: Search your vault for notes matching your current search in e.q. the google search bar
 - ✅ URL MATCHING: Search your vault for matches of your current url while browsing
+- ✅ EMBEDDED RESULTS: See your notes embedded in the search engine results
+- ✅ NOTE PREVIEW: Peek into the note contents without leaving the browser
 - ✅ Choose your favourite search provider Local REST API or OmniSearch Plugin
 - ✅ Scroll and open your matched Obsidian notes in the sidebar
 - ✅ Exclude files and folders you don't want to show up in the sidebar search
@@ -24,6 +26,22 @@ This extension is a perfect companion for the official [Obsidian Web Clipper Ext
 
 This extension just communicates between your local Obsidian REST Api and the browser.
 The only data that is stored permanently in the browser are the settings including the Obsidian REST API-Key.
+
+### 🔎 Search engines - embedding support
+
+This extension supports embedding search results in the following search engines:
+- google.com
+- bing.com
+- ecosia.org
+- qwant.com
+- kagi.com
+- duckduckgo.com
+
+Evaluated and not supported are:
+- search.brave.com
+- startpage.com
+
+> ⚠️ Be aware this may change anytime if the search engines change layouts or technologies...
 
 ### 🌐 Browser compatibility
 

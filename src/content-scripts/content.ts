@@ -11,25 +11,35 @@ import {pageOptions} from "../config.js";
 
 const {setColorScheme} = useTheme();
 
+let embedded = false;
+let embeddedResults: boolean|null = null;
+
 async function setupEmbeddedResults() {
-    const embeddedResults = await extensionStorage.getItem('embeddedResults');
+    if (embeddedResults === null) {
+        embeddedResults = await extensionStorage.getItem('embeddedResults');
+    }
 
-    for (const option of pageOptions) {
-        const mountEl = document.querySelector(option.selector);
+    const matchingPage = pageOptions.find(option => option.regex.test(window.location.href));
 
-        if (option.regex.test(window.location.href) && embeddedResults) {
-            console.log('Matched ', option);
-            if (!mountEl) continue;
+    if (matchingPage && embeddedResults) {
+        const mountEl = document.querySelector(matchingPage.selector);
 
+        if (mountEl) {
+            embedded = true;
+            console.log('mounted');
             const sidebar = document.createElement('div');
             sidebar.style.width = '100%';
             sidebar.style.fontSize = '20px';
             sidebar.id = 'obsidian-browser-search-embedded-results';
             mountEl.insertBefore(sidebar, mountEl.firstChild);
             setColorScheme(sidebar).then();
-
             createApp(EmbeddedResults).mount(sidebar);
         }
+    }
+
+    // Retry embedding results if it is dynamically rendered app
+    if (!embedded && embeddedResults && !!matchingPage) {
+        setTimeout(() => setupEmbeddedResults(), 500);
     }
 }
 

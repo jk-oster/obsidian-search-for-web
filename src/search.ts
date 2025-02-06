@@ -83,11 +83,10 @@ export function useSearch(isLoadingInitial: boolean = false) {
     const fetchNotes = async (query: string) => {
         isLoading.value = true;
 
-        console.log('query: ', query);
-
         if (!query || query.length < store.minChars) {
             searchResults.value = [];
             isLoading.value = false;
+            badgeService.setBadgeText(' ').then();
             return;
         }
 
@@ -120,8 +119,6 @@ export function useSearch(isLoadingInitial: boolean = false) {
         } finally {
             isLoading.value = false;
         }
-
-        console.log(searchResults.value);
     }
 
     const initSearch = async () => {
