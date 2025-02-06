@@ -28,7 +28,7 @@
                 <div class="tptt">Obsidian</div>
                 <div class="tpmeta">
                   <div style="line-height: 20px; font-size: 13px;">
-                    <cite>{{item.path ? item.path : '/'}}</cite>
+                    <cite>{{item.filename ? item.filename : '/'}}</cite>
                   </div>
                 </div>
               </div>

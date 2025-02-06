@@ -22,7 +22,7 @@
                 Obsidian
             </span>
             &nbsp;
-            <span>›  {{ item.path }}</span>
+            <span>›  {{ item.filename }}</span>
           </div>
         </a>
       </div>
