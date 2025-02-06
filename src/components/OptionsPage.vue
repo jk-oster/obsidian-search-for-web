@@ -262,7 +262,7 @@
                                                                       class="underline">Google</a>, <a
                   href="https://duckduckgo.com" class="underline">DuckDuckGo</a>, <a href="https://bing.com"
                                                                                      class="underline">Bing</a>, <a
-                  href="https://kagi.com" class="underline">Kagi</a>, <a href="https://qwant.com" class="underline">Qwant</a>, <a href="https://ecosia.org" class="underline">Ecosia</a>)
+                  href="https://kagi.com" class="underline">Kagi</a>, <a href="https://qwant.com" class="underline">Qwant</a>, <a href="https://ecosia.org" class="underline">Ecosia</a>, <a href="https://search.yahoo.com" class="underline">Yahoo</a>)
               </span>
             </label>
           </div>
