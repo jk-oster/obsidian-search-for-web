@@ -196,7 +196,8 @@
             <label for="apiKey"
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
               Your Obsidian REST Api Key * (Local REST API only)</label>
-            <input v-model="store.apiKey" @change="checkApiKey" :disabled="store.provider !== 'local-rest'" type="text" id="apiKey" name="apiKey"
+            <input v-model="store.apiKey" @change="checkApiKey" :disabled="store.provider !== 'local-rest'" type="text"
+                   id="apiKey" name="apiKey"
                    placeholder="Local REST API Key"
                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                    required/>
@@ -237,22 +238,6 @@
           </div>
 
           <div class="mb-6">
-            <label for="embeddedResults" class="inline-flex relative items-center mr-5 cursor-pointer">
-              <input v-model="store.embeddedResults" type="checkbox" id="embeddedResults" name="embeddedResults"
-                     class="sr-only peer" :checked="store.embeddedResults"/>
-              <div
-                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
-              </div>
-              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                  Embed search results on Search-Engines (supports <a href="https://google.com"
-                                                                      class="underline">Google</a>, <a
-                  href="https://duckduckgo.com" class="underline">DuckDuckGo</a>, <a href="https://bing.com"
-                                                                                     class="underline">Bing</a>, <a
-                  href="https://kagi.com" class="underline">Kagi</a>)
-              </span>
-            </label>
-          </div>
-          <div class="mb-6">
             <label for="highlighting" class="inline-flex relative items-center mr-5 cursor-pointer">
               <input v-model="store.highlighting" type="checkbox" id="highlighting" name="highlighting"
                      class="sr-only peer" :checked="store.highlighting"/>
@@ -261,6 +246,23 @@
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
                   Enable highlighting of search term in results
+              </span>
+            </label>
+          </div>
+
+          <div class="mb-6">
+            <label for="embeddedResults" class="inline-flex relative items-center mr-5 cursor-pointer">
+              <input v-model="store.embeddedResults" type="checkbox" id="embeddedResults" name="embeddedResults"
+                     class="sr-only peer" :checked="store.embeddedResults"/>
+              <div
+                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
+              </div>
+              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                  Embed search results on Search-Engines (<a href="https://google.com"
+                                                                      class="underline">Google</a>, <a
+                  href="https://duckduckgo.com" class="underline">DuckDuckGo</a>, <a href="https://bing.com"
+                                                                                     class="underline">Bing</a>, <a
+                  href="https://kagi.com" class="underline">Kagi</a>, <a href="https://qwant.com" class="underline">Qwant</a>, <a href="https://ecosia.org" class="underline">Ecosia</a>)
               </span>
             </label>
           </div>
@@ -307,7 +309,8 @@
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
               Search context length (default 50 characters, Local REST API only)
             </label>
-            <input v-model="store.contextLength" :disabled="store.provider !== 'local-rest'" min="1" max="500" type="number" id="contextLength" name="contextLength"
+            <input v-model="store.contextLength" :disabled="store.provider !== 'local-rest'" min="1" max="500"
+                   type="number" id="contextLength" name="contextLength"
                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                    required/>
           </div>
@@ -317,7 +320,8 @@
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
               Number of matched lines shown per note (default 2, Local REST API only)
             </label>
-            <input v-model="store.matchCount" :disabled="store.provider !== 'local-rest'" min="0" max="10" type="number" id="matchCount" name="matchCount"
+            <input v-model="store.matchCount" :disabled="store.provider !== 'local-rest'" min="0" max="10" type="number"
+                   id="matchCount" name="matchCount"
                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                    required/>
           </div>
@@ -455,13 +459,13 @@ export default defineComponent({
       this.infoText = (await badgeService.checkApiStatus(this.url, this.store.apiKey, this.store.provider)).statusText || '⚠️ Not connected with Obsidian';
     },
 
-    async setTheme(theme: Theme|null = null) {
+    async setTheme(theme: Theme | null = null) {
       const {setColorScheme} = useTheme();
       setColorScheme(document.body, theme ?? store.theme).then();
     },
 
     providerChanged() {
-      setTimeout(()=>{
+      setTimeout(() => {
         if (store.provider === 'local-rest') {
           store.protocol = 'http://';
           store.obsidianRestUrl = '127.0.0.1';
@@ -472,7 +476,7 @@ export default defineComponent({
           store.port = 51361;
         }
         this.checkApiKey().then();
-      },1);
+      }, 1);
     }
   }
 })

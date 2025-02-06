@@ -2,7 +2,7 @@
   <div
       ref="element"
       style="min-width: min(100vw, 333px);"
-      class="p-3 relative mt-1 max-w-xs lg:max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+      class="p-3 relative mt-2 max-w-xs lg:max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
     <a class="flex justify-start items-center"
         :href="'obsidian://open?vault=' + encodeURIComponent(vaultName ?? '') + '&file=' + encodeURIComponent(basename ? basename + '.md' : '')">
       <div v-if="showIcon"
@@ -13,13 +13,13 @@
       </div>
 
       <div>
-        <p v-if="path" class="text-xs leading-none tracking-tight text-gray-700 dark:text-gray-300" v-html="highlight(path ?? '', searchString)"></p>
-        <h5 class="my-1 text-sm leading-none font-semibold tracking-tight text-gray-900 dark:text-white hover:underline">
-          <span v-html="highlight(basename ?? '', searchString)"></span>
+        <p v-if="filename" class="text-xs leading-none tracking-tight text-gray-700 dark:text-gray-300" v-html="highlight(filename ?? '', searchString)"></p>
+        <div class="my-1 text-sm leading-none tracking-tight text-gray-900 dark:text-white hover:underline">
+          <span class="text-md font-semibold" v-html="highlight(basename ?? '', searchString)"></span>
           <span class="font-light text-xs text-gray-700 dark:text-gray-300"> ({{
               matchesCount ?? 0
             }} matches)</span>
-        </h5>
+        </div>
       </div>
 
     </a>
