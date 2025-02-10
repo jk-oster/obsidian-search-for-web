@@ -2,7 +2,6 @@ import {defineProxyService} from '@webext-core/proxy-service';
 import browser from "webextension-polyfill";
 import type {Color, SearchProvider, State} from "../types.js";
 import {Status, StatusColorMapping} from "../config.js";
-import {extensionStorage} from "../storage.js";
 
 class BadgeService {
     async getCurrTabId(matches = null) {
@@ -51,11 +50,11 @@ class BadgeService {
             method: 'GET',
             headers: {
                 Authorization: "Bearer " + apiKey
-            }
+            },
         };
 
         let statusText = '';
-        let status: string;
+        let status: State;
         let text = ' ';
 
         try {
@@ -65,7 +64,8 @@ class BadgeService {
                     statusText = "✅ Successfully connected to Obsidian OmniSearch";
                     status = Status.search;
                 } else {
-                    throw new Error('Could reach Obsidian OmniSearch');
+                    statusText = '❗ Could not reach Obsidian OmniSearch - Make sure Obsidian is running and check your Protocol / Port settings!';
+                    status = Status.error
                 }
             } else if (provider === 'local-rest') {
                 const resp = await fetch(url + "/", options);
@@ -83,18 +83,27 @@ class BadgeService {
                 status = Status.error;
                 text = '❓';
             }
-        } catch (e) {
-            statusText = '❗ Make sure Obsidian is running and set your Protocol / Port settings to connect to your Obsidian Search Provider!';
+        } catch (e: any) {
+
             text = ' ';
             status = Status.offline;
+
+            if (provider === 'omni-search') {
+                statusText = '❗ Could not reach Obsidian OmniSearch - Make sure Obsidian Omnisearch HTTP Server is running and check your Protocol / Port settings!';
+            } else if (provider === 'local-rest') {
+                statusText = '❗ Could not reach Obsidian REST API - Make sure Obsidian REST API is running and check your Protocol / Port settings!';
+            } else {
+                statusText = '💡 Select a Search Provider';
+                status = Status.error;
+                text = '❓';
+            }
         }
 
         this.setBadgeStatus(status).then();
         this.setBadgeText(text).then();
-        extensionStorage.setItem('statusText', statusText).then();
 
         return {
-            status, statusText, text
+            status, statusText, text, provider
         };
     }
 

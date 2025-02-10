@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import {defineAsyncComponent, computed, ref, onMounted} from 'vue'
+import {defineAsyncComponent, computed, onMounted} from 'vue'
 import {pageOptions} from "../config.js";
-import {store, syncStoreWithExtStorage} from "../store.js";
+import {useStore} from "../store.js";
+
+const store = useStore();
 
 const asyncComponents = {
   loading: defineAsyncComponent(() => import('./LoadingSpinner.vue')),
@@ -23,10 +25,6 @@ const currentComponent = computed(() => {
   // @ts-ignore
   return asyncComponents[componentToRender.value]
 });
-
-onMounted(async () => {
-  await syncStoreWithExtStorage();
-})
 
 </script>
 

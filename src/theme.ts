@@ -1,9 +1,8 @@
 import {extensionStorage} from "./storage.js";
-import {ref} from "vue";
-import {Theme} from "./types";
-
+import type {Theme} from "./types.js";
 
 export function useTheme() {
+
     function detectPreferredColorScheme(){
         if(!window.matchMedia) {
             return 'light';

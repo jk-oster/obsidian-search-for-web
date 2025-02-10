@@ -1,7 +1,6 @@
 // @ts-ignore
 import OffCanvas from "../components/OffCanvas.vue";
 import {createApp} from "vue";
-import {getFromExtStorage} from "../store.js";
 import {createIsolatedElement} from '@webext-core/isolated-element';
 import browser from 'webextension-polyfill';
 import {useTheme} from "../theme.js";
@@ -26,7 +25,6 @@ async function setupEmbeddedResults() {
 
         if (mountEl) {
             embedded = true;
-            console.log('mounted');
             const sidebar = document.createElement('div');
             sidebar.style.width = '100%';
             sidebar.style.fontSize = '20px';
@@ -34,6 +32,7 @@ async function setupEmbeddedResults() {
             mountEl.insertBefore(sidebar, mountEl.firstChild);
             setColorScheme(sidebar).then();
             createApp(EmbeddedResults).mount(sidebar);
+            console.log('[Obsidian Browser Search] injected embedded search results');
         }
     }
 

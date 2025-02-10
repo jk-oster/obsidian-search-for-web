@@ -1,17 +1,21 @@
-import {getFromExtStorage, store} from "./store.js";
+import {useStore} from "./store.js";
 import {Status, SearchModes} from "./config.js";
-import {NoteMatch} from "./types.js";
-import {ref, computed, watch} from 'vue';
+import type {NoteMatch} from "./types.js";
+import {ref, computed, onMounted, watch} from 'vue';
 import {useDebounceFn} from "@vueuse/core";
 import {getNoteService} from "./background-services/NoteService.js";
 import {getBadgeService} from "./background-services/BadgeService.js";
+import {useObsidianConnection} from "./connection";
 
 const noteService = getNoteService();
 const badgeService = getBadgeService();
 
 export function useSearch(isLoadingInitial: boolean = false) {
-
+    const store = useStore();
     const config = store;
+
+    const {throttledConnectionCheck, connectionStatus} = useObsidianConnection();
+
     const searchUrls = computed(() => config.searchUrls.split(',').map((url: string) => url.trim()));
 
     const searchString = ref<string>('');
@@ -19,7 +23,6 @@ export function useSearch(isLoadingInitial: boolean = false) {
     const isLoading = ref<boolean>(isLoadingInitial);
     const searchMode = ref<string>('');
     const searchInputElement = ref<Element | null>(null);
-    const connectionStatus = ref<string>('');
     const displayNotesNumber = ref<number>(store.noteNumber);
     const paginatedResults = computed(() => searchResults.value?.slice(0, displayNotesNumber.value));
     const totalMatches = computed(() => searchResults.value.length ?? 0);
@@ -27,13 +30,6 @@ export function useSearch(isLoadingInitial: boolean = false) {
     const debouncedFetchNotes = useDebounceFn(() => {
         fetchNotes(searchString.value).then();
     });
-
-    const detectConnection = async () => {
-        const url = store.protocol + store.obsidianRestUrl + ':' + store.port;
-        const {status} = await badgeService.checkApiStatus(url, store.apiKey, store.provider);
-        connectionStatus.value = status ?? Status.unknown;
-        return connectionStatus.value;
-    }
 
     const detectSearchMode = () => {
         if (searchUrls.value.length === 0) {
@@ -56,13 +52,16 @@ export function useSearch(isLoadingInitial: boolean = false) {
         if (input && input !== searchInputElement.value) {
             searchInputElement.value = input;
 
-            input.addEventListener('keyup', (event) => {
-                // @ts-ignore
-                if (!event?.ctrlKey) {
-                    searchString.value = (input as HTMLInputElement).value;
-                    debouncedFetchNotes().then();
-                }
-            });
+            if(store.liveSearch) {
+                input.addEventListener('keyup', (event) => {
+                    // @ts-ignore
+                    if (!event?.ctrlKey) {
+                        searchString.value = (input as HTMLInputElement).value;
+                        debouncedFetchNotes().then();
+                    }
+                });
+            }
+
         }
         return searchInputElement.value;
     }
@@ -79,7 +78,7 @@ export function useSearch(isLoadingInitial: boolean = false) {
         searchString.value = params.get('q') ?? params.get('query') ?? params.get('search') ?? searchInput?.value ?? '';
         debouncedFetchNotes().then();
 
-        console.log(searchString.value);
+        // console.log(searchString.value);
     }
 
     const fetchNotes = async (query: string) => {
@@ -124,14 +123,21 @@ export function useSearch(isLoadingInitial: boolean = false) {
     }
 
     const initSearch = async () => {
-        if (await detectConnection() === Status.search) {
+        await throttledConnectionCheck();
+        if (connectionStatus.value === Status.search) {
             detectSearchString();
             addEventListener('hashchange', detectSearchString);
             addEventListener('popstate', detectSearchString);
+
+            watch(searchString, debouncedFetchNotes);
         } else {
             setTimeout(initSearch, 100);
         }
     }
+
+    onMounted(async() => {
+        await initSearch();
+    });
 
     return {
         searchString: searchString,
@@ -145,7 +151,6 @@ export function useSearch(isLoadingInitial: boolean = false) {
         fetchNotes,
         detectSearchString,
         initSearch,
-        detectConnection,
         displayNotesNumber
     }
 }

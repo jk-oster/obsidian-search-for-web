@@ -1,4 +1,6 @@
 <template>
+  <LoadingSpinner class="scale-50" v-if="isLoading && paginatedResults?.length === 0"></LoadingSpinner>
+
   <div v-if="paginatedResults?.length !== 0">
 
     <div style="display: flex; justify-content: space-between; align-items: center">
@@ -55,20 +57,15 @@
 
 <script lang="ts" setup>
 
-import {onMounted, ref} from "vue";
 import {useSearch} from "../search.js";
 import Logo from "./Logo.vue";
 import {getTabService} from "../background-services/TabService.js";
 import LoadingSpinner from "./LoadingSpinner.vue";
 import NotePreview from "./NotePreview.vue";
-import {useTheme} from "../theme";
 
 const tabService = getTabService();
-const {paginatedResults, totalMatches, initSearch, displayNotesNumber, isLoading, searchString} = useSearch(true);
+const {paginatedResults, totalMatches, displayNotesNumber, isLoading, searchString} = useSearch(true);
 
-onMounted(async () => {
-  await initSearch();
-});
 
 function showMore() {
   displayNotesNumber.value += 6;

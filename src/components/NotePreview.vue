@@ -41,7 +41,6 @@
 
 <script setup lang="ts">
 
-import {store} from "../store.js";
 import {marked} from "marked";
 import OpenLink from "./OpenLink.vue";
 import OpenEye from "./OpenEye.vue";
@@ -50,6 +49,9 @@ import LoadingSpinner from "./LoadingSpinner.vue";
 import {ref} from "vue";
 import {usePreview} from "../preview.js";
 import {useHighlight} from "../highlighter.js";
+import {useStore} from "../store";
+
+const store = useStore();
 
 const props = defineProps({
   filename: String,

@@ -4,8 +4,7 @@
       <div class="container flex flex-wrap justify-between items-center mx-auto">
         <a href="#" class="flex items-center">
           <img src="/icon/icon48.png" class="mr-3 h-6 sm:h-9" alt=""/>
-          <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Obsidian Web
-                        Search</span>
+          <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Obsidian Browser Search</span>
         </a>
         <button data-collapse-toggle="navbar-default" type="button"
                 class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-hidden focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -43,8 +42,8 @@
   <main class="flex justify-center dark:bg-gray-900 py-20 px-4">
     <div class="max-w-2xl dark:text-white text-base">
       <h1 id="about"
-          class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-        Obsidian Web Search
+          class="mb-4 text-3xl font-extrabold tracking-tight leading-none text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
+        Obsidian Browser Search
       </h1>
 
       <h2 class="text-4xl mb-6 font-extrabold dark:text-white">
@@ -119,7 +118,7 @@
                   clip-rule="evenodd"></path>
           </svg>
           DIFFERENT SEARCH PLUGINS: Choose between the "Omni Search" Plugin and the "Local REST" Plugin to power your
-          Obsidian Web Search
+          Obsidian Browser Search
         </li>
       </ul>
       <h3 id="privacy" class="my-2 text-xl font-semibold text-gray-900 dark:text-white">
@@ -140,12 +139,7 @@
             </legend>
           </h2>
 
-          <div class="mb-3 p-3 border border-gray rounded-lg min-h-20 flex flex-wrap items-center justify-center">
-            <div class=" w-full">
-              <span>{{ infoText ? infoText : '🔄️ Checking your local Obsidian connection' }}</span>
-              <span> - Requested {{ url }}</span>
-            </div>
-          </div>
+          <Toast :text="connectionInfo + ' - Requested ' + url"></Toast>
 
           <div class="mb-6">
             <label for="vault"
@@ -219,7 +213,20 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                  Show icon on page to open sidebar when results are available
+                  Enable icon on page to open sidebar
+              </span>
+            </label>
+          </div>
+
+          <div class="mb-6">
+            <label for="showInPageIconWhenNoResults" class="inline-flex relative items-center mr-5 cursor-pointer">
+              <input v-model="store.showInPageIconWhenNoResults" type="checkbox" id="showInPageIconWhenNoResults" name="showInPageIconWhenNoResults"
+                     class="sr-only peer" :checked="store.showInPageIconWhenNoResults"/>
+              <div
+                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
+              </div>
+              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                  Enable icon on page when no search results are available
               </span>
             </label>
           </div>
@@ -245,7 +252,7 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                Live search enabled
+                Enable Live Search
               </span>
             </label>
             <div class="text-xs text-gray-700 dark:text-gray-400">
@@ -261,7 +268,7 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                  Embed search results on Search-Engines
+                  Enable embded search results on Search-Engines
               </span>
             </label>
 
@@ -285,7 +292,7 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                  Enable native search embeddings
+                  Enable native search embeddings style
               </span>
             </label>
 
@@ -439,61 +446,48 @@
   </footer>
 </template>
 
-<script lang="ts">
-import {defineComponent} from 'vue'
-import {syncStoreWithExtStorage, store} from "../store.js";
+<script setup lang="ts">
+import {computed, onMounted} from 'vue'
 import {getBadgeService} from "../background-services/BadgeService.js";
 import {useTheme} from "../theme.js";
 import type {Theme} from "../types.js";
+import {ref} from 'vue';
+import Toast from "./Toast.vue";
+import {useStore} from "../store.js";
+import {useObsidianConnection} from "../connection";
 
-export default defineComponent({
-  name: "OptionsPage",
+const store = useStore();
+const {throttledConnectionCheck, connectionStatus, connectionInfo} = useObsidianConnection(1000);
 
-  data() {
-    return {
-      store,
-      infoText: '',
+const url = computed(()=> {
+    return store.protocol + store.obsidianRestUrl + ":" + store.port;
+});
+
+async function checkApiKey() {
+  throttledConnectionCheck().then();
+}
+
+async function setTheme(theme: Theme | null = null) {
+  const {setColorScheme} = useTheme();
+  setColorScheme(document.body, theme ?? store.theme).then();
+}
+
+function providerChanged() {
+  setTimeout(() => {
+    if (store.provider === 'local-rest') {
+      store.protocol = 'http://';
+      store.obsidianRestUrl = '127.0.0.1';
+      store.port = 27123;
+      connectionInfo.value = '🔄️ Checking your Obsidian REST API connection'
+    } else {
+      store.protocol = 'http://';
+      store.obsidianRestUrl = 'localhost';
+      store.port = 51361;
+      connectionInfo.value = '🔄️ Checking your Obsidian Omnisearch connection'
     }
-  },
-
-  computed: {
-    url() {
-      return this.store.protocol + this.store.obsidianRestUrl + ":" + this.store.port;
-    },
-  },
-
-  async mounted() {
-    await syncStoreWithExtStorage();
-    this.checkApiKey().then();
-  },
-
-  methods: {
-    async checkApiKey() {
-      const badgeService = getBadgeService();
-      this.infoText = (await badgeService.checkApiStatus(this.url, this.store.apiKey, this.store.provider)).statusText || '⚠️ Not connected with Obsidian';
-    },
-
-    async setTheme(theme: Theme | null = null) {
-      const {setColorScheme} = useTheme();
-      setColorScheme(document.body, theme ?? store.theme).then();
-    },
-
-    providerChanged() {
-      setTimeout(() => {
-        if (store.provider === 'local-rest') {
-          store.protocol = 'http://';
-          store.obsidianRestUrl = '127.0.0.1';
-          store.port = 27124;
-        } else {
-          store.protocol = 'http://';
-          store.obsidianRestUrl = 'localhost';
-          store.port = 51361;
-        }
-        this.checkApiKey().then();
-      }, 1);
-    }
-  }
-})
+    checkApiKey().then();
+  }, 1);
+}
 </script>
 
 <style>
