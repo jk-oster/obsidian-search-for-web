@@ -1,6 +1,6 @@
 <template>
   <button ref="toggleButton" id="obsidian-search-for-web-offcanvas-toggle"
-          v-if="store.showInPageIcon && !store.show && Number(searchResults.length) > 0"
+          v-if="showToggle"
           class="popup-button fixed right-1 top-1/2 rounded-full p-2 mr-2 text-sm font-medium text-gray-900 focus:outline-none bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
           @click="toggleSidebar">
     <span style="font-size: 18px;">
@@ -9,6 +9,9 @@
     <span class="sr-only">
       Show Obsidian Search Sidebar
     </span>
+    <div v-if="searchResults?.length > 0" class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-black bg-success border-2 border-white rounded-md -bottom-2 -end-2 dark:border-gray-900">
+      {{ searchResults?.length ?? 0 }}
+    </div>
   </button>
   <div ref="offCanvas"
        id="obsidian-search-for-web-offcanvas-results"
@@ -22,13 +25,18 @@
 import SearchResults from './SearchResults.vue';
 import Logo from './Logo.vue';
 import {computed, onMounted, ref} from 'vue'
-import {store, syncStoreWithExtStorage} from '../store.js';
+import {useStore} from '../store.js';
 import {NoteMatch} from "../types.js";
-import {useElementHover} from '@vueuse/core'
+import {useElementHover, useFocusWithin} from '@vueuse/core';
+
+const store = useStore();
 
 const searchResults = ref<NoteMatch[]>([]);
 const toggleButton = ref<HTMLElement | null>(null);
 const offCanvas = ref<HTMLElement | null>(null);
+
+// const {focused} = useFocusWithin(offCanvas);
+
 const isToggleHovered = useElementHover(toggleButton, {
   delayEnter: 300,
   delayLeave: 500,
@@ -38,14 +46,10 @@ const isOffCanvasHovered = useElementHover(offCanvas, {
   delayLeave: 1000,
 });
 
-const showPopup = computed(() => Boolean(
-    Number(searchResults.value.length) > 0
-    && store.searchString?.length > store.minChars &&
-    (store.show || isToggleHovered.value || isOffCanvasHovered.value)
-));
+const showPopup = computed(() => store.show || isToggleHovered.value || isOffCanvasHovered.value);
+const showToggle = computed(() => store.showInPageIcon && (store.showInPageIconWhenNoResults || searchResults.value?.length > 0));
 
 onMounted(async () => {
-  await syncStoreWithExtStorage();
   store.currentUrl = location.href;
 });
 

@@ -42,22 +42,17 @@
 
 <script lang="ts" setup>
 
-import {onMounted, ref} from "vue";
 import {useSearch} from "../search.js";
 import Logo from "./Logo.vue";
 import {getTabService} from "../background-services/TabService.js";
 import LoadingSpinner from "./LoadingSpinner.vue";
-import NotePreview from "./NotePreview.vue";
-import {useTheme} from "../theme";
-import {store} from "../store";
 import Card from "./Card.vue";
+import {useStore} from "../store.js";
+
+const store = useStore();
 
 const tabService = getTabService();
-const {paginatedResults, totalMatches, initSearch, displayNotesNumber, isLoading, searchString} = useSearch(true);
-
-onMounted(async () => {
-  await initSearch();
-});
+const {paginatedResults, totalMatches, displayNotesNumber, isLoading} = useSearch(true);
 
 function showMore() {
   displayNotesNumber.value += 6;

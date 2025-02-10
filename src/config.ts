@@ -1,17 +1,10 @@
-import {Mode, Action, State, Color, ExtensionConfig} from "./types.js";
+import type {Mode, State, Color, ExtensionConfig} from "./types.js";
 
 export const MIGRATION = '2.0.0';
 
 export const SearchModes = {
     search: 'search' as Mode,
     urlMatch: 'urlMatch' as Mode,
-}
-
-export const Actions = {
-    badge: 'badge' as Action,
-    openUrl: 'open-url' as Action,
-    openOptionsPage: 'open-options-page' as Action,
-    fetch: 'fetch' as Action,
 }
 
 export const Colors = {
@@ -54,6 +47,7 @@ export const config: ExtensionConfig = {
     show: true,
     liveSearch: true,
     showInPageIcon: true,
+    showInPageIconWhenNoResults: true,
     sidePanelOpen: false,
     minChars: 2,
     contextLength: 50,

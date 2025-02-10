@@ -38,7 +38,7 @@ import NotePreview from "./NotePreview.vue";
 import {useHighlight} from "../highlighter";
 import Logo from "./Logo.vue";
 
-const props = defineProps({
+defineProps({
   filename: String,
   basename: String,
   path: String,

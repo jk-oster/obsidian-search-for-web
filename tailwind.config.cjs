@@ -10,6 +10,7 @@ module.exports = {
         yellow: "#ffff33",
         white: "white",
         black: "black",
+        success: "#8fce00",
       },
       fontSize: {
         "4xl": "32px",

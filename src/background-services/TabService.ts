@@ -1,6 +1,5 @@
 import {defineProxyService} from '@webext-core/proxy-service';
 import browser from "webextension-polyfill";
-import type {Action, Message} from "../types.js";
 
 class TabService {
 
@@ -47,19 +46,6 @@ class TabService {
 
     async openFirefoxSideBar() {
         await browser.sidebarAction.open();
-    }
-
-    async sendToCurrentContentScript(message: Message<Action, any>) {
-        try {
-            browser.tabs.query({active: true, currentWindow: true}).then(async (tabs) => {
-                if (tabs.length > 0 && /^https?:\/\//.test(tabs[0].url ?? '')) {
-                    return await browser.tabs.sendMessage(tabs[0].id ?? 0, message);
-                }
-                console.log('no valid tab found');
-            });
-        } catch (e) {
-            console.log(e)
-        }
     }
 }
 

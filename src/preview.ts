@@ -1,10 +1,11 @@
-import {store} from "./store.js";
+import {useStore} from "./store.js";
 import {ref} from 'vue';
 import {getNoteService} from "./background-services/NoteService.js";
 
 const noteService = getNoteService();
 
 export function usePreview() {
+    const store = useStore();
 
     const config = store;
 

@@ -1,10 +1,11 @@
 import browser from "webextension-polyfill";
 import {config, Colors, MIGRATION} from './config.js';
-import {getFromExtStorage} from "./store.js";
-import {extensionStorage} from "./storage.js";
+import {useExtensionStorage} from "./storage.js";
 import {registerBadgeService} from "./background-services/BadgeService.js";
 import {registerNoteService} from "./background-services/NoteService.js";
 import {registerTabService} from "./background-services/TabService";
+
+const {migrate, extensionStorage} = useExtensionStorage();
 
 registerBadgeService();
 registerTabService();
@@ -19,13 +20,15 @@ browser.runtime.onInstalled.addListener(async () => {
     const provider = await extensionStorage.getItem('provider');
     const version = await extensionStorage.getItem('version');
     if (!provider || version !== MIGRATION) {
-        browser.storage.sync.set(config).then();
+        await migrate(config, {});
         browser.runtime.openOptionsPage().then();
+    } else {
+        migrate(config, {}).then();
     }
 });
 
 // Toggle Pinning Sidebar
 browser.action.onClicked.addListener(async (tab) => {
-    const show = await getFromExtStorage('show');
+    const show = await extensionStorage.getItem('show');
     browser.storage.sync.set({show: !show}).then();
 });

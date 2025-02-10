@@ -1,33 +1,8 @@
 export type Color = string;
 export type State = string;
-export type Action = string;
 export type Mode = string;
 export type Theme = 'auto' | 'light' | 'dark';
 export type SearchProvider = 'local-rest' | 'omni-search';
-export type MessageData = BadgeActionData | OpenUrlActionData;
-
-export interface Message<A, T> {
-    action: A;
-    data?: T;
-}
-
-export type BadgeActionData = {
-    text?: string;
-    status?: State;
-    statusText?: string;
-}
-export type BadgeAction = Message<'badge', BadgeActionData>;
-
-export type OpenUrlActionData = {
-    url: string;
-}
-export type OpenUrlAction = Message<'open-url', OpenUrlActionData>;
-
-export type FetchActionData = {
-    url: string;
-    options?: object;
-}
-export type FetchAction = Message<'fetch', FetchActionData>;
 
 export type OmniSearchNoteMatch = {
     score: number
@@ -55,11 +30,6 @@ export interface LocalRestNoteMatch {
         };
         context: string;
     }[];
-}
-
-export type Command = {
-    id: string;
-    name: string;
 }
 
 export interface Note {
@@ -102,6 +72,7 @@ export interface ExtensionConfig {
     liveSearch: boolean,
     sidePanelOpen: boolean,
     showInPageIcon: boolean,
+    showInPageIconWhenNoResults: boolean,
     minChars: number,
     contextLength: number,
     matchCount: number,

@@ -1,7 +1,7 @@
 <template>
-  <div class="flex justify-between" style="font-size: 20px">
+  <div class="flex justify-between" style="font-size: 20px;">
     <button @click="openOptionsPage" title="Open Settings"
-      class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+            class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
       <span class="sr-only">
         Settings
       </span>
@@ -10,15 +10,15 @@
       </span>
     </button>
 
-    <a :href="'obsidian://search?query=' + encodeURIComponent(store.searchString) + '&vault=' + encodeURIComponent(store.vault)" v-if="searchMode != SearchModes.urlMatch" @click="searchInObsidianGui"
-            class="no-underline focus:outline-hidden text-white text-sm bg-purple-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg px-3 pt-[0.67em] pb-1 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+    <a :href="'obsidian://search?query=' + encodeURIComponent(store.searchString) + '&vault=' + encodeURIComponent(store.vault)" @click="searchInObsidianGui"
+       class="no-underline focus:outline-hidden text-white text-sm bg-purple-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg px-3 pt-[0.67em] pb-1 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
       <span>
         Open Search in Obsidian
       </span>
     </a>
 
     <button @click="toggleSidebar" :title="store.show ? 'Unpin Sidebar' : 'Pin Sidebar'"
-      class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+            class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
       <span class="sr-only">
         {{ store.show ? 'Unpin Sidebar' : 'Pin Sidebar' }}
       </span>
@@ -28,9 +28,26 @@
       </span>
     </button>
   </div>
+
+  <form class="mx-auto flex mb-2">
+    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+    <div class="relative w-full">
+      <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+        </svg>
+      </div>
+      <input type="search"
+             v-model="searchString"
+             class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+             placeholder="Search your vault ..."
+             />
+    </div>
+  </form>
+
   <div
       class="text-xs max-w-xs lg:max-w-sm tracking-tight text-gray-700 dark:text-gray-300 mb-2 break-words">
-    Searching for: "{{ store.searchString }}", {{ paginatedResults.length }} result(s) of {{ totalMatches ?? 0 }}
+    {{ paginatedResults.length }} result(s) of {{ totalMatches ?? 0 }}
   </div>
   <div class="obsidian-search-highlight-area">
     <template v-for="note of paginatedResults" :key="note.score">
@@ -45,6 +62,11 @@
             :vaultName="store.vault">
       </Card>
     </template>
+
+    <div v-if="paginatedResults.length <= 0" style="min-width: min(100vw, 333px);" class="min-h-8 p-3 text-xs rounded-md border border-1 border-dashed border-gray-700 dark:border-gray-300  text-gray-700 dark:text-gray-300 mb-2 break-words flex flex-col items-center justify-center">
+      <Close class="h-12"></Close>
+      No matching results found in your Obsidian vault.
+    </div>
   </div>
   <button v-if="totalMatches > 6" @click="showMore()"
           class="text-white mt-2 bg-gray-800 hover:bg-gray-900 focus:outline-hidden focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-1.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
@@ -54,33 +76,26 @@
 
 <script lang="ts" setup>
 
-import { onMounted, watchEffect, defineEmits } from "vue";
-import { store, syncStoreWithExtStorage } from '../store.js';
-import {SearchModes} from "../config.js";
-import { useSearch } from '../search.js';
+import {watchEffect, defineEmits} from "vue";
+import {useStore} from '../store.js';
+import {useSearch} from '../search.js';
 import Card from './Card.vue';
-import Eye from "./Eye.vue";
 import Cog from "./Cog.vue";
 import {getTabService} from "../background-services/TabService.js";
 import Pin from "./Pin.vue";
 import UnPin from "./UnPin.vue";
+import Close from "./Close.vue";
 
 const tabService = getTabService();
+const store = useStore();
 
 const {
   searchString,
-  searchMode,
   searchResults,
-  initSearch,
   paginatedResults,
   displayNotesNumber,
   totalMatches,
 } = useSearch();
-
-onMounted(async () => {
-  await syncStoreWithExtStorage();
-  await initSearch();
-});
 
 const emit = defineEmits(['update:matches']);
 watchEffect(() => {
