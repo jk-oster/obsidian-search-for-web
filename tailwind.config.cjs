@@ -11,6 +11,9 @@ module.exports = {
         white: "white",
         black: "black",
         success: "#8fce00",
+        warn: "#ffe834",
+        error: "#d53032",
+        unknown: "#444444",
       },
       fontSize: {
         "4xl": "32px",

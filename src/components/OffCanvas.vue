@@ -12,6 +12,9 @@
     <div v-if="searchResults?.length > 0" class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-black bg-success border-2 border-white rounded-md -bottom-2 -end-2 dark:border-gray-900">
       {{ searchResults?.length ?? 0 }}
     </div>
+    <div v-if="connectionStatus !== 'search'" :class="connectionStatus === 'noauth' ? 'bg-warn' : 'bg-unknown'" class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-black  border-2 border-white rounded-md -bottom-2 -end-2 dark:border-gray-900">
+      {{ connectionStatus === 'noauth' ? '🔑' : ' ' }}
+    </div>
   </button>
   <div ref="offCanvas"
        id="obsidian-search-for-web-offcanvas-results"
@@ -27,15 +30,15 @@ import Logo from './Logo.vue';
 import {computed, onMounted, ref} from 'vue'
 import {useStore} from '../store.js';
 import {NoteMatch} from "../types.js";
-import {useElementHover, useFocusWithin} from '@vueuse/core';
+import {useElementHover} from '@vueuse/core';
+import {useObsidianConnection} from "../connection";
 
 const store = useStore();
 
 const searchResults = ref<NoteMatch[]>([]);
 const toggleButton = ref<HTMLElement | null>(null);
 const offCanvas = ref<HTMLElement | null>(null);
-
-// const {focused} = useFocusWithin(offCanvas);
+const { connectionStatus, connectionInfo } = useObsidianConnection();
 
 const isToggleHovered = useElementHover(toggleButton, {
   delayEnter: 300,

@@ -14,7 +14,7 @@ export function useSearch(isLoadingInitial: boolean = false) {
     const store = useStore();
     const config = store;
 
-    const {throttledConnectionCheck, connectionStatus} = useObsidianConnection();
+    const {throttledConnectionCheck, connectionStatus, connectionInfo} = useObsidianConnection();
 
     const searchUrls = computed(() => config.searchUrls.split(',').map((url: string) => url.trim()));
 
@@ -145,12 +145,13 @@ export function useSearch(isLoadingInitial: boolean = false) {
         paginatedResults: paginatedResults,
         searchMode: searchMode,
         searchInputElement: searchInputElement,
-        connectionStatus: connectionStatus,
         isLoading: isLoading,
         totalMatches: totalMatches,
         fetchNotes,
         detectSearchString,
         initSearch,
-        displayNotesNumber
+        displayNotesNumber,
+        connectionInfo,
+        connectionStatus,
     }
 }

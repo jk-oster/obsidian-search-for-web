@@ -40,6 +40,8 @@ export const config: ExtensionConfig = {
     apiKey: "",
     vault: "",
     openObsidianUri: "obsidian://open?vault=",
+    restApiPort: 27124,
+    restApiProtocol: "https://",
     obsidianRestUrl: "127.0.0.1",
     protocol: "https://",
     provider: "local-rest", // local-rest, omni-search
