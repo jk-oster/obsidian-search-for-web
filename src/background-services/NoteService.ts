@@ -7,15 +7,14 @@ class NoteService {
     //
     // }
 
-    async fetchActiveNote({apiKey, protocol, obsidianRestUrl, port}: {
+    async fetchActiveNote({apiKey, restApiProtocol, restApiPort}: {
         apiKey: string,
-        protocol: string,
-        obsidianRestUrl: string,
-        port: number,
+        restApiProtocol: string,
+        restApiPort: number,
         vault: string
     }): Promise<string> {
         const options = this.getLocalRestApiOptions(apiKey);
-        const url = protocol + obsidianRestUrl + ':' + port + '/active';
+        const url = restApiProtocol + '127.0.0.1:' + restApiPort + '/active';
         const resp = await fetch(url, options);
         return await resp.text();
 
@@ -24,15 +23,14 @@ class NoteService {
         // return data;
     }
 
-    async fetchNote(fileName: string, {apiKey, protocol, obsidianRestUrl, port}: {
+    async fetchNote(fileName: string, {apiKey, restApiProtocol, restApiPort}: {
         apiKey: string,
-        protocol: string,
-        obsidianRestUrl: string,
-        port: number,
+        restApiProtocol: string,
+        restApiPort: number,
         vault: string
     }): Promise<string> {
         const options = this.getLocalRestApiOptions(apiKey);
-        const url = protocol + obsidianRestUrl + ':' + port + '/vault/' + encodeURIComponent(fileName);
+        const url = restApiProtocol + '127.0.0.1:' + restApiPort + '/vault/' + encodeURIComponent(fileName);
 
         console.log(url);
 

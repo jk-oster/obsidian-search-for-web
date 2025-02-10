@@ -63,9 +63,20 @@
       </Card>
     </template>
 
-    <div v-if="paginatedResults.length <= 0" style="min-width: min(100vw, 333px);" class="min-h-8 p-3 text-xs rounded-md border border-1 border-dashed border-gray-700 dark:border-gray-300  text-gray-700 dark:text-gray-300 mb-2 break-words flex flex-col items-center justify-center">
-      <Close class="h-12"></Close>
-      No matching results found in your Obsidian vault.
+    <div v-if="paginatedResults.length <= 0" style="min-width: min(100vw, 333px);" class="min-h-8 p-3 text-xs rounded-md border border-1 border-dashed border-gray-700 dark:border-gray-300  text-gray-700 dark:text-gray-300 mb-2">
+
+      <div v-if="connectionStatus === 'noauth'" style="max-width: 333px;">
+        🔑 Could reach Obsidian REST Api - API-Key is not valid. Please check and copy the key from Obsidian REST Api Plugin Settings and paste it in the extension <a class="underline" href="#" @click.prevent="openOptionsPage()">settings</a>.
+      </div>
+      <div v-else-if="connectionStatus !== 'search'" style="max-width: 333px;">
+        ❗ Could not connect to Obsidian. Please make sure <a class="underline" href="obsidian://open">Obsidian</a> is running and check your extension <a class="underline" href="#" @click.prevent="openOptionsPage()">settings</a>.
+      </div>
+
+      <div v-else class="break-words flex flex-col items-center justify-center">
+        <Close class="h-12"></Close>
+        No matching results found in your Obsidian vault.
+      </div>
+
     </div>
   </div>
   <button v-if="totalMatches > 6" @click="showMore()"
@@ -95,13 +106,15 @@ const {
   paginatedResults,
   displayNotesNumber,
   totalMatches,
+  connectionStatus,
+  connectionInfo,
 } = useSearch();
 
 const emit = defineEmits(['update:matches']);
 watchEffect(() => {
   emit('update:matches', {
     matches: searchResults.value,
-    searchString: searchString.value
+    searchString: searchString.value,
   });
 });
 

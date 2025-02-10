@@ -171,7 +171,7 @@
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
               Select Protocol
             </label>
-            <select v-model="store.protocol" @change="checkApiKey" id="protocol" name="protocol" required
+            <select v-model="store.protocol" @change="checkApiKey(); protocolChanged();" id="protocol" name="protocol" required
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               <option value="https://">HTTPS</option>
               <option value="http://">HTTP (insecure)</option>
@@ -182,7 +182,7 @@
             <label for="port" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
               Port number
             </label>
-            <input v-model="store.port" @change="checkApiKey" type="number" id="port" name="port"
+            <input v-model="store.port" @change="checkApiKey(); portChanged()" type="number" id="port" name="port"
                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
           </div>
 
@@ -472,12 +472,30 @@ async function setTheme(theme: Theme | null = null) {
   setColorScheme(document.body, theme ?? store.theme).then();
 }
 
+function protocolChanged() {
+  if(store.provider === 'local-rest') {
+    setTimeout(() => {
+      store.restApiProtocol = store.protocol;
+    }, 1)
+  }
+}
+
+function portChanged() {
+  if(store.provider === 'local-rest') {
+    setTimeout(() => {
+      store.restApiPort = store.port;
+    }, 1)
+  }
+}
+
 function providerChanged() {
   setTimeout(() => {
     if (store.provider === 'local-rest') {
       store.protocol = 'http://';
+      store.restApiProtocol = 'http://';
       store.obsidianRestUrl = '127.0.0.1';
       store.port = 27123;
+      store.restApiPort = 27123;
       connectionInfo.value = '🔄️ Checking your Obsidian REST API connection'
     } else {
       store.protocol = 'http://';

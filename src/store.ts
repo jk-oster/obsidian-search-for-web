@@ -33,8 +33,11 @@ export function useStore() {
     // Load all extension storage values to store variable to sync them initially
     async function loadAllFromExtStorageToStore() {
         store.show = false;
+        store.showInPageIcon = false;
         return await browser.storage.sync.get(config).then((data) => {
+            store.restApiProtocol = data.restApiProtocol;
             store.protocol = data.protocol;
+            store.restApiPort = Number(data.restApiPort);
             store.port = Number(data.port);
             store.provider = data.provider;
             store.apiKey = data.apiKey;

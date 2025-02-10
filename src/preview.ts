@@ -14,6 +14,7 @@ export function usePreview() {
     const isLoading = ref<boolean>(false);
 
     const fetchPreview = async (fileName: string) => {
+        console.log(store);
         if (store.provider === 'local-rest') {
             isLoading.value = true;
             try {
