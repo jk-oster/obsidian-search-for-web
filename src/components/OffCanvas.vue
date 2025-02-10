@@ -49,7 +49,7 @@ const isOffCanvasHovered = useElementHover(offCanvas, {
   delayLeave: 1000,
 });
 
-const showPopup = computed(() => store.show || isToggleHovered.value || isOffCanvasHovered.value);
+const showPopup = computed(() => isToggleHovered.value || isOffCanvasHovered.value || (store.show && (store.showSidebarWhenNoResults || searchResults.value?.length > 0)));
 const showToggle = computed(() => store.showInPageIcon && (store.showInPageIconWhenNoResults || searchResults.value?.length > 0));
 
 onMounted(async () => {

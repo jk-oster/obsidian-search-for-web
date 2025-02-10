@@ -1,5 +1,5 @@
 <template>
-  <LoadingSpinner class="scale-50" v-if="isLoading && paginatedResults?.length === 0"></LoadingSpinner>
+  <LoadingSpinner class="scale-50" v-if="connectionStatus === 'search' && isLoading && paginatedResults?.length === 0"></LoadingSpinner>
 
   <div v-if="paginatedResults?.length !== 0">
 
@@ -64,7 +64,7 @@ import LoadingSpinner from "./LoadingSpinner.vue";
 import NotePreview from "./NotePreview.vue";
 
 const tabService = getTabService();
-const {paginatedResults, totalMatches, displayNotesNumber, isLoading, searchString} = useSearch(true);
+const {connectionStatus, paginatedResults, totalMatches, displayNotesNumber, isLoading, searchString} = useSearch(true);
 
 
 function showMore() {

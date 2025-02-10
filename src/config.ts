@@ -46,7 +46,8 @@ export const config: ExtensionConfig = {
     protocol: "https://",
     provider: "local-rest", // local-rest, omni-search
     port: 27124,
-    show: true,
+    show: false,
+    showSidebarWhenNoResults: true,
     liveSearch: true,
     showInPageIcon: true,
     showInPageIconWhenNoResults: true,

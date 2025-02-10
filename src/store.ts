@@ -34,6 +34,7 @@ export function useStore() {
     async function loadAllFromExtStorageToStore() {
         store.show = false;
         store.showInPageIcon = false;
+        store.showSidebarWhenNoResults = false;
         return await browser.storage.sync.get(config).then((data) => {
             store.restApiProtocol = data.restApiProtocol;
             store.protocol = data.protocol;
@@ -47,6 +48,7 @@ export function useStore() {
             store.noteNumber = Number(data.noteNumber);
             store.minChars = Number(data.minChars);
             store.show = Boolean(data.show);
+            store.showSidebarWhenNoResults = Boolean(data.showSidebarWhenNoResults);
             store.searchString = data?.searchString ?? '';
             store.currentUrl = data?.currentUrl ?? '';
             store.contextLength = Number(data.contextLength);

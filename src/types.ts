@@ -71,6 +71,7 @@ export interface ExtensionConfig {
     port: number,
     restApiPort: number,
     show: boolean,
+    showSidebarWhenNoResults: boolean,
     liveSearch: boolean,
     sidePanelOpen: boolean,
     showInPageIcon: boolean,

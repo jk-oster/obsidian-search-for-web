@@ -1,5 +1,5 @@
 <template>
-  <LoadingSpinner v-if="isLoading && paginatedResults?.length === 0"></LoadingSpinner>
+  <LoadingSpinner v-if="connectionStatus === 'search' && isLoading && paginatedResults?.length === 0"></LoadingSpinner>
   <div v-if="paginatedResults?.length !== 0" class="w-full leading-1 mb-5" style="font-size: 16px;">
 
     <div class="flex items-center justify-start w-full my-3">
@@ -52,7 +52,7 @@ import {useStore} from "../store.js";
 const store = useStore();
 
 const tabService = getTabService();
-const {paginatedResults, totalMatches, displayNotesNumber, isLoading} = useSearch(true);
+const {connectionStatus, paginatedResults, totalMatches, displayNotesNumber, isLoading} = useSearch(true);
 
 function showMore() {
   displayNotesNumber.value += 6;
