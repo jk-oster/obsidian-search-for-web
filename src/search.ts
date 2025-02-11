@@ -48,7 +48,7 @@ export function useSearch(isLoadingInitial: boolean = false) {
     }
 
     const detectInputElement = () => {
-        const input = document.querySelector("input[placeholder='Search the web'],input[aria-label=Suche], input[aria-label=Search], input[name=q], input[data-testid='search-input'], input[type=search], input.s_ipt, input[name=wd], textarea[name=q], textarea[type=search], textarea[aria-label=Suche], textarea[aria-label=Search], textarea.mini-suggest__input");
+        const input = document.querySelector("input[placeholder='Search the web'],input[aria-label=Suche], input[aria-label=Search], input[name=q], input[data-testid='search-input'], input[type=search], input.s_ipt, input[name=wd], textarea[name=q], textarea[type=search], textarea[aria-label=Suche], textarea[aria-label=Search], textarea.mini-suggest__input, input.mini-suggest__input");
         if (input && input !== searchInputElement.value) {
             searchInputElement.value = input;
 
