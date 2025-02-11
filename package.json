@@ -17,6 +17,7 @@
     "upload": "npm run ./upload.js"
   },
   "dependencies": {
+    "@splidejs/vue-splide": "^0.6.12",
     "@vueuse/core": "^11.1.0",
     "@webext-core/isolated-element": "^1.1.2",
     "@webext-core/messaging": "^2.1.0",

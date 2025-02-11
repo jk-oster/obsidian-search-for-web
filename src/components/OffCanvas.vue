@@ -17,6 +17,7 @@
     </div>
   </button>
   <div ref="offCanvas"
+       style="min-width: min(100vw, 333px)"
        id="obsidian-search-for-web-offcanvas-results"
        :class="(showPopup ? ' translate-x-0 ' : ' translate-x-full ') + ' max-h-screen max-w-[400px] popup-container fixed duration-300 ease-in-out right-0 top-0 bg-white dark:bg-gray-900 p-2 rounded-l-[.375em] overflow-auto'">
     <SearchResults @update:matches="childMatches($event)"></SearchResults>

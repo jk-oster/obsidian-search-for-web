@@ -7,6 +7,7 @@ import {useTheme} from "../theme.js";
 import EmbeddedResults from "../components/EmbeddedResults.vue";
 import {extensionStorage} from "../storage.js";
 import {pageOptions} from "../config.js";
+import VueSplide from "@splidejs/vue-splide";
 
 const {setColorScheme} = useTheme();
 
@@ -21,7 +22,9 @@ async function setupEmbeddedResults() {
     const matchingPage = pageOptions.find(option => option.regex.test(window.location.href));
 
     if (matchingPage && embeddedResults) {
-        const mountEl = document.querySelector(matchingPage.selector);
+        const sidebarEl = document.querySelector(matchingPage.sidebar ?? 'idontmatchanything');
+        const mainEl = document.querySelector(matchingPage.main ?? 'idontmatchanything');
+        const mountEl = sidebarEl ?? mainEl;
 
         if (mountEl) {
             embedded = true;
@@ -29,9 +32,11 @@ async function setupEmbeddedResults() {
             sidebar.style.width = '100%';
             sidebar.style.fontSize = '20px';
             sidebar.id = 'obsidian-browser-search-embedded-results';
-            mountEl.insertBefore(sidebar, mountEl.firstChild);
+            mountEl?.insertBefore(sidebar, mountEl.firstChild);
             setColorScheme(sidebar).then();
-            createApp(EmbeddedResults).mount(sidebar);
+            createApp(EmbeddedResults, {
+                location: sidebarEl ? 'sidebar' : 'main'
+            }).use(VueSplide).mount(sidebar);
             console.log('[Obsidian Browser Search] injected embedded search results');
         }
     }

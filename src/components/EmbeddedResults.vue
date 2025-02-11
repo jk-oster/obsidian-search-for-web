@@ -1,9 +1,16 @@
 <script setup lang="ts">
-import {defineAsyncComponent, computed, onMounted} from 'vue'
+import {defineAsyncComponent, computed, onMounted, ref} from 'vue'
 import {pageOptions} from "../config.js";
 import {useStore} from "../store.js";
 
 const store = useStore();
+
+const props = defineProps({
+  location: {
+    type: String,
+    default: 'sidebar'
+  }
+});
 
 const asyncComponents = {
   loading: defineAsyncComponent(() => import('./LoadingSpinner.vue')),
@@ -30,7 +37,7 @@ const currentComponent = computed(() => {
 
 <template>
   <template v-if="store.embeddedResults">
-    <component :is="currentComponent"/>
+    <component :is="currentComponent" v-bind="{perPage: location === 'sidebar' ? 1 : 2, layout: location === 'sidebar' ? 'list' : 'slider'}" />
   </template>
 </template>
 

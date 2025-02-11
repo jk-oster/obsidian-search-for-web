@@ -77,57 +77,71 @@ export const pageOptions = [
     {
         name: 'google',
         regex: /^https:\/\/(www\.)?google\.com/,
-        selector: '#rhs',
+        main: '#center_col',
+        sidebar: '#rhs',
     },
     // {
     //     // name: 'startpage',
     //     name: 'generic',
     //     regex: /^https:\/\/(www\.)?startpage\.com/,
-    //     selector: '#sidebar',
+    //     sidebar: '#sidebar',
     // },
     {
         // name: 'ecosia',
         name: 'generic',
         regex: /^https:\/\/(www\.)?ecosia\.org/,
-        selector: '.sidebar',
+        sidebar: '.sidebar',
+        main: '.mainline__content'
     },
     // {
     //     // name: 'brave',
     //     name: 'generic',
     //     regex: /^https:\/\/(www\.)?search\.brave\.com/,
-    //     selector: '.sidebar',
+    //     sidebar: '.sidebar',
     // },
+    {
+        // name: 'yandex',
+        name: 'generic',
+        regex: /^https:\/\/(www\.)?yandex\.com/,
+        sidebar: '.content__right',
+        main: '.content__left',
+    },
     {
         // name: 'yahoo',
         name: 'generic',
         regex: /^https:\/\/(www\.)?search\.yahoo\.com/,
-        selector: '#right',
+        sidebar: '#right',
     },
     {
         // name: 'baidu',
         name: 'generic',
         regex: /^https:\/\/(www\.)?baidu\.com/,
-        selector: '#content_right',
+        sidebar: '#content_right',
+        main: '#content_left',
     },
     {
         // name: 'qwant',
         name: 'generic',
         regex: /^https:\/\/(www\.)?qwant\.com/,
-        selector: '.is-sidebar',
+        sidebar: '.is-sidebar',
+        main: '[data-testid="sectionWeb"',
     },
     {
         name: 'bing',
         regex: /^https:\/\/(www\.)?bing\.com/,
-        selector: '#b_context',
+        sidebar: '#b_context',
+        main: '#b_results'
     },
     {
         name: 'duckduckgo',
         regex: /^https:\/\/(www\.)?duckduckgo\.com/,
-        selector: '[data-area=sidebar]',
+        sidebar: '[data-area=sidebar]',
+        main: '[data-area=mainline]',
     },
     {
         name: 'kagi',
         regex: /^https:\/\/(www\.)?kagi\.com/,
-        selector: '.right-content-box',
+        sidebar: '.right-content-box',
+        main: '.left-content-box',
     }
 ];

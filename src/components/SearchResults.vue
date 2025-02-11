@@ -49,7 +49,7 @@
       class="text-xs max-w-[20em] lg:max-w-[24em] tracking-tight text-gray-700 dark:text-gray-300 mb-2 break-words">
     {{ paginatedResults.length }} result(s) of {{ totalMatches ?? 0 }}
   </div>
-  <div class="obsidian-search-highlight-area">
+  <div class="obsidian-search-highlight-area max-w-[20em] lg:max-w-[24em]">
     <template v-for="note of paginatedResults" :key="note.score">
       <Card :filename="note.filename"
             :basename="note.basename"
@@ -65,10 +65,10 @@
 
     <div v-if="paginatedResults.length <= 0" style="min-width: min(100vw, 333px);" class="min-h-8 p-3 text-xs rounded-md border border-1 border-dashed border-gray-700 dark:border-gray-300  text-gray-700 dark:text-gray-300 mb-2">
 
-      <div v-if="connectionStatus === 'noauth'" style="max-width: 333px;">
+      <div v-if="connectionStatus === 'noauth'">
         🔑 Could reach Obsidian REST Api - API-Key is not valid. Please check and copy the key from Obsidian REST Api Plugin Settings and paste it in the extension <a class="underline" href="#" @click.prevent="openOptionsPage()">settings</a>.
       </div>
-      <div v-else-if="connectionStatus !== 'search'" style="max-width: 333px;">
+      <div v-else-if="connectionStatus !== 'search'">
         ❗ Could not connect to Obsidian. Please make sure <a class="underline" href="obsidian://open">Obsidian</a> is running and check your extension <a class="underline" href="#" @click.prevent="openOptionsPage()">settings</a>.
       </div>
 
