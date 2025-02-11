@@ -46,7 +46,7 @@
   </form>
 
   <div
-      class="text-xs max-w-xs lg:max-w-sm tracking-tight text-gray-700 dark:text-gray-300 mb-2 break-words">
+      class="text-xs max-w-[20em] lg:max-w-[24em] tracking-tight text-gray-700 dark:text-gray-300 mb-2 break-words">
     {{ paginatedResults.length }} result(s) of {{ totalMatches ?? 0 }}
   </div>
   <div class="obsidian-search-highlight-area">

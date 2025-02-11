@@ -7,7 +7,7 @@
           <Logo></Logo>
       </span>
       <h2 style="padding: 0;" class="my-0 mr-1 p-0 text-lg leading-1 text-gray-900 dark:text-white">&nbspObsidian Search Results&nbsp</h2>
-      <span class="my-0 p-0 text-xs leading-1 text-gray-600 dark:text-gray-400">
+      <span style="padding: 0;" class="my-0 p-0 text-xs leading-1 text-gray-600 dark:text-gray-400">
             (<a href="#" @click.prevent="openOptionsPage()">Settings</a>)
       </span>
     </div>
@@ -29,7 +29,7 @@
     </div>
 
     <button type="button"
-            class="px-3 py-2 text-xs text-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+            class="px-3 py-2 text-xs text-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-[.5em] me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
             v-if="totalMatches > paginatedResults.length"
             @click="showMore()">
       Show more Obsidian results

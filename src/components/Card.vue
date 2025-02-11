@@ -2,7 +2,7 @@
   <div
       ref="element"
       style="min-width: min(100vw, 333px);"
-      class="p-3 relative mt-2 max-w-xs lg:max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+      class="p-3 relative mt-2 max-w-[20em] lg:max-w-[24em] bg-white rounded-[.5em] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
     <a class="flex justify-start items-center"
         :href="'obsidian://open?vault=' + encodeURIComponent(vaultName ?? '') + '&file=' + encodeURIComponent(basename ? basename + '.md' : '')">
       <div v-if="showIcon"
