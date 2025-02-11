@@ -56,7 +56,7 @@ export const config: ExtensionConfig = {
     contextLength: 50,
     matchCount: 2,
     noteNumber: 6,
-    searchUrls: 'google.com,duckduckgo.com,bing.com,startpage.com,ecosia.org,google.at,search.brave.com,kagi.com,yandex.com,qwant.com,search.yahoo.com',
+    searchUrls: 'google.com,duckduckgo.com,bing.com,startpage.com,ecosia.org,google.at,search.brave.com,kagi.com,yandex.com,qwant.com,search.yahoo.com,baidu.com',
     excludes: 'Assets,Template,.excalidraw',
     highlight: true,
     embeddedResults: true,
@@ -102,6 +102,12 @@ export const pageOptions = [
         name: 'generic',
         regex: /^https:\/\/(www\.)?search\.yahoo\.com/,
         selector: '#right',
+    },
+    {
+        // name: 'baidu',
+        name: 'generic',
+        regex: /^https:\/\/(www\.)?baidu\.com/,
+        selector: '#content_right',
     },
     {
         // name: 'qwant',
