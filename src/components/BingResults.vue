@@ -10,11 +10,11 @@
           </span>
     </div>
 
-    <div v-for="item of paginatedResults" class="b_algo relative" data-obsidian-result
+    <div v-for="(item, index) of paginatedResults" class="b_algo relative" data-obsidian-result
          style="padding-bottom: 10px; padding-top: 10px;">
 
       <h2 class="b_attribution">
-        <a :href="item.url" target="_blank" style="cursor: pointer;">
+        <a :href="item.url" @click="openNotePreview($event, index)" target="_blank" style="cursor: pointer;">
           <div class="b_tpcn">
             <div class="tilk" style="display: flex;">
               <div class="tpic">
@@ -43,7 +43,7 @@
         </a>
       </h2>
       <p class="b_caption" style="margin-bottom: 3px;font-size: 14px;">{{ item.excerpt }}</p>
-      <NotePreview :filename="item.filename" :name="item.basename" :searchString="searchString"></NotePreview>
+      <NotePreview :ref="(el) => notePreviews[index] = el" :filename="item.filename" :name="item.basename" :searchString="searchString"></NotePreview>
 
     </div>
     <button v-if="totalMatches > paginatedResults.length" style="margin-top: 0.5em; margin-bottom: 2em;" @click="showMore()">
@@ -62,11 +62,32 @@ import Logo from "./Logo.vue";
 import {getTabService} from "../background-services/TabService.js";
 import LoadingSpinner from "./LoadingSpinner.vue";
 import NotePreview from "./NotePreview.vue";
-
+import {useStore} from "../store";
+import {ref} from "vue";
+defineProps({
+  layout: {
+    type: String,
+    default: 'slider',
+  },
+  perPage: {
+    type: Number,
+    default: 2
+  }
+});
 const tabService = getTabService();
 const {connectionStatus, paginatedResults, totalMatches, displayNotesNumber, isLoading, searchString} = useSearch(true);
 
+const store = useStore();
+const notePreviews = ref<HTMLElement[]>([]);
 
+function openNotePreview(event: Event,  index: number) {
+  // @ts-ignore
+  if(store.provider === 'local-rest' && notePreviews?.value?.length > 0) {
+    event.preventDefault();
+    // @ts-ignore
+    notePreviews.value?.[index]?.openNotePreview();
+  }
+}
 function showMore() {
   displayNotesNumber.value += 6;
 }

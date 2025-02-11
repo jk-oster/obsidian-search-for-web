@@ -12,10 +12,10 @@
       </span>
     </div>
 
-    <div v-for="item of paginatedResults" class="relative" data-omnisearch-result style="margin-bottom: 2rem;">
+    <div v-for="(item, index) of paginatedResults" class="relative" data-omnisearch-result style="margin-bottom: 2rem;">
 
       <div>
-        <a :href="item.url" style="cursor: pointer;" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+        <a :href="item.url" @click="openNotePreview($event, index)" style="cursor: pointer;" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
           <div>
             <span>
                 <Logo></Logo>
@@ -45,7 +45,7 @@
         </div>
       </div>
 
-      <NotePreview :filename="item.filename" :name="item.basename" :searchString="searchString"></NotePreview>
+      <NotePreview :ref="(el) => notePreviews[index] = el" :filename="item.filename" :name="item.basename" :searchString="searchString"></NotePreview>
 
     </div>
 
@@ -64,10 +64,32 @@ import Logo from "./Logo.vue";
 import {getTabService} from "../background-services/TabService.js";
 import LoadingSpinner from "./LoadingSpinner.vue";
 import NotePreview from "./NotePreview.vue";
-
+import {useStore} from "../store";
+import {ref} from "vue";
+defineProps({
+  layout: {
+    type: String,
+    default: 'slider',
+  },
+  perPage: {
+    type: Number,
+    default: 2
+  }
+});
 const tabService = getTabService();
 const {connectionStatus, paginatedResults, totalMatches, displayNotesNumber, isLoading, searchString} = useSearch(true);
 
+const store = useStore();
+const notePreviews = ref<HTMLElement[]>([]);
+
+function openNotePreview(event: Event,  index: number) {
+  // @ts-ignore
+  if(store.provider === 'local-rest' && notePreviews?.value?.length > 0) {
+    event.preventDefault();
+    // @ts-ignore
+    notePreviews.value?.[index]?.openNotePreview();
+  }
+}
 function showMore() {
   displayNotesNumber.value += 6;
 }

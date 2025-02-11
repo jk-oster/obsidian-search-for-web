@@ -1,10 +1,10 @@
 <template>
   <div
       ref="element"
-      style="min-width: min(100vw, 333px);"
-      class="p-3 relative mt-2 max-w-[20em] lg:max-w-[24em] bg-white rounded-[.5em] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+      class="p-3 relative mt-2 w-full bg-white rounded-[.5em] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
     <a class="flex justify-start items-center"
-        :href="'obsidian://open?vault=' + encodeURIComponent(vaultName ?? '') + '&file=' + encodeURIComponent(basename ? basename + '.md' : '')">
+        @click="openNotePreview"
+        :href="'obsidian://open?vault=' + encodeURIComponent(vaultName ?? '') + '&file=' + encodeURIComponent(basename ?? '')">
       <div v-if="showIcon"
             class="rounded-full p-1.5 mr-2 text-sm font-medium text-gray-900 focus:outline-none bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
         <span style="font-size: 16px;">
@@ -28,7 +28,7 @@
       </p>
     </div>
 
-    <NotePreview :vaultName="vaultName" :name="basename" :filename="filename" :searchString="searchString"></NotePreview>
+    <NotePreview ref="notePreview" :vaultName="vaultName" :name="basename" :filename="filename" :searchString="searchString"></NotePreview>
   </div>
 
 </template>
@@ -37,6 +37,8 @@
 import NotePreview from "./NotePreview.vue";
 import {useHighlight} from "../highlighter";
 import Logo from "./Logo.vue";
+import {ref} from "vue";
+import {useStore} from "../store";
 
 defineProps({
   filename: String,
@@ -58,6 +60,17 @@ defineProps({
 });
 
 const {highlight} = useHighlight();
+const store = useStore();
+
+const notePreview = ref<HTMLElement | null>(null);
+
+function openNotePreview(event: Event) {
+  if(store.provider === 'local-rest' && notePreview.value) {
+    event.preventDefault();
+    // @ts-ignore
+    notePreview.value.openNotePreview();
+  }
+}
 
 </script>
 

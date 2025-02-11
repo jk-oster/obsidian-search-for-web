@@ -14,14 +14,14 @@
       </span>
     </div>
 
-    <div v-for="item of paginatedResults" class="MjjYud" data-obsidian-result>
+    <div v-for="(item, index) of paginatedResults" class="MjjYud" data-obsidian-result>
       <div class="g Ww4FFb vt6azd tF2Cxc asEBEc relative" style="width: 100%">
         <div class="N54PNb BToiNc cvP2Ce">
           <div class="kb0PBd cvP2Ce jGGQ5e">
             <div class="yuRUbf">
               <div>
                 <span>
-                    <a :href="item.url" style="cursor: pointer;">
+                    <a :href="item.url" @click="openNotePreview($event, index)" style="cursor: pointer;">
                         <br/>
                         <h3 class="LC20lb MBeuO DKV0Md" style="margin-top: 18px; font-size: 20px;">{{ item.basename }}</h3>
                         <div class="notranslate TbwUpd NJjxre iUh30 ojE3Fb">
@@ -56,7 +56,7 @@
             </div>
           </div>
         </div>
-        <NotePreview :filename="item.filename" :name="item.basename" :searchString="searchString"></NotePreview>
+        <NotePreview :ref="(el) => notePreviews[index] = el" :filename="item.filename" :name="item.basename" :searchString="searchString"></NotePreview>
       </div>
     </div>
 
@@ -73,9 +73,32 @@ import Logo from "./Logo.vue";
 import {getTabService} from "../background-services/TabService.js";
 import LoadingSpinner from "./LoadingSpinner.vue";
 import NotePreview from "./NotePreview.vue";
-
+import {ref} from "vue";
+import {useStore} from "../store";
+defineProps({
+  layout: {
+    type: String,
+    default: 'slider',
+  },
+  perPage: {
+    type: Number,
+    default: 2
+  }
+});
 const tabService = getTabService();
 const {connectionStatus, paginatedResults, totalMatches, displayNotesNumber, isLoading, searchString} = useSearch(true);
+
+const store = useStore();
+const notePreviews = ref<HTMLElement[]>([]);
+
+function openNotePreview(event: Event,  index: number) {
+  // @ts-ignore
+  if(store.provider === 'local-rest' && notePreviews?.value?.length > 0) {
+    event.preventDefault();
+    // @ts-ignore
+    notePreviews.value?.[index]?.openNotePreview();
+  }
+}
 
 function showMore() {
   displayNotesNumber.value += 6;
