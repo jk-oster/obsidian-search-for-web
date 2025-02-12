@@ -55,7 +55,7 @@ export const config: ExtensionConfig = {
     contextLength: 50,
     matchCount: 3,
     noteNumber: 6,
-    searchUrls: 'google.com,duckduckgo.com,bing.com,startpage.com,ecosia.org,google.at,search.brave.com,kagi.com,yandex.com,qwant.com,search.yahoo.com,baidu.com',
+    searchUrls: '',
     excludes: 'Assets,Template,.excalidraw',
     highlight: true,
     embeddedResults: true,
@@ -70,32 +70,37 @@ export const config: ExtensionConfig = {
 export const pageOptions = [
     {
         name: 'google',
+        url: 'https://google.com',
         regex: /^https:\/\/(www\.)?google\.([a-z]{2,3})/,
         main: '#center_col',
         sidebar: '#rhs',
     },
-    // {
-    //     // name: 'startpage',
-    //     name: 'generic',
-    //     regex: /^https:\/\/(www\.)?startpage\.com/,
-    //     sidebar: '#sidebar',
-    // },
+    {
+        // name: 'startpage',
+        // name: 'generic',
+        url: 'https://startpage.com',
+        regex: /^https:\/\/(www\.)?startpage\.com/,
+        // sidebar: '#sidebar', // not working -> SPA replaces content
+    },
     {
         // name: 'ecosia',
         name: 'generic',
+        url: 'https://ecosia.org',
         regex: /^https:\/\/(www\.)?ecosia\.org/,
         sidebar: '.sidebar',
         main: '.mainline__content'
     },
-    // {
-    //     // name: 'brave',
-    //     name: 'generic',
-    //     regex: /^https:\/\/(www\.)?search\.brave\.com/,
-    //     sidebar: '.sidebar',
-    // },
+    {
+        // name: 'brave',
+        // name: 'generic',
+        url: 'https://search.brave.com',
+        regex: /^https:\/\/(www\.)?search\.brave\.com/,
+        // sidebar: '.sidebar', // not working -> SPA replaces content
+    },
     {
         // name: 'yandex',
         name: 'generic',
+        url: 'https://yandex.com',
         regex: /^https:\/\/(www\.)?yandex\.com/,
         sidebar: '.content__right',
         main: '.content__left',
@@ -103,12 +108,14 @@ export const pageOptions = [
     {
         // name: 'yahoo',
         name: 'generic',
+        url: 'https://search.yahoo.com',
         regex: /^https:\/\/(www\.)?search\.yahoo\.com/,
         sidebar: '#right',
     },
     {
         // name: 'baidu',
         name: 'generic',
+        url: 'https://baidu.com',
         regex: /^https:\/\/(www\.)?baidu\.com/,
         sidebar: '#content_right',
         main: '#content_left',
@@ -116,24 +123,28 @@ export const pageOptions = [
     {
         // name: 'qwant',
         name: 'generic',
+        url: 'https://qwant.com',
         regex: /^https:\/\/(www\.)?qwant\.com/,
         sidebar: '.is-sidebar',
         main: '[data-testid="sectionWeb"',
     },
     {
         name: 'bing',
+        url: 'https://bing.com',
         regex: /^https:\/\/(www\.)?bing\.com/,
         sidebar: '#b_context',
         main: '#b_results'
     },
     {
         name: 'duckduckgo',
+        url: 'https://duckduckgo.com',
         regex: /^https:\/\/(www\.)?duckduckgo\.com/,
         sidebar: '[data-area=sidebar]',
         main: '[data-area=mainline]',
     },
     {
         name: 'kagi',
+        url: 'https://kagi.com',
         regex: /^https:\/\/(www\.)?kagi\.com/,
         sidebar: '.right-content-box',
         main: '.left-content-box',

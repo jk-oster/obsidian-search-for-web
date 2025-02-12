@@ -1,5 +1,5 @@
 import {useStore} from "./store.js";
-import {Status, SearchModes} from "./config.js";
+import {Status, SearchModes, pageOptions} from "./config.js";
 import type {NoteMatch} from "./types.js";
 import {ref, computed, onMounted, watch} from 'vue';
 import {useDebounceFn} from "@vueuse/core";
@@ -38,7 +38,7 @@ export function useSearch(isLoadingInitial: boolean = false) {
         }
 
         const currentUrl = window.location.href;
-        if (searchUrls.value.some((url: string) => currentUrl.includes(url)) || /^https:\/\/(www\.)?google\.([a-z]{2,3})/.test(currentUrl)) {
+        if (searchUrls.value.some((url: string) => currentUrl.includes(url)) || pageOptions.some(page => page.regex?.test(currentUrl))) {
             searchMode.value = SearchModes.search;
         } else {
             searchMode.value = SearchModes.urlMatch;

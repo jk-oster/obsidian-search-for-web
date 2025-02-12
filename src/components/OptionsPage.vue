@@ -156,7 +156,7 @@
 
           <div class="mb-6">
             <label for="provider"
-                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
+                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
               Select Obsidian Search Provider *
             </label>
             <select v-model="store.provider" @change="providerChanged" id="provider" name="provider" required
@@ -172,7 +172,7 @@
             <div class="grid grid-cols-2 gap-2">
               <div class="mb-6">
                 <label for="protocol"
-                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
+                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   Select Protocol
                 </label>
                 <select v-model="store.protocol" @change="checkApi();" id="protocol" name="protocol" required
@@ -195,7 +195,7 @@
             <div class="grid grid-cols-2 gap-2">
               <div>
                 <label for="restApiProtocol"
-                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
+                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   Select Protocol
                 </label>
                 <select v-model="store.restApiProtocol" @change="checkRestApi();" id="restApiProtocol" name="restApiProtocol" required
@@ -318,13 +318,10 @@
 
             <div class="text-xs text-gray-700 dark:text-gray-400">
               Currently supported are:
-              <a href="https://google.com" class="underline">Google</a>,
-              <a href="https://duckduckgo.com" class="underline">DuckDuckGo</a>,
-              <a href="https://bing.com"  class="underline">Bing</a>,
-              <a href="https://kagi.com" class="underline">Kagi</a>,
-              <a href="https://qwant.com" class="underline">Qwant</a>,
-              <a href="https://ecosia.org" class="underline">Ecosia</a>,
-              <a href="https://search.yahoo.com" class="underline">Yahoo</a>
+
+              <template v-for="(page, index) in pageOptions.filter(p => p.sidebar || p.main)">
+                <a :href="page.url" class="underline">{{ page.url.replace('https://', '') }}</a>{{ index + 1 >= pageOptions.length ? '' : ', ' }}
+              </template>
             </div>
           </div>
 
@@ -347,7 +344,7 @@
 
           <div class=" mb-6">
             <label for="theme"
-                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
+                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
               Select Color Scheme
             </label>
             <select v-model="store.theme" @change="setTheme()" id="theme" name="theme" required
@@ -403,25 +400,35 @@
 
           <div class="mb-6">
             <label for="searchUrls"
-                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
-              Live-Search-Domains (Pages on which to look for search input, all others will be matched by URL
-              instead of search input) *separate urls by <code>,</code>
+                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+              Additional Live-Search-Domains (separate urls by <code>,</code>)
             </label>
-            <textarea v-model="store.searchUrls" type="text" id="searchUrls" name="searchUrls"
-                   placeholder="google.com,duckduckgo.com,bing.com,startpage.com,google.at,kagi.com"
+            <input v-model="store.searchUrls" type="text" id="searchUrls" name="searchUrls"
+                   placeholder="...additional search domains..."
                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
+            <span class="text-xs text-gray-700 dark:text-gray-400">
+              Pages on which to look for search input, all others will be matched by URL instead of search input.
+            </span>
+            <span class="text-xs text-gray-700 dark:text-gray-400">
+              The following Domains are supported by default:
+              <template v-for="(page, index) in pageOptions.filter(p => p.regex)">
+                <a :href="page.url" class="underline">{{ page.url.replace('https://', '') }}</a>{{ index + 1 >= pageOptions.length ? '' : ', ' }}
+              </template>
+            </span>
           </div>
 
           <div class="mb-6">
             <label for="excludes"
-                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
-              Paths to exclude (files containing the following segments will
-              be excluded from search results) *separate segments by
-              <code>,</code>
+                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+              Paths to exclude (separate segments by
+              <code>,</code>)
             </label>
             <input v-model="store.excludes" type="text" id="excludes" name="excludes"
                    placeholder="Assets,Template,.excalidraw"
                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
+            <span class="text-xs text-gray-700 dark:text-gray-400">
+              Files containing the any of the defined segments will be excluded from search results.
+            </span>
           </div>
         </fieldset>
         <span class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-400" id="status"></span>
@@ -499,6 +506,7 @@ import {ref} from 'vue';
 import Toast from "./Toast.vue";
 import {useStore} from "../store.js";
 import {useObsidianConnection} from "../connection";
+import {pageOptions} from "../config";
 
 const store = useStore();
 const {throttledConnectionCheck, throttledRestApiConnectionCheck, connectionInfo, restApiStatus} = useObsidianConnection(1000);
