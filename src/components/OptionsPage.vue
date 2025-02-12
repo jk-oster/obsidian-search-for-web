@@ -145,7 +145,7 @@
             <label for="vault"
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
               Obsidian Vault Name to open Links (only required if you are using multiple vaults)</label>
-            <input v-model="store.vault" @change="checkApiKey" type="text" id="vault" name="vault"
+            <input v-model="store.vault" @change="checkApi" type="text" id="vault" name="vault"
                    placeholder="MyAwesomeSecondBrain"
                    class="inline shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-3/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                    required/>
@@ -154,7 +154,7 @@
               Test Open Vault</a>
           </div>
 
-          <div class=" mb-6">
+          <div class="mb-6">
             <label for="provider"
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
               Select Obsidian Search Provider *
@@ -166,31 +166,62 @@
             </select>
           </div>
 
-          <div class=" mb-6">
-            <label for="protocol"
-                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
-              Select Protocol
-            </label>
-            <select v-model="store.protocol" @change="checkApiKey(); protocolChanged();" id="protocol" name="protocol" required
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              <option value="https://">HTTPS</option>
-              <option value="http://">HTTP (insecure)</option>
-            </select>
+          <div>
+            <h3>Omnisearch Settings</h3>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div class="mb-6">
+                <label for="protocol"
+                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
+                  Select Protocol
+                </label>
+                <select v-model="store.protocol" @change="checkApi();" id="protocol" name="protocol" required
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <option value="https://">HTTPS</option>
+                  <option value="http://">HTTP (insecure)</option>
+                </select>
+              </div>
+              <div class="mb-6">
+                  <label for="port" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Port number
+                  </label>
+                  <input v-model="store.port" @change="checkApi();" type="number" id="port" name="port"
+                         class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
+              </div>
+            </div>
+
+            <h3>Obsidian REST API Settings</h3>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label for="restApiProtocol"
+                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
+                  Select Protocol
+                </label>
+                <select v-model="store.restApiProtocol" @change="checkRestApi();" id="restApiProtocol" name="restApiProtocol" required
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <option value="https://">HTTPS</option>
+                  <option value="http://">HTTP (insecure)</option>
+                </select>
+              </div>
+              <div>
+                  <label for="restApiPort" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Port number
+                  </label>
+                  <input v-model="store.restApiPort" @change="checkRestApi();" type="number" id="restApiPort" name="restApiPort"
+                         class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
+              </div>
+            </div>
+
           </div>
 
-          <div id="port-container" class="mb-6">
-            <label for="port" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-              Port number
-            </label>
-            <input v-model="store.port" @change="checkApiKey(); portChanged()" type="number" id="port" name="port"
-                   class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
-          </div>
 
-          <div class="mb-6">
+
+          <div class="mt-2 mb-6">
             <label for="apiKey"
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
               Your Obsidian REST Api Key * (Local REST API only)</label>
-            <input v-model="store.apiKey" @change="checkApiKey" :disabled="store.provider !== 'local-rest'" type="text"
+            <input v-model="store.apiKey" @change="checkRestApi();" type="text"
                    id="apiKey" name="apiKey"
                    placeholder="Local REST API Key"
                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
@@ -352,7 +383,7 @@
           <div class="mb-6">
             <label for="matchCount"
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-              Number of matched lines shown per note (default 2, Local REST API only)
+              Number of matched lines shown per note (default 3, Local REST API only)
             </label>
             <input v-model="store.matchCount" :disabled="store.provider !== 'local-rest'" min="0" max="10" type="number"
                    id="matchCount" name="matchCount"
@@ -376,7 +407,7 @@
               Live-Search-Domains (Pages on which to look for search input, all others will be matched by URL
               instead of search input) *separate urls by <code>,</code>
             </label>
-            <input v-model="store.searchUrls" type="text" id="searchUrls" name="searchUrls"
+            <textarea v-model="store.searchUrls" type="text" id="searchUrls" name="searchUrls"
                    placeholder="google.com,duckduckgo.com,bing.com,startpage.com,google.at,kagi.com"
                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
           </div>
@@ -470,14 +501,17 @@ import {useStore} from "../store.js";
 import {useObsidianConnection} from "../connection";
 
 const store = useStore();
-const {throttledConnectionCheck, connectionStatus, connectionInfo} = useObsidianConnection(1000);
+const {throttledConnectionCheck, throttledRestApiConnectionCheck, connectionInfo, restApiStatus} = useObsidianConnection(1000);
 
 const url = computed(()=> {
-    return store.protocol + store.obsidianRestUrl + ":" + store.port;
+    return store.protocol + (store.provider === 'local-rest' ? '127.0.0.1' : 'localhost') + ":" + store.port;
 });
 
-async function checkApiKey() {
+async function checkApi() {
   throttledConnectionCheck().then();
+}
+async function checkRestApi() {
+  throttledRestApiConnectionCheck().then();
 }
 
 async function setTheme(theme: Theme | null = null) {
@@ -485,38 +519,14 @@ async function setTheme(theme: Theme | null = null) {
   setColorScheme(document.body, theme ?? store.theme).then();
 }
 
-function protocolChanged() {
-  if(store.provider === 'local-rest') {
-    setTimeout(() => {
-      store.restApiProtocol = store.protocol;
-    }, 1)
-  }
-}
-
-function portChanged() {
-  if(store.provider === 'local-rest') {
-    setTimeout(() => {
-      store.restApiPort = store.port;
-    }, 1)
-  }
-}
-
 function providerChanged() {
   setTimeout(() => {
     if (store.provider === 'local-rest') {
-      store.protocol = 'http://';
-      store.restApiProtocol = 'http://';
-      store.obsidianRestUrl = '127.0.0.1';
-      store.port = 27123;
-      store.restApiPort = 27123;
       connectionInfo.value = '🔄️ Checking your Obsidian REST API connection'
     } else {
-      store.protocol = 'http://';
-      store.obsidianRestUrl = 'localhost';
-      store.port = 51361;
       connectionInfo.value = '🔄️ Checking your Obsidian Omnisearch connection'
     }
-    checkApiKey().then();
+    checkApi().then();
   }, 1);
 }
 </script>

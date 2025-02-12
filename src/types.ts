@@ -64,7 +64,6 @@ export interface ExtensionConfig {
     apiKey: string,
     vault: string,
     openObsidianUri: string,
-    obsidianRestUrl: string,
     protocol: 'https://' | 'http://',
     restApiProtocol: 'https://' | 'http://',
     provider: SearchProvider,
@@ -90,9 +89,4 @@ export interface ExtensionConfig {
 
     currentUrl: string,
     searchString: string,
-
-    status: State,
-    color: Color,
-    statusText: string,
-    results: string,
 }

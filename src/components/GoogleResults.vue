@@ -1,5 +1,5 @@
 <template>
-  <LoadingSpinner class="scale-50" v-if="connectionStatus === 'search' && isLoading && paginatedResults?.length === 0"></LoadingSpinner>
+  <!--LoadingSpinner class="scale-50" v-if="connectionStatus === 'search' && isLoading && paginatedResults?.length === 0"></LoadingSpinner-->
 
   <div ref="container" v-if="paginatedResults?.length !== 0" style="width: 100%;">
     <div style="margin-bottom: 1em">
@@ -56,7 +56,13 @@
             </div>
           </div>
         </div>
-        <NotePreview :ref="(el) => notePreviews[index] = el" :filename="item.filename" :name="item.basename" :searchString="searchString"></NotePreview>
+        <!-- @vue-ignore -->
+        <NotePreview :ref="(el) => notePreviews[index] = el"
+                     :url="item.url"
+                     :filename="item.filename"
+                     :name="item.basename"
+                     :searchString="searchString">
+        </NotePreview>
       </div>
     </div>
 
@@ -86,14 +92,13 @@ defineProps({
   }
 });
 const tabService = getTabService();
-const {connectionStatus, paginatedResults, totalMatches, displayNotesNumber, isLoading, searchString} = useSearch(true);
+const {connectionStatus, restApiStatus, paginatedResults, totalMatches, displayNotesNumber, isLoading, searchString} = useSearch(true);
 
-const store = useStore();
 const notePreviews = ref<HTMLElement[]>([]);
 
 function openNotePreview(event: Event,  index: number) {
   // @ts-ignore
-  if(store.provider === 'local-rest' && notePreviews?.value?.length > 0) {
+  if(restApiStatus.value === 'search' && notePreviews?.value?.length > 0) {
     event.preventDefault();
     // @ts-ignore
     notePreviews.value?.[index]?.openNotePreview();

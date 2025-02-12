@@ -7,6 +7,7 @@ import {useTheme} from "../theme.js";
 import EmbeddedResults from "../components/EmbeddedResults.vue";
 import {extensionStorage} from "../storage.js";
 import {pageOptions} from "../config.js";
+// @ts-ignore
 import VueSplide from "@splidejs/vue-splide";
 
 const {setColorScheme} = useTheme();
@@ -36,6 +37,7 @@ async function setupEmbeddedResults() {
             setColorScheme(sidebar).then();
             createApp(EmbeddedResults, {
                 location: sidebarEl ? 'sidebar' : 'main'
+                // @ts-ignore
             }).use(VueSplide).mount(sidebar);
             console.log('[Obsidian Browser Search] injected embedded search results');
         }

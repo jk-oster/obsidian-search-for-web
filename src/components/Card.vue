@@ -1,10 +1,8 @@
 <template>
-  <div
-      ref="element"
-      class="p-3 relative mt-2 w-full bg-white rounded-[.5em] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+  <div class="results-card p-3 relative mt-2 w-full bg-white rounded-[.5em] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
     <a class="flex justify-start items-center"
         @click="openNotePreview"
-        :href="'obsidian://open?vault=' + encodeURIComponent(vaultName ?? '') + '&file=' + encodeURIComponent(basename ?? '')">
+        :href="item.url">
       <div v-if="showIcon"
             class="rounded-full p-1.5 mr-2 text-sm font-medium text-gray-900 focus:outline-none bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
         <span style="font-size: 16px;">
@@ -13,59 +11,64 @@
       </div>
 
       <div>
-        <p v-if="filename" class="text-xs leading-none tracking-tight text-gray-700 dark:text-gray-300" v-html="highlight(filename ?? '', searchString)"></p>
+        <p v-if="item.filename" class="text-xs leading-none tracking-tight text-gray-700 dark:text-gray-300" v-html="highlight(item.filename ?? '', searchString)"></p>
         <div class="my-1 text-sm leading-none tracking-tight text-gray-900 dark:text-white hover:underline">
-          <span class="text-md font-semibold" v-html="highlight(basename ?? '', searchString)"></span>
+          <span class="text-md font-semibold" v-html="highlight(item.basename ?? '', searchString)"></span>
           <span class="font-light text-xs text-gray-700 dark:text-gray-300"> ({{
-              matchesCount ?? 0
+              item.matchesCount ?? 0
             }} matches)</span>
         </div>
       </div>
 
     </a>
     <div class="text-xs font-normal text-gray-700 dark:text-gray-400">
-      <p class="mt-1 break-words obsidian-search-highlight-area" v-html="highlight(excerpt ?? '', searchString)">
+      <p class="mt-1 break-words obsidian-search-highlight-area" v-html="highlight(item.excerpt ?? '', searchString)">
       </p>
     </div>
 
-    <NotePreview ref="notePreview" :vaultName="vaultName" :name="basename" :filename="filename" :searchString="searchString"></NotePreview>
+    <a v-if="canPreview"
+       class="open-link absolute top-2 right-2 text-gray-700 dark:text-gray-400"
+       title="Open Note in Obsidian"
+       :href="item.url">
+      <OpenLink class="w-4 h-4"></OpenLink>
+    </a>
+
+    <NotePreview v-if="canPreview"
+                 ref="notePreview"
+                 :url="item.url"
+                 :vaultName="vaultName"
+                 :name="item.basename"
+                 :filename="item.filename"
+                 :searchString="searchString">
+    </NotePreview>
   </div>
 
 </template>
 
 <script setup lang="ts">
 import NotePreview from "./NotePreview.vue";
-import {useHighlight} from "../highlighter";
+import {useHighlight} from "../highlighter.js";
 import Logo from "./Logo.vue";
 import {ref} from "vue";
-import {useStore} from "../store";
+import OpenLink from "./OpenLink.vue";
+import type {NoteMatch} from "../types.js";
 
-defineProps({
-  filename: String,
-  basename: String,
-  path: String,
-  excerpt: String,
-  matchesCount: Number,
-  searchString: {
-    type: String,
-    default: '',
-  },
-  showMatchesCount: Number,
-  vaultName: String,
-  highlighting: Boolean,
-  showIcon: {
-    type: Boolean,
-    default: false,
-  },
-});
+const props = defineProps<{
+  item: NoteMatch
+  searchString: string,
+  showMatchesCount?: number,
+  vaultName: string,
+  highlighting: boolean|undefined,
+  showIcon: boolean|undefined,
+  canPreview: boolean,
+}>();
 
 const {highlight} = useHighlight();
-const store = useStore();
 
 const notePreview = ref<HTMLElement | null>(null);
 
 function openNotePreview(event: Event) {
-  if(store.provider === 'local-rest' && notePreview.value) {
+  if(props.canPreview && notePreview.value) {
     event.preventDefault();
     // @ts-ignore
     notePreview.value.openNotePreview();
@@ -84,6 +87,16 @@ function openNotePreview(event: Event) {
   .bg-yellow {
     --tw-bg-opacity: .8;
     background-color: rgb(255 255 51 / var(--tw-bg-opacity))
+  }
+
+  .open-link {
+    visibility: hidden;
+  }
+
+  .results-card:hover {
+    .open-link {
+      visibility: visible;
+    }
   }
 
   .text-black {

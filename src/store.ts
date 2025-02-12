@@ -42,7 +42,6 @@ export function useStore() {
             store.port = Number(data.port);
             store.provider = data.provider;
             store.apiKey = data.apiKey;
-            store.obsidianRestUrl = data.obsidianRestUrl;
             store.searchUrls = data.searchUrls;
             store.excludes = data.excludes;
             store.noteNumber = Number(data.noteNumber);
@@ -63,11 +62,6 @@ export function useStore() {
             store.highlighting = Boolean(data.highlighting);
             store.nativeResults = Boolean(data.nativeResults);
             store.theme = data.theme;
-
-            store.status = data.status;
-            store.statusText = data.statusText;
-            store.results = data.results;
-            store.color = data.color;
         });
     }
 

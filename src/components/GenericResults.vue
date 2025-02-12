@@ -15,14 +15,12 @@
 
     <div class="obsidian-search-highlight-area w-full">
       <template v-if="layout === 'slider'">
+        <!---->
         <Splide :options="{rewind: false, perPage: perPage, perMove: perPage, omitEnd: true}">
           <template v-for="note of searchResults" :key="note.score">
             <SplideSlide>
-              <Card :filename="note.filename"
-                    :basename="note.basename"
-                    :path="note.path"
-                    :excerpt="note.excerpt"
-                    :matchesCount="note.matchesCount ?? 0"
+              <Card :item="note"
+                    :canPreview="restApiStatus === 'search'"
                     :showMatchesCount="store.matchCount"
                     :searchString="store.searchString"
                     :highlighting="store.highlighting ?? false"
@@ -35,11 +33,8 @@
       </template>
       <template v-else>
         <template v-for="note of paginatedResults" :key="note.score">
-          <Card :filename="note.filename"
-                :basename="note.basename"
-                :path="note.path"
-                :excerpt="note.excerpt"
-                :matchesCount="note.matchesCount ?? 0"
+          <Card :item="note"
+                :canPreview="restApiStatus === 'search'"
                 :showMatchesCount="store.matchCount"
                 :searchString="store.searchString"
                 :highlighting="store.highlighting ?? false"
@@ -85,7 +80,7 @@ defineProps({
 });
 
 const tabService = getTabService();
-const {connectionStatus, paginatedResults, totalMatches, searchResults, displayNotesNumber, isLoading} = useSearch(true);
+const {connectionStatus, restApiStatus, paginatedResults, totalMatches, searchResults, displayNotesNumber, isLoading} = useSearch(true);
 
 function showMore() {
   displayNotesNumber.value += 6;

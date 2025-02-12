@@ -4,12 +4,14 @@ import {useExtensionStorage} from "./storage.js";
 import {registerBadgeService} from "./background-services/BadgeService.js";
 import {registerNoteService} from "./background-services/NoteService.js";
 import {registerTabService} from "./background-services/TabService";
+import {registerConnectionService} from "./background-services/ConnectionService";
 
 const {migrate, extensionStorage} = useExtensionStorage();
 
 registerBadgeService();
 registerTabService();
 registerNoteService();
+registerConnectionService();
 
 // Open Settings Page on FIRST installation
 browser.runtime.onInstalled.addListener(async () => {

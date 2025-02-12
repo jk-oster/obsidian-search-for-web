@@ -65,18 +65,17 @@ class NoteService {
         };
     }
 
-    async fetchLocalRest(query: string, {apiKey, protocol, obsidianRestUrl, port, contextLength, matchCount, vault}: {
+    async fetchLocalRest(query: string, {apiKey, restApiProtocol, restApiPort, contextLength, matchCount, vault}: {
         apiKey: string,
-        protocol: string,
-        obsidianRestUrl: string,
-        port: number,
+        restApiProtocol: string,
+        restApiPort: number,
         contextLength: number,
         matchCount: number,
         vault: string
     }): Promise<NoteMatch[]> {
         const options = this.getLocalRestApiOptions(apiKey);
         options.method = 'POST';
-        const url = protocol + obsidianRestUrl + ':' + port + '/search/simple/?query=' + encodeURIComponent(query) + '&contextLength=' + contextLength;
+        const url = restApiProtocol + '127.0.0.1:' + restApiPort + '/search/simple/?query=' + encodeURIComponent(query) + '&contextLength=' + contextLength;
 
         const resp = await fetch(url, options);
         const data: LocalRestNoteMatch[] = await resp.json();
@@ -93,9 +92,8 @@ class NoteService {
         return data.map(note => this.mapLocalRestToNoteMatch(note, {matchCount, vault}))
     }
 
-    async fetchOmniSearch(query: string, {protocol, obsidianRestUrl, port, vault, matchCount}: {
+    async fetchOmniSearch(query: string, {protocol, port, vault, matchCount}: {
         protocol: string,
-        obsidianRestUrl: string,
         port: number,
         vault: string,
         matchCount: number
@@ -107,7 +105,7 @@ class NoteService {
             }
         };
 
-        const url = protocol + obsidianRestUrl + ':' + port + '/search?q=' + query;
+        const url = protocol + 'localhost:' + port + '/search?q=' + query;
         const resp = await fetch(url, options);
         const data: OmniSearchNoteMatch[] = await resp.json();
 
@@ -118,14 +116,19 @@ class NoteService {
         matchCount: number,
         vault: string
     }): NoteMatch {
+        let baseName = data.basename;
+        if (baseName.endsWith('.md')) {
+            baseName = baseName.replace('.md', '');
+        }
+
         return {
             filename: data.path,
-            path: data.path.replaceAll(data.basename + '.md', '') ?? '/',
-            basename: data.basename,
+            path: data.path.replaceAll(baseName + '.md', '') ?? '/',
+            basename: baseName,
             score: data.score,
             matchesCount: data.matches.length,
             excerpt: matchCount == 0 ? '' : data.excerpt.replaceAll(/<br.?\/?>/g, ' '),
-            url: 'obsidian://open?vault=' + encodeURIComponent(vault ?? '') + '&file=' + encodeURIComponent(data.basename ?? '')
+            url: 'obsidian://open?vault=' + encodeURIComponent(vault ?? '') + '&file=' + encodeURIComponent(baseName ? baseName + '.md' : '')
         }
     }
 
@@ -133,15 +136,19 @@ class NoteService {
         matchCount: number,
         vault: string
     }): NoteMatch {
-        const baseName = data.filename?.split('/')[data.filename?.split('/').length - 1] ?? '';
+        let baseName = data.filename?.split('/')[data.filename?.split('/').length - 1] ?? '';
+        if (baseName.endsWith('.md')) {
+            baseName = baseName.replace('.md', '');
+        }
+
         return {
             filename: data.filename,
-            path: data.filename?.replace(baseName, ''),
+            path: data.filename?.replace(baseName + '.md', ''),
             basename: baseName,
             score: data.score,
             matchesCount: data.matchesCount ?? 1,
             excerpt: data.matches.map((match: any) => match.context).slice(0, matchCount).join(' ... ').replaceAll(/<br.?\/?>/g, ' '),
-            url: 'obsidian://open?vault=' + encodeURIComponent(vault ?? '') + '&file=' + encodeURIComponent(baseName ?? '')
+            url: 'obsidian://open?vault=' + encodeURIComponent(vault ?? '') + '&file=' + encodeURIComponent(baseName ? baseName + '.md' : '')
         }
     }
 }

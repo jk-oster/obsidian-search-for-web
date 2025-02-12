@@ -1,19 +1,9 @@
 <template>
-  <button v-if="store.provider === 'local-rest' && showButton"
-          title="Open Note Preview"
-          class="absolute top-2 right-2 text-gray-700 dark:text-gray-400"
-          @click.prevent.stop="openNotePreview()">
-      <span class="sr-only">
-        Show Note Preview
-      </span>
-    <OpenEye class="h-5 w-5"></OpenEye>
-  </button>
-
   <div ref="popover" popover style="font-size: 16px;"
        class="mt-4 py-7 px-6 min-h-48 max-w-xl lg:max-w-2xl max-h-[95vh] overflow-y-auto bg-white rounded-[.5em] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
 
     <div class="absolute flex top-2 right-2">
-      <a :href="'obsidian://open?vault=' + encodeURIComponent(vaultName ?? '') + '&file=' + encodeURIComponent(name ?? '')"
+      <a :href="url"
          title="Open Note in Obsidian"
          class="p-1 mb-2 mr-2 text-xs font-medium text-gray-900 focus:outline-hidden bg-white rounded-[.5em] border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
         <OpenLink class="h-6 w-6"></OpenLink>
@@ -30,7 +20,7 @@
       <LoadingSpinner v-if="isLoading && !previewNote"></LoadingSpinner>
     </div>
     <!-- @vue-ignore -->
-    <div class="prose  dark:prose-invert" v-html="highlight(marked.parse(previewNote ?? ''), searchString)"></div>
+    <div class="prose dark:prose-invert" v-html="highlight(marked.parse(previewNote ?? ''), searchString)"></div>
   </div>
 </template>
 
@@ -38,18 +28,15 @@
 
 import {marked} from "marked";
 import OpenLink from "./OpenLink.vue";
-import OpenEye from "./OpenEye.vue";
 import Close from "./Close.vue";
 import LoadingSpinner from "./LoadingSpinner.vue";
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import {usePreview} from "../preview.js";
 import {useHighlight} from "../highlighter.js";
-import {useStore} from "../store";
-
-const store = useStore();
 
 const props = defineProps({
   filename: String,
+  url: String,
   searchString: String,
   vaultName: String,
   name: String,
@@ -57,11 +44,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  showButton: {
-    type: Boolean,
-    default: false,
-  }
 });
+
+const show = defineModel<boolean>();
 
 // @ts-ignore
 const popover = ref<HTMLElement|null>(null);
@@ -69,6 +54,14 @@ const popover = ref<HTMLElement|null>(null);
 const {previewNote, fetchPreview, isLoading} = usePreview();
 
 const {highlight} = useHighlight();
+
+watch(show,() => {
+  if(show.value) {
+    openNotePreview();
+  } else {
+    closeNotePreview();
+  }
+});
 
 function openNotePreview() {
   fetchPreview(props.filename ?? '');
@@ -80,9 +73,9 @@ function closeNotePreview() {
 }
 
 defineExpose({
-  openNotePreview: openNotePreview,
-  closeNotePreview: closeNotePreview,
-})
+  openNotePreview,
+  closeNotePreview,
+});
 
 </script>
 

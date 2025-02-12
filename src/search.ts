@@ -14,7 +14,7 @@ export function useSearch(isLoadingInitial: boolean = false) {
     const store = useStore();
     const config = store;
 
-    const {throttledConnectionCheck, connectionStatus, connectionInfo} = useObsidianConnection();
+    const {throttledConnectionCheck, connectionStatus, connectionInfo, restApiStatus} = useObsidianConnection();
 
     const searchUrls = computed(() => config.searchUrls.split(',').map((url: string) => url.trim()));
 
@@ -38,7 +38,7 @@ export function useSearch(isLoadingInitial: boolean = false) {
         }
 
         const currentUrl = window.location.href;
-        if (searchUrls.value.some((url: string) => currentUrl.includes(url))) {
+        if (searchUrls.value.some((url: string) => currentUrl.includes(url)) || /^https:\/\/(www\.)?google\.([a-z]{2,3})/.test(currentUrl)) {
             searchMode.value = SearchModes.search;
         } else {
             searchMode.value = SearchModes.urlMatch;
@@ -153,5 +153,6 @@ export function useSearch(isLoadingInitial: boolean = false) {
         displayNotesNumber,
         connectionInfo,
         connectionStatus,
+        restApiStatus,
     }
 }

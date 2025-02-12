@@ -40,12 +40,11 @@ export const config: ExtensionConfig = {
     apiKey: "",
     vault: "",
     openObsidianUri: "obsidian://open?vault=",
-    restApiPort: 27124,
     restApiProtocol: "https://",
-    obsidianRestUrl: "127.0.0.1",
-    protocol: "https://",
+    restApiPort: 27124,
     provider: "local-rest", // local-rest, omni-search
-    port: 27124,
+    protocol: "http://",
+    port: 51361,
     show: false,
     showSidebarWhenNoResults: true,
     liveSearch: true,
@@ -54,7 +53,7 @@ export const config: ExtensionConfig = {
     sidePanelOpen: false,
     minChars: 2,
     contextLength: 50,
-    matchCount: 2,
+    matchCount: 3,
     noteNumber: 6,
     searchUrls: 'google.com,duckduckgo.com,bing.com,startpage.com,ecosia.org,google.at,search.brave.com,kagi.com,yandex.com,qwant.com,search.yahoo.com,baidu.com',
     excludes: 'Assets,Template,.excalidraw',
@@ -66,17 +65,12 @@ export const config: ExtensionConfig = {
 
     currentUrl: '',
     searchString: '',
-
-    statusText: "❗ Make sure Obsidian is running and set your Protocol settings to connect to your Obsidian REST Api!",
-    results: " ",
-    status: Status.offline,
-    color: Colors.gray,
 };
 
 export const pageOptions = [
     {
         name: 'google',
-        regex: /^https:\/\/(www\.)?google\.com/,
+        regex: /^https:\/\/(www\.)?google\.([a-z]{2,3})/,
         main: '#center_col',
         sidebar: '#rhs',
     },
