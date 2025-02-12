@@ -1,0 +1,14 @@
+diff --git a/node_modules/@splidejs/vue-splide/src/js/plugin/plugin.ts b/node_modules/@splidejs/vue-splide/src/js/plugin/plugin.ts
+index f880e20..cfafcb1 100644
+--- a/node_modules/@splidejs/vue-splide/src/js/plugin/plugin.ts
++++ b/node_modules/@splidejs/vue-splide/src/js/plugin/plugin.ts
+@@ -4,7 +4,7 @@ import { Splide, SplideSlide } from '../components';
+ 
+ export const VueSplide = {
+   install( app: App ): void {
+-    app.component( Splide.name, Splide );
+-    app.component( SplideSlide.name, SplideSlide );
++    app.component( Splide.name ?? 'Splide', Splide );
++    app.component( SplideSlide.name ?? 'SplideSlide', SplideSlide );
+   },
+ };

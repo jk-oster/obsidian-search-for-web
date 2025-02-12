@@ -14,7 +14,8 @@
     "version-minor": "npm version minor --force -m \"[RELEASE] minor version %s\"",
     "version-major": "npm version major --force -m \"[RELEASE] major version %s\"",
     "deploy": "npm run ./deploy.js",
-    "upload": "npm run ./upload.js"
+    "upload": "npm run ./upload.js",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@splidejs/vue-splide": "^0.6.12",
@@ -35,7 +36,9 @@
     "@vitejs/plugin-vue": "^4.5.0",
     "autoprefixer": "^10.4.18",
     "chrome-webstore-upload": "^3.1.4",
+    "patch-package": "^8.0.0",
     "postcss": "^8.4.35",
+    "postinstall-postinstall": "^2.1.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.2",
     "vite": "^5.0.0",
