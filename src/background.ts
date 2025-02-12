@@ -18,27 +18,28 @@ browser.runtime.onInstalled.addListener(async () => {
     browser.action.setBadgeText({text: ' '}).then();
     browser.action.setBadgeBackgroundColor({color: Colors.gray}).catch(console.log);
 
-    const runMigration = () => migrate(config, {
-        version: MIGRATION,
-        openObsidianUri: "obsidian://open?vault=",
-        restApiPort: 27123,
-        restApiProtocol: "http://",
-        show: false,
-        showSidebarWhenNoResults: true,
-        liveSearch: true,
-        showInPageIcon: true,
-        showInPageIconWhenNoResults: true,
-        sidePanelOpen: false,
-        minChars: 2,
-        contextLength: 50,
-        matchCount: 2,
-        noteNumber: 6,
-        searchUrls: 'google.com,duckduckgo.com,bing.com,startpage.com,ecosia.org,google.at,search.brave.com,kagi.com,yandex.com,qwant.com,search.yahoo.com,baidu.com',
-        highlight: true,
-        embeddedResults: true,
-        highlighting: true,
-        nativeResults: true,
-        theme: 'auto',
+    const runMigration = () => migrate(config, (oldConf) => {
+        return {
+            version: MIGRATION,
+            restApiPort: oldConf?.provider === 'local-rest' ? (oldConf?.port ?? 27124) : 27124,
+            restApiProtocol: oldConf?.protocol ?? "http://",
+            show: false,
+            showSidebarWhenNoResults: true,
+            liveSearch: true,
+            showInPageIcon: true,
+            showInPageIconWhenNoResults: true,
+            sidePanelOpen: false,
+            minChars: 2,
+            contextLength: 50,
+            matchCount: 3,
+            noteNumber: 6,
+            searchUrls: 'google.com,duckduckgo.com,bing.com,startpage.com,ecosia.org,search.brave.com,kagi.com,yandex.com,qwant.com,search.yahoo.com,baidu.com',
+            highlight: true,
+            embeddedResults: true,
+            highlighting: true,
+            nativeResults: true,
+            theme: 'auto',
+        };
     }).then();
 
     // Set default config on first launch & install

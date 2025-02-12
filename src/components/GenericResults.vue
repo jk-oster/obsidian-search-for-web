@@ -15,7 +15,6 @@
 
     <div class="obsidian-search-highlight-area w-full">
       <template v-if="layout === 'slider'">
-        <!---->
         <Splide :options="{rewind: false, perPage: perPage, perMove: perPage, omitEnd: true}">
           <template v-for="note of searchResults" :key="note.score">
             <SplideSlide>
