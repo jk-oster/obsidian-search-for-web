@@ -93,6 +93,10 @@ function openOptionsPage() {
 
 <style scoped>
 @import "../style/main.css";
+
+.obsidian-search-highlight-area .p-3 {
+  padding: 0.75em !important;
+}
 </style>
 <style>
 @import url("../../node_modules/@splidejs/vue-splide/dist/css/splide.min.css");

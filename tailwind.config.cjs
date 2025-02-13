@@ -14,6 +14,28 @@ module.exports = {
                 warn: "#ffe834",
                 error: "#d53032",
                 unknown: "#444444",
+
+                obsidian: '#8250e5',
+
+                purple: {
+                    600: '#9b6ff9',
+                    700: '#8250e5',
+                    800: '#7044c3',
+                    900: '#623baa',
+                },
+
+                gray: {
+                    50: '#f6f6f6',
+                    // 500: false,
+                    // 600: false,
+                    900: '#363636',
+                    800: '#262626',
+                    700: '#1e1e1e',
+                }
+
+                // #363636 // Obsidian BG
+                // #262626 // Obsidian BG
+                // #1e1e1e // Obsidian BG
             },
             fontSize: {
                 '4xl': '32px',

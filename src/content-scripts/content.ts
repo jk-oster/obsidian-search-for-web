@@ -31,6 +31,8 @@ async function setupEmbeddedResults() {
             sidebar.style.width = '100%';
             sidebar.style.fontSize = '20px';
             sidebar.style.fontStyle = 'normal';
+            sidebar.style.fontFamily = 'Arial, Inter, Helvetica, sans-serif';
+            sidebar.style.maxWidth = sidebarEl ? '400px' : '100%';
             sidebar.id = 'obsidian-browser-search-embedded-results';
             mountEl?.insertBefore(sidebar, mountEl.firstChild);
 
@@ -69,6 +71,7 @@ async function setupSidebar() {
 
     isolatedElement.style.fontSize = '14px';
     isolatedElement.style.fontStyle = 'normal';
+    isolatedElement.style.fontFamily = 'Arial, Inter, Helvetica, sans-serif';
 
     document.body.appendChild(parentElement);
 
