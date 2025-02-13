@@ -85,6 +85,7 @@ export interface ExtensionConfig {
     embeddedResults: boolean,
     highlighting: boolean,
     nativeResults: boolean,
+    preferSidebarEmbeddings: boolean,
     theme: Theme,
 
     currentUrl: string,

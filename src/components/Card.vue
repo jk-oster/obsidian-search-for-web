@@ -1,5 +1,5 @@
 <template>
-  <div class="results-card p-3 relative mt-2 w-full bg-white rounded-[.5em] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+  <div class="results-card p-3 relative mt-2 w-full bg-white rounded-[.5em] border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
     <a class="flex justify-start items-center"
         @click="openNotePreview"
         :href="item.url">
@@ -12,17 +12,17 @@
 
 
       <div>
-        <p v-if="item.filename" class="text-xs leading-none tracking-tight text-gray-700 dark:text-gray-300" v-html="highlight(item.filename ?? '', searchString)"></p>
-        <div class="my-1 text-sm leading-none tracking-tight text-gray-900 dark:text-white hover:underline">
+        <p v-if="item.filename" class="text-xs leading-none tracking-tight text-gray-900 dark:text-gray-300" v-html="highlight(item.filename ?? '', searchString)"></p>
+        <div class="my-1 text-sm leading-none tracking-tight text-gray-700 dark:text-white hover:underline">
           <span class="text-md font-semibold" v-html="highlight(item.basename ?? '', searchString)"></span>
-          <span class="font-light text-xs text-gray-700 dark:text-gray-300"> ({{
+          <span class="font-light text-xs text-gray-900 dark:text-gray-300"> ({{
               item.matchesCount ?? 0
             }} matches)</span>
         </div>
       </div>
 
     </a>
-    <div class="text-xs font-normal text-gray-700 dark:text-gray-400">
+    <div class="text-xs font-normal text-gray-600 dark:text-gray-400">
       <p class="mt-1 break-words obsidian-search-highlight-area" v-html="highlight(item.excerpt ?? '', searchString)">
       </p>
     </div>

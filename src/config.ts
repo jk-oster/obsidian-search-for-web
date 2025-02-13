@@ -61,6 +61,7 @@ export const config: ExtensionConfig = {
     embeddedResults: true,
     highlighting: true,
     nativeResults: true,
+    preferSidebarEmbeddings: true,
     theme: 'auto',
 
     currentUrl: '',

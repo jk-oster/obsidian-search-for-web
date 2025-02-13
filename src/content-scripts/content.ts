@@ -12,18 +12,19 @@ import VueSplide from "@splidejs/vue-splide";
 
 let embedded = false;
 let embeddedResults: boolean|null = null;
-
+let preferSidebarEmbeddings: boolean|null = true;
 async function setupEmbeddedResults() {
     if (embeddedResults === null) {
         embeddedResults = await extensionStorage.getItem('embeddedResults');
     }
+    preferSidebarEmbeddings = await extensionStorage.getItem('preferSidebarEmbeddings');
 
     const matchingPage = pageOptions.find(option => option.regex.test(window.location.href));
 
     if (matchingPage && embeddedResults) {
         const sidebarEl = document.querySelector(matchingPage.sidebar ?? 'idontmatchanything');
         const mainEl = document.querySelector(matchingPage.main ?? 'idontmatchanything');
-        const mountEl = sidebarEl ?? mainEl;
+        const mountEl = preferSidebarEmbeddings && sidebarEl ? sidebarEl : mainEl;
 
         if (mountEl) {
             embedded = true;
@@ -32,7 +33,7 @@ async function setupEmbeddedResults() {
             sidebar.style.fontSize = '20px';
             sidebar.style.fontStyle = 'normal';
             sidebar.style.fontFamily = 'Arial, Inter, Helvetica, sans-serif';
-            sidebar.style.maxWidth = sidebarEl ? '400px' : '100%';
+            sidebar.style.maxWidth = preferSidebarEmbeddings && sidebarEl ? '400px' : '100%';
             sidebar.id = 'obsidian-browser-search-embedded-results';
             mountEl?.insertBefore(sidebar, mountEl.firstChild);
 
@@ -47,7 +48,7 @@ async function setupEmbeddedResults() {
             }
 
             createApp(EmbeddedResults, {
-                location: sidebarEl ? 'sidebar' : 'main'
+                location: preferSidebarEmbeddings && sidebarEl ? 'sidebar' : 'main'
                 // @ts-ignore
             }).use(VueSplide).mount(sidebar);
             console.log('[Obsidian Browser Search] injected embedded search results');

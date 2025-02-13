@@ -15,13 +15,16 @@ module.exports = {
                 error: "#d53032",
                 unknown: "#444444",
 
-                obsidian: '#8250e5',
+                blue: {
+                    google: '#8ca8ff'
+                },
 
                 purple: {
                     600: '#9b6ff9',
                     700: '#8250e5',
                     800: '#7044c3',
                     900: '#623baa',
+                    obsidian: '#8250e5',
                 },
 
                 gray: {

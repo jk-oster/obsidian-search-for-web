@@ -37,6 +37,7 @@ browser.runtime.onInstalled.addListener(async () => {
             embeddedResults: true,
             highlighting: true,
             nativeResults: true,
+            preferSidebarEmbeddings: true,
             theme: 'auto',
         };
     }).then();

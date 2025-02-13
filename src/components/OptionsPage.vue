@@ -336,9 +336,24 @@
                   Enable native search embeddings style (available for Google, Bing, Kagi and DuckDuckGo)
               </span>
             </label>
-
             <div class="text-xs text-gray-700 dark:text-gray-400">
               Turn this off if embedded search results look ugly. This may happen due to updates & changes on your search engine.
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <label for="preferSidebarEmbeddings" class="inline-flex relative items-center mr-5 cursor-pointer">
+              <input v-model="store.preferSidebarEmbeddings" type="checkbox" id="preferSidebarEmbeddings" name="preferSidebarEmbeddings"
+                     class="sr-only peer" :checked="store.preferSidebarEmbeddings"/>
+              <div
+                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
+              </div>
+              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                  Prefer Embeddings in Search Engine Sidebar
+              </span>
+            </label>
+            <div class="text-xs text-gray-700 dark:text-gray-400">
+              Turn this off to show to show results in search engine main content.
             </div>
           </div>
 
