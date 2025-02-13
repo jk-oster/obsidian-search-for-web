@@ -1,7 +1,7 @@
 <template>
   <button ref="toggleButton" id="obsidian-search-for-web-offcanvas-toggle"
           v-if="showToggle"
-          class="popup-button fixed right-1 top-1/2 rounded-full p-2 mr-2 text-sm font-medium text-gray-900 focus:outline-none bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+          class="popup-button fixed right-1 top-1/2 rounded-full p-2 mr-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-50 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
           @click="toggleSidebar">
     <span style="font-size: 18px;">
       <Logo></Logo>
@@ -18,7 +18,7 @@
   </button>
   <div ref="offCanvas"
        id="obsidian-search-for-web-offcanvas-results"
-       :class="(showPopup ? ' translate-x-0 ' : ' translate-x-full ') + ' max-h-screen w-[20em] md:w-[22em] lg:w-[24em] xl:w-[26em] popup-container fixed duration-300 ease-in-out right-0 top-0 bg-white dark:bg-gray-900 p-2 rounded-l-[.375em] overflow-auto'">
+       :class="(showPopup ? ' translate-x-0 ' : ' translate-x-full ') + ' max-h-screen w-[20em] md:w-[22em] lg:w-[24em] xl:w-[26em] popup-container shadow-sm dark:shadow-none border border-1 border-solid border-gray-200 dark:border-0 fixed duration-300 ease-in-out right-0 top-0 bg-gray-50 dark:bg-gray-900 p-2 rounded-l-[.375em] overflow-auto'">
     <SearchResults @update:matches="childMatches($event)"></SearchResults>
   </div>
 </template>

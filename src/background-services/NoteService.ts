@@ -147,7 +147,7 @@ class NoteService {
             basename: baseName,
             score: data.score,
             matchesCount: data.matchesCount ?? 1,
-            excerpt: data.matches.map((match: any) => match.context).slice(0, matchCount).join(' ... ').replaceAll(/<br.?\/?>/g, ' '),
+            excerpt: data.matches.map((match: any) => match.context).slice(0, matchCount).join(' ... ').replaceAll(/<br.?\/?>|\\n/g, ' '),
             url: 'obsidian://open?vault=' + encodeURIComponent(vault ?? '') + '&file=' + encodeURIComponent(baseName ? baseName + '.md' : '')
         }
     }

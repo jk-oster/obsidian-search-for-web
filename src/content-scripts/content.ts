@@ -3,14 +3,12 @@ import OffCanvas from "../components/OffCanvas.vue";
 import {createApp} from "vue";
 import {createIsolatedElement} from '@webext-core/isolated-element';
 import browser from 'webextension-polyfill';
-import {useTheme} from "../theme.js";
+import {detectPreferredColorScheme, setColorScheme, getColorSchemeBasedOnChildBgColor, getColorSchemeBasedOnParentBgColor} from "../theme.js";
 import EmbeddedResults from "../components/EmbeddedResults.vue";
 import {extensionStorage} from "../storage.js";
 import {pageOptions} from "../config.js";
 // @ts-ignore
 import VueSplide from "@splidejs/vue-splide";
-
-const {setColorScheme} = useTheme();
 
 let embedded = false;
 let embeddedResults: boolean|null = null;
@@ -32,9 +30,20 @@ async function setupEmbeddedResults() {
             const sidebar = document.createElement('div');
             sidebar.style.width = '100%';
             sidebar.style.fontSize = '20px';
+            sidebar.style.fontStyle = 'normal';
             sidebar.id = 'obsidian-browser-search-embedded-results';
             mountEl?.insertBefore(sidebar, mountEl.firstChild);
-            setColorScheme(sidebar).then();
+
+            const themeSetting = await extensionStorage.getItem('theme');
+            const bgScheme = getColorSchemeBasedOnParentBgColor(mountEl);
+            if (!themeSetting || themeSetting === 'auto' || themeSetting === 'device') {
+                setColorScheme(mountEl, bgScheme);
+            } else if (themeSetting === 'light') {
+                setColorScheme(mountEl, 'light');
+            } else if (themeSetting === 'dark') {
+                setColorScheme(mountEl, 'dark');
+            }
+
             createApp(EmbeddedResults, {
                 location: sidebarEl ? 'sidebar' : 'main'
                 // @ts-ignore
@@ -58,9 +67,23 @@ async function setupSidebar() {
         isolateEvents: true, // or array of event names to isolate, e.g., ['click', 'keydown']
     });
 
+    isolatedElement.style.fontSize = '14px';
+    isolatedElement.style.fontStyle = 'normal';
+
     document.body.appendChild(parentElement);
 
-    setColorScheme(isolatedElement).then();
+    const themeSetting = await extensionStorage.getItem('theme');
+    const bgScheme = getColorSchemeBasedOnChildBgColor(document.body);
+    const deviceScheme = detectPreferredColorScheme();
+    if (!themeSetting || themeSetting === 'auto') {
+        setColorScheme(isolatedElement, bgScheme);
+    } else if (themeSetting === 'device') {
+        setColorScheme(isolatedElement, deviceScheme);
+    } else if (themeSetting === 'light') {
+        setColorScheme(isolatedElement, 'light');
+    } else if (themeSetting === 'dark') {
+        setColorScheme(isolatedElement, 'dark');
+    }
 
     createApp(OffCanvas).mount(isolatedElement);
 }

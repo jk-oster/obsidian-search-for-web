@@ -21,7 +21,7 @@ browser.runtime.onInstalled.addListener(async () => {
     const runMigration = () => migrate(config, (oldConf) => {
         return {
             version: MIGRATION,
-            restApiPort: oldConf?.provider === 'local-rest' ? (oldConf?.port ?? 27123) : 27123,
+            restApiPort: 27123,
             restApiProtocol: oldConf?.protocol ?? "http://",
             show: false,
             showSidebarWhenNoResults: true,

@@ -39,7 +39,7 @@
     </nav>
   </header>
 
-  <main class="flex justify-center dark:bg-gray-900 py-20 px-4">
+  <main class="flex justify-center bg-gray-100 dark:bg-gray-900 py-20 px-4">
     <div class="max-w-2xl dark:text-white text-base">
       <h1 id="about"
           class="mb-4 text-3xl font-extrabold tracking-tight leading-none text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
@@ -349,7 +349,8 @@
             </label>
             <select v-model="store.theme" @change="setTheme()" id="theme" name="theme" required
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              <option value="auto">Auto (Default - Use Device Settings)</option>
+              <option value="auto">Automatic (based on page background)</option>
+              <option value="device">Use Device Settings</option>
               <option value="light">Light Mode</option>
               <option value="dark">Dark Mode</option>
             </select>
@@ -499,14 +500,13 @@
 
 <script setup lang="ts">
 import {computed, onMounted} from 'vue'
-import {getBadgeService} from "../background-services/BadgeService.js";
-import {useTheme} from "../theme.js";
 import type {Theme} from "../types.js";
-import {ref} from 'vue';
 import Toast from "./Toast.vue";
 import {useStore} from "../store.js";
 import {useObsidianConnection} from "../connection";
 import {pageOptions} from "../config";
+import {extensionStorage} from "../storage";
+import {detectPreferredColorScheme, setColorScheme} from "../theme";
 
 const store = useStore();
 const {throttledConnectionCheck, throttledRestApiConnectionCheck, connectionInfo, restApiStatus} = useObsidianConnection(1000);
@@ -522,9 +522,13 @@ async function checkRestApi() {
   throttledRestApiConnectionCheck().then();
 }
 
-async function setTheme(theme: Theme | null = null) {
-  const {setColorScheme} = useTheme();
-  setColorScheme(document.body, theme ?? store.theme).then();
+function setTheme(theme: Theme | null = null) {
+  const themeSetting = theme ?? store.theme;
+  if (themeSetting === 'auto' || themeSetting === 'device') {
+    setColorScheme(document.body, detectPreferredColorScheme());
+  } else {
+    setColorScheme(document.body, themeSetting);
+  }
 }
 
 function providerChanged() {

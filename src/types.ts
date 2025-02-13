@@ -1,7 +1,7 @@
 export type Color = string;
 export type State = string;
 export type Mode = string;
-export type Theme = 'auto' | 'light' | 'dark';
+export type Theme = 'device' | 'auto' | 'light' | 'dark';
 export type SearchProvider = 'local-rest' | 'omni-search';
 
 export type OmniSearchNoteMatch = {

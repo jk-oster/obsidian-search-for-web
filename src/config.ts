@@ -126,7 +126,7 @@ export const pageOptions = [
         url: 'https://qwant.com',
         regex: /^https:\/\/(www\.)?qwant\.com/,
         sidebar: '.is-sidebar',
-        main: '[data-testid="sectionWeb"',
+        // main: '[data-testid=sectionWeb]',
     },
     {
         name: 'bing',

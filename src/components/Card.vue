@@ -10,6 +10,7 @@
         </span>
       </div>
 
+
       <div>
         <p v-if="item.filename" class="text-xs leading-none tracking-tight text-gray-700 dark:text-gray-300" v-html="highlight(item.filename ?? '', searchString)"></p>
         <div class="my-1 text-sm leading-none tracking-tight text-gray-900 dark:text-white hover:underline">
