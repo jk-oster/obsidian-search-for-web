@@ -1,5 +1,5 @@
 <template>
-  <div class="results-card p-3 relative mt-2 w-full bg-white rounded-[.5em] border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
+  <div class="results-card p-3 relative mt-2 w-full bg-white rounded-[.5em] border border-gray-100 dark:bg-gray-900 dark:border-gray-700">
     <a class="flex justify-start items-center"
         @click="openNotePreview"
         :href="item.url">
@@ -28,7 +28,7 @@
     </div>
 
     <a v-if="canPreview"
-       class="open-link absolute top-2 right-2 text-gray-700 dark:text-gray-400"
+       class="absolute top-2 right-2 text-gray-700 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
        title="Open Note in Obsidian"
        :href="item.url">
       <OpenLink class="w-4 h-4"></OpenLink>
