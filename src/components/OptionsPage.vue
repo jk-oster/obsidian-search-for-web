@@ -17,21 +17,21 @@
               class="flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
               <a href="#about"
-                 class="block py-2 pr-4 pl-3 text-gray-700 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
+                 class="block py-2 pr-4 pl-3 text-gray-700 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-purple-900 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
             </li>
             <li>
               <a href="#core-settings"
-                 class="block py-2 pr-4 pl-3 text-gray-700 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Core
+                 class="block py-2 pr-4 pl-3 text-gray-700 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-purple-900 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Core
                 Settings</a>
             </li>
             <li>
               <a href="#display-settings"
-                 class="block py-2 pr-4 pl-3 text-gray-700 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Display
+                 class="block py-2 pr-4 pl-3 text-gray-700 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-purple-900 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Display
                 Settings</a>
             </li>
             <li>
               <a href="#contact"
-                 class="block py-2 pr-4 pl-3 text-gray-700 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
+                 class="block py-2 pr-4 pl-3 text-gray-700 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-purple-900 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
             </li>
           </ul>
         </div>
@@ -39,7 +39,7 @@
     </nav>
   </header>
 
-  <main class="flex justify-center bg-gray-100 dark:bg-gray-900 py-20 px-4">
+  <main class="flex justify-center bg-white dark:bg-gray-900 py-20 px-4">
     <div class="max-w-2xl dark:text-white text-base">
       <h1 id="about"
           class="mb-4 text-3xl font-extrabold tracking-tight leading-none text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
@@ -58,7 +58,7 @@
       <h3 class="my-2 text-xl font-semibold text-gray-900 dark:text-white">
         Features
       </h3>
-      <ul class="space-y-1 max-w-lg list-inside text-gray-500 dark:text-gray-400">
+      <ul class="space-y-1 max-w-lg list-inside text-gray-700 dark:text-gray-200">
         <li class="flex items-center">
           <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 shrink-0"
                fill="currentColor"
@@ -143,20 +143,21 @@
 
           <div class="mb-6">
             <label for="vault"
-                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
               Obsidian Vault Name to open Links (only required if you are using multiple vaults)</label>
-            <input v-model="store.vault" @change="checkApi" type="text" id="vault" name="vault"
+            <input v-model="store.vault" type="text" id="vault" name="vault"
                    placeholder="MyAwesomeSecondBrain"
-                   class="inline shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-3/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                   :class="store?.vault?.length != 0 ? 'w-3/4' : 'w-full'"
+                   class="inline shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                    required/>
-            <a id="openVault" :href="store.openObsidianUri + store.vault" :disabled="!!(store?.vault?.length == 0)"
-               class="ml-2 w-1/4 focus:outline-hidden text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+            <a id="openVault" v-if="store?.vault?.length != 0" :href="'obsidian://open?vault=' + encodeURIComponent(store.vault)"
+               class="ml-2 w-1/4 focus:outline-hidden text-white bg-purple-700 hover:bg-purple-obsidian focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
               Test Open Vault</a>
           </div>
 
           <div class="mb-6">
             <label for="provider"
-                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
               Select Obsidian Search Provider *
             </label>
             <select v-model="store.provider" @change="providerChanged" id="provider" name="provider" required
@@ -172,7 +173,7 @@
             <div class="grid grid-cols-2 gap-2">
               <div class="mb-6">
                 <label for="protocol"
-                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                   Select Protocol
                 </label>
                 <select v-model="store.protocol" @change="checkApi();" id="protocol" name="protocol" required
@@ -182,7 +183,7 @@
                 </select>
               </div>
               <div class="mb-6">
-                  <label for="port" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                  <label for="port" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                     Port number
                   </label>
                   <input v-model="store.port" @change="checkApi();" type="number" id="port" name="port"
@@ -195,7 +196,7 @@
             <div class="grid grid-cols-2 gap-2">
               <div>
                 <label for="restApiProtocol"
-                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                   Select Protocol
                 </label>
                 <select v-model="store.restApiProtocol" @change="checkRestApi();" id="restApiProtocol" name="restApiProtocol" required
@@ -205,7 +206,7 @@
                 </select>
               </div>
               <div>
-                  <label for="restApiPort" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                  <label for="restApiPort" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                     Port number
                   </label>
                   <input v-model="store.restApiPort" @change="checkRestApi();" type="number" id="restApiPort" name="restApiPort"
@@ -219,7 +220,7 @@
 
           <div class="mt-2 mb-6">
             <label for="apiKey"
-                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
               Your Obsidian REST Api Key * (Local REST API only)</label>
             <input v-model="store.apiKey" @change="checkRestApi();" type="text"
                    id="apiKey" name="apiKey"
@@ -241,9 +242,9 @@
               <input v-model="store.showInPageIcon" type="checkbox" id="showInPageIcon" name="showInPageIcon"
                      class="sr-only peer" :checked="store.showInPageIcon"/>
               <div
-                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
+                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
-              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
                   Enable icon on page to open sidebar
               </span>
             </label>
@@ -254,9 +255,9 @@
               <input v-model="store.showInPageIconWhenNoResults" type="checkbox" id="showInPageIconWhenNoResults" name="showInPageIconWhenNoResults"
                      class="sr-only peer" :checked="store.showInPageIconWhenNoResults"/>
               <div
-                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
+                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
-              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
                   Enable icon on page when no search results are available
               </span>
             </label>
@@ -267,9 +268,9 @@
               <input v-model="store.showSidebarWhenNoResults" type="checkbox" id="showSidebarWhenNoResults" name="showSidebarWhenNoResults"
                      class="sr-only peer" :checked="store.showSidebarWhenNoResults"/>
               <div
-                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
+                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
-              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
                   Enable pinned sidebar when no search results are available
               </span>
             </label>
@@ -280,9 +281,9 @@
               <input v-model="store.highlighting" type="checkbox" id="highlighting" name="highlighting"
                      class="sr-only peer" :checked="store.highlighting"/>
               <div
-                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
+                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
-              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
                   Enable highlighting of search term in results
               </span>
             </label>
@@ -293,9 +294,9 @@
               <input v-model="store.liveSearch" type="checkbox" id="liveSearch" name="liveSearch"
                      class="sr-only peer" :checked="store.liveSearch"/>
               <div
-                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
+                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
-              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
                 Enable Live Search
               </span>
             </label>
@@ -309,9 +310,9 @@
               <input v-model="store.embeddedResults" type="checkbox" id="embeddedResults" name="embeddedResults"
                      class="sr-only peer" :checked="store.embeddedResults"/>
               <div
-                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
+                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
-              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
                   Enable embded search results on Search-Engines
               </span>
             </label>
@@ -330,9 +331,9 @@
               <input v-model="store.nativeResults" type="checkbox" id="nativeResults" name="nativeResults"
                      class="sr-only peer" :checked="store.nativeResults"/>
               <div
-                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
+                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
-              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
                   Enable native search embeddings style (available for Google, Bing, Kagi and DuckDuckGo)
               </span>
             </label>
@@ -346,9 +347,9 @@
               <input v-model="store.preferSidebarEmbeddings" type="checkbox" id="preferSidebarEmbeddings" name="preferSidebarEmbeddings"
                      class="sr-only peer" :checked="store.preferSidebarEmbeddings"/>
               <div
-                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
+                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
-              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
                   Prefer Embeddings in Search Engine Sidebar
               </span>
             </label>
@@ -359,7 +360,7 @@
 
           <div class=" mb-6">
             <label for="theme"
-                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
               Select Color Scheme
             </label>
             <select v-model="store.theme" @change="setTheme()" id="theme" name="theme" required
@@ -373,7 +374,7 @@
 
           <div class="mb-6">
             <label for="minChars"
-                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
               Number of characters in search input to trigger live search (default
               2)
             </label>
@@ -384,7 +385,7 @@
 
           <div class="mb-6">
             <label for="contextLength"
-                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
               Search context length (default 50 characters, Local REST API only)
             </label>
             <input v-model="store.contextLength" :disabled="store.provider !== 'local-rest'" min="1" max="500"
@@ -395,7 +396,7 @@
 
           <div class="mb-6">
             <label for="matchCount"
-                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
               Number of matched lines shown per note (default 3, Local REST API only)
             </label>
             <input v-model="store.matchCount" :disabled="store.provider !== 'local-rest'" min="0" max="10" type="number"
@@ -406,7 +407,7 @@
 
           <div class="mb-6">
             <label for="noteNumber"
-                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
               Number of notes shown per page (default 6)
             </label>
             <input v-model="store.noteNumber" min="1" max="50" type="number" id="noteNumber" name="noteNumber"
@@ -416,7 +417,7 @@
 
           <div class="mb-6">
             <label for="searchUrls"
-                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
               Additional Live-Search-Domains (separate urls by <code>,</code>)
             </label>
             <input v-model="store.searchUrls" type="text" id="searchUrls" name="searchUrls"
@@ -435,7 +436,7 @@
 
           <div class="mb-6">
             <label for="excludes"
-                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
               Paths to exclude (separate segments by
               <code>,</code>)
             </label>

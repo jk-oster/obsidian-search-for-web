@@ -3,7 +3,7 @@
 
     <div class="flex justify-between" style="font-size: 20px;">
       <button @click="openOptionsPage" title="Open Settings"
-              class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-gray-50 rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-900 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
         <span class="sr-only">
           Settings
         </span>
@@ -20,7 +20,7 @@
       </a>
 
       <button @click="toggleSidebar" :title="store.show ? 'Unpin Sidebar' : 'Pin Sidebar'"
-              class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-gray-50 rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-900 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
         <span class="sr-only">
           {{ store.show ? 'Unpin Sidebar' : 'Pin Sidebar' }}
         </span>
@@ -41,14 +41,14 @@
         </div>
         <input type="search"
                v-model="searchString"
-               class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+               class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:outline-purple-700 focus:border-purple-700 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-600 dark:focus:border-gray-600"
                placeholder="Search your vault ..."
                />
       </div>
     </form>
 
     <div
-        class="text-xs tracking-tight text-gray-700 dark:text-gray-300 mb-2 break-words">
+        class="text-xs tracking-tight text-gray-700 dark:text-gray-100 mb-2 break-words">
       {{ paginatedResults.length }} result(s) of {{ totalMatches ?? 0 }}
     </div>
     <div class="obsidian-search-highlight-area">
@@ -63,7 +63,7 @@
         </Card>
       </template>
 
-      <div v-if="paginatedResults.length <= 0" style="min-width: min(100vw, 333px);" class="min-h-8 p-3 text-xs rounded-md border border-1 border-dashed border-gray-700 dark:border-gray-300  text-gray-700 dark:text-gray-300 mb-2">
+      <div v-if="paginatedResults.length <= 0" style="min-width: min(100vw, 333px);" class="min-h-8 p-3 text-xs rounded-md border border-1 border-dashed border-gray-700 dark:border-gray-300  text-gray-700 dark:text-gray-100 mb-2">
 
         <div v-if="connectionStatus === 'noauth'">
           🔑 Could reach Obsidian REST Api - API-Key is not valid. Please check and copy the key from Obsidian REST Api Plugin Settings and paste it in the extension <a class="underline" href="#" @click.prevent="openOptionsPage()">settings</a>.

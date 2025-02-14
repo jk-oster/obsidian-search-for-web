@@ -1,10 +1,10 @@
 <template>
-  <div class="results-card p-3 relative mt-2 w-full bg-white rounded-[.5em] border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+  <div class="results-card p-3 relative mt-2 w-full bg-white rounded-[.5em] border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
     <a class="flex justify-start items-center"
         @click="openNotePreview"
         :href="item.url">
       <div v-if="showIcon"
-            class="rounded-full p-1.5 mr-2 text-sm font-medium text-gray-900 focus:outline-none bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+            class="rounded-full p-1.5 mr-2 text-sm font-medium text-gray-900 focus:outline-none bg-white border border-gray-200 hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
         <span style="font-size: 16px;">
           <Logo></Logo>
         </span>
@@ -12,10 +12,10 @@
 
 
       <div>
-        <p v-if="item.filename" class="text-xs leading-none tracking-tight text-gray-900 dark:text-gray-300" v-html="highlight(item.filename ?? '', searchString)"></p>
+        <p v-if="item.filename" class="text-xs leading-none tracking-tight text-gray-900 dark:text-gray-100" v-html="highlight(item.filename ?? '', searchString)"></p>
         <div class="my-1 text-sm leading-none tracking-tight text-gray-700 dark:text-white hover:underline">
           <span class="text-md font-semibold" v-html="highlight(item.basename ?? '', searchString)"></span>
-          <span class="font-light text-xs text-gray-900 dark:text-gray-300"> ({{
+          <span class="font-light text-xs text-gray-900 dark:text-gray-100"> ({{
               item.matchesCount ?? 0
             }} matches)</span>
         </div>
@@ -42,6 +42,7 @@
                  :filename="item.filename"
                  :searchString="searchString">
     </NotePreview>
+
   </div>
 
 </template>
@@ -86,10 +87,13 @@ function openNotePreview(event: Event) {
 
 .obsidian-search-highlight-area {
   .bg-yellow {
-    --tw-bg-opacity: .8;
-    background-color: rgb(255 255 51 / var(--tw-bg-opacity))
+    background-color: rgba(240, 210, 110, 0.9);
   }
-
+  /*
+  rgb(255 255 51
+  rgb(237, 217, 152)
+  rgb(250, 237, 150)
+  */
   .open-link {
     visibility: hidden;
   }
@@ -101,13 +105,16 @@ function openNotePreview(event: Event) {
   }
 
   .text-black {
-    --tw-text-opacity: .8;
+    --tw-text-opacity: .7;
     color: rgb(0 0 0 / var(--tw-text-opacity))
   }
 
   :is(.dark .dark\:bg-yellow) {
-    --tw-bg-opacity: .8;
-    background-color: rgb(255 255 51 / var(--tw-bg-opacity))
+    background-color: rgba(230, 190, 100, 0.8);
+  }
+
+  :is(.dark .dark\:text-white) {
+    color: #ffffff;
   }
 }
 </style>

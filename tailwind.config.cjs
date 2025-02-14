@@ -7,7 +7,9 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                yellow: "#ffff33",
+                // yellow: "#edd998",
+                yellow: "#faed96",
+                // yellow: "#ffff33",
                 white: "white",
                 black: "black",
                 success: "#8fce00",
@@ -24,16 +26,19 @@ module.exports = {
                     700: '#8250e5',
                     800: '#7044c3',
                     900: '#623baa',
-                    obsidian: '#8250e5',
+                    obsidian: '#8450e7',
                 },
 
                 gray: {
                     50: '#f6f6f6',
-                    // 500: false,
-                    // 600: false,
-                    900: '#363636',
+                    100: '#e4e4e4',
+                    200: '#b3b3b3',
+
+                    500: '#454545',
+                    600: '#363636',
+                    700: '#2a2a2a',
                     800: '#262626',
-                    700: '#1e1e1e',
+                    900: '#1e1e1e',
                 }
 
                 // #363636 // Obsidian BG

@@ -5,17 +5,17 @@
     <div class="absolute flex top-2 right-2">
       <a :href="url"
          title="Open Note in Obsidian"
-         class="p-1 mb-2 mr-2 text-xs font-medium text-gray-900 focus:outline-hidden bg-white rounded-[.5em] border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+         class="p-1 mb-2 mr-2 text-xs font-medium text-gray-900 focus:outline-hidden bg-white rounded-[.5em] border border-gray-200 hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
         <OpenLink class="h-6 w-6"></OpenLink>
       </a>
 
       <button @click="closeNotePreview()" title="Close Preview"
-              class=" p-1 mb-2 text-xs font-medium text-gray-900 focus:outline-hidden bg-white rounded-[.5em] border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              class=" p-1 mb-2 text-xs font-medium text-gray-900 focus:outline-hidden bg-white rounded-[.5em] border border-gray-200 hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
         <Close class="h-6 w-6"></Close>
       </button>
     </div>
 
-    <div class="pt-2 text-xl font-black text-gray-700 dark:text-gray-300">{{ name }}</div>
+    <div class="pt-2 text-xl font-black text-gray-700 dark:text-gray-100">{{ name }}</div>
     <div class="w-full flex justify-center">
       <LoadingSpinner v-if="isLoading && !previewNote"></LoadingSpinner>
     </div>
