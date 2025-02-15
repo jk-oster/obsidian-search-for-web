@@ -59,7 +59,6 @@ export function getColorSchemeBasedOnChildBgColor(element: Element) {
 
     const bodyBgColor = getComputedBackgroundColor(coloredChildElement);
     const isLight = isLightColor(bodyBgColor);
-    console.log(element, colorScheme, bodyBgColor, isLight);
     if (isLight) {
         return 'light';
     }
@@ -76,7 +75,6 @@ export function getColorSchemeBasedOnParentBgColor(element: Element) {
 
     const bodyBgColor = getComputedBackgroundColor(coloredParentElement);
     const isLight = isLightColor(bodyBgColor);
-    console.log(element, bodyBgColor, isLight);
     if (isLight) {
         return 'light';
     }
@@ -97,7 +95,6 @@ export function isComputedBackgroundInvisible(element: Element): boolean {
 }
 
 export function findClosestNonTransparentParent(element: Element): Element {
-    console.log('parent', element, isComputedBackgroundInvisible(element));
     if (!isComputedBackgroundInvisible(element)) {
         return element;
     } else if (element.parentElement && element.tagName !== 'BODY') {
@@ -110,7 +107,6 @@ export function findClosestNonTransparentParent(element: Element): Element {
 
 export function findFirstNonTransparentChild(element: Element = document.body) {
     const firstSelectableChild = element.firstElementChild;
-    console.log('child', element, isComputedBackgroundInvisible(element));
     if (!isComputedBackgroundInvisible(element)) {
         return element;
     } else if (firstSelectableChild) {

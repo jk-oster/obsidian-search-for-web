@@ -41,7 +41,7 @@
         </div>
         <input type="search"
                v-model="searchString"
-               class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:outline-purple-700 focus:border-purple-700 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-600 dark:focus:border-gray-600"
+               class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:outline-purple-700 focus:border-purple-700 dark:bg-gray-700 dark:border-gray-600 dark:focus:bg-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-600 dark:focus:border-gray-600"
                placeholder="Search your vault ..."
                />
       </div>
@@ -53,17 +53,17 @@
     </div>
     <div class="obsidian-search-highlight-area">
       <template v-for="note of paginatedResults" :key="note.score">
-        <Card :item="note"
+        <ResultCard :item="note"
               :showIcon="false"
               :canPreview="restApiStatus === 'search'"
               :showMatchesCount="store.matchCount"
               :searchString="store.searchString"
               :highlighting="store.highlighting ?? false"
               :vaultName="store.vault">
-        </Card>
+        </ResultCard>
       </template>
 
-      <div v-if="paginatedResults.length <= 0" style="min-width: min(100vw, 333px);" class="min-h-8 p-3 text-xs rounded-md border border-1 border-dashed border-gray-700 dark:border-gray-300  text-gray-700 dark:text-gray-100 mb-2">
+      <div v-if="paginatedResults.length <= 0"  class="min-h-8 p-3 text-xs rounded-md border border-1 border-dashed border-gray-700 dark:border-gray-300  text-gray-700 dark:text-gray-100 mb-2">
 
         <div v-if="connectionStatus === 'noauth'">
           🔑 Could reach Obsidian REST Api - API-Key is not valid. Please check and copy the key from Obsidian REST Api Plugin Settings and paste it in the extension <a class="underline" href="#" @click.prevent="openOptionsPage()">settings</a>.
@@ -91,7 +91,7 @@
 import {watchEffect, defineEmits} from "vue";
 import {useStore} from '../store.js';
 import {useSearch} from '../search.js';
-import Card from './Card.vue';
+import ResultCard from './ResultCard.vue';
 import Cog from "./Cog.vue";
 import {getTabService} from "../background-services/TabService.js";
 import Pin from "./Pin.vue";

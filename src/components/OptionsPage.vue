@@ -46,81 +46,24 @@
         Obsidian Browser Search
       </h1>
 
-      <h2 class="text-4xl mb-6 font-extrabold dark:text-white">
-        Have a Evernote like search experience - but BETTER and with Obsidian
+      <h2 class="text-3xl mb-6 font-extrabold italic dark:text-white">
+        Shows you and links you to relevant notes inside your Obsidian Vault when you browse the web.
       </h2>
       <p>
         For all of you who are missing the Evernote browser search
-        extension in Obsidian - here is your solution. This extension lets you search
-        your Obsidian Vault simultaneously as you type your search in your
+        extension in Obsidian - this is your solution.
+        Have a Evernote like search experience - but BETTER and with Obsidian.
+        This extension lets you search your Obsidian Vault simultaneously as you type your search in your
         favourite search engine.
       </p>
-      <h3 class="my-2 text-xl font-semibold text-gray-900 dark:text-white">
+      <h3 class="mt-6 my-2 text-xl font-semibold text-gray-900 dark:text-white">
         Features
       </h3>
-      <ul class="space-y-1 max-w-lg list-inside text-gray-700 dark:text-gray-200">
-        <li class="flex items-center">
-          <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 shrink-0"
-               fill="currentColor"
-               viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd"></path>
-          </svg>
-          LIVE SEARCH: Search your vault for notes matching your current search in e.q. the google search bar
-        </li>
-        <li class="flex items-center">
-          <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 shrink-0"
-               fill="currentColor"
-               viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd"></path>
-          </svg>
-          URL MATCHING: Search your vault for matches of your current url, no matter on which page you are.
-        </li>
-        <li class="flex items-center">
-          <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 shrink-0"
-               fill="currentColor"
-               viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd"></path>
-          </svg>
-          SIDEBAR: Scroll and open your matched Obsidian notes in the sidebar on any page.
-        </li>
-        <li class="flex items-center">
-          <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 shrink-0"
-               fill="currentColor"
-               viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd"></path>
-          </svg>
-          NOTE PREVIEW: Peek into and open your notes without leaving the browser (requires Local REST Plugin).
-        </li>
-        <li class="flex items-center">
-          <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 shrink-0"
-               fill="currentColor"
-               viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd"></path>
-          </svg>
-          CUSTOMIZABEL SEARCH: Exclude files and folders you don't want to show show up in the sidebar search
-        </li>
-        <li class="flex items-center">
-          <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 shrink-0"
-               fill="currentColor"
-               viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd"></path>
-          </svg>
-          DIFFERENT SEARCH PLUGINS: Choose between the "Omni Search" Plugin and the "Local REST" Plugin to power your
-          Obsidian Browser Search
-        </li>
-      </ul>
+
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 mb-6">
+        <PresentationCard v-for="feature in features" :title="feature.title" :titleHref="feature.titleHref" :imgSrc="feature.imgSrc" :imgHref="feature.imgHref" :text="feature.text" :cta="feature.cta" :ctaHref="feature.ctaHref"></PresentationCard>
+      </div>
+
       <h3 id="privacy" class="my-2 text-xl font-semibold text-gray-900 dark:text-white">
         Privacy
       </h3>
@@ -129,6 +72,14 @@
         and the browser. The only data that is stored permanently in the
         browser are the settings you find below. Feel free to check out the
         code base on <a class="underline" href="https://github.com/jk-oster/obsidian-search-for-web">GitHub</a>.
+      </p>
+
+      <h3 id="disclaimer" class="my-2 text-xl font-semibold text-gray-900 dark:text-white">
+        Disclaimer
+      </h3>
+      <p class="mb-6">
+        This is an unofficial browser extension for Obsidian and it is not connected to the developers of <a class="underline" href="https://obsidian.md">Obsidian.md</a> app.
+        The obsidian logo is property of <a class="underline" href="https://obsidian.md">https://obsidian.md</a>.
       </p>
 
       <form id="settings" name="settings">
@@ -245,7 +196,7 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
-                  Enable icon on page to open sidebar
+                  Enable toggle icon on page to open sidebar
               </span>
             </label>
           </div>
@@ -258,7 +209,7 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
-                  Enable icon on page when no search results are available
+                  Enable toggle icon on page when no search results are available
               </span>
             </label>
           </div>
@@ -275,6 +226,32 @@
               </span>
             </label>
           </div>
+
+          <div class="mb-6">
+            <label for="showSidebarOnButtonHover" class="inline-flex relative items-center mr-5 cursor-pointer">
+              <input v-model="store.showSidebarOnButtonHover" type="checkbox" id="showSidebarOnButtonHover" name="showSidebarOnButtonHover"
+                     class="sr-only peer" :checked="store.showSidebarOnButtonHover"/>
+              <div
+                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
+              </div>
+              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
+                  Enable showing sidebar on toggle icon hover
+              </span>
+            </label>
+          </div>
+
+<!--          <div class="mb-6">-->
+<!--            <label for="allowDraggingButton" class="inline-flex relative items-center mr-5 cursor-pointer">-->
+<!--              <input v-model="store.allowDraggingButton" type="checkbox" id="allowDraggingButton" name="allowDraggingButton"-->
+<!--                     class="sr-only peer" :checked="store.allowDraggingButton"/>-->
+<!--              <div-->
+<!--                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">-->
+<!--              </div>-->
+<!--              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">-->
+<!--                  Enable dragging and repositioning of toggle icon-->
+<!--              </span>-->
+<!--            </label>-->
+<!--          </div>-->
 
           <div class="mb-6">
             <label for="highlighting" class="inline-flex relative items-center mr-5 cursor-pointer">
@@ -313,7 +290,7 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
-                  Enable embded search results on Search-Engines
+                  Enable embed search results on Search-Engines
               </span>
             </label>
 
@@ -427,7 +404,7 @@
               Pages on which to look for search input, all others will be matched by URL instead of search input.
             </span>
             <span class="text-xs text-gray-700 dark:text-gray-400">
-              The following Domains are supported by default:
+              The following Domains are currently supported by default:
               <template v-for="(page, index) in pageOptions.filter(p => p.regex)">
                 <a :href="page.url" class="underline">{{ page.url.replace('https://', '') }}</a>{{ index + 1 >= pageOptions.length ? '' : ', ' }}
               </template>
@@ -444,7 +421,7 @@
                    placeholder="Assets,Template,.excalidraw"
                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
             <span class="text-xs text-gray-700 dark:text-gray-400">
-              Files containing the any of the defined segments will be excluded from search results.
+              Files containing any of the defined segments in their file path will be excluded from search results.
             </span>
           </div>
         </fieldset>
@@ -462,29 +439,29 @@
           Contribution, questions, pull requests and suggestions for improvements are
           very welcome.
         </p>
-        <p>
-          If you encounter any issues with the extension feel free to open an issue on <a class="underline"
-                                                                                          href="https://github.com/jk-oster/obsidian-search-for-web/issues">GitHub</a>.
+        <p class="mt-1">
+          If you encounter any issues with the extension feel free to open an issue on <a class="underline" href="https://github.com/jk-oster/obsidian-search-for-web/issues">GitHub</a>.
         </p>
 
         <h3 class="my-4 text-xl font-semibold text-gray-900 dark:text-white">
           Credits
         </h3>
         <p>
-          Thank's to the creator of the
-          <a class="underline" href="https://github.com/coddingtonbear/obsidian-local-rest-api">Obsidian Local REST Api
-            Plugin</a>
-          <a class="underline" href="https://github.com/coddingtonbear">@Adam Coddington</a> for
-          his awesome work. His effort rendered this extension possible.
-        </p>
-        <p>
-          Furthermore, kodos to the creator of the
-          <a class="underline" href="https://github.com/StarkShang/vite-plugin-chrome-extension">Vite Chrome Extension
-            Plugin</a>
-          for enabeling fast and easy development with vue!
-        </p>
-        <p>
-          Big thanks to the team of
+          First and foremost big thanks to the creators of <a class="underline" href="https://obsidian.md">Obsidian.md</a> for creating
+          such an AWESOME and FREE note taking tool.
+
+          Thanks to the creator of
+          <a class="underline" href="https://github.com/coddingtonbear/obsidian-local-rest-api">Obsidian Local REST Api</a>
+          <a class="underline" href="https://github.com/coddingtonbear">@Adam Coddington</a> and
+          <a class="underline" href="https://github.com/scambier/obsidian-omnisearch">Omnisearch</a>
+          <a class="underline" href="https://github.com/scambier">@Scambier</a> for
+          their awesome work. Their efforts make this browser extension possible.
+
+          Furthermore, kudos to the creator of the
+          <a class="underline" href="https://github.com/aklinker1/vite-plugin-web-extension">Vite Web Extension Plugin</a>
+          for enabling fast and easy extension development with Vue!
+
+          Big thanks also to the team of
           <a class="underline" href="https://flowbite.com/">Flowbite™</a> for providing such
           awesome free Tailwind components!
         </p>
@@ -494,7 +471,7 @@
 
   <footer
       class="p-4 bg-white shadow-sm md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
-        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023
+        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2025
             <a href="https://jkoster.com/" class="hover:underline">Jakob Osterberger</a>. All Rights Reserved.
         </span>
     <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
@@ -519,10 +496,11 @@ import {computed, onMounted} from 'vue'
 import type {Theme} from "../types.js";
 import Toast from "./Toast.vue";
 import {useStore} from "../store.js";
-import {useObsidianConnection} from "../connection";
-import {pageOptions} from "../config";
+import {useObsidianConnection} from "../connection.js";
+import {pageOptions, features} from "../config.js";
 import {extensionStorage} from "../storage";
 import {detectPreferredColorScheme, setColorScheme} from "../theme";
+import PresentationCard from "./PresentationCard.vue";
 
 const store = useStore();
 const {throttledConnectionCheck, throttledRestApiConnectionCheck, connectionInfo, restApiStatus} = useObsidianConnection(1000);
@@ -557,6 +535,7 @@ function providerChanged() {
     checkApi().then();
   }, 1);
 }
+
 </script>
 
 <style>

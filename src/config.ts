@@ -49,6 +49,8 @@ export const config: ExtensionConfig = {
     showSidebarWhenNoResults: true,
     liveSearch: true,
     showInPageIcon: true,
+    showSidebarOnButtonHover: true,
+    allowDraggingButton: true,
     showInPageIconWhenNoResults: true,
     sidePanelOpen: false,
     minChars: 2,
@@ -151,3 +153,52 @@ export const pageOptions = [
         main: '.left-content-box',
     }
 ];
+
+type Feature = {
+    title: string,
+    titleHref?: string | null | undefined,
+    imgSrc?: string | null | undefined,
+    imgHref?: string | null | undefined,
+    text: string,
+    cta?: string | null | undefined,
+    ctaHref?: string | null | undefined,
+}
+export const features: Feature[] = [
+    {
+        title: 'Live Search',
+        titleHref: '#liveSearch',
+        text: 'Search your vault for notes matching your current search in e.q. the google search bar.',
+    },
+    {
+        title: 'Url Matching',
+        text: 'Search your vault for matches of your current url, no matter on which page you are.'
+    },
+    {
+        title: 'Search Sidebar',
+        text: 'Scroll and open your matched Obsidian notes in the sidebar on any page.',
+    },
+    {
+        title: 'Embedded Results',
+        titleHref: '#embeddedResults',
+        text: 'See your matched notes naturally embedded in the search engine results. Most popular search engines supported.',
+    },
+    {
+        title: 'Note Preview',
+        text: 'Peek into and open your notes without leaving the browser (requires Local REST Plugin).',
+    },
+    {
+        title: 'Automatic Dark/Light Mode',
+        titleHref: '#theme',
+        text: 'The extension can automatically adapt to dark / light mode depending on the current page you are on.',
+    },
+    {
+        title: 'Customizable Search',
+        titleHref: '#searchUrls',
+        text: 'Exclude files and folders you don\'t want to show show up in the search results.'
+    },
+    {
+        title: 'Search Plugin Support',
+        titleHref: '#vault',
+        text: 'Choose between the "Omni Search" Plugin and the "Local REST" Plugin to power your Obsidian Browser Search'
+    }
+]

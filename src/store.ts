@@ -52,6 +52,8 @@ export function useStore() {
             store.currentUrl = data?.currentUrl ?? '';
             store.contextLength = Number(data.contextLength);
             store.liveSearch = Boolean(data.liveSearch);
+            store.showSidebarOnButtonHover = Boolean(data?.showSidebarOnButtonHover);
+            store.allowDraggingButton = Boolean(data?.allowDraggingButton);
             store.showInPageIcon = Boolean(data?.showInPageIcon);
             store.showInPageIconWhenNoResults = Boolean(data?.showInPageIconWhenNoResults);
             store.sidePanelOpen = Boolean(data?.sidePanelOpen);

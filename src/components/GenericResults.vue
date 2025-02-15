@@ -18,28 +18,28 @@
         <Splide :options="{rewind: false, perPage: perPage, perMove: perPage, omitEnd: true}">
           <template v-for="note of searchResults" :key="note.score">
             <SplideSlide>
-              <Card :item="note"
+              <ResultCard :item="note"
                     :canPreview="restApiStatus === 'search'"
                     :showMatchesCount="store.matchCount"
                     :searchString="store.searchString"
                     :highlighting="store.highlighting ?? false"
                     :vaultName="store.vault"
                     :showIcon="false">
-              </Card>
+              </ResultCard>
             </SplideSlide>
           </template>
         </Splide>
       </template>
       <template v-else>
         <template v-for="note of paginatedResults" :key="note.score">
-          <Card :item="note"
+          <ResultCard :item="note"
                 :canPreview="restApiStatus === 'search'"
                 :showMatchesCount="store.matchCount"
                 :searchString="store.searchString"
                 :highlighting="store.highlighting ?? false"
                 :vaultName="store.vault"
                 :showIcon="false">
-          </Card>
+          </ResultCard>
         </template>
       </template>
     </div>
@@ -62,7 +62,7 @@ import {useSearch} from "../search.js";
 import Logo from "./Logo.vue";
 import {getTabService} from "../background-services/TabService.js";
 import LoadingSpinner from "./LoadingSpinner.vue";
-import Card from "./Card.vue";
+import ResultCard from "./ResultCard.vue";
 import {useStore} from "../store.js";
 
 const store = useStore();

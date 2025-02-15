@@ -1,10 +1,12 @@
 <template>
   <button ref="toggleButton" id="obsidian-search-for-web-offcanvas-toggle"
           v-if="showToggle"
-          class="popup-button fixed right-1 top-1/2 rounded-full p-2 mr-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-50 border border-gray-200 hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+          :style="style"
+          class="popup-button fixed rounded-full p-2 mr-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-50 border border-gray-200 hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
           @click="toggleSidebar">
     <span style="font-size: 18px;">
       <Logo></Logo>
+<!--      <ExtensionIcon></ExtensionIcon>-->
     </span>
     <span class="sr-only">
       Show Obsidian Search Sidebar
@@ -27,18 +29,44 @@
 
 import SearchResults from './SearchResults.vue';
 import Logo from './Logo.vue';
-import {computed, onMounted, ref} from 'vue'
+import {computed, onMounted, ref, watch, watchEffect} from 'vue'
 import {useStore} from '../store.js';
 import {NoteMatch} from "../types.js";
-import {useElementHover} from '@vueuse/core';
+import {useElementHover, useDraggable, useWindowSize} from '@vueuse/core';
 import {useObsidianConnection} from "../connection";
+import ExtensionIcon from "./ExtensionIcon.vue";
 
 const store = useStore();
 
 const searchResults = ref<NoteMatch[]>([]);
 const toggleButton = ref<HTMLElement | null>(null);
 const offCanvas = ref<HTMLElement | null>(null);
-const { connectionStatus, connectionInfo } = useObsidianConnection();
+const { connectionStatus } = useObsidianConnection();
+
+const {width, height} = useWindowSize();
+
+const initialPosition = JSON.parse(localStorage.getItem('obsidian-browser-search-position') ?? '{}');
+
+const { x, y, style } = useDraggable(toggleButton, {
+  initialValue: {
+    x: Math.max(Math.min(initialPosition.x ?? width.value - 50, width.value - 50), 5),
+    y: Math.max(Math.min(initialPosition.y ?? (height.value  / 2) - 20, height.value - 40), 5),
+  },
+  preventDefault: true,
+});
+
+watch(width, () => {
+  x.value = width.value - 50;
+});
+watch(height, () => {
+  y.value = (height.value / 2) - 20;
+});
+watchEffect(() => {
+  localStorage.setItem('obsidian-browser-search-position', JSON.stringify({
+    x: Math.round(x.value),
+    y: Math.round(y.value),
+  }));
+});
 
 const isToggleHovered = useElementHover(toggleButton, {
   delayEnter: 300,
@@ -49,12 +77,14 @@ const isOffCanvasHovered = useElementHover(offCanvas, {
   delayLeave: 1000,
 });
 
-const showPopup = computed(() => isToggleHovered.value || isOffCanvasHovered.value || (store.show && (store.showSidebarWhenNoResults || searchResults.value?.length > 0)));
+const showPopup = computed(() => (store.showSidebarOnButtonHover && isToggleHovered.value) || isOffCanvasHovered.value || (store.show && (store.showSidebarWhenNoResults || searchResults.value?.length > 0)));
 const showToggle = computed(() => store.showInPageIcon && (store.showInPageIconWhenNoResults || searchResults.value?.length > 0));
 
 onMounted(async () => {
   store.currentUrl = location.href;
 });
+
+
 
 function toggleSidebar(): void {
   store.show = !store.show;

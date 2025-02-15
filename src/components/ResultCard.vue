@@ -10,7 +10,6 @@
         </span>
       </div>
 
-
       <div>
         <p v-if="item.filename" class="text-xs leading-none tracking-tight text-gray-900 dark:text-gray-100" v-html="highlight(item.filename ?? '', searchString)"></p>
         <div class="my-1 text-sm leading-none tracking-tight text-gray-700 dark:text-white hover:underline">
@@ -28,7 +27,7 @@
     </div>
 
     <a v-if="canPreview"
-       class="absolute top-2 right-2 text-gray-700 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
+       class="open-link absolute top-2 right-2 text-gray-700 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
        title="Open Note in Obsidian"
        :href="item.url">
       <OpenLink class="w-4 h-4"></OpenLink>

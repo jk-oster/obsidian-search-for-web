@@ -70,6 +70,8 @@ export interface ExtensionConfig {
     port: number,
     restApiPort: number,
     show: boolean,
+    showSidebarOnButtonHover: boolean,
+    allowDraggingButton: boolean,
     showSidebarWhenNoResults: boolean,
     liveSearch: boolean,
     sidePanelOpen: boolean,
