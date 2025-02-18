@@ -73,6 +73,6 @@ Contribution, pull requests and suggestions for improvements are very welcome.
 
 ## Credits
 
-Thank's to the creator of the Obsidian Local REST Api Plugin @Adam Coddington for his awesome work as well as to @scambier for the obsidian-omnisearch plugin.
-Furthermore, kodos to the creator of the Vite Chrome Extension Plugin for enabling fast and easy development with Vue!
+Thanks to the creator of the Obsidian Local REST Api Plugin @Adam Coddington for his awesome work as well as to @scambier for the obsidian-omnisearch plugin.
+Furthermore, kudos to the creator of the Vite Chrome Extension Plugin for enabling fast and easy development with Vue!
 Big thanks to the team of Flowbite™ for providing such awesome free Tailwind components!
