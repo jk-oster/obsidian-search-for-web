@@ -11,7 +11,8 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Quickstart', link: '/getting-started' }
+      { text: 'Quickstart', link: '/getting-started' },
+      { text: 'Creator', link: 'https://www.jakobosterberger.com' }
     ],
 
     sidebar: [
@@ -34,7 +35,7 @@ export default defineConfig({
     ],
 
     footer: {
-      message: 'Released under the MIT License.',
+      message: 'Released under the GPLv3 License.',
       copyright: 'Copyright © 2023-present Jakob Osterberger'
     }
   }

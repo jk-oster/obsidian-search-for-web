@@ -46,4 +46,13 @@ features:
 ---
 
 > [!important] Disclaimer
-> This is an unofficial browser extension for Obsidian. It is not connected to the developers of  app. The project is not sponsored, endorsed or affiliated with Dynalist Inc, the makers of [Obsidian.md](https://obsidian.md). The obsidian logo is property of https://obsidian.md.
+> This is an unofficial browser extension for Obsidian and it is not connected to the developers of the app. The project is not sponsored, endorsed or affiliated with Dynalist Inc, the makers of [Obsidian.md](https://obsidian.md). The obsidian logo is property of https://obsidian.md.
+
+## Screenshot Instant Live Search
+
+![](./img/live-search.png)
+
+## Screenshot Search Embeddings
+
+![](./img/embedded-results.png)
+
