@@ -16,7 +16,7 @@ export function useSearch(isLoadingInitial: boolean = false) {
 
     const {throttledConnectionCheck, connectionStatus, connectionInfo, restApiStatus} = useObsidianConnection();
 
-    const searchUrls = computed(() => config.searchUrls.split(',').map((url: string) => url.trim()));
+    const searchUrls = computed(() => config.searchUrls.split(',').map((url: string) => url.trim()).filter((url: string) => url.length > 0));
 
     const searchString = ref<string>('');
     const searchResults = ref<NoteMatch[]>([]);
@@ -32,18 +32,12 @@ export function useSearch(isLoadingInitial: boolean = false) {
     });
 
     const detectSearchMode = () => {
-        if (searchUrls.value.length === 0) {
-            searchMode.value = SearchModes.urlMatch;
-            return;
-        }
-
         const currentUrl = window.location.href;
         if (searchUrls.value.some((url: string) => currentUrl.includes(url)) || pageOptions.some(page => page.regex?.test(currentUrl))) {
             searchMode.value = SearchModes.search;
         } else {
             searchMode.value = SearchModes.urlMatch;
         }
-
         return searchMode.value;
     }
 
