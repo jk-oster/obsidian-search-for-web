@@ -12,6 +12,7 @@
 - ✅ **NOTE PREIVEW**: Preview full notes
 - ✅ **NOTE EDITING**: Edit the note in a Markdown editor
 - ✅ **QUICK APPEND**: quickly append content to notes
+- ✅ **Generic Search Result Embeddings**: search engines without dedicated embedding template can now also have search results embeded
 - ✅ **Support more Search Engines**:
     - baidu
     - brave
@@ -25,6 +26,7 @@
     - show sidebar on button hover
     - pin/unpin sidebar
     - more configuration options
+    - full style encapsulation
 - ✅ Bugfixes
 
 
