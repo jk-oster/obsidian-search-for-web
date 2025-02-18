@@ -46,4 +46,4 @@ features:
 ---
 
 > [!important] Disclaimer
-> This is an unofficial browser extension for Obsidian. It is not connected to the developers of [Obsidian.md](https://obsidian.md) app. The obsidian logo is property of https://obsidian.md.
+> This is an unofficial browser extension for Obsidian. It is not connected to the developers of  app. The project is not sponsored, endorsed or affiliated with Dynalist Inc, the makers of [Obsidian.md](https://obsidian.md). The obsidian logo is property of https://obsidian.md.
