@@ -32,9 +32,8 @@ import Logo from './Logo.vue';
 import {computed, onMounted, ref, watch, watchEffect} from 'vue'
 import {useStore} from '../store.js';
 import {NoteMatch} from "../types.js";
-import {useElementHover, useDraggable, useWindowSize} from '@vueuse/core';
+import {useElementHover, useDraggable, useWindowSize, useElementSize} from '@vueuse/core';
 import {useObsidianConnection} from "../connection";
-import ExtensionIcon from "./ExtensionIcon.vue";
 
 const store = useStore();
 
@@ -43,22 +42,34 @@ const toggleButton = ref<HTMLElement | null>(null);
 const offCanvas = ref<HTMLElement | null>(null);
 const { connectionStatus } = useObsidianConnection();
 
-const {width, height} = useWindowSize();
+const body = useElementSize(document.body);
+
+const {width, height} = useWindowSize({
+  includeScrollbar: false,
+  type: 'inner',
+});
 
 const initialPosition = JSON.parse(localStorage.getItem('obsidian-browser-search-position') ?? '{}');
 
+const getRightSpacing = () => document.body.scrollHeight > document.body.clientHeight ? 65 : 50;
+
 const { x, y, style } = useDraggable(toggleButton, {
   initialValue: {
-    x: Math.max(Math.min(initialPosition.x ?? width.value - 50, width.value - 50), 5),
+    x: Math.max(Math.min(initialPosition.x ?? width.value - getRightSpacing(), width.value - getRightSpacing()), 5),
     y: Math.max(Math.min(initialPosition.y ?? (height.value  / 2) - 20, height.value - 40), 5),
   },
   preventDefault: true,
 });
 
 watch(width, () => {
-  x.value = width.value - 50;
+  x.value = width.value - getRightSpacing();
 });
 watch(height, () => {
+  x.value = width.value - getRightSpacing();
+  y.value = (height.value / 2) - 20;
+});
+watch(body.height, () => {
+  x.value = width.value - getRightSpacing();
   y.value = (height.value / 2) - 20;
 });
 watchEffect(() => {

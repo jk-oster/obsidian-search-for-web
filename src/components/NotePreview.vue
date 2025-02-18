@@ -1,38 +1,84 @@
 <template>
   <div ref="popover" popover style="font-size: 16px;"
-       class="mt-4 py-7 px-6 min-h-48 max-w-xl lg:max-w-2xl max-h-[95vh] overflow-y-auto bg-white rounded-[.5em] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+       class="obsidian-browser-search-popover mt-4 p-4 min-h-48 w-xl max-w-xl lg:max-w-2xl bg-white rounded-[.5em] border border-gray-200 shadow-md dark:bg-gray-900 dark:border-gray-700">
 
-    <div class="absolute flex top-2 right-2">
-      <a :href="url"
-         title="Open Note in Obsidian"
-         class="p-1 mb-2 mr-2 text-xs font-medium text-gray-900 focus:outline-hidden bg-white rounded-[.5em] border border-gray-200 hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-        <OpenLink class="h-6 w-6"></OpenLink>
-      </a>
+    <div class="absolute flex justify-between items-center top-0 right-0 left-0 border-b px-4 py-2 border-gray-200 bg-gray-50 dark:bg-gray-800">
 
-      <button @click="closeNotePreview()" title="Close Preview"
-              class=" p-1 mb-2 text-xs font-medium text-gray-900 focus:outline-hidden bg-white rounded-[.5em] border border-gray-200 hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-        <Close class="h-6 w-6"></Close>
-      </button>
+      <div class="text-xs text-gray-700 dark:text-gray-100">{{ name }}</div>
+
+      <div class="inline-flex rounded-md shadow-xs" role="group">
+        <button @click="mode = 'preview'; setPreviewMode(); save();" :aria-pressed="mode === 'preview'" type="button" title="Preview" class="inline-flex items-center px-3 py-1 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-purple-700 focus:z-10 focus:ring-2 focus:ring-purple-700 focus:text-purple-700 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-purple-500 dark:focus:text-white">
+          <OpenEye class="w-4 h-4"></OpenEye>
+        </button>
+        <button @click="mode = 'edit'; refreshEditor(); setEditorMode(); " :aria-pressed="mode === 'edit'" type="button" title="Edit" class="inline-flex items-center px-3 py-1 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-purple-700 focus:z-10 focus:ring-2 focus:ring-purple-700 focus:text-purple-700 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-purple-500 dark:focus:text-white">
+          <EditIcon class="w-4 h-4"></EditIcon>
+        </button>
+        <button @click="mode = 'append'" :aria-pressed="mode === 'append'" type="button" title="Append" class="inline-flex items-center px-3 py-1 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-purple-700 focus:z-10 focus:ring-2 focus:ring-purple-700 focus:text-purple-700 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-purple-500 dark:focus:text-white">
+          <AddCommentIcon class="w-4 h-4"></AddCommentIcon>
+        </button>
+      </div>
+
+      <div class="inline-flex">
+        <a :href="url"
+           title="Open Note in Obsidian"
+           class="p-1 mr-2 text-xs font-medium text-gray-900 focus:outline-hidden bg-white rounded-[.5em] border border-gray-200 hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+          <OpenLink class="h-6 w-6"></OpenLink>
+        </a>
+
+        <button @click="closeNotePreview()" title="Close Preview"
+                class=" p-1 text-xs font-medium text-gray-900 focus:outline-hidden bg-white rounded-[.5em] border border-gray-200 hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+          <Close class="h-6 w-6"></Close>
+        </button>
+      </div>
+
     </div>
 
-    <div class="pt-2 text-xl font-black text-gray-700 dark:text-gray-100">{{ name }}</div>
-    <div class="w-full flex justify-center">
-      <LoadingSpinner v-if="isLoading && !previewNote"></LoadingSpinner>
+    <div class="w-full mt-[1.6em]">
+      <div class="w-full flex justify-center">
+        <LoadingSpinner v-if="isLoading && !previewNote"></LoadingSpinner>
+      </div>
+
+      <div  v-if="mode === 'append'">
+        <form class="w-full mt-3">
+            <label for="content" class="sr-only">Content to append</label>
+            <textarea v-model="appendContent" id="content" rows="6" style="border: none; outline: none;" class="w-full px-0 text-sm text-gray-900 bg-transparent border-0 border-transparent dark:text-white dark:placeholder-gray-400" placeholder="Write your thoughts..." required ></textarea>
+            <div class="flex items-center justify-end py-2 border-t dark:border-gray-600 border-gray-200">
+              <button @click.prevent="append()" type="submit" class="inline-flex items-center mr-2 py-2.5 px-4 text-xs font-medium text-gray-900 focus:outline-hidden bg-white rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-50 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
+                Append
+              </button>
+              <button @click.prevent="append(true)" type="submit"  class="inline-flex items-center py-2.5 px-4 focus:outline-hidden text-white text-xs bg-purple-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                Append & Close
+              </button>
+            </div>
+        </form>
+      </div>
+
+      <div v-show="mode === 'edit'" class="text-gray-700 dark:text-gray-100">
+        <textarea ref="editor"></textarea>
+      </div>
+
+      <div class="max-h-[85vh] overflow-y-auto">
+        <!-- @vue-ignore -->
+        <div v-if="mode === 'preview'" class="mt-2 prose prose-slate dark:prose-invert" v-html="highlight(marked.parse(previewNote ?? ''), searchString)"></div>
+      </div>
+
     </div>
-    <!-- @vue-ignore -->
-    <div class="prose dark:prose-invert" v-html="highlight(marked.parse(previewNote ?? ''), searchString)"></div>
+
   </div>
 </template>
 
 <script setup lang="ts">
-
 import {marked} from "marked";
 import OpenLink from "./OpenLink.vue";
 import Close from "./Close.vue";
 import LoadingSpinner from "./LoadingSpinner.vue";
-import {ref, watch} from "vue";
+import {onMounted, ref, watch} from "vue";
 import {usePreview} from "../preview.js";
 import {useHighlight} from "../highlighter.js";
+import EasyMDE from "easymde";
+import EditIcon from "./EditIcon.vue";
+import AddCommentIcon from "./AddCommentIcon.vue";
+import OpenEye from "./OpenEye.vue";
 
 const props = defineProps({
   filename: String,
@@ -50,8 +96,11 @@ const show = defineModel<boolean>();
 
 // @ts-ignore
 const popover = ref<HTMLElement|null>(null);
-
-const {previewNote, fetchPreview, isLoading} = usePreview();
+const editor = ref<HTMLElement|null>(null);
+const appendContent = ref<string>('');
+const mode = ref<'edit' | 'append' | 'preview'>('preview');
+let easyMDE: any;
+const {previewNote, fetchPreview, saveNote, appendNote, isLoading} = usePreview();
 
 const {highlight} = useHighlight();
 
@@ -63,13 +112,90 @@ watch(show,() => {
   }
 });
 
-function openNotePreview() {
-  fetchPreview(props.filename ?? '');
+watch(previewNote, () => {
+  easyMDE?.value(previewNote.value ?? '');
+  refreshEditor();
+});
+
+async function openNotePreview() {
+  show.value = false;
+
+  if(!easyMDE) {
+    easyMDE = new EasyMDE({
+      element: editor?.value ?? undefined,
+      autofocus: false,
+      toolbar: false,
+      // toolbar: ["bold", "italic", "heading", "|", "quote", "code", "unordered-list", "ordered-list", "|", "link", "|", "preview", "guide", "|", "undo", "redo"],
+      placeholder: "Type here...",
+      lineWrapping: true,
+      spellChecker: false,
+      maxHeight: '77vh',
+      status: ["lines", "words"],
+      sideBySideFullscreen: true,
+      syncSideBySidePreviewScroll: true,
+    });
+  }
+
+  await fetchPreview(props.filename ?? '');
+
   popover.value?.showPopover();
 }
 
+function toggleViewMode() {
+  EasyMDE.togglePreview(easyMDE);
+}
+
+function setPreviewMode() {
+  if(!easyMDE.isPreviewActive()) {
+    toggleViewMode();
+  }
+}
+
+function setEditorMode() {
+  if(easyMDE.isPreviewActive()) {
+    toggleViewMode();
+  }
+}
+
 function closeNotePreview() {
+  show.value = false;
   popover.value?.hidePopover();
+  // Save note on close
+  if(previewNote.value != easyMDE?.value()) {
+    save();
+    console.log('autosaved on close');
+  }
+}
+
+function save(close: boolean = false) {
+  if(previewNote.value != easyMDE?.value()) {
+    saveNote(props.filename ?? '', easyMDE.value() ?? '');
+    console.log('saved note');
+  }
+
+  if(close) {
+    closeNotePreview();
+  }
+}
+
+function append(close: boolean = false) {
+  console.log(appendContent.value);
+  if(appendContent.value) {
+    appendNote(props.filename ?? '', appendContent.value ?? '');
+    easyMDE.value(previewNote.value ?? '');
+    refreshEditor();
+    appendContent.value = '';
+  }
+
+  if(close) {
+    closeNotePreview();
+  }
+}
+
+function refreshEditor() {
+  setTimeout(() => {
+    easyMDE?.codemirror?.refresh();
+  }, 1);
 }
 
 defineExpose({
@@ -79,14 +205,22 @@ defineExpose({
 
 </script>
 
-<style scoped>
-@import "../style/main.css";
+<style>
+@import "../../node_modules/easymde/dist/easymde.min.css";
 </style>
 
 <style scoped>
+@import "../style/main.css";
 
 [popover] {
   min-width: min(28rem, 100vw);
+}
+
+[popover] button[aria-pressed='true'] {
+  background: #ffffff;
+}
+.dark [popover] button[aria-pressed='true'] {
+  background: #646464;
 }
 
 html {
@@ -110,11 +244,11 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #646464;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-track-piece {
-  background-color: #000;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {

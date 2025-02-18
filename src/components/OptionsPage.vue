@@ -61,7 +61,7 @@
       </h3>
 
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2 mb-6">
-        <PresentationCard v-for="feature in features" :title="feature.title" :titleHref="feature.titleHref" :imgSrc="feature.imgSrc" :imgHref="feature.imgHref" :text="feature.text" :cta="feature.cta" :ctaHref="feature.ctaHref"></PresentationCard>
+        <PresentationCard v-for="feature in features" :icon="feature.icon" :title="feature.title" :titleHref="feature.titleHref" :imgSrc="feature.imgSrc" :imgHref="feature.imgHref" :text="feature.text" :cta="feature.cta" :ctaHref="feature.ctaHref"></PresentationCard>
       </div>
 
       <h3 id="privacy" class="my-2 text-xl font-semibold text-gray-900 dark:text-white">
@@ -72,6 +72,18 @@
         and the browser. The only data that is stored permanently in the
         browser are the settings you find below. Feel free to check out the
         code base on <a class="underline" href="https://github.com/jk-oster/obsidian-search-for-web">GitHub</a>.
+      </p>
+
+      <h3 id="privacy" class="my-2 text-xl font-semibold text-gray-900 dark:text-white">
+        Permissions
+      </h3>
+      <p class="mb-6">
+        This extension requires the following permissions:
+        <ul>
+          <li v-for="p of permissions">
+            {{ p.icon }} <code>{{ p.name }}</code>: {{ p.text }}
+          </li>
+        </ul>
       </p>
 
       <h3 id="disclaimer" class="my-2 text-xl font-semibold text-gray-900 dark:text-white">
@@ -311,11 +323,11 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
-                  Enable native search embeddings style (available for Google, Bing, Kagi and DuckDuckGo)
+                  Enable native search embeddings style
               </span>
             </label>
             <div class="text-xs text-gray-700 dark:text-gray-400">
-              Turn this off if embedded search results look ugly. This may happen due to updates & changes on your search engine.
+              Native embeddings are currently available for Google, Bing, Kagi and DuckDuckGo. Turn this off if embedded search results look ugly. This may happen due to updates & changes on your search engine.
             </div>
           </div>
 
@@ -497,7 +509,7 @@ import type {Theme} from "../types.js";
 import Toast from "./Toast.vue";
 import {useStore} from "../store.js";
 import {useObsidianConnection} from "../connection.js";
-import {pageOptions, features} from "../config.js";
+import {pageOptions, features, permissions} from "../config.js";
 import {extensionStorage} from "../storage";
 import {detectPreferredColorScheme, setColorScheme} from "../theme";
 import PresentationCard from "./PresentationCard.vue";

@@ -20,7 +20,10 @@ export function usePreview() {
         if (restApiStatus.value === 'search') {
             isLoading.value = true;
             try {
-                previewNote.value = await noteService.fetchNote(fileName, config);
+                const noteContent = await noteService.fetchNote(fileName, config);
+                if (noteContent !== previewNote.value) {
+                    previewNote.value = noteContent;
+                }
             } catch (e) {
                 previewNote.value = '### Oouups! An Error occurred when trying to fetch the note preview :/ \n\n > Try refreshing the page or check your extension settings.'
             }
@@ -41,11 +44,23 @@ export function usePreview() {
         }
     }
 
+    const saveNote = async (fileName: string, content: string) => {
+        await noteService.writeNote(fileName, content, config);
+        previewNote.value = content;
+    }
+
+    const appendNote = async (fileName: string, content: string) => {
+        await noteService.appendNote(fileName, content, config);
+        previewNote.value += '\n' + content;
+    }
+
     return {
         previewNote,
         activeNote,
         isLoading,
         fetchPreview,
         fetchActive,
+        saveNote,
+        appendNote,
     }
 }

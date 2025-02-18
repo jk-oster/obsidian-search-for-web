@@ -154,51 +154,83 @@ export const pageOptions = [
     }
 ];
 
+type Permission = {
+    name: string,
+    icon?: string,
+    text: string,
+};
+export const permissions: Permission[] = [
+    {
+        name: 'storage',
+        icon: '💾', 
+        text: 'This is required to store your settings and preferences.'
+    },
+    {
+        name: 'tabs',
+        icon: '📑',
+        text: 'Access and modify browser tabs. This is required to show the sidebar and embed search results in the page.'
+    },
+    {
+        name: 'host permissions',
+        icon: '🔗',
+        text: 'Access to the current page URL. This is required to match URLs and show relevant notes.'
+    }
+];
+
 type Feature = {
     title: string,
     titleHref?: string | null | undefined,
     imgSrc?: string | null | undefined,
     imgHref?: string | null | undefined,
+    icon?: string | null | undefined,
     text: string,
     cta?: string | null | undefined,
     ctaHref?: string | null | undefined,
 }
 export const features: Feature[] = [
     {
-        title: 'Live Search',
+        title: 'Instant Live Search',
         titleHref: '#liveSearch',
-        text: 'Search your vault for notes matching your current search in e.q. the google search bar.',
+        icon: '⚡',
+        text: 'Find your notes in a flash—just start typing, and results appear instantly, also on your favorite search engine.',
     },
     {
         title: 'Url Matching',
-        text: 'Search your vault for matches of your current url, no matter on which page you are.'
+        icon: '✅',
+        text: 'Automatically surface relevant notes when you visit specific websites. No more hunting for related information!'
     },
     {
-        title: 'Search Sidebar',
-        text: 'Scroll and open your matched Obsidian notes in the sidebar on any page.',
+        title: 'Effortless Sidebar Access',
+        icon: '📑',
+        text: 'Your notes, always within reach. A collapsible sidebar lets you scroll, browse and search without switching tabs.',
     },
     {
-        title: 'Embedded Results',
+        title: 'Embedded Search Results',
         titleHref: '#embeddedResults',
-        text: 'See your matched notes naturally embedded in the search engine results. Most popular search engines supported.',
+        icon: '🖥️',
+        text: 'See relevant Obsidian notes directly within your searches. Most popular search engines supported.',
     },
     {
-        title: 'Note Preview',
-        text: 'Peek into and open your notes without leaving the browser (requires Local REST Plugin).',
+        title: 'Quick Note Preview',
+        icon: '👀',
+        text: 'Preview your notes and open them directly in your browser without switching context.',
     },
     {
-        title: 'Automatic Dark/Light Mode',
+        title: 'Adaptive Dark/Light Mode',
         titleHref: '#theme',
-        text: 'The extension can automatically adapt to dark / light mode depending on the current page you are on.',
+        icon: '🌔',
+        text: 'Seamlessly matches the theme of the page you are browsing for a distraction-free experience.',
     },
     {
-        title: 'Customizable Search',
+        title: 'Configurable Search',
         titleHref: '#searchUrls',
+        icon: '🔍',
         text: 'Exclude files and folders you don\'t want to show show up in the search results.'
     },
     {
-        title: 'Search Plugin Support',
+        title: 'Choose Search Provider',
         titleHref: '#vault',
-        text: 'Choose between the "Omni Search" Plugin and the "Local REST" Plugin to power your Obsidian Browser Search'
+        icon: '⭐',
+        text: 'Choose how you search — integrates with Omnisearch and Obsidian REST API plugin to power your extension.'
     }
 ]

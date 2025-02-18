@@ -1,7 +1,8 @@
 <script setup lang="ts">
 defineProps<{
   title: string,
-  titleHref: string,
+  titleHref: string | null | undefined,
+  icon: string | null | undefined,
   imgSrc: string | null | undefined,
   imgHref: string | null | undefined,
   text: string,
@@ -11,13 +12,16 @@ defineProps<{
 </script>
 
 <template>
-  <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+  <div class="max-w-sm bg-white border border-gray-100 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
     <a v-if="imgSrc" :href="imgHref ?? '#'">
       <img class="rounded-t-lg" :src="imgSrc" alt="" />
     </a>
     <div class="p-5">
+      <div v-if="icon" class="mb-5 mt-2">
+        <span class="text-xl p-2 rounded bg-gray-50 dark:bg-gray-600">{{ icon }}</span>
+      </div>
       <a :href="titleHref ?? '#'">
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">
           {{title}}
         </h5>
       </a>

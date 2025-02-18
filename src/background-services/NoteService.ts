@@ -42,6 +42,38 @@ class NoteService {
         // return data;
     }
 
+    async writeNote(fileName: string, content: string, {apiKey, restApiProtocol, restApiPort}: {
+        apiKey: string,
+        restApiProtocol: string,
+        restApiPort: number,
+        vault: string
+    }): Promise<void> {
+        const options = { ...this.getLocalRestApiOptions(apiKey), method: 'PUT', body: content};
+        options.headers['Content-Type'] = 'text/markdown';
+        const url = restApiProtocol + '127.0.0.1:' + restApiPort + '/vault/' + encodeURIComponent(fileName);
+        const resp = await fetch(url, options);
+
+        // const data = await resp.json();
+        // console.log(data);
+        // return data;
+    }
+
+    async appendNote(fileName: string, content: string, {apiKey, restApiProtocol, restApiPort}: {
+        apiKey: string,
+        restApiProtocol: string,
+        restApiPort: number,
+        vault: string
+    }): Promise<void> {
+        const options = { ...this.getLocalRestApiOptions(apiKey), method: 'POST', body: content};
+        options.headers['Content-Type'] = 'text/markdown';
+        const url = restApiProtocol + '127.0.0.1:' + restApiPort + '/vault/' + encodeURIComponent(fileName);
+        const resp = await fetch(url, options);
+
+        // const data = await resp.json();
+        // console.log(data);
+        // return data;
+    }
+
     // async fetchPeriodic({apiKey, protocol, obsidianRestUrl, port}:{apiKey: string, protocol: string, obsidianRestUrl: string, port: number, vault: string}): Promise<Note> {
     //
     // }
