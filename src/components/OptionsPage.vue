@@ -90,7 +90,7 @@
         Disclaimer
       </h3>
       <p class="mb-6">
-        This is an unofficial browser extension for Obsidian. It is not connected to the developers of  app. The project is not sponsored, endorsed or affiliated with Dynalist Inc, the makers of <a class="underline" href="https://obsidian.md">Obsidian.md</a> app.
+        This is an unofficial browser extension for Obsidian. It is not connected to the developers of the app. The project is not sponsored, endorsed or affiliated with Dynalist Inc, the makers of <a class="underline" href="https://obsidian.md">Obsidian.md</a> app.
         The obsidian logo is property of <a class="underline" href="https://obsidian.md">https://obsidian.md</a>.
       </p>
 
