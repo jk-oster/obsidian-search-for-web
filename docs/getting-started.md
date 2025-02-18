@@ -1,0 +1,48 @@
+# Setup
+
+Follow these quick instructions to start using the [Obsidian Browser Search](https://chromewebstore.google.com/detail/ikdemlfoilfdmcdiegelchlhfnkpmaee/) extension.
+
+## Pre-Requisites
+
+Install at least one of the two following Obsidian Plugins in your vault:
+- [Obsidian Local REST Api](obsidian://show-plugin?id=obsidian-local-rest-api)
+- [Obsidian Omnisearch](obsidian://show-plugin?id=omnisearch)
+
+> [!info]
+> If your want to use the Note Preview feature the [Obsidian Local REST Api](obsidian://show-plugin?id=obsidian-local-rest-api) is required.
+> However, you can use both plugins simultaneously. The extension allows you to use Omnisearch for search results and REST Api for the note preview at the same time.
+
+> [!tip]
+> If you work with non-Latin scripts such as Chinese or Japanese, consider using the [Local REST Api Plugin](obsidian://show-plugin?id=obsidian-local-rest-api) for better search results.
+
+### Plugin Configuration
+
+Make sure your preferred search plugin(s) are **enabled**. Check which "Protocol" and "Ports" are configured in the settings. When using Omnisearch the HTTP Server must be **activated** in Omnisearch settings.
+
+## Installation
+
+[Download and install](https://chromewebstore.google.com/detail/ikdemlfoilfdmcdiegelchlhfnkpmaee/) the extension from the Chrome Web Store.
+
+## Browser Extension Configuration
+
+When you install the Extension for the first time the **Options page** should automatically open up (if this is not the case you can reach the options page though the extension settings of your browser).
+
+On the extension Options page scroll down to "Core Settings".
+1. Choose your favorite Search Provider plugin
+2. Make sure the Obsidian App is running and your search provider Plugin(s) are enabled
+3. Configure the "Protocol" and "Port" settings to match the respective obsidian plugin configuration. 
+   - **Omnisearch Default**: Protocol = `http://`, Port = `51736`
+   - **Local REST Api Default**: Protocol = `http://`, Port = `27123`, also make sure to set the "API-Key" correctly
+4. The extension will try to connect to your search provider and lets you know via a toast message once connection has been established.
+
+*✅ Everything set up!  Happy browsing and note-taking while using the extension*
+
+_(Optional)_ Have a look further down to the "Display Settings" to explore and fine tune to your preferences.
+
+## Basic Usage Example
+
+Go [google.com](https://google.com) and type a search for a phrase or word that is mentioned somewhere in your Obsidian Notes.
+- Now you should see an icon on the right page side with a green indicator of how many search results are available.
+- Hover or click the icon to open the extension sidebar to see the notes found related to your search.
+- If no results are available there will be no green indicator but only the icon.
+- Clicking a note title will now open the note preview (if you are using Obsidian REST Api) or open the note directly in your Obsidian app.
