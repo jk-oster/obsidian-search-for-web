@@ -1,5 +1,5 @@
 {
-  "name": "Obsidian Browser Search",
+  "name": "obsidian-browser-search",
   "description": "Search your Obsidian vault simultaneously as you type your search in your favorite search engine.",
   "version": "2.1.0",
   "type": "module",
