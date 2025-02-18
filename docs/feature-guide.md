@@ -39,6 +39,8 @@ the button in the sidebar header, or click the extension icon in the browser.
 ## 👀 Quick Note Preview
 
 
+## ✒️ Note Editing and Appending Content
+
 
 ## 🌔 Adaptive Dark / Light Mode
 
