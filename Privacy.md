@@ -2,17 +2,17 @@
 
 This Data Privacy Statement outlines the handling of user data by the Obsidian Browser Search extension. It is essential to review and understand this policy, as it governs the collection, use, and sharing of user data. By using the extension, you agree to the terms outlined below.
 
-## Collection of User Data:
+## Collection of User Data
 
 The extension does not collect any user data, such as personal information or usage statistics. It does not store any data on the user's device, and all data is handled in memory.
 
 It only sends the search query to a obsidian service locally running on the users machine to retrieve the search results.
 
-## Use of User Data:
+## Use of User Data
 
 The extension does not use any user data for any purpose other than to provide its functionality. No user data except extension settings is stored on the user's device, and all data is handled in memory.
 
-## Access to Privacy Policy:
+## Access to Privacy Policy
 
 The complete and up-to-date privacy policy can be accessed through the designated Chrome Web Store Developer Dashboard field. A direct link to the privacy policy is provided for transparency and easy reference.
 

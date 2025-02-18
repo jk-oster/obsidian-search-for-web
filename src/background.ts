@@ -13,39 +13,43 @@ registerTabService();
 registerNoteService();
 registerConnectionService();
 
-// Open Settings Page on FIRST installation
+// Runs every time  the browser is opened / restarted
 browser.runtime.onInstalled.addListener(async () => {
     browser.action.setBadgeText({text: ' '}).then();
     browser.action.setBadgeBackgroundColor({color: Colors.gray}).catch(console.log);
 
-    const runMigration = () => migrate(config, (oldConf) => {
-        return {
-            version: MIGRATION,
-            restApiPort: 27123,
-            restApiProtocol: oldConf?.protocol ?? "http://",
-            show: false,
-            showSidebarWhenNoResults: true,
-            liveSearch: true,
-            showInPageIcon: true,
-            showInPageIconWhenNoResults: true,
-            sidePanelOpen: false,
-            minChars: 2,
-            contextLength: 50,
-            matchCount: 3,
-            noteNumber: 6,
-            highlight: true,
-            embeddedResults: true,
-            highlighting: true,
-            nativeResults: true,
-            preferSidebarEmbeddings: true,
-            theme: 'auto',
-        };
-    }).then();
+    const runMigration = () => {
+        browser.storage.local.set({version: MIGRATION});
+
+        migrate(config, (oldConf) => {
+            return {
+                version: MIGRATION,
+                restApiPort: 27123,
+                restApiProtocol: oldConf?.protocol ?? "http://",
+                show: false,
+                showSidebarWhenNoResults: true,
+                liveSearch: true,
+                showInPageIcon: true,
+                showInPageIconWhenNoResults: true,
+                sidePanelOpen: false,
+                minChars: 2,
+                contextLength: 50,
+                matchCount: 3,
+                noteNumber: 6,
+                highlight: true,
+                embeddedResults: true,
+                highlighting: true,
+                nativeResults: true,
+                preferSidebarEmbeddings: true,
+                theme: 'auto',
+            };
+        }).then()
+    };
 
     // Set default config on first launch & install
-    const provider = await extensionStorage.getItem('provider');
-    const version = await extensionStorage.getItem('version');
-    if (!provider || version !== MIGRATION) {
+    // Open Settings Page on FIRST installation only
+    const {version} = await browser.storage.local.get('version');
+    if (version !== MIGRATION) {
         await runMigration();
         browser.runtime.openOptionsPage().then();
     } else {
