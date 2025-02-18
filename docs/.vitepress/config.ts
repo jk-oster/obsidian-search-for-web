@@ -20,7 +20,9 @@ export default defineConfig({
           { text: 'Why?', link: '/why' },
           { text: 'Getting Started', link: '/getting-started' },
           { text: 'Feature Guide', link: '/feature-guide' },
+          { text: 'Roadmap', link: '/roadmap' },
           { text: 'Privacy', link: '/privacy' },
+          { text: 'Permisions', link: '/permissions' },
           { text: 'Credits', link: '/credits' }
         ]
       }
