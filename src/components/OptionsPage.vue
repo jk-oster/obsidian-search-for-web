@@ -482,7 +482,7 @@
   </main>
 
   <footer
-      class="p-4 bg-white shadow-sm md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
+      class="p-4 bg-gray-50 shadow-sm md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
         <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2025
             <a href="https://jkoster.com/" class="hover:underline">Jakob Osterberger</a>. All Rights Reserved.
         </span>
