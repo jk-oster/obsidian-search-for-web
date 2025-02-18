@@ -20,6 +20,7 @@ There are a few extensions out there that offer partial solutions:
 - ✅ [Omnisearch Companion](https://chromewebstore.google.com/detail/omnisearch-companion/kcjcnnlpfbilodfnnkpioijobpjhokkd)
 - ✅ [Obsidian Web](https://chromewebstore.google.com/detail/obsidian-web/edoacekkjanmingkbkgjndndibhkegad)
 - ✅ [Simple Obsidian Note Extension](https://chromewebstore.google.com/detail/simple-obsidian-note-exte/flohnmomnafamkgbjonnjcjggkhiokkn)
+- ✅ [Search Obsidian in Google](https://chromewebstore.google.com/detail/search-obsidian-in-google/dkefnggaipjamcbnjdlapgilhlaikbme)
 
 These are great tools, but none fully aligned with my **ideal note-taking workflow** — they either lacked usability, seamless integration, or key features.
 
