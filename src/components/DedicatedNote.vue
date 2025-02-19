@@ -1,21 +1,28 @@
 <template>
 
-    <div v-if="(badgeShowDelay || hoveredLink) && (dedicatedNote || searchResults.length > 0)" class="absolute bg-transparent" :style="style">
+    <div v-if="(badgeShowDelay || hoveredLink) && (dedicatedNote || searchResults.length > 0)" class="absolute bg-transparent z-50" :style="style">
         <a :href="dedicatedNoteUrl"
             @click="openNotePreview"
             class="flex items-center p-1 pr-3 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-black dark:text-white">
+            
             <!-- @vue-ignore -->
-            <div class="flex items-center justify-center mr-2 rounded-md py-1 leading-none" :style="{backgroundColor: isValidHex(dedicatedNote?.frontmatter?.['web-badge-color'] ?? '') ? dedicatedNote?.frontmatter?.['web-badge-color'] : '#ffffff00'}">
+            <div class="flex items-center justify-center mr-2 rounded-md p-1 leading-none" :style="{backgroundColor: isValidHexColor(dedicatedNote?.frontmatter?.['web-badge-color'] ?? '') ? toHexColor(dedicatedNote?.frontmatter?.['web-badge-color']) : '#ffffff00'}">
                 <div class="text-xs">
                      <!-- @vue-ignore -->
                      {{ dedicatedNote?.frontmatter?.['web-badge-icon'] ?? '' }}
                  </div>
             </div>
-            <div class="hover:underline">
+            <div>
+                <span class="text-xs hover:underline">
+                    <!-- @vue-ignore -->
+                    {{dedicatedNote?.frontmatter?.['web-message'] ?? dedicatedNote?.path}}
+                </span>
                 <!-- @vue-ignore -->
-                {{dedicatedNote?.frontmatter?.['web-message'] ?? dedicatedNote?.path}}
-                <!-- @vue-ignore -->
-                {{dedicatedNote?.frontmatter?.['web-badge-message'] ?? '' }}
+                <br v-if="dedicatedNote?.frontmatter?.['web-badge-message']" />
+                <span class="text-2xs text-gray-500 dark:text-gray-400">
+                     <!-- @vue-ignore -->
+                    {{ dedicatedNote?.frontmatter?.['web-badge-message'] ?? '' }}
+                </span>
             </div>
             <div v-if="searchResults.length > 1" class="ml-2 text-2xs text-gray-500 dark:text-gray-400">
                {{ !dedicatedNote ? 'Mentions' : '' }} ({{ searchResults.length }})
@@ -30,7 +37,7 @@
         :timeout="60000">
         <template v-slot:icon>
             <!-- @vue-ignore -->
-            <div class="flex items-center justify-center mr-2 py-2 px-1 rounded-md leading-none" :style="{backgroundColor: isValidHex(currentPageDedicatedNote.frontmatter?.['web-badge-color'] ?? '') ? currentPageDedicatedNote.frontmatter?.['web-badge-color'] : '#ffffff00'}">
+            <div class="flex items-center justify-center mr-2 py-2 px-1 rounded-md leading-none" :style="{backgroundColor: isValidHexColor(currentPageDedicatedNote.frontmatter?.['web-badge-color'] ?? '') ? toHexColor(currentPageDedicatedNote.frontmatter?.['web-badge-color']) : '#ffffff00'}">
                 <div class="text-lg">
                      <!-- @vue-ignore -->
                      {{ currentPageDedicatedNote.frontmatter?.['web-badge-icon'] ?? '🗒️' }}
@@ -91,7 +98,8 @@ const style = ref({
     top: (y.value - 25) + 'px',
 });
 
-const isValidHex = (hex: string) => /^#[0-9A-F]{6}$/i.test(hex);
+const isValidHexColor = (hex: string) => /^#?[0-9A-F]{6,8}$/i.test(hex);
+const toHexColor = (hex: string) => hex.startsWith('#') ? hex : `#${hex}`;
 
 whenever(hoveredLink, async () => {
     if (searchString.value === hoveredLink.value) {
