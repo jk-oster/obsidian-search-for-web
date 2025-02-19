@@ -13,7 +13,7 @@
         <button @click="mode = 'edit'; refreshEditor(); setEditorMode(); " :aria-pressed="mode === 'edit'" type="button" title="Edit" class="inline-flex items-center px-3 py-1 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:text-purple-700 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:text-white">
           <EditIcon class="w-4 h-4"></EditIcon>
         </button>
-        <button @click="mode = 'append'" :aria-pressed="mode === 'append'" type="button" title="Append" class="inline-flex items-center px-3 py-1 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:text-purple-700 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:text-white">
+        <button @click="mode = 'append'" :aria-pressed="mode === 'append'" type="button" title="Append"                               class="inline-flex items-center px-3 py-1 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:text-purple-700 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:text-white">
           <AddCommentIcon class="w-4 h-4"></AddCommentIcon>
         </button>
       </div>
@@ -268,6 +268,13 @@ defineExpose({
 .obsidian-browser-search-preview-container > span:has(> hr:first-child + h2) > h2:first-of-type {
   display: none;
 }
+
+.CodeMirror.cm-s-easymde {
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-top-color: rgb(179, 179, 179);
+}
 </style>
 
 <style scoped>
@@ -279,7 +286,7 @@ defineExpose({
 }
 
 [popover] button[aria-pressed='true'] {
-  background: #ffffff;
+  background: rgb(228, 228, 228);
 }
 .dark [popover] button[aria-pressed='true'] {
   background: #646464;
