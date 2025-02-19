@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev-firefox": "cross-env TARGET=firefox vite",
     "build": "vue-tsc && vite build && npm run zip",
+    "build-firefox": "cross-env TARGET=firefox vite build",
     "rename": "mv $(find ./dist/ -name '_plugin-vue_export-helper.js') ./dist/plugin-vue_export-helper.js",
     "rewrite": "cd ./dist && grep -Ril '_plugin-vue_export-helper\\.js' | xargs sed -i 's/_plugin-vue_export-helper\\.js/plugin-vue_export-helper\\.js/g' && cd ../",
     "zip": "zip -r dist.zip dist/",
@@ -44,6 +46,7 @@
     "@vitejs/plugin-vue": "^4.5.0",
     "autoprefixer": "^10.4.18",
     "chrome-webstore-upload": "^3.1.4",
+    "cross-env": "^7.0.3",
     "patch-package": "^8.0.0",
     "postcss": "^8.4.35",
     "postinstall-postinstall": "^2.1.0",

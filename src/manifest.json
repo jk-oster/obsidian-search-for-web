@@ -2,6 +2,7 @@
   "name": "Obsidian Browser Search",
   "{{chrome}}.manifest_version": 3,
   "{{firefox}}.manifest_version": 2,
+
   "content_scripts": [
     {
       "matches": ["https://*/*", "http://*/*"],
@@ -27,6 +28,7 @@
     },
     "default_title": "Pin / Unpin Search Results"
   },
+  
   "{{firefox}}.browser_action": {
     "default_icon": {
       "16": "icon/icon16.png",
@@ -35,15 +37,31 @@
       "128": "icon/icon128.png",
       "512": "icon/icon512.png"
     },
-    "default_popup": "src/popup/popup.html",
     "default_title": "Pin / Unpin Search Results"
   },
 
-  "web_accessible_resources": [
+  "{{firefox}}.browser_specific_settings": {
+    "gecko": {
+      "id": "addon@example.com",
+      "strict_min_version": "58.0"
+    }
+  },
+
+  "{{chrome}}.web_accessible_resources": [
     {
       "resources": ["/style.css", "/icon/*"],
       "matches": ["https://*/*", "http://*/*"]
     }
+  ],
+
+  "{{firefox}}.web_accessible_resources": [
+    "style.css",
+    "icon/icon16.png", 
+    "icon/icon32.png", 
+    "icon/icon48.png", 
+    "icon/icon128.png", 
+    "icon/icon512.png", 
+    "icon/logo.svg"
   ],
 
   "background": {
