@@ -275,11 +275,17 @@ defineExpose({
   border-bottom: none;
   border-top-color: rgb(179, 179, 179);
 }
+
+.CodeMirror.cm-s-easymde .CodeMirror-line:first-child:has(> span .cm-hr) ~ .CodeMirror-line:has(> span .cm-header-2):has(+ .CodeMirror-line .cm-formatting-header-2.cm-header-2) .cm-header-2,
+.CodeMirror.cm-s-easymde .CodeMirror-line:first-child:has(> span .cm-hr) ~ .CodeMirror-line:has(> span .cm-header-2):has(+ .CodeMirror-line .cm-formatting-header-2.cm-header-2) + .CodeMirror-line .cm-formatting-header-2.cm-header-2 {
+  font-size: 1em !important;
+  font-weight: normal !important;
+}
+
 </style>
 
 <style scoped>
 @import "../style/main.css";
-
 
 [popover] {
   min-width: min(28rem, 100vw);
