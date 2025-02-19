@@ -1,6 +1,6 @@
 # Roadmap
 
-Here you can find the current status of the project. If you have a great idea for a feature the extension is still missing, please open up a [FEATURE REQUEST] on [github issues](https://github.com/jk-oster/obsidian-search-for-web/issues). Any feedback and suggestions are welcome.
+Want to have a say in the future of Obsidian Browser Search? You have a great idea for a feature the extension is still missing? Please open up a [FEATURE REQUEST] on [github issues](https://github.com/jk-oster/obsidian-search-for-web/issues). Any feedback and suggestions are welcome.
 
 ## Future
 
