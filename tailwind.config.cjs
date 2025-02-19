@@ -55,6 +55,7 @@ module.exports = {
                 'md': '16px',
                 'sm': '14px',
                 'xs': '12px',
+                '2xs': '10px',
             },
             spacing: {
                 0: '0em',
