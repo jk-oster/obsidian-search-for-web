@@ -115,7 +115,7 @@ export function useDedicatedNote() {
                 const noteResp = await noteService.fetchNote(fileName, config, 'application/vnd.olrapi.note+json');
                 note = JSON.parse(noteResp);
 
-                console.log(note);
+                // console.log(note);
 
                 if(note && note.frontmatter) {
                     cache.set(query, { note: note, searchResults: searchResults.value });

@@ -105,7 +105,7 @@ export function useSearch(isLoadingInitial: boolean = false) {
 
             searchResults.value = notes;
         } catch (error) {
-            console.log(error);
+            console.warn(error);
 
             badgeService.setBadgeStatus(Status.offline).then();
             badgeService.setBadgeText('off').then();

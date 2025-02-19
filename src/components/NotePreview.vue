@@ -203,7 +203,7 @@ function closeNotePreview() {
   // Save note on close
   if(previewNote.value != easyMDE?.value()) {
     save();
-    console.log('autosaved on close');
+    // console.log('autosaved on close');
   }
 }
 
@@ -216,7 +216,7 @@ function save(close: boolean = false) {
       saveNote(props.filename ?? '', easyMDE.value() ?? '');
     }
 
-    console.log('saved note');
+    // console.log('saved note');
   }
 
   if(close) {
@@ -225,7 +225,6 @@ function save(close: boolean = false) {
 }
 
 function append(close: boolean = false) {
-  console.log(appendContent.value);
   if(appendContent.value) {
 
     if(props.type === 'periodic') {
@@ -238,7 +237,7 @@ function append(close: boolean = false) {
     refreshEditor();
     appendContent.value = '';
 
-    console.log('appended note');
+    // console.log('appended note');
   }
 
   if(close) {

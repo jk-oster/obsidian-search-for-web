@@ -22,7 +22,20 @@ export function usePreview() {
             isLoading.value = true;
             try {
                 const noteContent = await noteService.fetchPeriodic(config, period);
-                console.log();
+
+                try {
+                    const json = JSON.parse(noteContent);
+                    // Periodic note does not exist for the specified period
+                    if (json?.errorCode === 40461) {
+                        previewNote.value = 'No note found for the specified period. Creating one now...';
+                        savePeriodicNote('', period);
+                        isLoading.value = false;
+                        return;
+                    }
+                } catch (e) {
+                    // ignore
+                }
+
                 if (noteContent !== previewNote.value) {
                     previewNote.value = noteContent;
                 }
