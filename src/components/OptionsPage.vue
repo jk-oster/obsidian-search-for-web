@@ -179,8 +179,6 @@
 
           </div>
 
-
-
           <div class="mt-2 mb-6">
             <label for="apiKey"
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
@@ -191,6 +189,22 @@
                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                    required/>
           </div>
+
+          <!-- <div class="mb-6">
+            <label for="period"
+                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+              Select Period for Periodic Notes *
+            </label>
+            <select v-model="store.period" id="period" name="period" required
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option value="daily">daily</option>
+              <option value="weekly">weekly</option>
+              <option value="monthly">monthly</option>
+              <option value="quaterly">quaterly</option>
+              <option value="yearly">yearly</option>
+            </select>
+          </div> -->
+
         </fieldset>
 
         <fieldset class="mt-4">

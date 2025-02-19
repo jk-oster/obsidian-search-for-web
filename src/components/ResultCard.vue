@@ -36,7 +36,6 @@
     <NotePreview v-if="canPreview"
                  ref="notePreview"
                  :url="item.url"
-                 :vaultName="vaultName"
                  :name="item.basename"
                  :filename="item.filename"
                  :searchString="searchString">

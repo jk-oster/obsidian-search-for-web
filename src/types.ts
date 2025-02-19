@@ -3,6 +3,12 @@ export type State = string;
 export type Mode = string;
 export type Theme = 'device' | 'auto' | 'light' | 'dark';
 export type SearchProvider = 'local-rest' | 'omni-search';
+export type SearchMode = 'search' | 'urlMatch';
+export type PreviewOpenMode = 'append' | 'preview' | 'edit';
+export type PreviewType = 'vault' | 'periodic';
+export type Period = 'daily' | 'weekly' | 'monthly' | 'quarterly' | 'yearly';
+export type AcceptHeader = 'application/vnd.olrapi.note+json' | 'text/markdown';
+export type ContentTypeHeader = 'application/vnd.olrapi.dataview.dql+txt' | 'application/vnd.olrapi.jsonlogic+json' | 'application/json';
 
 export type OmniSearchNoteMatch = {
     score: number
@@ -89,6 +95,9 @@ export interface ExtensionConfig {
     nativeResults: boolean,
     preferSidebarEmbeddings: boolean,
     theme: Theme,
+    period: Period,
+    dedicatedNoteNotifications: boolean,
+    linkHoverDedicatedNoteBadge: boolean,
 
     currentUrl: string,
     searchString: string,

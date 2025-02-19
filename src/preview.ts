@@ -2,6 +2,7 @@ import {useStore} from "./store.js";
 import {ref} from 'vue';
 import {getNoteService} from "./background-services/NoteService.js";
 import {useObsidianConnection} from "./connection";
+import { Period } from "./types.js";
 
 const noteService = getNoteService();
 
@@ -15,6 +16,22 @@ export function usePreview() {
     const previewNote = ref<string | null>(null);
     const activeNote = ref<string | null>(null);
     const isLoading = ref<boolean>(false);
+
+    const fetchPeriodic = async (period: Period = store.period) => {
+        if (restApiStatus.value === 'search') {
+            isLoading.value = true;
+            try {
+                const noteContent = await noteService.fetchPeriodic(config, period);
+                console.log();
+                if (noteContent !== previewNote.value) {
+                    previewNote.value = noteContent;
+                }
+            } catch (e) {
+                previewNote.value = '### Oouups! An Error occurred when trying to fetch the active note :/ \n\n > Try refreshing the page or check your extension settings.'
+            }
+            isLoading.value = false;
+        }
+    }
 
     const fetchPreview = async (fileName: string) => {
         if (restApiStatus.value === 'search') {
@@ -49,8 +66,18 @@ export function usePreview() {
         previewNote.value = content;
     }
 
+    const savePeriodicNote = async (content: string, period: Period =  store.period) => {
+        await noteService.writePeriodicNote(content, config, period);
+        previewNote.value = content;
+    }
+
     const appendNote = async (fileName: string, content: string) => {
         await noteService.appendNote(fileName, content, config);
+        previewNote.value += '\n' + content;
+    }
+
+    const appendPeriodicNote = async (content: string, period: Period =  store.period) => {
+        await noteService.appendPeriodicNote(content, config, period);
         previewNote.value += '\n' + content;
     }
 
@@ -58,9 +85,12 @@ export function usePreview() {
         previewNote,
         activeNote,
         isLoading,
+        fetchPeriodic,
         fetchPreview,
         fetchActive,
         saveNote,
         appendNote,
+        savePeriodicNote,
+        appendPeriodicNote
     }
 }

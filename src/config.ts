@@ -65,6 +65,7 @@ export const config: ExtensionConfig = {
     nativeResults: true,
     preferSidebarEmbeddings: true,
     theme: 'auto',
+    period: 'daily',
 
     currentUrl: '',
     searchString: '',
@@ -195,9 +196,9 @@ export const features: Feature[] = [
         text: 'Find your notes in a flash—just start typing, and results appear instantly, also on your favorite search engine.',
     },
     {
-        title: 'Url Matching',
-        icon: '✅',
-        text: 'Automatically surface relevant notes when you visit specific websites. No more hunting for related information!'
+        title: 'Note Recall',
+        icon: '💡',
+        text: 'Automatically surface relevant notes when you visit websites you already have notes about!'
     },
     {
         title: 'Effortless Sidebar Access',

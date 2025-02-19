@@ -12,12 +12,32 @@
         </span>
       </button>
 
-      <a :href="'obsidian://search?query=' + encodeURIComponent(store.searchString) + '&vault=' + encodeURIComponent(store.vault)"
-         class="no-underline focus:outline-hidden text-white text-sm bg-purple-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg px-3 pt-[0.67em] pb-1 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
-        <span>
-          Open Search in Obsidian
+      <button @click="openDailyNote" :title="'Open Periodic Note (' + store.period + ')'"
+              class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-gray-50 rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
+        <span class="sr-only">
+          Open Periodic Note ({{ store.period }})
         </span>
+        <span>
+          <CalendarIcon class="w-6 h-6 text-gray-900 dark:text-gray-400"></CalendarIcon>
+        </span>
+      </button>
+
+      <a :href="'obsidian://search?query=' + encodeURIComponent(store.searchString) + '&vault=' + encodeURIComponent(store.vault)"
+         class="no-underline focus:outline-hidden text-white text-xs bg-purple-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+        <div class="mt-[3px] px-3 p-2 text-center">
+          Open Search in Obsidian
+        </div>
       </a>
+
+      <button @click="appendDailyNote" :title="'Open Periodic Note (' + store.period + ')'"
+              class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-gray-50 rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
+        <span class="sr-only">
+          Append Periodic Note ({{ store.period }})
+        </span>
+        <span>
+          <CalendarPlusIcon class="w-6 h-6 text-gray-900 dark:text-gray-400"></CalendarPlusIcon>
+        </span>
+      </button>
 
       <button @click="toggleSidebar" :title="store.show ? 'Unpin Sidebar' : 'Pin Sidebar'"
               class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-gray-50 rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
@@ -30,6 +50,15 @@
         </span>
       </button>
     </div>
+
+    <NotePreview ref="notePreviewElem" 
+        url="obsidian://daily"
+        type="periodic"
+        :mode="previewOpenMode"
+        :name="dailyNoteNameString"
+        :filename="dailyNoteNameString + '.md'"
+        searchString="">
+    </NotePreview>
 
     <form class="mx-auto flex mb-2">
       <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -88,7 +117,7 @@
 
 <script lang="ts" setup>
 
-import {watchEffect, defineEmits} from "vue";
+import {watchEffect, defineEmits, ref} from "vue";
 import {useStore} from '../store.js';
 import {useSearch} from '../search.js';
 import ResultCard from './ResultCard.vue';
@@ -97,9 +126,17 @@ import {getTabService} from "../background-services/TabService.js";
 import Pin from "./Pin.vue";
 import UnPin from "./UnPin.vue";
 import Close from "./Close.vue";
+import CalendarIcon from "./CalendarIcon.vue";
+import CalendarPlusIcon from "./CalendarPlusIcon.vue";
+import NotePreview from "./NotePreview.vue";
 
 const tabService = getTabService();
 const store = useStore();
+
+const todaysDate = new Date();
+const dailyNoteNameString = `${todaysDate.getFullYear()}-${(todaysDate.getMonth() + 1).toString().padStart(2, '0')}-${todaysDate.getDate().toString().padStart(2, '0')}`;
+const notePreviewElem = ref<HTMLElement | null>(null);
+const previewOpenMode = ref<'append'|'preview'|'edit'>('preview');
 
 const {
   searchString,
@@ -129,6 +166,18 @@ function showMore() {
 
 function openOptionsPage() {
   tabService.openOptionsPage();
+}
+
+function openDailyNote() {
+  previewOpenMode.value = 'preview';
+  // @ts-ignore
+  notePreviewElem.value?.openNotePreview('preview');
+}
+
+function appendDailyNote() {
+  previewOpenMode.value = 'append';
+  // @ts-ignore
+  notePreviewElem.value?.openNotePreview('append');
 }
 </script>
 

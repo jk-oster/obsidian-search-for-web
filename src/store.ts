@@ -65,6 +65,7 @@ export function useStore() {
             store.nativeResults = Boolean(data.nativeResults);
             store.preferSidebarEmbeddings = Boolean(data.preferSidebarEmbeddings);
             store.theme = data.theme;
+            store.period = data.period;
         });
     }
 

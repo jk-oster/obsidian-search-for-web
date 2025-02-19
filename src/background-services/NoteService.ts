@@ -1,11 +1,23 @@
 import {defineProxyService} from '@webext-core/proxy-service';
-import type {LocalRestNoteMatch, NoteMatch, OmniSearchNoteMatch} from "../types.js";
+import type {AcceptHeader, ContentTypeHeader, LocalRestNoteMatch, NoteMatch, OmniSearchNoteMatch} from "../types.js";
 
 class NoteService {
 
     // async appendActiveNote(content: string, {apiKey, protocol, obsidianRestUrl, port}:{apiKey: string, protocol: string, obsidianRestUrl: string, port: number, vault: string}) {
     //
     // }
+
+    async fetchJsonQuery(query: Object|string, {apiKey, restApiProtocol, restApiPort}: {
+        apiKey: string,
+        restApiProtocol: string,
+        restApiPort: number,
+    }, contentType: ContentTypeHeader = 'application/vnd.olrapi.jsonlogic+json'): Promise<any[]> {
+        const options = {...this.getLocalRestApiOptions(apiKey), method: 'POST', body: typeof query === 'object' ? JSON.stringify(query) : query};
+        options.headers['Content-Type'] = contentType;
+        const url = restApiProtocol + '127.0.0.1:' + restApiPort + '/search/';
+        const resp = await fetch(url, options);
+        return await resp.json();
+    }
 
     async fetchActiveNote({apiKey, restApiProtocol, restApiPort}: {
         apiKey: string,
@@ -28,12 +40,11 @@ class NoteService {
         restApiProtocol: string,
         restApiPort: number,
         vault: string
-    }): Promise<string> {
+    }, accept: AcceptHeader = 'text/markdown'): Promise<string> {
         const options = this.getLocalRestApiOptions(apiKey);
+        // @ts-ignore
+        options.headers['Accept'] = accept;
         const url = restApiProtocol + '127.0.0.1:' + restApiPort + '/vault/' + encodeURIComponent(fileName);
-
-        console.log(url);
-
         const resp = await fetch(url, options);
         return await resp.text();
 
@@ -74,9 +85,47 @@ class NoteService {
         // return data;
     }
 
-    // async fetchPeriodic({apiKey, protocol, obsidianRestUrl, port}:{apiKey: string, protocol: string, obsidianRestUrl: string, port: number, vault: string}): Promise<Note> {
-    //
-    // }
+    async writePeriodicNote(content: string, {apiKey, restApiProtocol, restApiPort}: {
+        apiKey: string,
+        restApiProtocol: string,
+        restApiPort: number,
+        vault: string
+    }, period: string = 'daily'): Promise<void> {
+        const options = { ...this.getLocalRestApiOptions(apiKey), method: 'PUT', body: content};
+        options.headers['Content-Type'] = 'text/markdown';
+        const url = restApiProtocol + '127.0.0.1:' + restApiPort + '/periodic/' + period;
+        const resp = await fetch(url, options);
+
+        // const data = await resp.json();
+        // console.log(data);
+        // return data;
+    }
+
+    async appendPeriodicNote(content: string, {apiKey, restApiProtocol, restApiPort}: {
+        apiKey: string,
+        restApiProtocol: string,
+        restApiPort: number,
+        vault: string
+    }, period: string = 'daily'): Promise<void> {
+        const options = { ...this.getLocalRestApiOptions(apiKey), method: 'POST', body: content};
+        options.headers['Content-Type'] = 'text/markdown';
+        const url = restApiProtocol + '127.0.0.1:' + restApiPort + '/periodic/' + period;
+        const resp = await fetch(url, options);
+
+        // const data = await resp.json();
+        // console.log(data);
+        // return data;
+    }
+
+    async fetchPeriodic({apiKey, restApiProtocol, restApiPort}:{apiKey: string, restApiProtocol: string, restApiPort: number}, period: string = 'daily', accept: AcceptHeader = 'text/markdown'): Promise<string> {
+        const options = this.getLocalRestApiOptions(apiKey);
+        // @ts-ignore
+        options.headers['Accept'] = accept;
+        const url = restApiProtocol + '127.0.0.1:' + restApiPort + '/periodic/' + period + '/';
+        const resp = await fetch(url, options);
+        const data: string = await resp.text();
+        return data;
+    }
 
     // async fetchCommands({apiKey, protocol, obsidianRestUrl, port}:{apiKey: string, protocol: string, obsidianRestUrl: string, port: number, vault: string})Promise<Command[]> {
     //
@@ -91,8 +140,7 @@ class NoteService {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization:
-                    'Bearer ' + apiKey,
+                Authorization: 'Bearer ' + apiKey,
             }
         };
     }
