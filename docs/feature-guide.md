@@ -174,7 +174,7 @@ If you use the Omni Search Plugin make sure to enable the HTTP Server API in the
 In case you are using the Obsidian Local REST API Plugin you need to copy the API-Key from the obsidian plugin the settings and enter it in the extension options.
 
 > [!info]
-> If your want to use the Note Preview feature the [Obsidian Local REST Api](obsidian://show-plugin?id=obsidian-local-rest-api) is required.
+> If you want to use the Note Preview feature the [Obsidian Local REST Api](obsidian://show-plugin?id=obsidian-local-rest-api) is required.
 > However, you can use both plugins simultaneously. The extension allows you to use Omnisearch for search results and REST Api for the note preview at the same time. *Best of both worlds 🤩*
 
 > [!tip]
