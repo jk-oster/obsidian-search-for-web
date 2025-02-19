@@ -21,12 +21,12 @@ Here you will find search results matching the page or you can also use it to ty
 By default, the extension sidebar can be opened by hovering the extension icon on the page.
 As soon as you leave the extension sidebar with your mouse again it will be hidden again.
 
-### Pinning the Sidebar
+### Pinning the Sidebar <Badge type="tip" text="^2.0.0" />
 
 You can keep the sidebar permanently opened by "pinning" it. You can toggle the "pinned"/"unpinned" states by clicking
 the button in the sidebar header, or click the extension icon in the browser. 
 
-## ⚡ Instant Live Search
+## ⚡ Instant Live Search  <Badge type="tip" text="^1.0.0" />
 
 The main feature of this extension is the live search. As you type your search in a search engine the extension will fetch the search results from your Obsidian Vault and display them in the sidebar. The search results are updated as you type and you can scroll through them to find the note you are looking for.
 
@@ -48,14 +48,14 @@ The extension automatically recognizes the following search engines for live sea
 - ecosia.org
 - yandex.com
 
-## ✅ Url Matching
+## ✅ Url Matching  <Badge type="tip" text="^1.0.0" />
 
 If you are currently on a page that you have saved in your Obsidian Vault somewhere the extension will automatically show you all notes that contain the URL of this page in the sidebar. This feature is particularly helpful for locating notes tied to specific websites. Or if you want to see if you have already taken notes on a page you are currently reading. The URL matching is only triggered if the current page does NOT match a configured live search domain in the settings.
 
 ![Screenshot url matching](./img/url-matching.png)
 
 
-## 🖥️ Embedded Search Results
+## 🖥️ Embedded Search Results <Badge type="tip" text="^1.4.0" />
 
 ![Screenshot embedded search results](./img/embedded-results.png)
 
@@ -76,11 +76,11 @@ Evaluated and not supported are:
 - search.brave.com
 - startpage.com
 
-## 👀 Quick Note Preview
+## 👀 Quick Note Preview <Badge type="tip" text="^2.1.0" />
 
 ![Screenshot note preview](./img/preview.png)
 
-## ✒️ Note Editing and Appending Content
+## ✒️ Note Editing and Appending Content <Badge type="tip" text="^2.1.0" />
 
 Opened noptes can be edited by clicking the "Edit" button in the preview panel. A code mirror view of your note will be loaded in which you can conviniently change the content of your note. The edited content will be saved automatically if the panel is closed with the "X"-close button or when the mode is changed to "Preview" or "Append".
 
@@ -103,10 +103,10 @@ In "light" or "dark" mode are chosen then those are enforced no matter the page 
 ## 🔍 Configurable Search
 
 
-## 📅 Daily Note Quick Access
+## 📅 Daily Note Quick Access  <Badge type="tip" text="^2.2.0" />
 
 
-## 🔗 Link Hover Messages
+## 🔗 Link Hover Messages <Badge type="tip" text="^2.2.0" />
 
 > This feature is heavily inspired by [Obsidian Web](https://github.com/coddingtonbear/obsidian-web) (lots of kudos) and aims for compatibility while adding a few nice add-ons
 
@@ -119,7 +119,7 @@ Some frontmatter fields can be used to control what information is shown in this
 - ``web-badge-icon``: You can define an emoji / text that will be displayes inside the badge.
 - ``web-badge-message``: This short message will be displayed in the hover message alongside the longer web-message.
 
-## 🗒️ Dedicated Page Note Messages
+## 🗒️ Dedicated Page Note Messages <Badge type="tip" text="^2.2.0" />
 
 > This feature is heavily inspired by [Obsidian Web](https://github.com/coddingtonbear/obsidian-web) (lots of kudos) and aims for compatibility while adding a few nice add-ons
 
@@ -165,7 +165,7 @@ link-aliases:
 
 Like url above, this supports using the ``*`` character for matching multiple URLs.
 
-## ⭐ Choose Search Provider
+## ⭐ Choose Search Provider <Badge type="tip" text="^1.4.0" />
 
 To fetch search results from your Obsidian Vault you can choose between the Obsidian Local REST API Plugin or the Omni Search Plugin. The extensions requires one of these plugins to be installed and enabled in your Obsidian Vault.
 
