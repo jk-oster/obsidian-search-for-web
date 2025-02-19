@@ -22,11 +22,16 @@
         </span>
       </button>
 
+      <!-- <a href="" class="no-underline focus:outline-hidden text-white text-xs bg-purple-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"></a> -->
       <a :href="'obsidian://search?query=' + encodeURIComponent(store.searchString) + '&vault=' + encodeURIComponent(store.vault)"
-         class="no-underline focus:outline-hidden text-white text-xs bg-purple-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
-        <div class="mt-[3px] px-3 p-2 text-center">
+        title="Open Search in Obsidian"
+        class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-gray-50 rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500"     >
+        <div class="sr-only">
           Open Search in Obsidian
         </div>
+        <span>
+          <OpenLink class="w-6 h-6 text-gray-900 dark:text-gray-400"></OpenLink>
+        </span>
       </a>
 
       <button @click="appendDailyNote" :title="'Open Periodic Note (' + store.period + ')'"
@@ -129,6 +134,7 @@ import Close from "./Close.vue";
 import CalendarIcon from "./CalendarIcon.vue";
 import CalendarPlusIcon from "./CalendarPlusIcon.vue";
 import NotePreview from "./NotePreview.vue";
+import OpenLink from "./OpenLink.vue";
 
 const tabService = getTabService();
 const store = useStore();
