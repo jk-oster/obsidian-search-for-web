@@ -106,6 +106,65 @@ In "light" or "dark" mode are chosen then those are enforced no matter the page 
 ## 📅 Daily Note Quick Access
 
 
+## 🔗 Link Hover Messages
+
+> This feature is heavily inspired by [Obsidian Web](https://github.com/coddingtonbear/obsidian-web) (lots of kudos) and aims for compatibility while adding a few nice add-ons
+
+You can configure Obsidian Browser Search to alert you when the link you are hovering over has a dedicated note (see Page Notes) or has been mentioned on a note. Once enabled and you hover over such a link, a message will be displayed next to your mouse cursor (see ...).
+
+Some frontmatter fields can be used to control what information is shown in this message:
+
+- ``web-message``: This message will be displayed in the hover and page note message.
+- ``web-badge-color``: By default, circle on the left side of the hover message is yellow or blue depending upon whether the linked URL is found to have a dedicated note or was just mentioned in a note. You can set this color explicitly by setting this color; see Special Frontmatter Fields for more information.
+- ``web-badge-icon``: You can define an emoji / text that will be displayes inside the badge.
+- ``web-badge-message``: This short message will be displayed in the hover message alongside the longer web-message.
+
+## 🗒️ Dedicated Page Note Messages
+
+> This feature is heavily inspired by [Obsidian Web](https://github.com/coddingtonbear/obsidian-web) (lots of kudos) and aims for compatibility while adding a few nice add-ons
+
+For many features of Obsidian Browser Search, it can be helpful to associate a particular URL or set of URLs with a note. To establish this connection, you can use the url or ``url-aliases`` frontmatter fields as described below. Once you have done so and you navigate to a URL you have created notes for, Obsidian Browser Search will suggest the linked note to you and, if enabled, show you a message:
+
+```yaml
+---
+url: https://www.amazon.com/Zenkeeper-Obsidian-Tumbling-Meditation-Sculpture/dp/B08L3LWVKV/*
+---
+```
+
+or
+
+```yaml
+---
+link: https://www.amazon.com/Zenkeeper-Obsidian-Tumbling-Meditation-Sculpture/dp/B08L3LWVKV/*
+---
+```
+
+The ``url`` / `link` field also supports using the ``*`` symbol as a wildcard so you can match multiple URLs. You can see this in use in the above example so that we match that URL regardless of what parameters are added to the URL.
+
+In some cases, you might need a particular note to be responsible for multiple URLs, if so, you can put any number of URLs in the ``url-aliases`` field:
+
+```yaml
+---
+url-aliases:
+  - https://livethedraper.com/*
+  - https://www.apartments.com/5035-n-broadway-st-chicago-il/1gh5s77
+  - https://www.google.com/maps/place/The+Draper+-+Uptown/*
+---
+```
+
+or
+
+```yaml
+---
+link-aliases:
+  - https://livethedraper.com/*
+  - https://www.apartments.com/5035-n-broadway-st-chicago-il/1gh5s77
+  - https://www.google.com/maps/place/The+Draper+-+Uptown/*
+---
+```
+
+Like url above, this supports using the ``*`` character for matching multiple URLs.
+
 ## ⭐ Choose Search Provider
 
 To fetch search results from your Obsidian Vault you can choose between the Obsidian Local REST API Plugin or the Omni Search Plugin. The extensions requires one of these plugins to be installed and enabled in your Obsidian Vault.

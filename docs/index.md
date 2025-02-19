@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: "Obsidian Browser Search"
-  text: "Passive search, active discovery"
+  text: "Connect Obsidian to your Browser"
 #  text: "Your Webclipper Companion"
   tagline: Search your Obsidian vault simultaneously as you type your search in your favorite search engine.
   actions:

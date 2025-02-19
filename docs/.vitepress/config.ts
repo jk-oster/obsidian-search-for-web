@@ -26,6 +26,7 @@ export default defineConfig({
           { text: 'Why?', link: '/why' },
           { text: 'Getting Started', link: '/getting-started' },
           { text: 'Feature Guide', link: '/feature-guide' },
+          { text: 'Special Frontmatter Fields', link: '/frontmatter-fields' },
           { text: 'FAQ and Troubleshooting', link: '/faq' },
           { text: 'Roadmap', link: '/roadmap' },
           { text: 'Privacy', link: '/privacy' },
