@@ -2,6 +2,14 @@
 import {ref, watch} from "vue";
 
 const props = defineProps({
+  heading: {
+    type: String,
+    default: '',
+  },
+  additionalClasses: {
+    type: String,
+    default: '',
+  },
   text: {
     type: String,
     default: '',
@@ -36,7 +44,7 @@ function close() {
 </script>
 
 <template>
-  <div v-if="show" class="fixed bottom-1 right-2">
+  <div v-if="show" class="fixed bottom-1 right-2" :class="additionalClasses">
     <div class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-gray-50 rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800 border border-gray-100 dark:border-gray-600" role="alert">
 
       <slot name="icon">
@@ -71,11 +79,13 @@ function close() {
 
       </slot>
 
-      <div :class="icon === '' ? 'ms-3' : ''" class="mb-1 text-sm font-semibold text-gray-900 dark:text-white">
-        <slot name="heading"></slot>
-      </div>
-      <div :class="icon === '' ? 'ms-3' : ''" class="text-xs font-normal">
-        <slot name="text">{{ text }}</slot>
+      <div :class="icon === '' || status ? 'ms-3' : ''">
+        <div  class="mb-1 text-sm font-semibold text-gray-900 dark:text-white">
+          <slot name="heading">{{  heading }}</slot>
+        </div>
+        <div class="text-xs font-normal">
+          <slot name="text">{{ text }}</slot>
+        </div>
       </div>
 
       <button @click="close()" type="button" class="ms-auto -mx-1.5 -my-1.5 text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
@@ -90,5 +100,5 @@ function close() {
 </template>
 
 <style scoped>
-
+@import "../style/main.css";
 </style>

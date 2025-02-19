@@ -23,6 +23,8 @@
        :class="(showPopup ? ' translate-x-0 ' : ' translate-x-full ') + ' max-h-screen w-[20em] md:w-[22em] lg:w-[24em] xl:w-[26em] popup-container shadow-sm dark:shadow-none border border-1 border-solid border-gray-200 dark:border-0 fixed duration-300 ease-in-out right-0 top-0 bg-gray-50 dark:bg-gray-800 p-2 rounded-l-[.375em] overflow-auto'">
     <SearchResults @update:matches="childMatches($event)"></SearchResults>
   </div>
+
+  <DedicatedNote></DedicatedNote>
 </template>
 
 <script setup lang="ts">
@@ -34,6 +36,7 @@ import {useStore} from '../store.js';
 import {NoteMatch} from "../types.js";
 import {useElementHover, useDraggable, useWindowSize, useElementSize} from '@vueuse/core';
 import {useObsidianConnection} from "../connection";
+import DedicatedNote from './DedicatedNote.vue';
 
 const store = useStore();
 
