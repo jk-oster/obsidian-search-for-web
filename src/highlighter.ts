@@ -11,7 +11,7 @@ export function useHighlight() {
     }
 
     function highlight(string: string, searchString: string): string {
-        if (!string || !store.highlighting) {
+        if (!string || !store.highlighting || !searchString) {
             return string;
         }
         const searchRegex = regex(searchString ?? '');
