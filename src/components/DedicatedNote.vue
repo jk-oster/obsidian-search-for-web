@@ -1,25 +1,33 @@
 <template>
 
-    <div v-if="(badgeShowDelay || hoveredLink) && dedicatedNote" class="absolute bg-transparent" :style="style">
-        <a :href="dedicatedNoteUrl" class="flex items-center p-1 pr-3 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-black dark:text-white">
+    <div v-if="(badgeShowDelay || hoveredLink) && (dedicatedNote || searchResults.length > 0)" class="absolute bg-transparent" :style="style">
+        <a :href="dedicatedNoteUrl"
+            @click="openNotePreview"
+            class="flex items-center p-1 pr-3 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-black dark:text-white">
             <!-- @vue-ignore -->
-            <div class="flex items-center justify-center mr-2 rounded-md py-1 leading-none" :style="{backgroundColor: isValidHex(dedicatedNote.frontmatter?.['web-badge-color'] ?? '') ? dedicatedNote.frontmatter?.['web-badge-color'] : '#ffffff00'}">
+            <div class="flex items-center justify-center mr-2 rounded-md py-1 leading-none" :style="{backgroundColor: isValidHex(dedicatedNote?.frontmatter?.['web-badge-color'] ?? '') ? dedicatedNote?.frontmatter?.['web-badge-color'] : '#ffffff00'}">
                 <div class="text-xs">
                      <!-- @vue-ignore -->
-                     {{ dedicatedNote.frontmatter?.['web-badge-icon'] ?? '' }}
+                     {{ dedicatedNote?.frontmatter?.['web-badge-icon'] ?? '' }}
                  </div>
             </div>
             <div class="hover:underline">
                 <!-- @vue-ignore -->
-                {{dedicatedNote.frontmatter?.['web-badge-message'] ?? dedicatedNote.path}}
+                {{dedicatedNote?.frontmatter?.['web-message'] ?? dedicatedNote?.path}}
+                <!-- @vue-ignore -->
+                {{dedicatedNote?.frontmatter?.['web-badge-message'] ?? '' }}
+            </div>
+            <div v-if="searchResults.length > 1" class="ml-2 text-2xs text-gray-500 dark:text-gray-400">
+               {{ !dedicatedNote ? 'Mentions' : '' }} ({{ searchResults.length }})
             </div>
         </a>
     </div>
     
     <Toast 
         :text="currentPageDedicatedNote?.path" 
-        status="success" 
-        :timeout="30000">
+        status="success"
+        additionalClasses="shake"
+        :timeout="60000">
         <template v-slot:icon>
             <!-- @vue-ignore -->
             <div class="flex items-center justify-center mr-2 py-2 px-1 rounded-md leading-none" :style="{backgroundColor: isValidHex(currentPageDedicatedNote.frontmatter?.['web-badge-color'] ?? '') ? currentPageDedicatedNote.frontmatter?.['web-badge-color'] : '#ffffff00'}">
@@ -31,7 +39,9 @@
         </template>
         <template v-slot:heading>
             <div class="mr-2">
-                <a :href="currentDedicatedNoteUrl" class="underline font-normal">
+                <a :href="currentDedicatedNoteUrl" 
+                    @click="openNotePreview"
+                    class="underline font-normal">
                     {{currentPageDedicatedNote?.path}}
                 </a>
             </div>
@@ -44,6 +54,16 @@
         </template>
     </Toast>
 
+    <NotePreview 
+        ref="notePreview" 
+        :url="dedicatedNoteUrl"
+        type="vault"
+        mode="preview"
+        :name="dedicatedNote?.path ?? 'Unknown'"
+        :filename="dedicatedNote?.path ?? ''"
+        :searchString="searchString">
+    </NotePreview>
+
 </template>
 
 <script setup lang="ts">
@@ -54,11 +74,12 @@ import { useDedicatedNote } from '../dedicatedNote.js';
 import { computed, onMounted, ref, watchEffect } from 'vue';
 import { Note } from '../types.js';
 import { useStore } from '../store.js';
+import NotePreview from './NotePreview.vue';
 
 const store = useStore();
 const { x, y } = useMouse();
 const {hoveredLink} = useHoveredLink();
-const {searchForDedicatedNotes, debouncedFetchDedicatedNotes, dedicatedNote, searchString} = useDedicatedNote();
+const {searchForDedicatedNotes, debouncedFetchDedicatedNotes, dedicatedNote, searchResults, searchString} = useDedicatedNote();
 const badgeShowDelay = ref(false);
 
 const dedicatedNoteUrl = computed(() => {
@@ -110,6 +131,15 @@ onMounted(() => {
         currentPageDedicatedNote.value = await searchForDedicatedNotes(document.location.href ?? '');
     }, 1000);
 });
+
+const notePreview = ref<HTMLElement | null>(null);
+function openNotePreview(event: Event) {
+  if(notePreview.value) {
+    event.preventDefault();
+    // @ts-ignore
+    notePreview.value.openNotePreview();
+  }
+}
 
 </script>
 

@@ -13,7 +13,7 @@ export function useDedicatedNote() {
     const error = ref<string>('');
     const searchResults = ref<any[]>([]);
     const isLoading = ref<boolean>(true);
-    const cache = new Map<string, Note>();
+    const cache = new Map<string, { note: Note|null, searchResults: any[]}>();
 
     const searchForDedicatedNotes = async (query: string): Promise<Note|null> => {
         isLoading.value = true;
@@ -54,6 +54,22 @@ export function useDedicatedNote() {
                 {
                 glob: [
                         {
+                            var: "frontmatter.url"
+                        },
+                        query
+                    ]
+                },
+                {
+                glob: [
+                        {
+                            var: "frontmatter.link"
+                        },
+                        query
+                    ]
+                },
+                {
+                glob: [
+                        {
                             var: "frontmatter.url-alias"
                         },
                         query
@@ -70,12 +86,13 @@ export function useDedicatedNote() {
             ]
         };
 
-        let note: Note|null = cache.get(query) ?? null;
-        if (note) {
-            dedicatedNote.value = note;
-            searchResults.value = [note];
+        let note: Note|null = null;
+        const data = cache.get(query) ?? null;
+        if (data?.note) {
+            dedicatedNote.value = data.note;
+            searchResults.value = data.searchResults;
             isLoading.value = false;
-            return note;
+            return data?.note;
         }
 
         try {
@@ -84,7 +101,14 @@ export function useDedicatedNote() {
 
             if (dedicatedNotes?.length === 0) {
                 dedicatedNote.value = null;
-                searchResults.value = [];
+
+                const mentionedNotes = await noteService.fetchLocalRest(query, config);
+
+                if (mentionedNotes?.length > 0) {
+                    searchResults.value = mentionedNotes;
+                } else {
+                    searchResults.value = [];
+                }
             } else {
                 const fileName = searchResults.value[0].filename;
                 // @ts-ignore
@@ -94,7 +118,7 @@ export function useDedicatedNote() {
                 console.log(note);
 
                 if(note && note.frontmatter) {
-                    cache.set(query, note);
+                    cache.set(query, { note: note, searchResults: searchResults.value });
                     dedicatedNote.value = note as Note;
                 }
             }

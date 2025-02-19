@@ -66,6 +66,8 @@ export const config: ExtensionConfig = {
     preferSidebarEmbeddings: true,
     theme: 'auto',
     period: 'daily',
+    dedicatedNoteNotifications: true,
+    linkHoverDedicatedNoteBadge: true,
 
     currentUrl: '',
     searchString: '',

@@ -7,13 +7,13 @@
       <div class="text-xs text-gray-700 dark:text-gray-100">{{ name }}</div>
 
       <div class="inline-flex rounded-md shadow-xs" role="group">
-        <button @click="mode = 'preview'; setPreviewMode(); save();" :aria-pressed="mode === 'preview'" type="button" title="Preview" class="inline-flex items-center px-3 py-1 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-purple-700 focus:z-10 focus:ring-2 focus:ring-purple-700 focus:text-purple-700 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-purple-500 dark:focus:text-white">
+        <button @click="mode = 'preview'; setPreviewMode(); save();" :aria-pressed="mode === 'preview'" type="button" title="Preview" class="inline-flex items-center px-3 py-1 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:text-purple-700 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:text-white">
           <OpenEye class="w-4 h-4"></OpenEye>
         </button>
-        <button @click="mode = 'edit'; refreshEditor(); setEditorMode(); " :aria-pressed="mode === 'edit'" type="button" title="Edit" class="inline-flex items-center px-3 py-1 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-purple-700 focus:z-10 focus:ring-2 focus:ring-purple-700 focus:text-purple-700 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-purple-500 dark:focus:text-white">
+        <button @click="mode = 'edit'; refreshEditor(); setEditorMode(); " :aria-pressed="mode === 'edit'" type="button" title="Edit" class="inline-flex items-center px-3 py-1 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:text-purple-700 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:text-white">
           <EditIcon class="w-4 h-4"></EditIcon>
         </button>
-        <button @click="mode = 'append'" :aria-pressed="mode === 'append'" type="button" title="Append" class="inline-flex items-center px-3 py-1 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-purple-700 focus:z-10 focus:ring-2 focus:ring-purple-700 focus:text-purple-700 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-purple-500 dark:focus:text-white">
+        <button @click="mode = 'append'" :aria-pressed="mode === 'append'" type="button" title="Append" class="inline-flex items-center px-3 py-1 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:text-purple-700 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:text-white">
           <AddCommentIcon class="w-4 h-4"></AddCommentIcon>
         </button>
       </div>
@@ -69,7 +69,7 @@
 
       <div class="max-h-[85vh] overflow-y-auto">
         <!-- @vue-ignore -->
-        <div v-if="mode === 'preview'" class="mt-2 prose prose-slate dark:prose-invert" v-html="highlight(marked.parse(previewNote ?? ''), searchString)"></div>
+        <div v-if="mode === 'preview'" class="obsidian-browser-search-preview-container mt-2 prose prose-slate dark:prose-invert" v-html="highlight(marked.parse(previewNote ?? ''), searchString)"></div>
       </div>
 
     </div>
@@ -82,7 +82,7 @@ import {marked} from "marked";
 import OpenLink from "./OpenLink.vue";
 import Close from "./Close.vue";
 import LoadingSpinner from "./LoadingSpinner.vue";
-import {onMounted, onUnmounted, ref, watch} from "vue";
+import {onUnmounted, ref, watch} from "vue";
 import {usePreview} from "../preview.js";
 import {useHighlight} from "../highlighter.js";
 import EasyMDE from "easymde";
@@ -261,10 +261,18 @@ defineExpose({
 
 <style>
 @import "../../node_modules/easymde/dist/easymde.min.css";
+
+.obsidian-browser-search-preview-container:has(> hr:first-child + h2) > hr:first-child,
+.obsidian-browser-search-preview-container:has(> hr:first-child + h2) > h2:first-of-type,
+.obsidian-browser-search-preview-container > span:has(> hr:first-child + h2) > hr:first-child,
+.obsidian-browser-search-preview-container > span:has(> hr:first-child + h2) > h2:first-of-type {
+  display: none;
+}
 </style>
 
 <style scoped>
 @import "../style/main.css";
+
 
 [popover] {
   min-width: min(28rem, 100vw);

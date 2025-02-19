@@ -300,6 +300,38 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
+                Enable dedicated Page Notes notifications
+              </span>
+            </label>
+            <div class="text-xs text-gray-700 dark:text-gray-400">
+              If enabled, Page Notes for the URL you are currently visiting will show up as notifications on the page. The displayed message can be customized using web-message and other frontmatter fields.
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <label for="linkHoverDedicatedNoteBadge" class="inline-flex relative items-center mr-5 cursor-pointer">
+              <input v-model="store.linkHoverDedicatedNoteBadge" type="checkbox" id="linkHoverDedicatedNoteBadge" name="linkHoverDedicatedNoteBadge"
+                     class="sr-only peer" :checked="store.linkHoverDedicatedNoteBadge"/>
+              <div
+                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
+              </div>
+              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
+                Enable searching notes mentioning the URL when hovering over links
+              </span>
+            </label>
+            <div class="text-xs text-gray-700 dark:text-gray-400">
+              If enabled, a tooltip will be displayed when hovering over links targeting pages you have created Page Notes for or have mentioned in a note. The displayed message can be customized using web-message and other frontmatter fields.
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <label for="dedicatedNoteNotifications" class="inline-flex relative items-center mr-5 cursor-pointer">
+              <input v-model="store.dedicatedNoteNotifications" type="checkbox" id="dedicatedNoteNotifications" name="dedicatedNoteNotifications"
+                     class="sr-only peer" :checked="store.dedicatedNoteNotifications"/>
+              <div
+                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
+              </div>
+              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
                 Enable Live Search
               </span>
             </label>
