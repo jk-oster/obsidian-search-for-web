@@ -1,7 +1,7 @@
 # FAQ and Troubleshooting
 
 > [!warning] Work in Progress 🏗️
-> This page is a work in progress. If you don't find an answere here yet feel free to [reach out](https://jakobosterberger.com/contact) or to open up an [issue on github](https://github.com/jk-oster/obsidian-search-for-web/issues)!
+> This page is a work in progress. If you don't find an answere to your questions here or in the [guide](./feature-guide.md), feel free to [reach out](https://jakobosterberger.com/contact) or to open up an [issue on github](https://github.com/jk-oster/obsidian-search-for-web/issues)!
 
 ## How can I troubleshoot connection problems between Obsidian Browser Search and Obsidian Local REST API?
 
@@ -48,4 +48,4 @@ Clone the repository, install dependencies `npm install` (or better use `pnpm in
 
 **Short answer**: Not yet.
 
-**Long answer**: For now extension is being developed and tested with Chrome on Windows only. By using the [webextension-polyfill](https://github.com/mozilla/webextension-polyfill) library of mozilla.org it is aiming for Firefox compatibility. However, there are still a few things to clear up and implement before Firefox is fully supported.
+**Long answer**: For now the extension is being developed and tested for Chrome on Windows only. By using the [webextension-polyfill](https://github.com/mozilla/webextension-polyfill) library of mozilla.org it is aiming for Firefox compatibility. However, there are still a few things to clear up and implement before Firefox is fully supported.

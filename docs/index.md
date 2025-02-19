@@ -4,7 +4,8 @@ layout: home
 
 hero:
   name: "Obsidian Browser Search"
-  text: "Connect Obsidian to your Browser"
+  text: "Bring your vault to the browser"
+  # text: "Connect Obsidian to your Browser"
 #  text: "Your Webclipper Companion"
   tagline: Search your Obsidian vault simultaneously as you type your search in your favorite search engine.
   actions:
@@ -59,3 +60,6 @@ features:
 
 ![](./img/embedded-results.png)
 
+# Screenshot Page Note Notifications
+
+![](./img/page-note-messages.png)
