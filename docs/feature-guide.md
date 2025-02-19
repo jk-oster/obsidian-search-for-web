@@ -82,8 +82,7 @@ Evaluated and not supported are:
 
 ## ✒️ Note Editing and Appending Content
 
-Opened noptes can be edited by clicking the "Edit" button in the preview panel.
-The edited content will only be saved if the panel is closed with the "X"-close button or when the mode is changed to "Preview" or "Append"
+Opened noptes can be edited by clicking the "Edit" button in the preview panel. A code mirror view of your note will be loaded in which you can conviniently change the content of your note. The edited content will be saved automatically if the panel is closed with the "X"-close button or when the mode is changed to "Preview" or "Append".
 
 ![Screenshot note editing](./img/editing.png)
 
@@ -103,6 +102,8 @@ In "light" or "dark" mode are chosen then those are enforced no matter the page 
 
 ## 🔍 Configurable Search
 
+
+## 📅 Daily Note Quick Access
 
 
 ## ⭐ Choose Search Provider

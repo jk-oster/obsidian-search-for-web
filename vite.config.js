@@ -29,6 +29,7 @@ export default defineConfig({
   plugins: [
     vue(),
     webExtension({
+      browser: process.env.TARGET || "chrome",
       manifest: generateManifest,
       watchFilePaths: ["package.json", "manifest.json"],
     }),

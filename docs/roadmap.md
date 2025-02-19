@@ -1,11 +1,21 @@
-# 🛣️ Roadmap
+# Roadmap
 
 ## Future
 
-- ⌛ Better note editing
+- ⌛ Firefox Support
 - ⌛ Quick Access Bar for specific notes
+- ⌛ Better note editing
 - ⌛ Configurable Hotkeys
-
+- ⌛ Settings JSON import / export
+- ⌛ Bug Reporting Log
+- ⌛ New User Guide
+- ⌛ Dedicated Notes compatible with [Obsidian Web](https://github.com/coddingtonbear/obsidian-web)
+    - ⌛ Notifications Messages when Page has dedicated note `url` & `web-message`
+    - ⌛ Url aliases & wildcards for matching `url-aliases`
+    - ⌛ Link Hover Badge Messages `web-badge-color`
+    - ⌛ Extension Badge Color Messages `web-badge-message`
+- ⚒️ Better edit mode saving
+- ⚒️ Dailynote Quick Access
 
 ## Version 2
 
@@ -36,10 +46,10 @@
 - ✅ **UI Improvements**: Encapsulate styles better
 - ✅ **More Search engines**: Support
 - ✅ **Embedded Search Results**: Embed search results on search engines
-    - Google
-    - Kagi
-    - Bing
-    - DuckDuckGo
+    - google
+    - kagi
+    - bing
+    - duckduckgo
 - ✅ Bugfixes
 
 

@@ -22,12 +22,12 @@ features:
   - title: Instant Live Search
     icon: ⚡
     details: Find your notes in a flash—just start typing, and results appear instantly, also on your favorite search engine.
-  - title: Url Matching
-    icon: ✅
-    details: Automatically surface relevant notes when you visit specific websites. No more hunting for related information!
+  - title: Note Recall
+    icon: 💡
+    details: Automatically surface relevant notes when you visit websites you already mentioned in your notes.
   - title: Effortless Sidebar Access
     icon: 📑
-    details: Your notes, always within reach. A collapsible sidebar lets you browse and search without switching tabs.  
+    details: Your notes, always within reach. A collapsible sidebar lets you browse and search without switching tabs.
   - title: Adaptive Dark & Light Mode
     icon: 🌔
     details: Seamlessly matches the theme of the page you are browsing for a distraction-free experience.
@@ -43,6 +43,9 @@ features:
   - title: Configurable Search
     icon: 🔍
     details: Exclude files and folders you don't want to show show up in the search results.
+  - title: Daily Note Quick Access
+    icon: 📅
+    details: Open yopur daily note with one click or append content to it on the fly.
 ---
 
 > [!important] Disclaimer
