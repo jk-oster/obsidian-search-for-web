@@ -42,19 +42,29 @@
         <form class="w-full mt-3">
             <label for="content" class="sr-only">Content to append</label>
             <textarea v-model="appendContent" id="content" rows="6" style="border: none; outline: none;" class="w-full px-0 text-sm text-gray-900 bg-transparent border-0 border-transparent dark:text-white dark:placeholder-gray-400" placeholder="Write your thoughts..." required ></textarea>
-            <div class="flex items-center justify-end py-2 border-t dark:border-gray-600 border-gray-200">
-              <button @click.prevent="append()" type="submit" class="inline-flex items-center mr-2 py-2.5 px-4 text-xs font-medium text-gray-900 focus:outline-hidden bg-white rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-50 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
-                Append
-              </button>
-              <button @click.prevent="append(true)" type="submit"  class="inline-flex items-center py-2.5 px-4 focus:outline-hidden text-white text-xs bg-purple-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+            <div class="flex items-center justify-start py-2 border-t dark:border-gray-600 border-gray-200">
+              <button @click.prevent="append(true)" type="submit"  class="mr-2 inline-flex items-center py-2.5 px-4 focus:outline-hidden text-white text-xs bg-purple-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
                 Append & Close
+              </button>
+              <button @click.prevent="append()" type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-gray-900 focus:outline-hidden bg-white rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-50 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
+                Append
               </button>
             </div>
         </form>
       </div>
 
-      <div v-show="mode === 'edit'" class="text-gray-700 dark:text-gray-100">
+      <div v-show="mode === 'edit'" class="text-gray-700 dark:text-gray-100 relative">
         <textarea ref="editor"></textarea>
+
+        <div v-if="unsavedChanges" class="absolute -bottom-1 left-0">
+          <button @click.prevent="save(true)" class="inline-flex items-center mr-2 py-2.5 px-4 focus:outline-hidden text-white text-xs bg-purple-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+            Save & Close
+          </button>
+          <button @click.prevent="save()"  class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-gray-900 focus:outline-hidden bg-white rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-50 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
+            Save
+          </button>
+        </div>
+
       </div>
 
       <div class="max-h-[85vh] overflow-y-auto">
@@ -72,25 +82,23 @@ import {marked} from "marked";
 import OpenLink from "./OpenLink.vue";
 import Close from "./Close.vue";
 import LoadingSpinner from "./LoadingSpinner.vue";
-import {onMounted, ref, watch} from "vue";
+import {onMounted, onUnmounted, ref, watch} from "vue";
 import {usePreview} from "../preview.js";
 import {useHighlight} from "../highlighter.js";
 import EasyMDE from "easymde";
 import EditIcon from "./EditIcon.vue";
 import AddCommentIcon from "./AddCommentIcon.vue";
 import OpenEye from "./OpenEye.vue";
+import { PreviewOpenMode, PreviewType } from "../types";
 
-const props = defineProps({
-  filename: String,
-  url: String,
-  searchString: String,
-  vaultName: String,
-  name: String,
-  highlighting: {
-    type: Boolean,
-    default: false,
-  },
-});
+const props = defineProps<{
+  filename: string,
+  url: string,
+  searchString: string,
+  name: string,
+  mode?: PreviewOpenMode,
+  type?: PreviewType,
+}>();
 
 const show = defineModel<boolean>();
 
@@ -98,9 +106,19 @@ const show = defineModel<boolean>();
 const popover = ref<HTMLElement|null>(null);
 const editor = ref<HTMLElement|null>(null);
 const appendContent = ref<string>('');
-const mode = ref<'edit' | 'append' | 'preview'>('preview');
+const mode = ref<PreviewOpenMode>(props.mode ?? 'preview');
+const unsavedChanges = ref<boolean>(false);
 let easyMDE: any;
-const {previewNote, fetchPreview, saveNote, appendNote, isLoading} = usePreview();
+const {
+  previewNote, 
+  isLoading,
+  fetchPreview, 
+  fetchPeriodic, 
+  saveNote, 
+  appendNote,
+  savePeriodicNote,
+  appendPeriodicNote,
+} = usePreview();
 
 const {highlight} = useHighlight();
 
@@ -117,12 +135,17 @@ watch(previewNote, () => {
   refreshEditor();
 });
 
-async function openNotePreview() {
-  show.value = false;
+async function openNotePreview(openMode: PreviewOpenMode | null = null) {
+  show.value = true;
+
+  if(openMode) {
+    mode.value = openMode;
+  }
 
   if(!easyMDE) {
     easyMDE = new EasyMDE({
       element: editor?.value ?? undefined,
+      autoDownloadFontAwesome: false,
       autofocus: false,
       toolbar: false,
       // toolbar: ["bold", "italic", "heading", "|", "quote", "code", "unordered-list", "ordered-list", "|", "link", "|", "preview", "guide", "|", "undo", "redo"],
@@ -131,15 +154,32 @@ async function openNotePreview() {
       spellChecker: false,
       maxHeight: '77vh',
       status: ["lines", "words"],
-      sideBySideFullscreen: true,
-      syncSideBySidePreviewScroll: true,
+      sideBySideFullscreen: false,
+      syncSideBySidePreviewScroll: false,
     });
+
+    setInterval(() => {
+      if(previewNote.value != easyMDE?.value()) {
+        unsavedChanges.value = true;
+      } else {
+        unsavedChanges.value = false;
+      }
+    }, 1000);
   }
 
-  await fetchPreview(props.filename ?? '');
+  if (props.type === 'periodic') {
+    await fetchPeriodic();
+  } else {
+    await fetchPreview(props.filename ?? '');
+  }
 
   popover.value?.showPopover();
 }
+
+onUnmounted(() => {
+  easyMDE?.toTextArea();
+  easyMDE = null;
+});
 
 function toggleViewMode() {
   EasyMDE.togglePreview(easyMDE);
@@ -169,7 +209,13 @@ function closeNotePreview() {
 
 function save(close: boolean = false) {
   if(previewNote.value != easyMDE?.value()) {
-    saveNote(props.filename ?? '', easyMDE.value() ?? '');
+
+    if(props.type === 'periodic') {
+      savePeriodicNote(easyMDE.value() ?? '');
+    } else {
+      saveNote(props.filename ?? '', easyMDE.value() ?? '');
+    }
+
     console.log('saved note');
   }
 
@@ -181,10 +227,18 @@ function save(close: boolean = false) {
 function append(close: boolean = false) {
   console.log(appendContent.value);
   if(appendContent.value) {
-    appendNote(props.filename ?? '', appendContent.value ?? '');
+
+    if(props.type === 'periodic') {
+      appendPeriodicNote(appendContent.value ?? '');
+    } else {
+      appendNote(props.filename ?? '', appendContent.value ?? '');
+    }
+
     easyMDE.value(previewNote.value ?? '');
     refreshEditor();
     appendContent.value = '';
+
+    console.log('appended note');
   }
 
   if(close) {
