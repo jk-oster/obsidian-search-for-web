@@ -16,7 +16,7 @@ export function useObsidianConnection(delay: number = 0) {
 
     const detectConnection = async () => {
         connectionInfo.value = store.provider === 'omni-search' ? '🔄️ Checking your Obsidian Omnisearch connection' : '🔄️ Checking your Obsidian REST API connection';
-        const url = store.protocol + (store.provider === 'omni-search' ? 'localhost' : '127.0.0.1') + ':' + (store.provider === 'omni-search' ? store.port : store.restApiPort);
+        const url = (store.provider === 'omni-search' ? store.protocol : store.restApiProtocol) + (store.provider === 'omni-search' ? 'localhost' : '127.0.0.1') + ':' + (store.provider === 'omni-search' ? store.port : store.restApiPort);
 
         const {status, statusText, text, provider} = await connectionService.checkApiStatus(url, store.apiKey, store.provider);
 

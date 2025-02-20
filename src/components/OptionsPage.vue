@@ -567,21 +567,19 @@
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted} from 'vue'
+import {computed} from 'vue'
 import type {Theme} from "../types.js";
 import Toast from "./Toast.vue";
 import {useStore} from "../store.js";
 import {useObsidianConnection} from "../connection.js";
-import {pageOptions, features, permissions} from "../config.js";
-import {extensionStorage} from "../storage";
+import {pageOptions,  permissions} from "../config.js";
 import {detectPreferredColorScheme, setColorScheme} from "../theme";
-import PresentationCard from "./PresentationCard.vue";
 
 const store = useStore();
 const {throttledConnectionCheck, throttledRestApiConnectionCheck, connectionInfo, restApiStatus} = useObsidianConnection(1000);
 
 const url = computed(()=> {
-    return store.protocol + (store.provider === 'local-rest' ? '127.0.0.1' : 'localhost') + ":" + store.port;
+    return (store.provider === 'local-rest' ? store.restApiProtocol : store.protocol)  + (store.provider === 'local-rest' ? '127.0.0.1' : 'localhost') + ":" + (store.provider === 'local-rest' ? store.restApiPort : store.port) ;
 });
 
 async function checkApi() {
