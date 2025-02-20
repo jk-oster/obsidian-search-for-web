@@ -19,7 +19,7 @@
           <template v-for="note of searchResults" :key="note.score">
             <SplideSlide>
               <ResultCard :item="note"
-                    :canPreview="restApiStatus === 'search'"
+                    :canPreview="isRestApiConnected"
                     :showMatchesCount="store.matchCount"
                     :searchString="store.searchString"
                     :highlighting="store.highlighting ?? false"
@@ -33,7 +33,7 @@
       <template v-else>
         <template v-for="note of paginatedResults" :key="note.score">
           <ResultCard :item="note"
-                :canPreview="restApiStatus === 'search'"
+                :canPreview="isRestApiConnected"
                 :showMatchesCount="store.matchCount"
                 :searchString="store.searchString"
                 :highlighting="store.highlighting ?? false"
@@ -79,7 +79,7 @@ defineProps({
 });
 
 const tabService = getTabService();
-const {connectionStatus, restApiStatus, paginatedResults, totalMatches, searchResults, displayNotesNumber, isLoading} = useSearch(true);
+const {connectionStatus, isRestApiConnected, paginatedResults, totalMatches, searchResults, displayNotesNumber, isLoading} = useSearch(true);
 
 function showMore() {
   displayNotesNumber.value += 6;

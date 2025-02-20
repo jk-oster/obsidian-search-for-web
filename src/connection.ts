@@ -1,9 +1,9 @@
 import {getBadgeService} from "./background-services/BadgeService.js";
 import {getConnectionService} from "./background-services/ConnectionService.js";
-import {useStore} from "./store.js";
+import {storeInitialized, useStore} from "./store.js";
 import {Status} from "./config.js";
-import {onMounted, ref} from "vue";
-import {useThrottleFn} from "@vueuse/core";
+import {computed, ref} from "vue";
+import {useThrottleFn, watchImmediate} from "@vueuse/core";
 
 const badgeService = getBadgeService();
 const connectionService = getConnectionService();
@@ -46,18 +46,34 @@ export function useObsidianConnection(delay: number = 0) {
         detectConnection().then();
     }, 100);
 
-    onMounted(() => {
-        setTimeout(async () => {
-            await throttledRestApiConnectionCheck().then();
-            await throttledConnectionCheck().then();
-        }, delay);
+    // onMounted(() => {
+    //     setTimeout(async () => {
+    //         await throttledRestApiConnectionCheck().then();
+    //         await throttledConnectionCheck().then();
+    //     }, delay);
+    // });
+
+    watchImmediate(storeInitialized, async () => {
+        if(storeInitialized.value) {
+            if(restApiStatus.value !== Status.search) {
+                await throttledRestApiConnectionCheck().then();
+            }
+            if(connectionStatus.value !== Status.search) {
+                await throttledConnectionCheck().then();
+            }
+        }
     });
+
+    const isConnected = computed(() => connectionStatus.value === Status.search);
+    const isRestApiConnected = computed(() => restApiStatus.value === Status.search);
 
     return {
         throttledConnectionCheck,
         throttledRestApiConnectionCheck,
         detectConnection,
         restApiStatus,
+        isConnected,
+        isRestApiConnected,
         connectionStatus,
         connectionInfo,
     }

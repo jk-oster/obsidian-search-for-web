@@ -1,8 +1,8 @@
 import {useStore} from "./store.js";
 import {Status, SearchModes, pageOptions} from "./config.js";
 import type {NoteMatch} from "./types.js";
-import {ref, computed, onMounted, watch} from 'vue';
-import {useDebounceFn} from "@vueuse/core";
+import {ref, computed} from 'vue';
+import {useDebounceFn, watchImmediate} from "@vueuse/core";
 import {getNoteService} from "./background-services/NoteService.js";
 import {getBadgeService} from "./background-services/BadgeService.js";
 import {useObsidianConnection} from "./connection";
@@ -14,12 +14,13 @@ export function useSearch(isLoadingInitial: boolean = false) {
     const store = useStore();
     const config = store;
 
-    const {throttledConnectionCheck, connectionStatus, connectionInfo, restApiStatus} = useObsidianConnection();
+    const {connectionStatus, connectionInfo, restApiStatus, isConnected, isRestApiConnected} = useObsidianConnection();
 
     const searchUrls = computed(() => config.searchUrls.split(',').map((url: string) => url.trim()).filter((url: string) => url.length > 0));
 
     const searchString = ref<string>('');
     const searchResults = ref<NoteMatch[]>([]);
+    const initialized = ref<boolean>(false);
     const isLoading = ref<boolean>(isLoadingInitial);
     const searchMode = ref<string>('');
     const searchInputElement = ref<Element | null>(null);
@@ -116,21 +117,15 @@ export function useSearch(isLoadingInitial: boolean = false) {
         }
     }
 
-    const initSearch = async () => {
-        await throttledConnectionCheck();
-        if (connectionStatus.value === Status.search) {
-            detectSearchString();
+    watchImmediate(isConnected, () => {
+        // console.log('Is connected');
+        if(!initialized.value && isConnected.value) {
+            // console.log('Search initialized');
             addEventListener('hashchange', detectSearchString);
             addEventListener('popstate', detectSearchString);
-
-            watch(searchString, debouncedFetchNotes);
-        } else {
-            setTimeout(initSearch, 100);
+            detectSearchString();
+            initialized.value = true;
         }
-    }
-
-    onMounted(async() => {
-        await initSearch();
     });
 
     return {
@@ -143,10 +138,11 @@ export function useSearch(isLoadingInitial: boolean = false) {
         totalMatches: totalMatches,
         fetchNotes,
         detectSearchString,
-        initSearch,
         displayNotesNumber,
+        isConnected,
         connectionInfo,
         connectionStatus,
+        isRestApiConnected,
         restApiStatus,
     }
 }

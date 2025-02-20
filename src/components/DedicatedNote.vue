@@ -80,13 +80,13 @@ import Toast from './Toast.vue';
 import { useDedicatedNote } from '../dedicatedNote.js';
 import { computed, onMounted, ref, watchEffect } from 'vue';
 import { Note } from '../types.js';
-import { useStore } from '../store.js';
+import { storeInitialized, useStore } from '../store.js';
 import NotePreview from './NotePreview.vue';
 
 const store = useStore();
 const { x, y } = useMouse();
 const {hoveredLink} = useHoveredLink();
-const {searchForDedicatedNotes, debouncedFetchDedicatedNotes, dedicatedNote, searchResults, searchString} = useDedicatedNote();
+const {searchForDedicatedNotes, isRestApiConnected, dedicatedNote, searchResults, searchString} = useDedicatedNote();
 const badgeShowDelay = ref(false);
 
 const dedicatedNoteUrl = computed(() => {
@@ -102,7 +102,7 @@ const isValidHexColor = (hex: string) => /^#?[0-9A-F]{6,8}$/i.test(hex);
 const toHexColor = (hex: string) => hex.startsWith('#') ? hex : `#${hex}`;
 
 whenever(hoveredLink, async () => {
-    if (searchString.value === hoveredLink.value) {
+    if (searchString.value === hoveredLink.value || !store.linkHoverDedicatedNoteBadge) {
         return;
     }
 
@@ -129,15 +129,14 @@ watchEffect(() => {
 });
 
 const currentPageDedicatedNote = ref<Note|null>(null);
-
 const currentDedicatedNoteUrl = computed(() => {
     return `obsidian://open?vault=${store.vault ?? ''}&file=${currentPageDedicatedNote.value?.path ?? ''}`;
 });
-
-onMounted(() => {
-    setTimeout(async() => {
+watchEffect(async () => {
+    if(storeInitialized.value && isRestApiConnected.value && store.dedicatedNoteNotifications) {
         currentPageDedicatedNote.value = await searchForDedicatedNotes(document.location.href ?? '');
-    }, 1000);
+        // console.log('currentPageDedicatedNote', currentPageDedicatedNote.value);
+    }
 });
 
 const notePreview = ref<HTMLElement | null>(null);

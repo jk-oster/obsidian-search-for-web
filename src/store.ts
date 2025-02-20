@@ -1,4 +1,4 @@
-import {reactive, watch, UnwrapNestedRefs, onMounted} from "vue";
+import {reactive, watch, UnwrapNestedRefs, onMounted, ref} from "vue";
 import {useDebounceFn} from '@vueuse/core';
 import browser from "webextension-polyfill";
 import {config} from "./config.js";
@@ -7,11 +7,11 @@ import type {ExtensionConfig} from "./types.js";
 /**
  * Store for all data that needs to be shared across components & synced with extension storage
  */
-const state: UnwrapNestedRefs<{ store: ExtensionConfig, initialized: boolean }> = reactive({
+const state: UnwrapNestedRefs<{ store: ExtensionConfig }> = reactive({
     store: config,
-    initialized: false
 });
 export const store: UnwrapNestedRefs<ExtensionConfig> = state.store;
+export const storeInitialized = ref<boolean>(false);
 
 /**
  * Two-Way-Sync extension storage with store variable (ext<->store)
@@ -22,11 +22,11 @@ export function useStore() {
     });
 
     async function syncStoreWithExtStorage() {
-        if (state.initialized === false) {
+        if (storeInitialized.value === false) {
             await loadAllFromExtStorageToStore();
             setExtStorageListeners(saveExtStorageChangesToStore, saveExtStorageChangesToStore);
             await initDebouncedReactiveStoreListener();
-            state.initialized = true;
+            storeInitialized.value = true;
         }
     }
 

@@ -12,7 +12,7 @@
         </span>
       </button>
 
-      <button v-if="restApiStatus === 'search'" @click="openDailyNote" :title="'Open Periodic Note (' + store.period + ')'"
+      <button v-if="isRestApiConnected" @click="openDailyNote" :title="'Open Periodic Note (' + store.period + ')'"
               class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-gray-50 rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
         <span class="sr-only">
           Open Periodic Note ({{ store.period }})
@@ -34,7 +34,7 @@
         </span>
       </a>
 
-      <button v-if="restApiStatus === 'search'" @click="appendDailyNote" :title="'Open Periodic Note (' + store.period + ')'"
+      <button v-if="isRestApiConnected" @click="appendDailyNote" :title="'Open Periodic Note (' + store.period + ')'"
               class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-gray-50 rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
         <span class="sr-only">
           Append Periodic Note ({{ store.period }})
@@ -89,7 +89,7 @@
       <template v-for="note of paginatedResults" :key="note.score">
         <ResultCard :item="note"
               :showIcon="false"
-              :canPreview="restApiStatus === 'search'"
+              :canPreview="isRestApiConnected"
               :showMatchesCount="store.matchCount"
               :searchString="store.searchString"
               :highlighting="store.highlighting ?? false"
@@ -151,7 +151,7 @@ const {
   displayNotesNumber,
   totalMatches,
   connectionStatus,
-  restApiStatus,
+  isRestApiConnected
 } = useSearch();
 
 const emit = defineEmits(['update:matches']);

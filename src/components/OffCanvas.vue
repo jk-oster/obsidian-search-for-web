@@ -11,7 +11,7 @@
     <span class="sr-only">
       Show Obsidian Search Sidebar
     </span>
-    <div v-if="searchResults?.length > 0" class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-black bg-success border-2 border-white rounded-md -bottom-2 -end-2 dark:border-gray-900">
+    <div v-if="searchResults?.length > 0" class="absolute inline-flex items-center justify-center px-1 h-6 text-xs font-bold text-black bg-success border-2 border-white rounded-md -bottom-2 -end-2 dark:border-gray-900">
       {{ searchResults?.length ?? 0 }}
     </div>
     <div v-if="connectionStatus !== 'search'" :class="connectionStatus === 'noauth' ? 'bg-warn' : 'bg-unknown'" class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-black  border-2 border-white rounded-md -bottom-2 -end-2 dark:border-gray-900">
