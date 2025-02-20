@@ -35,7 +35,9 @@ As soon as you leave the extension sidebar with your mouse again it will be hidd
 ### Pinning the Sidebar <Badge type="tip" text="^2.0.0" />
 
 You can keep the sidebar permanently opened by "pinning" it. You can toggle the "pinned"/"unpinned" states by clicking
-the button in the sidebar header, or click the extension icon in the browser toolbar.
+the button in the sidebar header, clicking the extension icon in the browser toolbar or by clicking the extension icon on the page.
+
+![](./img/sidebar-toggles.png)
 
 ## ⚡ Instant Live Search  <Badge type="tip" text="^1.0.0" />
 
