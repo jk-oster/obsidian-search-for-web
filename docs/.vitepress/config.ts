@@ -20,7 +20,7 @@ export default defineConfig({
 
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Quickstart', link: '/getting-started' },
+      { text: 'Getting Started', link: '/getting-started' },
       { text: 'Creator', link: 'https://www.jakobosterberger.com' }
     ],
 
