@@ -1,4 +1,4 @@
-# Data Privacy Statement
+# Extension Permissions
 
 This extension uses the following permission to work correctly:
 - 💾 ``storage``: This is required to store your settings and preferences.
