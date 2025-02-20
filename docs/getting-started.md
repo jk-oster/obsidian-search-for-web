@@ -1,6 +1,6 @@
 # Setup
 
-Follow these quick instructions to start using the [Obsidian Browser Search](https://chromewebstore.google.com/detail/ikdemlfoilfdmcdiegelchlhfnkpmaee/) extension.
+Follow these quick instructions to start using the [Obsidian Browser Search](https://chromewebstore.google.com/detail/ikdemlfoilfdmcdiegelchlhfnkpmaee/) extension in just a minute.
 
 ## Pre-Requisites
 
@@ -17,7 +17,17 @@ Install at least one of the two following Obsidian Plugins in your vault:
 
 ### Plugin Configuration
 
-Make sure your preferred search plugin(s) are **enabled**. Check which "Protocol" and "Ports" are configured in the settings. When using Omnisearch the HTTP Server must be **activated** in Omnisearch settings. If you want to use Local REST API but you don't want to configure the certificates and are okay with non-encrypted communication (only happens locally on your PC) activate the option **Enable Non-encrypted (HTTP) Server**. Otherwise follow [this guide](https://github.com/coddingtonbear/obsidian-web/wiki/How-do-I-get-my-browser-trust-my-Obsidian-Local-REST-API-certificate%3F) to enable ``https``.
+Make sure your preferred search plugin(s) are **enabled**. Check which "Protocol" and "Ports" are configured in the settings. When using Omnisearch the HTTP Server must be **activated** in Omnisearch settings. 
+
+![](./img/omnisearch-http-server.png)
+
+If you want to use Local REST API but you don't want to configure the certificates and are okay with non-encrypted communication (only happens locally on your PC) activate the option **Enable Non-encrypted (HTTP) Server**. 
+
+![](./img/local-rest-api-http-server.png)
+
+Otherwise follow [this guide](https://github.com/coddingtonbear/obsidian-web/wiki/How-do-I-get-my-browser-trust-my-Obsidian-Local-REST-API-certificate%3F) to enable ``https``.
+
+
 
 ## Installation
 
@@ -31,8 +41,10 @@ On the extension Options page scroll down to "Core Settings".
 1. Choose your favorite Search Provider plugin
 2. Make sure the Obsidian App is running and your search provider Plugin(s) are enabled
 3. Configure the "Protocol" and "Port" settings to match the respective obsidian plugin configuration. 
-   - **Omnisearch Default**: Protocol = `http://`, Port = `51736`
-   - **Local REST Api Default**: Protocol = `http://`, Port = `27123`, also make sure to set the "API-Key" correctly
+   - **Omnisearch Default**: Protocol = `http`, Port = `51736`
+   - **Local REST Api**: make sure to set the "API-Key" correctly
+      - Protocol = `http`, Port = `27123`
+      - Protocol = `https`, Port = `27124`
 4. The extension will try to connect to your search provider and lets you know via a toast message once connection has been established.
 
 *✅ Everything set up!  Happy browsing and note-taking while using the extension*
