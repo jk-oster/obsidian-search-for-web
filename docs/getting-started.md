@@ -10,7 +10,7 @@ Install at least one of the two following Obsidian Plugins in your vault:
 
 > [!info]
 > If your want to use advanced features like **Note Preview**, **Editing**, **Daily Note Quick Access** and **Page Notes** feature the [Obsidian Local REST Api](obsidian://show-plugin?id=obsidian-local-rest-api) is required.
-> However, you can use both plugins simultaneously. The extension allows you to use Omnisearch for search results and REST Api for the note preview at the same time.
+> However, you can also use both plugins simultaneously. The extension allows you to use Omnisearch for search results and REST Api for the other features at the same time.
 
 > [!tip]
 > If you work with non-Latin scripts such as Chinese or Japanese, consider using the [Local REST Api Plugin](obsidian://show-plugin?id=obsidian-local-rest-api) for better search results.
