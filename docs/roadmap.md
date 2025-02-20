@@ -13,6 +13,7 @@ Want to have a say in the future of Obsidian Browser Search? You have a great id
 - ⌛ New User Guide
 
 ## Current Work in Progress
+
 - ⚒️ Dedicated Notes compatible with [Obsidian Web](https://github.com/coddingtonbear/obsidian-web)
     - ⚒️ Notifications Messages when Page has dedicated note `url` & `web-message`
     - ⚒️ Url aliases & wildcards for matching `url-aliases`
@@ -22,7 +23,7 @@ Want to have a say in the future of Obsidian Browser Search? You have a great id
 - ⚒️ Dailynote Quick Access
 - ⚒️ Better Documentation
 
-## Version 2
+## Version >=2.0.0
 
 - ✅ **NOTE PREIVEW**: Preview full notes
 - ✅ **NOTE EDITING**: Edit the note in a Markdown editor
@@ -45,7 +46,7 @@ Want to have a say in the future of Obsidian Browser Search? You have a great id
 - ✅ Bugfixes
 
 
-## Version 1.4
+## Version >=1.4.0
 
 - ✅ **Choose Search Provider**: Omnisearch Support as search provider
 - ✅ **UI Improvements**: Encapsulate styles better
@@ -58,7 +59,7 @@ Want to have a say in the future of Obsidian Browser Search? You have a great id
 - ✅ Bugfixes
 
 
-## Version 1
+## Version >=1.0.0
 
 - ✅ **Url Matching**: search vault for URL you are currently on
 - ✅ **Sidebar**: access for search results
