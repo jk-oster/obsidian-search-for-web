@@ -4,7 +4,9 @@
 
 >❗note that this extension requires the [Local REST API](https://github.com/coddingtonbear/obsidian-local-rest-api) or [Omnisearch](https://github.com/scambier/obsidian-omnisearch) Plugin installed!
 
-Read the [full documentation](https://jk-oster.github.io/obsidian-search-for-web).
+- [Install now on Chrome Web Store](https://chromewebstore.google.com/detail/obsidian-browser-search/ikdemlfoilfdmcdiegelchlhfnkpmaee)
+- Read the [full documentation](https://jk-oster.github.io/obsidian-search-for-web).
+
 
 ## 🔗 Connect your Vault to the Browser
 
