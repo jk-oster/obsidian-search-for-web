@@ -1,7 +1,6 @@
 # Obsidian Web Search
 
 ![release badge](https://github.com/jk-oster/obsidian-search-for-web/actions/workflows/release.yaml/badge.svg)
-![docs deploy badge](https://github.com/jk-oster/obsidian-search-for-web/actions/workflows/depoloy-docs.yaml/badge.svg)
 
 >❗note that this extension requires the [Local REST API](https://github.com/coddingtonbear/obsidian-local-rest-api) or [Omnisearch](https://github.com/scambier/obsidian-omnisearch) Plugin installed!
 
