@@ -161,7 +161,7 @@ For many features of Obsidian Browser Search, it can be helpful to associate a p
 
 ```yaml
 ---
-url: https://www.amazon.com/Zenkeeper-Obsidian-Tumbling-Meditation-Sculpture/dp/B08L3LWVKV/*
+url: https://de.wikipedia.org/wiki/*
 ---
 ```
 
@@ -172,9 +172,8 @@ In some cases, you might need a particular note to be responsible for multiple U
 ```yaml
 ---
 url-aliases:
-  - https://livethedraper.com/*
-  - https://www.apartments.com/5035-n-broadway-st-chicago-il/1gh5s77
-  - https://www.google.com/maps/place/The+Draper+-+Uptown/*
+  - https://de.wikipedia.org/wiki/Wiki/*
+  - https://wikipedia.org/wiki/*
 ---
 ```
 
