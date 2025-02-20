@@ -41,7 +41,7 @@
       <div  v-if="mode === 'append'">
         <form class="w-full mt-3">
             <label for="content" class="sr-only">Content to append</label>
-            <textarea v-model="appendContent" id="content" rows="6" style="border: none; outline: none;" class="w-full px-0 text-sm text-gray-900 bg-transparent border-0 border-transparent dark:text-white dark:placeholder-gray-400" placeholder="Write your thoughts..." required ></textarea>
+            <textarea v-model="appendContent" id="content" rows="6" style="border: none; outline: none;" class="w-full px-0 text-gray-900 bg-transparent border-0 border-transparent placeholder-gray-400 dark:text-white dark:placeholder-gray-500" placeholder="Type here..." required ></textarea>
             <div class="flex items-center justify-start py-2 border-t dark:border-gray-600 border-gray-200">
               <button @click.prevent="append(true)" type="submit"  class="mr-2 inline-flex items-center py-2.5 px-4 focus:outline-hidden text-white text-xs bg-purple-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
                 Append & Close

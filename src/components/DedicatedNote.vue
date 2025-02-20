@@ -56,7 +56,7 @@
         <template v-slot:text>
             <div>
                 <!-- @vue-ignore -->
-                {{currentPageDedicatedNote?.frontmatter?.['web-message'] ?? currentPageDedicatedNote?.stat.mtime}}
+                {{currentPageDedicatedNote?.frontmatter?.['web-message'] ?? 'Modified: ' + formatDate(currentPageDedicatedNote?.stat.mtime) }}
             </div>
         </template>
     </Toast>
@@ -100,6 +100,7 @@ const style = ref({
 
 const isValidHexColor = (hex: string) => /^#?[0-9A-F]{6,8}$/i.test(hex);
 const toHexColor = (hex: string) => hex.startsWith('#') ? hex : `#${hex}`;
+const formatDate = (date: string) => new Date(date).toLocaleDateString("de-DE");
 
 whenever(hoveredLink, async () => {
     if (searchString.value === hoveredLink.value || !store.linkHoverDedicatedNoteBadge) {
