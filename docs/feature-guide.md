@@ -139,6 +139,8 @@ For both modes there are dedicated buttons in the sidebar menu.
 
 ![](./img/periodic-note-quickaccess.png)
 
+### Choose time periods <Badge type="tip" text="^2.3.4" /> <Badge type="warn" text="* Local REST API and Periodic Notes required" />
+
 If you want to open up a note of a different time period you need to install the [Periodic Notes Plugin](obsidian://show-plugin?id=periodic-notes) and enable the respective periods in the plugin settings. Then choose one of the options ("daily", "weekly", "monthly", "quaterly" or "yearly") in the extension settings.
 
 
