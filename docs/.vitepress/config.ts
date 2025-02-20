@@ -5,6 +5,7 @@ export default defineConfig({
   base: '/obsidian-search-for-web/',
   title: "Obsidian Browser Search",
   description: "Search your Obsidian vault simultaneously as you type your search in your favorite search engine.",
+  lastUpdated: true,
   
   // https://vitepress.dev/reference/default-theme-config
   themeConfig: {

@@ -26,6 +26,8 @@ To do that:
 1. Go to [chrome://extensions/](chrome://extensions/)
 2. Click the "Update" button shown near the upper-left corner of the browser window.
 
+![](./img/install-newest-version.png)
+
 That's it!
 
 ## How do I build my own version of Obsidian Brwoser Search?

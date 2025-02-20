@@ -60,6 +60,6 @@ features:
 
 ![](./img/embedded-results.png)
 
-# Screenshot Page Note Notifications
+## Screenshot Page Note Notifications
 
 ![](./img/page-note-messages.png)
