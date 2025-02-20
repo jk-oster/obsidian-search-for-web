@@ -68,8 +68,8 @@
         <a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html" traget="_blank" class="font-bold text-lg mr-2 inline-flex items-center py-2.5 px-4 focus:outline-hidden text-white bg-purple-700 focus:ring-4 focus:ring-purple-300 rounded-lg dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
           Feature Guide
         </a>
-        <a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html" traget="_blank" class="font-bold text-lg inline-flex items-center py-2.5 px-4 focus:outline-hidden text-white bg-purple-700 focus:ring-4 focus:ring-purple-300 rounded-lg dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
-          Read Quickstart
+        <a href="https://jk-oster.github.io/obsidian-search-for-web/getting-started.html" traget="_blank" class="font-bold text-lg inline-flex items-center py-2.5 px-4 focus:outline-hidden text-white bg-purple-700 focus:ring-4 focus:ring-purple-300 rounded-lg dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+          Quickstart Manual
         </a>
       </div>
 
