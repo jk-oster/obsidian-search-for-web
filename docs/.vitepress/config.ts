@@ -8,6 +8,11 @@ export default defineConfig({
   
   // https://vitepress.dev/reference/default-theme-config
   themeConfig: {
+
+    editLink: {
+      pattern: 'https://github.com/jk-oster/obsidian-search-for-web/edit/master/docs/:path'
+    },
+
     search: {
       provider: 'local'
     },

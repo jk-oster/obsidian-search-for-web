@@ -1,3 +1,7 @@
+---
+editLink: true
+---
+
 # FAQ and Troubleshooting
 
 > [!warning] Work in Progress 🏗️

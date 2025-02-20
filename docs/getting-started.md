@@ -1,3 +1,7 @@
+---
+editLink: true
+---
+
 # Setup
 
 Follow these quick instructions to start using the [Obsidian Browser Search](https://chromewebstore.google.com/detail/ikdemlfoilfdmcdiegelchlhfnkpmaee/) extension in just a minute.

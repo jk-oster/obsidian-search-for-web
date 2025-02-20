@@ -1,3 +1,7 @@
+---
+editLink: true
+---
+
 # Extension Permissions
 
 This extension uses the following permission to work correctly:

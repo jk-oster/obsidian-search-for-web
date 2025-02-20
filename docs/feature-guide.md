@@ -1,3 +1,7 @@
+---
+editLink: true
+---
+
 # Feature Guide
 
 > [!warning] Work in Progress 🏗️
@@ -201,7 +205,7 @@ If you use the Omni Search Plugin make sure to enable the HTTP Server API in the
 
 In case you are using the Obsidian Local REST API Plugin you need to copy the API-Key from the obsidian plugin the settings and enter it in the extension options.
 
-In case of triubles with the connection refer to the [FAQ](./faq.md#how-can-i-troubleshoot-connection-problems-between-obsidian-browser-search-and-obsidian-local-rest-api) or read up on [configuring the extension](./getting-started.md).
+In case of troubles with the connection refer to the [FAQ](./faq.md#how-can-i-troubleshoot-connection-problems-between-obsidian-browser-search-and-obsidian-local-rest-api) or read up on [configuring the extension](./getting-started.md).
 
 > [!info]
 > If you want to use the **Note Preview**, **Editing**, **Daily Note Quick Access** and **Page Notes** features the [Obsidian Local REST Api](obsidian://show-plugin?id=obsidian-local-rest-api) is **required**.

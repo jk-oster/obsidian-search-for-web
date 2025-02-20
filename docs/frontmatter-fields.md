@@ -1,3 +1,7 @@
+---
+editLink: true
+---
+
 # Special Frontmatter Fields
 
 > This feature is heavily inspired by [Obsidian Web](https://github.com/coddingtonbear/obsidian-web) (a lot of kudos!) and aims for compatibility while adding a few nice add-ons
