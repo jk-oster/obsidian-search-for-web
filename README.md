@@ -20,7 +20,7 @@ This extension is a perfect companion for the official [Obsidian Web Clipper Ext
 
 ## 🚀 Features
 
-Read the full feature list [in the docs](https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html):
+Find the full feature list [in the docs](https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html). Also you can find the [roadmap](https://jk-oster.github.io/obsidian-search-for-web/roadmap.html) for future features.
 
 - ✅ LIVE SEARCH: Search your vault for notes matching your current search in e.q. the google search bar
 - ✅ NOTE RECALL: Search your vault for matches of your current url while browsing
@@ -35,11 +35,13 @@ Read the full feature list [in the docs](https://jk-oster.github.io/obsidian-sea
 ### 🛡️ Privacy
 
 This extension just communicates between your local Obsidian REST Api and the browser.
-The only data that is stored permanently in the browser are the settings including the Obsidian REST API-Key. For details read the [privacy statement](https://jk-oster.github.io/obsidian-search-for-web/privacy.html)
+The only data that is stored permanently in the browser are the settings including the Obsidian REST API-Key. For details read the [privacy statement](https://jk-oster.github.io/obsidian-search-for-web/privacy.html).
+
+Also find details about the [permission this extension requires](https://jk-oster.github.io/obsidian-search-for-web/permissions.html) in the docs.
 
 ### 🌐 Browser compatibility
 
-
+For now only Chrome is supported. Firefox support is on the [roadmap](https://jk-oster.github.io/obsidian-search-for-web/roadmap.html). For details read the [FAQ](https://jk-oster.github.io/obsidian-search-for-web/faq.html#is-obsidian-browser-search-also-available-for-firefox).
 
 ## 🚧 Test the extension
 
