@@ -168,7 +168,7 @@ Like ``url`` above, this supports using the ``*`` character for matching multipl
 
 > This feature is heavily inspired by [Obsidian Web](https://github.com/coddingtonbear/obsidian-web) (a lot of kudos!) and aims for compatibility while adding a few nice add-ons.
 
-You can configure Obsidian Browser Search to alert you when the link you are hovering over has a dedicated note (see Page Notes above) or has been mentioned on a note. Once enabled and you hover over such a link, a message will be displayed next to your mouse cursor (see image below). Clicking the message opens up the [note preview](#👀-quick-note-preview) if available.
+You can configure Obsidian Browser Search to notify you when the link you are hovering over has a dedicated note (see Page Notes above) or has been mentioned on a note. Once enabled and you hover over such a link, a message will be displayed next to your mouse cursor (see image below). Clicking the message opens up the [note preview](#👀-quick-note-preview) if available.
 
 ![](./img/link-hover-message.png)
 
