@@ -195,3 +195,8 @@ In case you are using the Obsidian Local REST API Plugin you need to copy the AP
 
 > [!tip]
 > If you work with non-Latin scripts such as Chinese or Japanese, consider using the Obsidian Local REST API Plugin for better search results.
+
+## Disclaimer
+
+> [!important] Disclaimer
+> This is an unofficial browser extension for Obsidian the project is not sponsored, endorsed or affiliated with Dynalist Inc, the makers of [Obsidian.md](https://obsidian.md). The obsidian logo is property of https://obsidian.md.

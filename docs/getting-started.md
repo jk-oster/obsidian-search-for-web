@@ -9,7 +9,7 @@ Install at least one of the two following Obsidian Plugins in your vault:
 - [Obsidian Omnisearch](obsidian://show-plugin?id=omnisearch)
 
 > [!info]
-> If your want to use the Note Preview feature the [Obsidian Local REST Api](obsidian://show-plugin?id=obsidian-local-rest-api) is required.
+> If your want to use advanced features like **Note Preview**, **Editing**, **Daily Note Quick Access** and **Page Notes** feature the [Obsidian Local REST Api](obsidian://show-plugin?id=obsidian-local-rest-api) is required.
 > However, you can use both plugins simultaneously. The extension allows you to use Omnisearch for search results and REST Api for the note preview at the same time.
 
 > [!tip]
@@ -17,7 +17,7 @@ Install at least one of the two following Obsidian Plugins in your vault:
 
 ### Plugin Configuration
 
-Make sure your preferred search plugin(s) are **enabled**. Check which "Protocol" and "Ports" are configured in the settings. When using Omnisearch the HTTP Server must be **activated** in Omnisearch settings.
+Make sure your preferred search plugin(s) are **enabled**. Check which "Protocol" and "Ports" are configured in the settings. When using Omnisearch the HTTP Server must be **activated** in Omnisearch settings. If you want to use Local REST API but you don't want to configure the certificates and are okay with non-encrypted communication (only happens locally on your PC) activate the option **Enable Non-encrypted (HTTP) Server**. Otherwise follow [this guide](https://github.com/coddingtonbear/obsidian-web/wiki/How-do-I-get-my-browser-trust-my-Obsidian-Local-REST-API-certificate%3F) to enable ``https``.
 
 ## Installation
 
