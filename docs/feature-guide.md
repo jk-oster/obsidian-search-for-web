@@ -134,10 +134,12 @@ If "light" or "dark" mode are selected then the respective color scheme is enfor
 
 ## 📅 Daily Note Quick Access  <Badge type="tip" text="^2.2.0" /> <Badge type="warn" text="* Local REST API required" />
 
-You can quickly open up your current periodic note in "Preview" mode or if you just need to quickly jot down something you can use the "Append" mode.
-For both modes there are dedicated buttons in the sidebar menu. You can configure the period of the note which should be openend up in the settings. "daily", "weekly", "monthly", "quaterly" or "yearly" are available.
+You can quickly open up your current daily note in "Preview" mode or if you just need to quickly jot down something you can use the "Append" mode.
+For both modes there are dedicated buttons in the sidebar menu.
 
 ![](./img/periodic-note-quickaccess.png)
+
+If you want to open up a note of a different time period you need to install the [Periodic Notes Plugin](obsidian://show-plugin?id=periodic-notes) and enable the respective periods in the plugin settings. Then choose one of the options ("daily", "weekly", "monthly", "quaterly" or "yearly") in the extension settings.
 
 
 ## 🗒️ Page Notes <Badge type="tip" text="^2.2.0" /> <Badge type="warn" text="* Local REST API required" />

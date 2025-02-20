@@ -202,12 +202,12 @@
                    required/>
           </div>
 
-          <p>Troubles with the connection? Find help in the <a href="https://jk-oster.github.io/obsidian-search-for-web/faq.html#how-can-i-troubleshoot-connection-problems-between-obsidian-browser-search-and-obsidian-local-rest-api" class="underline text-purple-600" target="_blank">docs</a>.</p>
+          <p class="mb-6">Troubles with the connection? Find help in the <a href="https://jk-oster.github.io/obsidian-search-for-web/faq.html#how-can-i-troubleshoot-connection-problems-between-obsidian-browser-search-and-obsidian-local-rest-api" class="underline text-purple-600" target="_blank">docs</a>.</p>
 
-          <!-- <div class="mb-6">
+          <div class="mb-6">
             <label for="period"
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-              Select Period for Periodic Notes *
+              Select Period for Periodic Notes * (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%F0%9F%93%85-daily-note-quick-access" class="underline text-purple-600" target="_blank">docs</a>)
             </label>
             <select v-model="store.period" id="period" name="period" required
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -217,7 +217,10 @@
               <option value="quaterly">quaterly</option>
               <option value="yearly">yearly</option>
             </select>
-          </div> -->
+            <div class="text-xs text-gray-700 dark:text-gray-400">
+              If you want to use anything other than "daily" you need to install the <a class="underline" href="obsidian://show-plugin?id=periodic-notes">Periodic Notes Plugin</a> and enable the respecetive periods in its settings.
+            </div>
+          </div>
 
         </fieldset>
 

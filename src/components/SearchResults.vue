@@ -60,7 +60,7 @@
         url="obsidian://daily"
         type="periodic"
         :mode="previewOpenMode"
-        :name="dailyNoteNameString"
+        :name="dailyNoteNameString + ` (${store.period})`"
         :filename="dailyNoteNameString + '.md'"
         searchString="">
     </NotePreview>
