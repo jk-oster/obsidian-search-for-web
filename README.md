@@ -64,7 +64,7 @@ This should automatically start chrome with the extension installed.
 
 ## Contact & contribution
 
-If you need any support feel free to comment in de discussions or open up an [issue](https://github.com/jk-oster/obsidian-search-for-web/issues).
+If you need any support feel free to comment in the discussions or open up an [issue](https://github.com/jk-oster/obsidian-search-for-web/issues).
 You can also contact me though my [website](https://jakobosterberger.com/contact).
 Contribution, pull requests and suggestions for improvements are very welcome.
 
