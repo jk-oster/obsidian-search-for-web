@@ -49,20 +49,33 @@
       <h2 class="text-3xl mb-6 font-extrabold italic dark:text-white">
         Shows you and links you to relevant notes inside your Obsidian Vault when you browse the web.
       </h2>
-      <p>
+      <!-- <p>
         For all of you who are missing the Evernote browser search
         extension in Obsidian - this is your solution.
         Have a Evernote like search experience - but BETTER and with Obsidian.
         This extension lets you search your Obsidian Vault simultaneously as you type your search in your
         favourite search engine.
-      </p>
+      </p> -->
       <h3 class="mt-6 my-2 text-xl font-semibold text-gray-900 dark:text-white">
-        Features
+        Features & Configuration
       </h3>
 
-      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 mb-6">
-        <PresentationCard v-for="feature in features" :icon="feature.icon" :title="feature.title" :titleHref="feature.titleHref" :imgSrc="feature.imgSrc" :imgHref="feature.imgHref" :text="feature.text" :cta="feature.cta" :ctaHref="feature.ctaHref"></PresentationCard>
+      <p class="mb-6">
+        Need some help setting up the extension? Check out the quickstart.
+        To find out more about the extension features check out the feature guide.
+      </p>
+      <div class="w-full flex justify-center mb-6">
+        <a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html" traget="_blank" class="font-bold text-lg mr-2 inline-flex items-center py-2.5 px-4 focus:outline-hidden text-white bg-purple-700 focus:ring-4 focus:ring-purple-300 rounded-lg dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+          Feature Guide
+        </a>
+        <a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html" traget="_blank" class="font-bold text-lg inline-flex items-center py-2.5 px-4 focus:outline-hidden text-white bg-purple-700 focus:ring-4 focus:ring-purple-300 rounded-lg dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+          Read Quickstart
+        </a>
       </div>
+
+      <!-- <div class="grid grid-cols-1 gap-6 md:grid-cols-2 mb-6">
+        <PresentationCard v-for="feature in features" :icon="feature.icon" :title="feature.title" :titleHref="feature.titleHref" :imgSrc="feature.imgSrc" :imgHref="feature.imgHref" :text="feature.text" :cta="feature.cta" :ctaHref="feature.ctaHref"></PresentationCard>
+      </div> -->
 
       <h3 id="privacy" class="my-2 text-xl font-semibold text-gray-900 dark:text-white">
         Privacy
@@ -190,6 +203,8 @@
                    required/>
           </div>
 
+          <p>Troubles with the connection? Find help in the <a href="https://jk-oster.github.io/obsidian-search-for-web/faq.html#how-can-i-troubleshoot-connection-problems-between-obsidian-browser-search-and-obsidian-local-rest-api" class="underline text-purple-600" target="_blank">docs</a>.</p>
+
           <!-- <div class="mb-6">
             <label for="period"
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
@@ -222,7 +237,7 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
-                  Enable toggle icon on page to open sidebar
+                  Enable toggle icon on page (used to open sidebar)? (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%F0%9F%93%91-sidebar" class="underline text-purple-600" target="_blank">docs</a>)
               </span>
             </label>
           </div>
@@ -235,7 +250,7 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
-                  Enable toggle icon on page when no search results are available
+                  Enable toggle icon on page when no search results are available?
               </span>
             </label>
           </div>
@@ -248,7 +263,7 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
-                  Enable pinned sidebar when no search results are available
+                  Enable pinned sidebar when no search results are available?
               </span>
             </label>
           </div>
@@ -261,7 +276,7 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
-                  Enable showing sidebar on toggle icon hover
+                  Enable showing sidebar on toggle icon hover?
               </span>
             </label>
           </div>
@@ -287,7 +302,7 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
-                  Enable highlighting of search term in results
+                  Enable highlighting of search term in results?
               </span>
             </label>
           </div>
@@ -300,7 +315,7 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
-                Enable dedicated Page Notes notifications
+                Enable dedicated Page Notes notifications? (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%F0%9F%94%97-link-hover-messages" class="underline text-purple-600" target="_blank">docs</a>)
               </span>
             </label>
             <div class="text-xs text-gray-700 dark:text-gray-400">
@@ -316,7 +331,7 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
-                Enable searching notes mentioning the URL when hovering over links
+                Enable mentioned link hover notifications? (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%F0%9F%94%97-link-hover-messages" class="underline text-purple-600" target="_blank">docs</a>)
               </span>
             </label>
             <div class="text-xs text-gray-700 dark:text-gray-400">
@@ -332,7 +347,7 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
-                Enable Live Search
+                Enable Instant Live Search? (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%E2%9A%A1-instant-live-search" class="underline text-purple-600" target="_blank">docs</a>)
               </span>
             </label>
             <div class="text-xs text-gray-700 dark:text-gray-400">
@@ -348,7 +363,7 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
-                  Enable embed search results on Search-Engines
+                  Enable embed search results on Search-Engines? (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%F0%9F%96%A5%EF%B8%8F-embedded-search-results" class="underline text-purple-600" target="_blank">docs</a>)
               </span>
             </label>
 
@@ -369,7 +384,7 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
-                  Enable native search embeddings style
+                  Enable native search embeddings style? (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%F0%9F%96%A5%EF%B8%8F-embedded-search-results" class="underline text-purple-600" target="_blank">docs</a>)
               </span>
             </label>
             <div class="text-xs text-gray-700 dark:text-gray-400">
@@ -385,7 +400,7 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
-                  Prefer Embeddings in Search Engine Sidebar
+                  Prefer Embeddings in Search Engine Sidebar?
               </span>
             </label>
             <div class="text-xs text-gray-700 dark:text-gray-400">
@@ -453,7 +468,7 @@
           <div class="mb-6">
             <label for="searchUrls"
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-              Additional Live-Search-Domains (separate urls by <code>,</code>)
+              Additional Live-Search-Domains (separate urls by <code>,</code>) (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%E2%9A%A1-instant-live-search" class="underline text-purple-600" target="_blank">docs</a>)
             </label>
             <input v-model="store.searchUrls" type="text" id="searchUrls" name="searchUrls"
                    placeholder="...additional search domains..."
@@ -472,8 +487,7 @@
           <div class="mb-6">
             <label for="excludes"
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-              Paths to exclude (separate segments by
-              <code>,</code>)
+              Paths to exclude (separate segments by<code>,</code>)
             </label>
             <input v-model="store.excludes" type="text" id="excludes" name="excludes"
                    placeholder="Assets,Template,.excalidraw"
@@ -499,6 +513,9 @@
         </p>
         <p class="mt-1">
           If you encounter any issues with the extension feel free to open an issue on <a class="underline" href="https://github.com/jk-oster/obsidian-search-for-web/issues">GitHub</a>.
+        </p>
+        <p>
+          Looking for documentation? You can find all the details about the extension <a class="underline" href="https://jk-oster.github.io/obsidian-search-for-web">here</a>.
         </p>
 
         <h3 class="my-4 text-xl font-semibold text-gray-900 dark:text-white">
