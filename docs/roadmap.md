@@ -11,6 +11,8 @@ Want to have a say in the future of Obsidian Browser Search? You have a great id
 - ⌛ Settings JSON import / export
 - ⌛ Bug Reporting Log
 - ⌛ New User Guide
+
+## Current Work in Progress
 - ⚒️ Dedicated Notes compatible with [Obsidian Web](https://github.com/coddingtonbear/obsidian-web)
     - ⚒️ Notifications Messages when Page has dedicated note `url` & `web-message`
     - ⚒️ Url aliases & wildcards for matching `url-aliases`
@@ -18,6 +20,7 @@ Want to have a say in the future of Obsidian Browser Search? You have a great id
     - ⚒️ Extension Badge Color Messages `web-badge-message`
 - ⚒️ Better edit mode saving
 - ⚒️ Dailynote Quick Access
+- ⚒️ Better Documentation
 
 ## Version 2
 

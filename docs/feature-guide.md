@@ -5,25 +5,23 @@
 
 ## Connection Indicator <Badge type="tip" text="^1.0.0" />
 
-When the extension could establish a successful connection with your Obsidian search provider the extension icon will have a green or no indicator attached. If the extension could not reach Obsidian then there will be a gray indicator visible next to the extension icon.
-To get more information about why the extension could not reach Obsidian open the sidebar or the extension settings.
-
-Indicator on successful connection:
+When the extension could establish a successful connection with your Obsidian search provider the extension icon will have a green or no indicator attached (see Indicator on successful connection below).
 
 ![](./img/connection-indicator.png)
 
-Indicators on disconnection or error: 
+
+If the extension could not reach Obsidian then there will be a gray indicator visible next to the extension icon (see indicators on disconnection or error below).
 
 ![](./img/no-connection-indicator.png)
 
-Sidebar when disconnected:
+To get more information about why the extension could not reach Obsidian open the sidebar or the extension settings (see sidebar when disconnected below).
 
 ![](./img/no-connection-indicator-instructions.png)
 
 ## 📑 Sidebar <Badge type="tip" text="^1.0.0" />
 
-The sidebar will always be reachable on any webpage you navigate.
-Here you will find search results matching the page or you can also use it to type a search query directly in the sidebar.
+The sidebar is always reachable on any webpage you browse.
+In it you find search [results matching the page](#⚡-instant-live-search), [quick access to daily notes](#📅-daily-note-quick-access) and options and the search bar. You can also use it to type a search query directly in the sidebar.
 
 ![Screenshot Sidebar](./img/sidebar.png)
 
@@ -39,7 +37,7 @@ the button in the sidebar header, or click the extension icon in the browser too
 
 ## ⚡ Instant Live Search  <Badge type="tip" text="^1.0.0" />
 
-The main feature of this extension is the live search. As you type your search in a search engine the extension will fetch the search results from your Obsidian Vault and display them in the sidebar. The search results are updated as you type and you can scroll through them to find the note you are looking for.
+The core feature of this extension is the live search. As you type your search in a search engine the extension will fetch the search results from your Obsidian Vault and display them in the sidebar. The search results are updated as you type and you can scroll through them to find the note you are looking for.
 
 ![Screenshot live search](./img/live-search.png)
 
@@ -61,7 +59,7 @@ The extension automatically recognizes the following **live search domains** wit
 
 ## 💡 Note Recall / URL Matching  <Badge type="tip" text="^1.0.0" />
 
-If you are currently on a page and you have saved its URL somewhere in your Obsidian Vault the extension will automatically show you all notes that mention that URL in the sidebar. This feature is particularly helpful for locating notes tied to specific websites. Or if you want to see if you have already taken notes on a page you are currently reading. The URL matching is only triggered if the current page does NOT match a configured **live search domain**.
+If you are currently on a page and you have saved its URL somewhere in your Obsidian Vault, the extension will automatically show you all notes that mention that URL in the sidebar. This feature is particularly helpful for locating notes tied to specific websites. Or if you want to see if you have already taken notes on a page you are currently reading. The URL matching is only triggered if the current page does NOT match a configured [**live search domain**](#⚡-instant-live-search).
 
 ![Screenshot url matching](./img/url-matching.png)
 
@@ -69,7 +67,7 @@ If you are currently on a page and you have saved its URL somewhere in your Obsi
 ## 🖥️ Embedded Search Results <Badge type="tip" text="^1.4.0" />
 
 > [!info] Info
-> Be aware that this feature can potentially break if the search engine providers change layout / technologies of their pages. The extension tries to be up-to-date on these changes. However, it can not be guaranteed.
+> Be aware that this feature can potentially break if the search engines change their layout general structure of their search pages. The extension tries to be up-to-date on these changes. However, it can not be guaranteed.
 
 ![Screenshot embedded search results](./img/embedded-results.png)
 
@@ -90,16 +88,19 @@ Evaluated and not supported are:
 - search.brave.com
 - startpage.com
 
+### Generic vs Native Embeddings
+
+
 ## 👀 Quick Note Preview <Badge type="tip" text="^2.1.0" /> <Badge type="warn" text="* Local REST API required" />
 
 Upon clicking search result the note will be opened in the preview panel. This way you can view your notes and open them directly in your browser without switching context.
 
 ![Screenshot note preview](./img/preview.png)
 
-### ✒️ Note Editing <Badge type="tip" text="^2.1.0" /> <Badge type="warn" text="* Local REST API required" />
+## ✒️ Note Editing <Badge type="tip" text="^2.1.0" /> <Badge type="warn" text="* Local REST API required" />
 
 > [!danger] ⚠️ Warning
-> Saving the note content using the "Edit" mode overwrites the whole file content in Obsidian. This could potentially lead to loss of information. Always make sure to backup your vault! Better be safe than sorry - you are responsbile for your own notes.
+> Saving the note content using the "Edit" mode overwrites the whole file content in Obsidian. This could potentially lead to loss of data. Always make sure to backup your vault! Better be safe than sorry - you are responsbile for your own notes.
 
 Opened notes can be edited by clicking the "Edit" button in the preview panel. A [codemirror](https://codemirror.net/) view of your note will be loaded in which you can conviniently change the content of your note. The edited content will be saved automatically if the panel is closed with the "X"-close button or when the mode is changed to "Preview" or "Append".
 
@@ -135,9 +136,9 @@ For both modes there are dedicated buttons in the sidebar menu.
 
 ## 🗒️ Page Notes <Badge type="tip" text="^2.2.0" /> <Badge type="warn" text="* Local REST API required" />
 
-> This feature is heavily inspired by [Obsidian Web](https://github.com/coddingtonbear/obsidian-web) (a lot of kudos) and aims for compatibility while adding a few nice add-ons
+> This feature is heavily inspired by [Obsidian Web](https://github.com/coddingtonbear/obsidian-web) (a lot of kudos!) and aims for compatibility while adding a few nice add-ons.
 
-For many features of Obsidian Browser Search, it can be helpful to associate a particular URL or set of URLs with a note. To establish this connection, you can use the url or ``url-aliases`` frontmatter fields as described below. Once you have done so and you navigate to a URL you have created notes for, Obsidian Browser Search will suggest the linked note to you and, if enabled, show you a message (see image below).
+For many features of Obsidian Browser Search, it can be helpful to associate a particular URL or set of URLs with a note. To establish this connection, you can use the ``url`` or ``url-aliases`` frontmatter fields as described below. Once you have done so and you navigate to a URL you have created notes for, Obsidian Browser Search will suggest the linked note to you and, if enabled, show you a notification message (see image below). Clicking the message opens up the [note preview](#👀-quick-note-preview).
 
 ![](./img/page-note-message.png)
 
@@ -161,22 +162,24 @@ url-aliases:
 ---
 ```
 
-Like url above, this supports using the ``*`` character for matching multiple URLs.
+Like ``url`` above, this supports using the ``*`` character for matching multiple URLs. For details on the use and support of frontmatter fields read [this page](./frontmatter-fields.md).
 
 ## 🔗 Link Hover Messages <Badge type="tip" text="^2.2.0" /> <Badge type="warn" text="* Local REST API required" />
 
-> This feature is heavily inspired by [Obsidian Web](https://github.com/coddingtonbear/obsidian-web) (a lot of kudos) and aims for compatibility while adding a few nice add-ons
+> This feature is heavily inspired by [Obsidian Web](https://github.com/coddingtonbear/obsidian-web) (a lot of kudos!) and aims for compatibility while adding a few nice add-ons.
 
-You can configure Obsidian Browser Search to alert you when the link you are hovering over has a dedicated note (see [Page Notes](#️-dedicated-page-note-messages)) or has been mentioned on a note. Once enabled and you hover over such a link, a message will be displayed next to your mouse cursor (see image below).
+You can configure Obsidian Browser Search to alert you when the link you are hovering over has a dedicated note (see Page Notes above) or has been mentioned on a note. Once enabled and you hover over such a link, a message will be displayed next to your mouse cursor (see image below). Clicking the message opens up the [note preview](#👀-quick-note-preview) if available.
 
 ![](./img/link-hover-message.png)
 
 Some frontmatter fields can be used to control what information is shown in this message:
 
 - ``web-message``: This message will be displayed in the hover and page note message.
-- ``web-badge-color``: By default, circle on the left side of the hover message is yellow or blue depending upon whether the linked URL is found to have a dedicated note or was just mentioned in a note. You can set this color explicitly by setting this color; see Special Frontmatter Fields for more information.
+- ``web-badge-color``: By default, there is no badge color show. You can set this color explicitly by setting this color; see [Special Frontmatter Fields](./frontmatter-fields.md) for more information.
 - ``web-badge-icon``: You can define an emoji / text that will be displayes inside the badge.
 - ``web-badge-message``: This short message will be displayed in the hover message alongside the longer web-message.
+
+For details and examples of the use of frontmatter fields read [this page](./frontmatter-fields.md).
 
 ## ⭐ Choose Search Provider <Badge type="tip" text="^1.4.0" />
 
