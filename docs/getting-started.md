@@ -17,15 +17,15 @@ Install at least one of the two following Obsidian Plugins in your vault:
 
 ### Plugin Configuration
 
-Make sure your preferred search plugin(s) are **enabled**. Check which "Protocol" and "Ports" are configured in the settings. When using Omnisearch the HTTP Server must be **activated** in Omnisearch settings. 
+Make sure your preferred search plugin(s) are **enabled**. When using Omnisearch the **HTTP Server** must be **activated** in Omnisearch settings as shwon below. 
 
 ![](./img/omnisearch-http-server.png)
 
-If you want to use Local REST API but you don't want to configure the certificates and are okay with non-encrypted communication (only happens locally on your PC) activate the option **Enable Non-encrypted (HTTP) Server**. 
+If you want to use Local REST API and you simply use it locally on your PC over `http` activate the option **Enable Non-encrypted (HTTP) Server** in the plugin settings as shown below. 
 
 ![](./img/local-rest-api-http-server.png)
 
-Otherwise follow [this guide](https://github.com/coddingtonbear/obsidian-web/wiki/How-do-I-get-my-browser-trust-my-Obsidian-Local-REST-API-certificate%3F) to enable ``https``.
+If you want to use ``https`` with Local REST API follow [this guide by @coddintonbear](https://github.com/coddingtonbear/obsidian-web/wiki/How-do-I-get-my-browser-trust-my-Obsidian-Local-REST-API-certificate%3F) to enable it and install the necessary certificates.
 
 
 
@@ -40,11 +40,12 @@ When you install the Extension for the first time the **Options page** should au
 On the extension Options page scroll down to "Core Settings".
 1. Choose your favorite Search Provider plugin
 2. Make sure the Obsidian App is running and your search provider Plugin(s) are enabled
-3. Configure the "Protocol" and "Port" settings to match the respective obsidian plugin configuration. 
+3. Configure the "Protocol" and "Port" settings to match the respective obsidian plugin configuration.
    - **Omnisearch Default**: Protocol = `http`, Port = `51736`
-   - **Local REST Api**: make sure to set the "API-Key" correctly
+   - **Local REST Api**:
       - Protocol = `http`, Port = `27123`
       - Protocol = `https`, Port = `27124`
+      - make sure to set the "API-Key"
 4. The extension will try to connect to your search provider and lets you know via a toast message once connection has been established.
 
 *✅ Everything set up!  Happy browsing and note-taking while using the extension*
