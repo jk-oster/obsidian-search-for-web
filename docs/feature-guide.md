@@ -18,6 +18,8 @@ To get more information about why the extension could not reach Obsidian open th
 
 ![](./img/no-connection-indicator-instructions.png)
 
+In case of connection issues refer to the [FAQ](./faq.md#how-can-i-troubleshoot-connection-problems-between-obsidian-browser-search-and-obsidian-local-rest-api) or read up on [configuring the extension](./getting-started.md).
+
 ## 📑 Sidebar <Badge type="tip" text="^1.0.0" />
 
 The sidebar is always reachable on any webpage you browse.
@@ -67,7 +69,7 @@ If you are currently on a page and you have saved its URL somewhere in your Obsi
 ## 🖥️ Embedded Search Results <Badge type="tip" text="^1.4.0" />
 
 > [!info] Info
-> Be aware that this feature can potentially break if the search engines change their layout general structure of their search pages. The extension tries to be up-to-date on these changes. However, it can not be guaranteed.
+> Be aware that this feature can potentially break if the search engines change their layout or general structure of their search pages. The extension tries to be up-to-date on these changes. However, it can not be guaranteed.
 
 ![Screenshot embedded search results](./img/embedded-results.png)
 
@@ -90,10 +92,12 @@ Evaluated and not supported are:
 
 ### Generic vs Native Embeddings
 
+... coming soon ...
+
 
 ## 👀 Quick Note Preview <Badge type="tip" text="^2.1.0" /> <Badge type="warn" text="* Local REST API required" />
 
-Upon clicking search result the note will be opened in the preview panel. This way you can view your notes and open them directly in your browser without switching context.
+Upon clicking a search result the note will be opened in the preview panel. This way you can view your notes and open them directly in your browser without switching context.
 
 ![Screenshot note preview](./img/preview.png)
 
@@ -102,7 +106,7 @@ Upon clicking search result the note will be opened in the preview panel. This w
 > [!danger] ⚠️ Warning
 > Saving the note content using the "Edit" mode overwrites the whole file content in Obsidian. This could potentially lead to loss of data. Always make sure to backup your vault! Better be safe than sorry - you are responsbile for your own notes.
 
-Opened notes can be edited by clicking the "Edit" button in the preview panel. A [codemirror](https://codemirror.net/) view of your note will be loaded in which you can conviniently change the content of your note. The edited content will be saved automatically if the panel is closed with the "X"-close button or when the mode is changed to "Preview" or "Append".
+Opened notes can be edited by clicking the "Edit" button in the preview panel. A [codemirror](https://codemirror.net/) view of your note will be loaded in which you can conviniently change the content of your note. The edited content will be saved automatically if the panel is closed with the "X"-close button or when the mode is changed to "Preview" or "Append". Additonally a "Save" button will be visible if the edited content differs from the current note content.
 
 ![Screenshot note editing](./img/editing.png)
 
@@ -125,11 +129,13 @@ If "light" or "dark" mode are selected then the respective color scheme is enfor
 
 ## 🔍 Configurable Search
 
+... details coming soon ...
+
 
 ## 📅 Daily Note Quick Access  <Badge type="tip" text="^2.2.0" /> <Badge type="warn" text="* Local REST API required" />
 
-You can quickly open up your current daily note in "Preview" mode or if you just need to quickly jot down something you can use the "Append" mode.
-For both modes there are dedicated buttons in the sidebar menu.
+You can quickly open up your current periodic note in "Preview" mode or if you just need to quickly jot down something you can use the "Append" mode.
+For both modes there are dedicated buttons in the sidebar menu. You can configure the period of the note which should be openend up in the settings. "daily", "weekly", "monthly", "quaterly" or "yearly" are available.
 
 ![](./img/periodic-note-quickaccess.png)
 
@@ -138,7 +144,7 @@ For both modes there are dedicated buttons in the sidebar menu.
 
 > This feature is heavily inspired by [Obsidian Web](https://github.com/coddingtonbear/obsidian-web) (a lot of kudos!) and aims for compatibility while adding a few nice add-ons.
 
-For many features of Obsidian Browser Search, it can be helpful to associate a particular URL or set of URLs with a note. To establish this connection, you can use the ``url`` or ``url-aliases`` frontmatter fields as described below. Once you have done so and you navigate to a URL you have created notes for, Obsidian Browser Search will suggest the linked note to you and, if enabled, show you a notification message (see image below). Clicking the message opens up the [note preview](#👀-quick-note-preview).
+For many features of Obsidian Browser Search, it can be helpful to associate a particular URL or set of URLs with a note. To establish this connection, you can use the ``url`` or ``url-aliases`` frontmatter fields as described below. Once you have done so and you navigate to a URL you have created notes for, Obsidian Browser Search will suggest the linked note to you and, if enabled, show you a notification message (see image below). Clicking the message opens up the related note in the [preview panel](#👀-quick-note-preview).
 
 ![](./img/page-note-message.png)
 
@@ -168,7 +174,7 @@ Like ``url`` above, this supports using the ``*`` character for matching multipl
 
 > This feature is heavily inspired by [Obsidian Web](https://github.com/coddingtonbear/obsidian-web) (a lot of kudos!) and aims for compatibility while adding a few nice add-ons.
 
-You can configure Obsidian Browser Search to notify you when the link you are hovering over has a dedicated note (see Page Notes above) or has been mentioned on a note. Once enabled and you hover over such a link, a message will be displayed next to your mouse cursor (see image below). Clicking the message opens up the [note preview](#👀-quick-note-preview) if available.
+You can configure Obsidian Browser Search to notify you when the link you are hovering over has a dedicated note (see Page Notes above) or has been mentioned on a note. Once enabled and you hover over such a link, a message will be displayed next to your mouse cursor (see image below). Clicking the message opens the note in the [preview panel](#👀-quick-note-preview) if available.
 
 ![](./img/link-hover-message.png)
 
@@ -179,7 +185,7 @@ Some frontmatter fields can be used to control what information is shown in this
 - ``web-badge-icon``: You can define an emoji / text that will be displayes inside the badge.
 - ``web-badge-message``: This short message will be displayed in the hover message alongside the longer web-message.
 
-For details and examples of the use of frontmatter fields read [this page](./frontmatter-fields.md).
+For details and examples of the use of frontmatter fields read the [Special Frontmatter Fields page](./frontmatter-fields.md).
 
 ## ⭐ Choose Search Provider <Badge type="tip" text="^1.4.0" />
 
@@ -189,6 +195,8 @@ If you use the Omni Search Plugin make sure to enable the HTTP Server API in the
 
 In case you are using the Obsidian Local REST API Plugin you need to copy the API-Key from the obsidian plugin the settings and enter it in the extension options.
 
+In case of triubles with the connection refer to the [FAQ](./faq.md#how-can-i-troubleshoot-connection-problems-between-obsidian-browser-search-and-obsidian-local-rest-api) or read up on [configuring the extension](./getting-started.md).
+
 > [!info]
 > If you want to use the **Note Preview**, **Editing**, **Daily Note Quick Access** and **Page Notes** features the [Obsidian Local REST Api](obsidian://show-plugin?id=obsidian-local-rest-api) is **required**.
 > You can also use both plugins simultaneously. The extension allows you to use Omnisearch for search results and REST Api for the note preview at the same time. *Best of both worlds 🤩*
@@ -196,7 +204,7 @@ In case you are using the Obsidian Local REST API Plugin you need to copy the AP
 > [!tip]
 > If you work with non-Latin scripts such as Chinese or Japanese, consider using the Obsidian Local REST API Plugin for better search results.
 
-## Disclaimer
+---
 
 > [!important] Disclaimer
 > This is an unofficial browser extension for Obsidian. The project is not sponsored, endorsed or affiliated with Dynalist Inc, the makers of [Obsidian.md](https://obsidian.md). The obsidian logo is property of https://obsidian.md.
