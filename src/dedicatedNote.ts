@@ -3,10 +3,14 @@ import { useStore } from './store.js';
 import { useDebounceFn } from '@vueuse/core';
 import { getNoteService } from './background-services/NoteService.js';
 import { Note } from './types.js';
+import { useObsidianConnection } from './connection.js';
 
 const noteService = getNoteService();
 
 export function useDedicatedNote() {
+
+    const {restApiStatus} = useObsidianConnection();
+
     const dedicatedNote = ref<Note|null>(null);
     const config = useStore();
     const searchString = ref<string>('');
@@ -18,6 +22,12 @@ export function useDedicatedNote() {
     const searchForDedicatedNotes = async (query: string): Promise<Note|null> => {
         isLoading.value = true;
         error.value = '';
+
+        if (restApiStatus.value !== 'search') {
+            isLoading.value = false;
+            error.value = 'No Local REST API connection available.';
+            return null;
+        }
 
         if (query.length <= 0) {
             searchResults.value = [];
