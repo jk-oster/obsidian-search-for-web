@@ -105,7 +105,7 @@ Evaluated and not supported are:
 
 ## 👀 Quick Note Preview <Badge type="tip" text="^2.1.0" /> <Badge type="warn" text="* Local REST API required" />
 
-Upon clicking a search result the note will be opened in the preview panel. This way you can view your notes and open them directly in your browser without switching context.
+Upon clicking a search result the note will be opened in the preview panel. This way you can view your notes and open them directly in your browser without switching context. If you don't have Local REST API the links will directly open the notes in Obsidian.
 
 ![Screenshot note preview](./img/preview.png)
 
