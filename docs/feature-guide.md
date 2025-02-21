@@ -7,6 +7,8 @@ editLink: true
 > [!warning] Work in Progress 🏗️
 > This page is a work in progress and does not include all the features yet!
 
+[[roc]]
+
 ## Connection Indicator <Badge type="tip" text="^1.0.0" />
 
 When the extension could establish a successful connection with your Obsidian search provider the extension icon will have a green or no indicator attached (see Indicator on successful connection below).
