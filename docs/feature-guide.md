@@ -7,7 +7,7 @@ editLink: true
 > [!warning] Work in Progress 🏗️
 > This page is a work in progress and does not include all the features yet!
 
-[[roc]]
+[[toc]]
 
 ## Connection Indicator <Badge type="tip" text="^1.0.0" />
 
