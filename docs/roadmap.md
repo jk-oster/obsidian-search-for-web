@@ -19,7 +19,7 @@ Want to have a say in the future of Obsidian Browser Search? You have a great id
 
 ## Current Work in Progress
 
-- ⚒️ Dedicated Notes compatible with [Obsidian Web](https://github.com/coddingtonbear/obsidian-web)
+- ⚒️ Dedicated Page Notes compatible with [Obsidian Web](https://github.com/coddingtonbear/obsidian-web)
     - ⚒️ Notifications Messages when Page has dedicated note `url` & `web-message`
     - ⚒️ Url aliases & wildcards for matching `url-aliases`
     - ⚒️ Link Hover Badge Messages `web-badge-color`
