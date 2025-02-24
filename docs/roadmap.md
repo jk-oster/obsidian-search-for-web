@@ -8,27 +8,28 @@ Want to have a say in the future of Obsidian Browser Search? You have a great id
 
 ## Future
 
-- ⌛ Firefox Support
-- ⌛ Quick Access Bar for specific notes
-- ⌛ Better note editing
+- ⌛ **Firefox Support**
+- ⌛ Quick Access Bar for Specific Notes
+- ⌛ Better Note Editing
 - ⌛ Configurable Hotkeys
 - ⌛ Settings JSON import / export
 - ⌛ Bug Reporting Log
-- ⌛ New User Guide
-- ⌛ Full screen mode for preview
+- ⌛ User Guide on First Installation 
+- ⌛ Full screen mode for Note Preview
 - ⌛ Show dedicated Page Notes featured in search results (`web-message`)
-- ⌛ Search / Dedicated Note Caching
+- ⌛ Search / dedicated Note Caching
 
-## Current Work in Progress
+## Current Work in Progress >= 2.3.4
 
 - ⚒️ Dedicated Page Notes compatible with [Obsidian Web](https://github.com/coddingtonbear/obsidian-web)
-    - ⚒️ Notifications Messages when Page has dedicated note `url` & `web-message`
+    - ⚒️ Notifications Messages when Page has dedicated Page Note `url` & `web-message`
     - ⚒️ Url aliases & wildcards for matching `url-aliases`
     - ⚒️ Link Hover Badge Messages `web-badge-color`
     - ⚒️ Extension Badge Color Messages `web-badge-message`
-- ⚒️ Better edit mode saving
+- ⚒️ Better Edit Mode Saving
 - ⚒️ Dailynote Quick Access
 - ⚒️ Better Documentation
+- ⚒️ Better Connection Check (caching + waiting for config & store initialisation)
 
 ## Version >=2.0.0
 
