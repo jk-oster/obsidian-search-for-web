@@ -62,6 +62,10 @@ For now only Chrome is supported. Firefox support is on the [roadmap](https://jk
 Clone the repository, install dependencies `npm install` (or better use `pnpm install`) and run `npm run dev` / `pnpm dev`.
 This should automatically start chrome with the extension installed.
 
+
+> [!important] Disclaimer
+> This is an unofficial browser extension for Obsidian. The project is not sponsored, endorsed or affiliated with Dynalist Inc, the makers of [Obsidian.md](https://obsidian.md). The obsidian logo is property of https://obsidian.md.
+
 ## Contact & contribution
 
 If you need any support feel free to comment in the discussions or open up an [issue](https://github.com/jk-oster/obsidian-search-for-web/issues).
