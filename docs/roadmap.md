@@ -16,6 +16,7 @@ Want to have a say in the future of Obsidian Browser Search? You have a great id
 - ⌛ Bug Reporting Log
 - ⌛ New User Guide
 - ⌛ Full screen mode for preview
+- ⌛ Show dedicated Page Notes featured in search results
 
 ## Current Work in Progress
 
