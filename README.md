@@ -63,8 +63,8 @@ Clone the repository, install dependencies `npm install` (or better use `pnpm in
 This should automatically start chrome with the extension installed.
 
 
-> [!important] Disclaimer
-> This is an unofficial browser extension for Obsidian. The project is not sponsored, endorsed or affiliated with Dynalist Inc, the makers of [Obsidian.md](https://obsidian.md). The obsidian logo is property of https://obsidian.md.
+## Disclaimer
+This is an unofficial browser extension for Obsidian. The project is not sponsored, endorsed or affiliated with Dynalist Inc, the makers of [Obsidian.md](https://obsidian.md). The obsidian logo is property of https://obsidian.md.
 
 ## Contact & contribution
 
