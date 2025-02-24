@@ -17,6 +17,7 @@ Want to have a say in the future of Obsidian Browser Search? You have a great id
 - ⌛ New User Guide
 - ⌛ Full screen mode for preview
 - ⌛ Show dedicated Page Notes featured in search results (`web-message`)
+- ⌛ Search / Dedicated Note Caching
 
 ## Current Work in Progress
 
