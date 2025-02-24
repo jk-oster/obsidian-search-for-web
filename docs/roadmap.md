@@ -15,6 +15,7 @@ Want to have a say in the future of Obsidian Browser Search? You have a great id
 - ⌛ Settings JSON import / export
 - ⌛ Bug Reporting Log
 - ⌛ New User Guide
+- ⌛ Full screen mode for preview
 
 ## Current Work in Progress
 
