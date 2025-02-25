@@ -7,8 +7,8 @@ description: Search your Obsidian vault simultaneously as you type your search i
 
 hero:
   name: "Vault Lens"
-  text: "Connect your Obsidian Notes to the Browser"
-  # text: "Connect Obsidian to your Browser"
+  # text: "Connect your Obsidian Notes to the Browser"
+  text: "Connect Obsidian to your Browser"
 #  text: "Your Webclipper Companion"
   tagline: Search your Obsidian vault simultaneously as you type your search in your favorite search engine.
   actions:
