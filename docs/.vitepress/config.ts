@@ -2,7 +2,6 @@ import { defineConfig, HeadConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: '/obsidian-search-for-web/',
   title: "Obsidian Browser Search",
   description: "Search your Obsidian vault simultaneously as you type your search in your favorite search engine.",
   lastUpdated: true,
@@ -17,7 +16,7 @@ transformHead: ({ pageData }) => {
   },
 
   sitemap: {
-    hostname: 'https://jk-oster.github.io/obsidian-search-for-web/'
+    hostname: 'https://vaultlens.com'
   },
   
   // https://vitepress.dev/reference/default-theme-config
