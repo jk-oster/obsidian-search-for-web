@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig, HeadConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -6,6 +6,19 @@ export default defineConfig({
   title: "Obsidian Browser Search",
   description: "Search your Obsidian vault simultaneously as you type your search in your favorite search engine.",
   lastUpdated: true,
+
+transformHead: ({ pageData }) => {
+    const head: HeadConfig[] = []
+
+    head.push(['meta', { property: 'og:title', content: pageData.frontmatter.title }])
+    head.push(['meta', { property: 'og:description', content: pageData.frontmatter.description }])
+    
+    return head
+  },
+
+  sitemap: {
+    hostname: 'https://jk-oster.github.io'
+  },
   
   // https://vitepress.dev/reference/default-theme-config
   themeConfig: {
