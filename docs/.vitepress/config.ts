@@ -17,7 +17,7 @@ transformHead: ({ pageData }) => {
   },
 
   sitemap: {
-    hostname: 'https://jk-oster.github.io/obsidian-search-for-web/''
+    hostname: 'https://jk-oster.github.io/obsidian-search-for-web/'
   },
   
   // https://vitepress.dev/reference/default-theme-config
