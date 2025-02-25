@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: "Obsidian Browser Search"
+  name: "VaultLens"
   text: "Connect your Vault to the Web"
   # text: "Connect Obsidian to your Browser"
 #  text: "Your Webclipper Companion"

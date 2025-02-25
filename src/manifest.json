@@ -1,5 +1,5 @@
 {
-  "name": "Obsidian Browser Search",
+  "name": "VaultLens",
   "{{chrome}}.manifest_version": 3,
   "{{firefox}}.manifest_version": 2,
 

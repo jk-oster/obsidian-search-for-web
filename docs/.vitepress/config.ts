@@ -2,8 +2,8 @@ import { defineConfig, HeadConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Obsidian Browser Search",
-  description: "Search your Obsidian vault simultaneously as you type your search in your favorite search engine.",
+  title: "VaultLens",
+  description: "Search your Obsidian notes simultaneously as you type your search in your favorite search engine.",
   lastUpdated: true,
 
 transformHead: ({ pageData }) => {

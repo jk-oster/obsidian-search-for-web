@@ -4,7 +4,7 @@
       <div class="container flex flex-wrap justify-between items-center mx-auto">
         <a href="#" class="flex items-center">
           <img src="/icon/icon48.png" class="mr-3 h-6 sm:h-9" alt=""/>
-          <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Obsidian Browser Search</span>
+          <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">VaultLens</span>
         </a>
         <button data-collapse-toggle="navbar-default" type="button"
                 class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-hidden focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -43,7 +43,7 @@
     <div class="max-w-2xl dark:text-white text-base">
       <h1 id="about"
           class="mb-4 text-3xl font-extrabold tracking-tight leading-none text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
-        Obsidian Browser Search
+        VaultLens
       </h1>
 
       <h2 class="text-3xl mb-6 font-extrabold italic dark:text-white">

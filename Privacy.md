@@ -1,6 +1,6 @@
 # Data Privacy Statement
 
-This Data Privacy Statement outlines the handling of user data by the Obsidian Browser Search extension. It is essential to review and understand this policy, as it governs the collection, use, and sharing of user data. By using the extension, you agree to the terms outlined below.
+This Data Privacy Statement outlines the handling of user data by the VaultLens extension. It is essential to review and understand this policy, as it governs the collection, use, and sharing of user data. By using the extension, you agree to the terms outlined below.
 
 ## Collection of User Data
 

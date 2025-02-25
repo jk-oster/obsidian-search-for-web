@@ -11,9 +11,9 @@ editLink: true
 
 [[toc]]
 
-## How can I troubleshoot connection problems between Obsidian Browser Search and Obsidian Local REST API?
+## How can I troubleshoot connection problems between VaultLens and Obsidian Local REST API?
 
-In general, connection between Obsidian Browser Search and the Obsidian Local REST API are quite simple to set up. Usually it is just a matter of entering the API Key in the correct field, but sometimes things don't go smoothly.
+In general, connection between VaultLens and the Obsidian Local REST API are quite simple to set up. Usually it is just a matter of entering the API Key in the correct field, but sometimes things don't go smoothly.
 
 See [this discussion](https://github.com/coddingtonbear/obsidian-web/discussions/174#discussioncomment-8740665) by [@coddingtonbear](https://github.com/coddingtonbear) for steps you can take to troubleshoot connection errors.
 
@@ -46,7 +46,7 @@ The latest development [releases are available on Github](https://github.com/jk-
 5. configure your search provider and input vault name in the settings
 6. go to any webpage and see the number of matching notes in the extension icon
 
-## Is Obsidian Browser Search also available for Firefox?
+## Is VaultLens also available for Firefox?
 
 **Short answer**: Not yet.
 
