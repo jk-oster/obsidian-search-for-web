@@ -18,6 +18,8 @@ browser.runtime.onInstalled.addListener(async () => {
     browser.action.setBadgeText({text: ' '}).then();
     browser.action.setBadgeBackgroundColor({color: Colors.gray}).catch(console.log);
 
+browser.runtime.setUninstallURL('https://docs.google.com/forms/d/e/1FAIpQLSdKiffrH7BhdbpTx8PU0E8bCoDkIBu1tI70TYT852tdF5KQFQ/viewform?usp=dialog');
+
     const runMigration = () => {
         browser.storage.local.set({version: MIGRATION});
 
