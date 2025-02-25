@@ -13,7 +13,7 @@ The two most important frontmatter fields are ``url`` and ``url-aliases``. These
 | Field Name                       | Type | Description                                                            |
 | -------------------------------- | ---- | ---------------------------------------------------------------------- |
 | ``url`` / `link`                 | Text | Marks this note as being "owned" by the specified URL                  |
-| ``url-aliases`` / `link-aliases` | List | Like url, marks the the note as being "owned" by all URLs in this list |
+| ``url-aliases`` / `link-aliases` | List | Like `url`, marks the the note as being "owned" by all URLs in this list |
 
 See Page Notes for more information about how the ``url`` and ``url-aliases`` fields work.
 
