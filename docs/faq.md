@@ -7,7 +7,7 @@ editLink: true
 > [!warning] Work in Progress 🏗️
 > This page is a work in progress. If you don't find an answere to your questions here or in the [guide](./feature-guide.md), feel free to [reach out](https://jakobosterberger.com/contact) or to open up an [issue on github](https://github.com/jk-oster/obsidian-search-for-web/issues)!
 
-> Thanks [@coddingtonbear](https://github.com/coddingtonbear) for inspiration and writing awesone guides on how to tackle certain issues especially with Local REST API.
+> Thanks [@coddingtonbear](https://github.com/coddingtonbear) for inspiration and writing awesome guides on how to tackle certain issues especially regarding the Local REST API plugin.
 
 [[toc]]
 
