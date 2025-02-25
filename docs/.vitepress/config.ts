@@ -6,11 +6,16 @@ export default defineConfig({
   description: "Search your Obsidian notes simultaneously as you type your search in your favorite search engine.",
   lastUpdated: true,
 
-transformHead: ({ pageData }) => {
+  transformHead: ({ pageData }) => {
     const head: HeadConfig[] = []
 
     head.push(['meta', { property: 'og:title', content: pageData.frontmatter?.title ?? '' }])
     head.push(['meta', { property: 'og:description', content: pageData.frontmatter?.description ?? '' }])
+    head.push(['link', { rel: 'icon', type: 'image/png', href: '/favicon-96x96.png', sizes: '128x128' }])
+    head.push(['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }])
+    head.push(['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' }])
+    head.push(['link', { rel: 'shortcut icon', href: '/favicon.ico' }])
+    head.push(['link', { rel: 'manifest', href: '/site.webmanifest' }])
     
     return head
   },
@@ -29,7 +34,7 @@ transformHead: ({ pageData }) => {
     search: {
       provider: 'local'
     },
-    logo: '/icon128.png',
+    logo: './public/icon128.png',
 
     nav: [
       { text: 'Home', link: '/' },

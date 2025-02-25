@@ -10,7 +10,6 @@ lerna-debug.log*
 node_modules
 dist.zip
 dist/*
-!dist/CNAME
 dist-ssr
 *.local
 
@@ -26,3 +25,4 @@ dist-ssr
 *.sw?
 
 docs/.vitepress/cache
+docs/.vitepress/dist/*
