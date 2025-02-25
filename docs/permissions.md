@@ -1,6 +1,6 @@
 ---
 editLink: true
-last updated: false
+lastUpdated: false
 ---
 
 # Extension Permissions
