@@ -34,6 +34,7 @@ transformHead: ({ pageData }) => {
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Getting Started', link: '/getting-started' },
+      { text: 'Install', link: 'https://chromewebstore.google.com/detail/obsidian-browser-search/ikdemlfoilfdmcdiegelchlhfnkpmaee' },
       { text: 'Creator', link: 'https://www.jakobosterberger.com' }
     ],
 
