@@ -34,7 +34,7 @@ export default defineConfig({
     search: {
       provider: 'local'
     },
-    logo: './public/icon128.png',
+    logo: '/icon128.png',
 
     nav: [
       { text: 'Home', link: '/' },

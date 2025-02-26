@@ -1,15 +1,15 @@
 {
-  "name": "NoteLens",
-  "short_name": "NoteLens",
+  "name": "Vault Lens: Browser Extension for Obsidian",
+  "short_name": "Vault Lens",
   "icons": [
     {
-      "src": "/assets/favicon.ico/web-app-manifest-192x192.png",
+      "src": "/web-app-manifest-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/assets/favicon.ico/web-app-manifest-512x512.png",
+      "src": "/web-app-manifest-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
