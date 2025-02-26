@@ -5,7 +5,10 @@ editLink: false
 
 # Data Privacy Statement
 
+> This extension is an **open source project**. Users are invited to inspect the source code themselves in the [extensions github repository](https://github.com/jk-oster/obsidian-search-for-web).
+
 This Data Privacy Statement outlines the handling of user data by the **Vault Lens** extension. It is essential to review and understand this policy, as it governs the collection, use, and sharing of user data. By using the extension, you agree to the terms outlined below.
+
 
 ## Extension Permissions
 
