@@ -51,7 +51,7 @@ async function setupEmbeddedResults() {
                 location: preferSidebarEmbeddings && sidebarEl ? 'sidebar' : 'main'
                 // @ts-ignore
             }).use(VueSplide).mount(sidebar);
-            console.log('[VaultLens] injected embedded search results');
+            console.log('[Vault Lens] injected embedded search results');
         }
     }
 

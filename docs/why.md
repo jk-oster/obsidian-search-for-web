@@ -12,9 +12,9 @@ Have you ever:
 - 📑 **Browsed a webpage and forgotten** that you’ve written something related in Obsidian?
 - 🔗 **Wished your browser could automatically link** you to relevant notes while you explore the web?
 
-If any of these sound familiar, **VaultLens is for you**.
+If any of these sound familiar, **Vault Lens is for you**.
 
-That’s exactly what [VaultLens](https://chromewebstore.google.com/detail/obsidian-browser-search/ikdemlfoilfdmcdiegelchlhfnkpmaee) tries to solve. The extension resurfaces notes from your Obsidian vault while you browse the web, making your workflow smoother and more intuitive.
+That’s exactly what [Vault Lens](https://chromewebstore.google.com/detail/obsidian-browser-search/ikdemlfoilfdmcdiegelchlhfnkpmaee) tries to solve. The extension resurfaces notes from your Obsidian vault while you browse the web, making your workflow smoother and more intuitive.
 
 ## Inspiration & Alternatives
 
@@ -31,7 +31,7 @@ These are great tools, but none fully aligned with my **ideal note-taking workfl
 
 ### A Familiar Concept, Evolved for Obsidian
 If you’ve used [Evernote’s Browser Extension](https://chromewebstore.google.com/detail/evernote-web-clipper/pioclpoplcdbaefihamjohnefbikjilc), you might remember how it embedded notes into search results and helped you rediscover past ideas. 
-[VaultLens](https://chromewebstore.google.com/detail/obsidian-browser-search/ikdemlfoilfdmcdiegelchlhfnkpmaee) takes this further, letting you:
+[Vault Lens](https://chromewebstore.google.com/detail/obsidian-browser-search/ikdemlfoilfdmcdiegelchlhfnkpmaee) takes this further, letting you:
 - 💡 See relevant notes in search results (Google, Bing, etc.)
 - 📖 Preview notes before opening them
 - 🔗 Automatically resurface notes of related webpages
@@ -39,6 +39,6 @@ If you’ve used [Evernote’s Browser Extension](https://chromewebstore.google.
 With this extension, **your notes work for you — without extra effort**.
 
 ## The Solution
-- 🚀 [VaultLens](https://chromewebstore.google.com/detail/obsidian-browser-search/ikdemlfoilfdmcdiegelchlhfnkpmaee) makes your second brain smarter.
+- 🚀 [Vault Lens](https://chromewebstore.google.com/detail/obsidian-browser-search/ikdemlfoilfdmcdiegelchlhfnkpmaee) makes your second brain smarter.
 - 💡 It helps you rediscover past insights effortlessly.
 - 🔎 It keeps you focused by bringing the right notes to you, at the right time.

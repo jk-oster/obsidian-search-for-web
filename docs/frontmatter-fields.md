@@ -6,7 +6,7 @@ editLink: true
 
 > This feature is heavily inspired by [Obsidian Web](https://github.com/coddingtonbear/obsidian-web) (a lot of kudos!) and aims for compatibility while adding a few nice add-ons
 
-VaultLens treats a few frontmatter fields in a special way. You can find here what each of these fields are used for.
+Vault Lens treats a few frontmatter fields in a special way. You can find here what each of these fields are used for.
 
 The two most important frontmatter fields are ``url`` and ``url-aliases``. These two fields mark a particular note as being associated with the specified URLs:
 
@@ -17,7 +17,7 @@ The two most important frontmatter fields are ``url`` and ``url-aliases``. These
 
 See Page Notes for more information about how the ``url`` and ``url-aliases`` fields work.
 
-Once a note is associated with a particular URL, there are a few other fields you can set on the same note that can be used for controlling what VaultLens shows you when you land on the URL or when you hover a link to it:
+Once a note is associated with a particular URL, there are a few other fields you can set on the same note that can be used for controlling what Vault Lens shows you when you land on the URL or when you hover a link to it:
 
 | Field Name            |    Type |   Description                                                                                                               |
 | --------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------- |

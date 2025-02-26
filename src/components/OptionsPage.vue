@@ -4,7 +4,7 @@
       <div class="container flex flex-wrap justify-between items-center mx-auto">
         <a href="#" class="flex items-center">
           <img src="/icon/icon48.png" class="mr-3 h-6 sm:h-9" alt=""/>
-          <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">VaultLens</span>
+          <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Vault Lens</span>
         </a>
         <button data-collapse-toggle="navbar-default" type="button"
                 class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-hidden focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -43,7 +43,7 @@
     <div class="max-w-2xl dark:text-white text-base">
       <h1 id="about"
           class="mb-4 text-3xl font-extrabold tracking-tight leading-none text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
-        VaultLens
+        Vault Lens
       </h1>
 
       <h2 class="text-3xl mb-6 font-extrabold italic dark:text-white">
@@ -85,6 +85,8 @@
         and the browser. The only data that is stored permanently in the
         browser are the settings you find below. Feel free to check out the
         code base on <a class="underline" href="https://github.com/jk-oster/obsidian-search-for-web">GitHub</a>.
+        <br/>
+        You can read the full privacy policy <a class="underline" href="https://jk-oster.github.io/obsidian-search-for-web/privacy.html">here</a>.
       </p>
 
       <h3 id="privacy" class="my-2 text-xl font-semibold text-gray-900 dark:text-white">
@@ -97,6 +99,9 @@
             {{ p.icon }} <code>{{ p.name }}</code>: {{ p.text }}
           </li>
         </ul>
+        <p>
+          You can read more about the permissions in the <a class="underline" href="https://jk-oster.github.io/obsidian-search-for-web/privacy.html#extension-permissions" target="_blank">here</a>.
+        </p>
       </div>
 
       <h3 id="disclaimer" class="my-2 text-xl font-semibold text-gray-900 dark:text-white">

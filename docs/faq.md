@@ -11,9 +11,9 @@ editLink: true
 
 [[toc]]
 
-## How can I troubleshoot connection problems between VaultLens and Obsidian Local REST API?
+## How can I troubleshoot connection problems between Vault Lens and Obsidian Local REST API?
 
-In general, connection between VaultLens and the Obsidian Local REST API are quite simple to set up. Usually it is just a matter of entering the API Key in the correct field, but sometimes things don't go smoothly.
+In general, connection between Vault Lens and the Obsidian Local REST API are quite simple to set up. Usually it is just a matter of entering the API Key in the correct field, but sometimes things don't go smoothly.
 
 See [this discussion](https://github.com/coddingtonbear/obsidian-web/discussions/174#discussioncomment-8740665) by [@coddingtonbear](https://github.com/coddingtonbear) for steps you can take to troubleshoot connection errors.
 
@@ -46,7 +46,7 @@ The latest development [releases are available on Github](https://github.com/jk-
 5. configure your search provider and input vault name in the settings
 6. go to any webpage and see the number of matching notes in the extension icon
 
-## Is VaultLens also available for Firefox?
+## Is Vault Lens also available for Firefox?
 
 **Short answer**: Not yet.
 
@@ -123,3 +123,11 @@ If you modify the service worker or any files it depends on, a simple refresh wo
 3. Click "Update" to reload the background process with your changes
 
 This ensures your latest updates take effect properly.
+
+## What permissions does Vault Lens require and why?
+
+The Extension only requires permissions taht are necessary to function properly. Read all the details about the permissions [here](./privacy.md#extension-permissions).
+
+## How does Vault Lense use my note data?
+
+The extension does all the note processing offline locally on your machine. There is no data sent anywhere. Read more details about the use of data in the [provacy policy](./privacy.md#use-of-user-data).

@@ -2,7 +2,7 @@ import { defineConfig, HeadConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "VaultLens",
+  title: "Vault Lens",
   description: "Search your Obsidian notes simultaneously as you type your search in your favorite search engine.",
   lastUpdated: true,
 
@@ -51,10 +51,9 @@ export default defineConfig({
           { text: 'Getting Started', link: '/getting-started' },
           { text: 'Feature Guide', link: '/feature-guide' },
           { text: 'Special Frontmatter Fields', link: '/frontmatter-fields' },
-          { text: 'FAQ and Troubleshooting', link: '/faq' },
+          { text: 'FAQ & Troubleshooting', link: '/faq' },
           { text: 'Roadmap', link: '/roadmap' },
-          { text: 'Privacy', link: '/privacy' },
-          { text: 'Permisions', link: '/permissions' },
+          { text: 'Privacy & Permissions', link: '/privacy' },
           { text: 'Credits', link: '/credits' }
         ]
       }

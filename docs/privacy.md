@@ -5,7 +5,15 @@ editLink: false
 
 # Data Privacy Statement
 
-This Data Privacy Statement outlines the handling of user data by the VaultLens extension. It is essential to review and understand this policy, as it governs the collection, use, and sharing of user data. By using the extension, you agree to the terms outlined below.
+This Data Privacy Statement outlines the handling of user data by the **Vault Lens** extension. It is essential to review and understand this policy, as it governs the collection, use, and sharing of user data. By using the extension, you agree to the terms outlined below.
+
+## Extension Permissions
+
+This extension uses the following extension permission to work correctly:
+
+- 💾 ``storage``: This is required to store your settings and preferences.
+- 📑 ``tabs``: Access and modify browser tabs. This is required to show the sidebar and embed search results in the page.
+- 🔗 ``host permissions``: Access to the current page URL. This is required to match URLs and show relevant notes.
 
 ## Collection of User Data
 
@@ -15,14 +23,16 @@ It only sends the search query to a obsidian service locally running on the user
 
 ## Use of User Data
 
-The extension does not use any user data for any purpose other than to provide its functionality. No user data except extension settings is stored on the user's device, and all data is handled in memory.
+The extension does not use any user data for any purpose other than to provide its functionality. No user data except extension settings is stored on the user's device, and all data from the obsidian notes is handled locally in memory.
+
+Search results and note content are embedded in the host page on purpose and are therefore accessibile to the host page or any scripts running on it.
 
 ## Access to Privacy Policy
 
-The complete and up-to-date privacy policy can be accessed through the designated Chrome Web Store Developer Dashboard field. A direct link to the privacy policy is provided for transparency and easy reference.
+A direct link to the privacy policy is provided on the [Chrome Web Store Detailpage](https://chromewebstore.google.com/detail/obsidian-browser-search/ikdemlfoilfdmcdiegelchlhfnkpmaee) for transparency and easy reference.
 
 It is the user's responsibility to review the privacy policy before using the extension. Any updates or changes to the privacy policy will be reflected in the designated area, and users are encouraged to check periodically for updates.
 
-If you have any concerns or questions regarding the privacy policy, please contact me at [jakobosterberger.com/contact](https://jakobosterberger.com/contact).
+If you have any concerns or questions regarding the privacy policy or extension permissions, please contact me at [jakobosterberger.com/contact](https://jakobosterberger.com/contact).
 
-*Last updated: 27.11.2024*
+*Last updated: 26.02.2025*

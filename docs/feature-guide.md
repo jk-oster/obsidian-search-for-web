@@ -156,7 +156,7 @@ If you want to open up a note of a different time period you need to install the
 
 > This feature is heavily inspired by [Obsidian Web](https://github.com/coddingtonbear/obsidian-web) (a lot of kudos!) and aims for compatibility while adding a few nice add-ons.
 
-For many features of VaultLens, it can be helpful to associate a particular URL or set of URLs with a note. To establish this connection, you can use the ``url`` or ``url-aliases`` frontmatter fields as described below. Once you have done so and you navigate to a URL you have created notes for, VaultLens will suggest the linked note to you and, if enabled, show you a notification message (see image below). Clicking the message opens up the related note in the [preview panel](#👀-quick-note-preview).
+For many features of Vault Lens, it can be helpful to associate a particular URL or set of URLs with a note. To establish this connection, you can use the ``url`` or ``url-aliases`` frontmatter fields as described below. Once you have done so and you navigate to a URL you have created notes for, Vault Lens will suggest the linked note to you and, if enabled, show you a notification message (see image below). Clicking the message opens up the related note in the [preview panel](#👀-quick-note-preview).
 
 ![](./img/page-note-message.png)
 
@@ -185,7 +185,7 @@ Like ``url`` above, this supports using the ``*`` character for matching multipl
 
 > This feature is heavily inspired by [Obsidian Web](https://github.com/coddingtonbear/obsidian-web) (a lot of kudos!) and aims for compatibility while adding a few nice add-ons.
 
-You can configure VaultLens to notify you when the link you are hovering over has a dedicated note (see Page Notes above) or has been mentioned on a note. Once enabled and you hover over such a link, a message will be displayed next to your mouse cursor (see image below). Clicking the message opens the note in the [preview panel](#👀-quick-note-preview) if available.
+You can configure Vault Lens to notify you when the link you are hovering over has a dedicated note (see Page Notes above) or has been mentioned on a note. Once enabled and you hover over such a link, a message will be displayed next to your mouse cursor (see image below). Clicking the message opens the note in the [preview panel](#👀-quick-note-preview) if available.
 
 ![](./img/link-hover-message.png)
 
