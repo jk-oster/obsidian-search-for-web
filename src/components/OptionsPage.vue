@@ -326,7 +326,7 @@
               </span>
             </label>
             <div class="text-xs text-gray-700 dark:text-gray-400">
-              If enabled, Page Notes for the URL you are currently visiting will show up as notifications on the page. The displayed message can be customized using web-message and other frontmatter fields.
+              If enabled, Page Notes for the URL you are currently visiting will show up as notifications on the page. The displayed message can be customized using e.g. "web-message" and other  <a class="underline" target="_blank" href="https://jk-oster.github.io/obsidian-search-for-web/frontmatter-fields.html">frontmatter fields</a>.
             </div>
           </div>
 
@@ -338,11 +338,27 @@
                   class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
               </div>
               <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
-                Enable mentioned link hover notifications? (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%F0%9F%94%97-link-hover-messages" class="underline text-purple-600" target="_blank">docs</a>)
+                Enable notifications on Link Hover? (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%F0%9F%94%97-link-hover-messages" class="underline text-purple-600" target="_blank">docs</a>)
               </span>
             </label>
             <div class="text-xs text-gray-700 dark:text-gray-400">
-              If enabled, a tooltip will be displayed when hovering over links targeting pages you have created Page Notes for or have mentioned in a note. The displayed message can be customized using web-message and other frontmatter fields.
+              If enabled, a tooltip notification will be displayed when hovering over links targeting pages you have created Page Notes. The displayed message can be customized using e.g. "web-message" and other <a class="underline" target="_blank" href="https://jk-oster.github.io/obsidian-search-for-web/frontmatter-fields.html">frontmatter fields</a>.
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <label for="linkHoverNoteMentions" class="inline-flex relative items-center mr-5 cursor-pointer">
+              <input v-model="store.linkHoverNoteMentions" type="checkbox" id="linkHoverNoteMentions" name="linkHoverNoteMentions"
+                     class="sr-only peer" :checked="store.linkHoverNoteMentions"/>
+              <div
+                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-obsidian">
+              </div>
+              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
+                Enable link hover notifications when URL is mentioned somewhere in the notes? (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%F0%9F%94%97-link-hover-messages" class="underline text-purple-600" target="_blank">docs</a>)
+              </span>
+            </label>
+            <div class="text-xs text-gray-700 dark:text-gray-400">
+              If enabled, a tooltip notification will be displayed when hovering over links targeting pages have mentioned in a note.
             </div>
           </div>
 

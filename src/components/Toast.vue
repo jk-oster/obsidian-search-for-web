@@ -44,7 +44,7 @@ function close() {
 </script>
 
 <template>
-  <div v-if="show" class="fixed bottom-1 right-2" :class="additionalClasses">
+  <div v-if="show" class="fixed bottom-1 right-2" :class="additionalClasses"  style="z-index: 999999;">
     <div class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-gray-50 rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800 border border-gray-100 dark:border-gray-600" role="alert">
 
       <slot name="icon">

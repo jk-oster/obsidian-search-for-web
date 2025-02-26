@@ -68,6 +68,7 @@ export function useStore() {
             store.period = data.period;
             store.dedicatedNoteNotifications = Boolean(data.dedicatedNoteNotifications);
             store.linkHoverDedicatedNoteBadge = Boolean(data.linkHoverDedicatedNoteBadge);
+            store.linkHoverNoteMentions = Boolean(data.linkHoverNoteMentions);
         });
     }
 

@@ -1,31 +1,38 @@
 <template>
 
-    <div v-if="(badgeShowDelay || hoveredLink) && (dedicatedNote || searchResults.length > 0)" class="absolute bg-transparent z-50" :style="style">
+    <div v-if="(badgeShowDelay || hoveredLink) && (dedicatedNote || (store.linkHoverNoteMentions && searchResults.length > 0))" class="absolute bg-transparent" style="z-index: 999999;" :style="style">
         <a :href="dedicatedNoteUrl"
             @click="openNotePreview"
-            class="flex items-center p-1 pr-3 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-black dark:text-white">
-            
+            class="flex items-center p-1 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-black dark:text-white">
+
             <!-- @vue-ignore -->
-            <div class="flex items-center justify-center mr-2 rounded-md p-1 leading-none" :style="{backgroundColor: isValidHexColor(dedicatedNote?.frontmatter?.['web-badge-color'] ?? '') ? toHexColor(dedicatedNote?.frontmatter?.['web-badge-color']) : '#ffffff00'}">
+            <div v-if="dedicatedNote?.frontmatter?.['web-badge-icon'] || dedicatedNote?.frontmatter?.['web-badge-color']" 
+                class="flex items-center justify-center rounded-md p-1 leading-none" 
+                :class="{'ml-1': !dedicatedNote?.frontmatter?.['web-badge-icon']}"
+                :style="{backgroundColor: isValidHexColor(dedicatedNote?.frontmatter?.['web-badge-color'] ?? '') ? toHexColor(dedicatedNote?.frontmatter?.['web-badge-color']) : '#ffffff00'}">
                 <div class="text-xs">
                      <!-- @vue-ignore -->
                      {{ dedicatedNote?.frontmatter?.['web-badge-icon'] ?? '' }}
                  </div>
             </div>
-            <div>
-                <span class="text-xs hover:underline">
+            <div class="px-2 flex items-center">
+                <div>
+                    <span class="text-xs hover:underline">
+                        <!-- @vue-ignore -->
+                        {{dedicatedNote?.frontmatter?.['web-message'] ?? dedicatedNote?.path}}
+                    </span>
                     <!-- @vue-ignore -->
-                    {{dedicatedNote?.frontmatter?.['web-message'] ?? dedicatedNote?.path}}
-                </span>
-                <!-- @vue-ignore -->
-                <br v-if="dedicatedNote?.frontmatter?.['web-badge-message']" />
-                <span class="text-2xs text-gray-500 dark:text-gray-400">
-                     <!-- @vue-ignore -->
-                    {{ dedicatedNote?.frontmatter?.['web-badge-message'] ?? '' }}
-                </span>
-            </div>
-            <div v-if="searchResults.length > 1" class="ml-2 text-2xs text-gray-500 dark:text-gray-400">
-               {{ !dedicatedNote ? 'Mentions' : '' }} ({{ searchResults.length }})
+                    <br v-if="dedicatedNote?.frontmatter?.['web-badge-message']" />
+                    <span class="text-2xs text-gray-500 dark:text-gray-400">
+                        <!-- @vue-ignore -->
+                        {{ dedicatedNote?.frontmatter?.['web-badge-message'] ?? '' }}
+                    </span>
+                </div>
+                <div v-if="store.linkHoverNoteMentions && searchResults.length > 0" 
+                    :class="{'ml-2': dedicatedNote}"
+                    class="text-2xs text-gray-500 dark:text-gray-400">
+                {{ !dedicatedNote ? 'Mentions' : '' }} ({{ searchResults.length }})
+                </div>
             </div>
         </a>
     </div>

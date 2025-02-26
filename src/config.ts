@@ -68,6 +68,7 @@ export const config: ExtensionConfig = {
     period: 'daily',
     dedicatedNoteNotifications: true,
     linkHoverDedicatedNoteBadge: true,
+    linkHoverNoteMentions: true,
 
     currentUrl: '',
     searchString: '',

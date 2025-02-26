@@ -98,6 +98,7 @@ export interface ExtensionConfig {
     period: Period,
     dedicatedNoteNotifications: boolean,
     linkHoverDedicatedNoteBadge: boolean,
+    linkHoverNoteMentions: boolean,
 
     currentUrl: string,
     searchString: string,
