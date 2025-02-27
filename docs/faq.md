@@ -112,7 +112,7 @@ Computers require precision and perfection—something humans achieve only throu
 
 ###### The Good News
 
-Most of the time, your changes will be automatically detected by the build script. Simply refresh the page and interact with the extension button to see your updates applied—this works for modifications to the popup or options page.
+Most of the time, your changes will be automatically detected by the build script. Simply refresh the page and interact with the extension button to see your updates applied — this works for modifications to the content script, popup or options page.
 
 ###### The Bad News
 
