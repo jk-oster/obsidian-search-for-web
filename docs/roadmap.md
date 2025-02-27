@@ -9,7 +9,7 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
 ## Future
 
 - ⌛ **Firefox Support**
-- ⌛ Quick Access Bar for Specific Notes
+- ⌛ Quick access for specific notes
 - ⌛ Better Note Editing
 - ⌛ Configurable Hotkeys
 - ⌛ Settings JSON import / export
@@ -18,6 +18,7 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
 - ⌛ Full screen mode for Note Preview
 - ⌛ Show dedicated Page Notes featured in search results (`web-message`)
 - ⌛ Search / dedicated Note Caching
+- ⌛ Create new note from sidebar
 
 ## Current Work in Progress >= 2.3.4
 
