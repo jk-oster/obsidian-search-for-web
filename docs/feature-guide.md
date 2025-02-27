@@ -11,7 +11,7 @@ editLink: true
 
 ## Connection Indicator <Badge type="tip" text="^1.0.0" />
 
-When the extension could establish a successful connection with your Obsidian search provider the extension icon will have a green or no indicator attached (see Indicator on successful connection below).
+When the extension could establish a successful connection with your Obsidian search provider the extension icon will have a green or no indicator attached (see indicator on successful connection below).
 
 ![](./img/connection-indicator.png)
 

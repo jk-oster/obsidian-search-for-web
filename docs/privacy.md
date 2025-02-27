@@ -9,7 +9,6 @@ editLink: false
 
 This Data Privacy Statement outlines the handling of user data by the **Vault Lens** extension. It is essential to review and understand this policy, as it governs the collection, use, and sharing of user data. By using the extension, you agree to the terms outlined below.
 
-
 ## Extension Permissions
 
 This extension uses the following extension permission to work correctly:
