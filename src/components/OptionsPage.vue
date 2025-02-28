@@ -71,7 +71,7 @@
           <li>🆕 Extension renamed to "<a class="underline" href="https://vaultlens.com">Vault Lens</a>"</li>
           <li>🆕 Updated and added extension and feature documentation</li>
           <li>🆕 <a class="underline" href="#hotkey-settings">Hotkey</a> functionalities</li>
-          <li>🆕 <a class="underline" href="#upload">Import / export settings</a></li>
+          <li>🆕 <a class="underline" href="#upload">Import / export settings</a> and bug reporting in the settings</li>
         </ul>
       </div>
 
