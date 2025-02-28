@@ -197,7 +197,7 @@ Some frontmatter fields can be used to control what information is shown in this
 
 For details and examples of the use of frontmatter fields read the [Special Frontmatter Fields page](./frontmatter-fields.md).
 
-## ⌨️ Hotkeys <Badge type="tip" text="^2.5.0" />
+## ⌨️ Hotkeys <Badge type="tip" text="^2.4.0" />
 
 The extension provides hotkeys for the following actions:
 
