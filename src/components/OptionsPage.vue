@@ -112,13 +112,50 @@
         The obsidian logo is property of <a class="underline" href="https://obsidian.md">https://obsidian.md</a>.
       </p>
 
+      <h2 id="core-settings">
+        <legend class="text-4xl font-extrabold dark:text-white">
+          Core settings
+        </legend>
+      </h2>
+
+      <form class="mb-6" id="upload" @submit.prevent="importSettings">
+
+        <label for="file" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Settings file (*.json)</label>
+        <input  ref="file" type="file" id="file" accept=".json" class="block mb-2 w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help">
+
+        <div class="w-full flex justify-between mb-6">
+          <button type="submit" class="flex p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-gray-50 rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
+            <span>
+              Import Settings from JSON
+            </span>
+            <span>
+              <ImportIcon class="ml-1 w-6 h-6 text-gray-900 dark:text-gray-400"></ImportIcon>
+            </span>
+          </button>
+
+          <button @click="exportSettings"
+            class="flex p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-gray-50 rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
+            <span>
+              Export Settings to JSON
+            </span>
+            <span>
+              <ExportIcon class="ml-1 w-6 h-6 text-gray-900 dark:text-gray-400"></ExportIcon>
+            </span>
+          </button>
+          <button @click="exportBugReport"
+            class="flex p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-gray-50 rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
+            <span>
+              Generate Bug-Report
+            </span>
+            <span>
+              <BugIcon class="ml-1 w-6 h-6 text-gray-900 dark:text-gray-400"></BugIcon>
+            </span>
+          </button>
+        </div>
+      </form>
+
       <form id="settings" name="settings">
         <fieldset>
-          <h2 id="core-settings">
-            <legend class="text-4xl mb-6 font-extrabold dark:text-white">
-              Core settings
-            </legend>
-          </h2>
 
           <Toast :text="connectionInfo + ' - Requested ' + url"></Toast>
 
@@ -509,16 +546,72 @@
 
           <div class="mb-6">
             <label for="excludes"
-                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
               Paths to exclude (separate segments by<code>,</code>)
             </label>
             <input v-model="store.excludes" type="text" id="excludes" name="excludes"
-                   placeholder="Assets,Template,.excalidraw"
-                   class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
+                    placeholder="Assets,Template,.excalidraw"
+                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
             <span class="text-xs text-gray-700 dark:text-gray-400">
               Files containing any of the defined segments in their file path will be excluded from search results.
             </span>
           </div>
+
+          <h3>Hotkeys</h3>
+
+          <div class="grid grid-cols-3 gap-2">
+            <div class="mb-6">
+              <label for="pinHotKeyConfig"
+                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                Toggle sidebar (default <kbd>{{ config.pinHotKeyConfig }}</kbd>) (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%E2%9A%A1-instant-live-search" class="underline text-purple-600" target="_blank">docs</a>)
+              </label>
+              <input v-model="store.pinHotKeyConfig" type="text" id="pinHotKeyConfig" name="pinHotKeyConfig"
+                     placeholder="...additional search domains..."
+                     class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
+            </div>
+  
+            <div class="mb-6">
+              <label for="openPeriodicHotKeyConfig"
+                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                Open periodic note (default <kbd>{{ config.openPeriodicHotKeyConfig }}</kbd>) (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%E2%9A%A1-instant-live-search" class="underline text-purple-600" target="_blank">docs</a>)
+              </label>
+              <input v-model="store.openPeriodicHotKeyConfig" type="text" id="openPeriodicHotKeyConfig" name="openPeriodicHotKeyConfig"
+                     placeholder="...additional search domains..."
+                     class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
+            </div>
+            
+            <div class="mb-6">
+              <label for="appendPeriodicHotKeyConfig"
+                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                Append periodic note (default <kbd>{{ config.appendPeriodicHotKeyConfig }}</kbd>) (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%E2%9A%A1-instant-live-search" class="underline text-purple-600" target="_blank">docs</a>)
+              </label>
+              <input v-model="store.appendPeriodicHotKeyConfig" type="text" id="appendPeriodicHotKeyConfig" name="appendPeriodicHotKeyConfig"
+                     placeholder="...additional search domains..."
+                     class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
+            </div>
+  
+            <div class="mb-6">
+              <label for="settingsHotKeyConfig"
+                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                Open settings (default <kbd>{{ config.settingsHotKeyConfig }}</kbd>) (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%E2%9A%A1-instant-live-search" class="underline text-purple-600" target="_blank">docs</a>)
+              </label>
+              <input v-model="store.settingsHotKeyConfig" type="text" id="settingsHotKeyConfig" name="settingsHotKeyConfig"
+                     placeholder="...additional search domains..."
+                     class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
+            </div>
+  
+            <div class="mb-6">
+              <label for="searchHotKeyConfig"
+                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                Search vault (default <kbd>{{ config.searchHotKeyConfig }}</kbd>) (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%E2%9A%A1-instant-live-search" class="underline text-purple-600" target="_blank">docs</a>)
+              </label>
+              <input v-model="store.searchHotKeyConfig" type="text" id="searchHotKeyConfig" name="searchHotKeyConfig"
+                     placeholder="...additional search domains..."
+                     class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
+            </div>
+
+          </div>
+
         </fieldset>
         <span class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-400" id="status"></span>
       </form>
@@ -590,15 +683,75 @@
 </template>
 
 <script setup lang="ts">
-import {computed} from 'vue'
+import {computed, ref} from 'vue'
 import type {Theme} from "../types.js";
 import Toast from "./Toast.vue";
-import {useStore} from "../store.js";
+import {store} from "../store.js";
 import {useObsidianConnection} from "../connection.js";
-import {pageOptions,  permissions} from "../config.js";
-import {detectPreferredColorScheme, setColorScheme} from "../theme";
+import {config, pageOptions,  permissions} from "../config.js";
+import {detectPreferredColorScheme, setColorScheme} from "../theme.js";
+import { getTabService } from '../background-services/TabService.js';
+import { getNoteService } from '../background-services/NoteService.js';
+import ExportIcon from './ExportIcon.vue';
+import BugIcon from './BugIcon.vue';
+import ImportIcon from './ImportIcon.vue';
 
-const store = useStore();
+const tabService = getTabService();
+const noteService = getNoteService();
+
+const file = ref<HTMLInputElement | null>(null);
+
+async function exportBugReport() {
+  const manifest = await tabService.getManifest();
+  const browserDetails = navigator.userAgent;
+  const dateTime = new Date().toISOString();
+  let meta = null;
+
+  try {
+    meta = await noteService.fetchMetaData(store);
+    console.log(meta);
+  } catch (e) {
+    console.error(e);
+  }
+
+  exportSettings({
+    dateTime,
+    browserDetails,
+    manifest,
+    meta
+  }, 'bug-report.json');
+}
+
+function exportSettings(details = {}, name: string = 'settings.json') {
+  const {apiKey, ...settings} = store;
+  var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({...details, ...settings}, null, 2));
+  var dlAnchorElem = document.createElement('a');
+  dlAnchorElem.setAttribute("href",     dataStr     );
+  dlAnchorElem.setAttribute("download", name);
+  document.body.appendChild(dlAnchorElem); // required for firefox
+  dlAnchorElem.click();
+  dlAnchorElem.remove();
+}
+
+function importSettings() {
+  if (!file.value?.value.length) return;
+
+	let reader = new FileReader();
+	reader.onload = () => {
+    const settingsToImport = JSON.parse(reader.result as string);
+    console.log(settingsToImport);
+    for (const key in settingsToImport) {
+      if(key in store) {
+        // @ts-ignore
+        store[key] = settingsToImport[key];
+      }
+    }
+    connectionInfo.value = '✅ Settings imported successfully';
+  };
+  // @ts-ignore
+	reader.readAsText(file.value.files[0]);
+}
+
 const {throttledConnectionCheck, throttledRestApiConnectionCheck, connectionInfo, restApiStatus} = useObsidianConnection(1000);
 
 const url = computed(()=> {

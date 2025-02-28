@@ -1,5 +1,5 @@
 import { ref, onMounted, onUnmounted } from 'vue';
-import { useStore, storeInitialized } from './store.js';
+import { store, storeInitialized } from './store.js';
 import { useDebounceFn } from '@vueuse/core';
 import { getNoteService } from './background-services/NoteService.js';
 import { Note } from './types.js';
@@ -12,7 +12,7 @@ export function useDedicatedNote() {
     const {restApiStatus, isRestApiConnected} = useObsidianConnection();
 
     const dedicatedNote = ref<Note|null>(null);
-    const config = useStore();
+    const config = store;
     const searchString = ref<string>('');
     const error = ref<string>('');
     const searchResults = ref<any[]>([]);
@@ -103,7 +103,7 @@ export function useDedicatedNote() {
             const dedicatedNotes = await noteService.fetchJsonQuery(jsonQuery, config);
             searchResults.value = dedicatedNotes;
 
-            console.log(dedicatedNotes);
+            // console.log(dedicatedNotes);
 
             if (dedicatedNotes?.length === 0) {
                 dedicatedNote.value = null;

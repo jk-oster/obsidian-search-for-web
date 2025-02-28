@@ -2,8 +2,9 @@
   <div class="w-full">
 
     <div class="flex justify-between" style="font-size: 20px;">
-      <button @click="openOptionsPage" title="Open Settings"
-              class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-gray-50 rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
+      <button @click="openOptionsPage" 
+        :title="'Open Settings (' + store.settingsHotKeyConfig + ')'"
+        class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-gray-50 rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
         <span class="sr-only">
           Settings
         </span>
@@ -12,10 +13,12 @@
         </span>
       </button>
 
-      <button v-if="isRestApiConnected" @click="openDailyNote" :title="'Open Periodic Note (' + store.period + ')'"
-              class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-gray-50 rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
+      <button v-if="isRestApiConnected" 
+        @click="openPeriodicNote" 
+        :title="'Open Periodic Note ' + store.period + ' (' + store.openPeriodicHotKeyConfig + ')'"
+        class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-gray-50 rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
         <span class="sr-only">
-          Open Periodic Note ({{ store.period }})
+          Open Periodic Note ({{ store.period }}) ({{ store.openPeriodicHotKeyConfig }})
         </span>
         <span>
           <CalendarIcon class="w-6 h-6 text-gray-900 dark:text-gray-400"></CalendarIcon>
@@ -34,17 +37,18 @@
         </span>
       </a>
 
-      <button v-if="isRestApiConnected" @click="appendDailyNote" :title="'Append Periodic Note (' + store.period + ')'"
-              class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-gray-50 rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
+      <button v-if="isRestApiConnected" @click="appendPeriodicNote" 
+        :title="'Append Periodic Note ' + store.period + ' (' + store.appendPeriodicHotKeyConfig + ')'"
+        class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-gray-50 rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
         <span class="sr-only">
-          Append Periodic Note ({{ store.period }})
+          Append Periodic Note ({{ store.period }}) ({{ store.appendPeriodicHotKeyConfig }})
         </span>
         <span>
           <CalendarPlusIcon class="w-6 h-6 text-gray-900 dark:text-gray-400"></CalendarPlusIcon>
         </span>
       </button>
 
-      <button @click="toggleSidebar" :title="store.show ? 'Unpin Sidebar' : 'Pin Sidebar'"
+      <button @click="toggleSidebar" :title="(store.show ? 'Unpin Sidebar: ' : 'Pin Sidebar: ') + store.pinHotKeyConfig"
               class="p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-gray-50 rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
         <span class="sr-only">
           {{ store.show ? 'Unpin Sidebar' : 'Pin Sidebar' }}
@@ -74,9 +78,10 @@
           </svg>
         </div>
         <input type="search"
+               ref="searchInput"
                v-model="searchString"
                class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:outline-purple-700 focus:border-purple-700 dark:bg-gray-700 dark:border-gray-600 dark:focus:bg-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-600 dark:focus:border-gray-600"
-               placeholder="Search your vault ..."
+               :placeholder="'Search your vault ... (' + store.searchHotKeyConfig + ')'"
                />
       </div>
     </form>
@@ -123,7 +128,7 @@
 <script lang="ts" setup>
 
 import {watchEffect, defineEmits, ref} from "vue";
-import {useStore} from '../store.js';
+import {store} from '../store.js';
 import {useSearch} from '../search.js';
 import ResultCard from './ResultCard.vue';
 import Cog from "./Cog.vue";
@@ -135,9 +140,24 @@ import CalendarIcon from "./CalendarIcon.vue";
 import CalendarPlusIcon from "./CalendarPlusIcon.vue";
 import NotePreview from "./NotePreview.vue";
 import OpenLink from "./OpenLink.vue";
+import { useHotkeys } from "../hotkeys.js";
 
 const tabService = getTabService();
-const store = useStore();
+
+const searchInput = ref<HTMLInputElement | null>(null);
+
+const pinHotkey = useHotkeys(store.pinHotKeyConfig, toggleSidebar);
+const openPeriodicHotkey = useHotkeys(store.openPeriodicHotKeyConfig, openPeriodicNote);
+const appendPeriodicHotkey = useHotkeys(store.appendPeriodicHotKeyConfig, appendPeriodicNote);
+const settingsHotkey = useHotkeys(store.settingsHotKeyConfig, openOptionsPage);
+const searchHotkey = useHotkeys(store.searchHotKeyConfig, () => {
+  if (!store.show) {
+    store.show = true;
+  }
+  if(searchInput.value) {
+    setTimeout(() => searchInput.value?.focus(), 300);
+  }
+});
 
 const todaysDate = new Date();
 const dailyNoteNameString = `${todaysDate.getFullYear()}-${(todaysDate.getMonth() + 1).toString().padStart(2, '0')}-${todaysDate.getDate().toString().padStart(2, '0')}`;
@@ -174,13 +194,13 @@ function openOptionsPage() {
   tabService.openOptionsPage();
 }
 
-function openDailyNote() {
+function openPeriodicNote() {
   previewOpenMode.value = 'preview';
   // @ts-ignore
   notePreviewElem.value?.openNotePreview('preview');
 }
 
-function appendDailyNote() {
+function appendPeriodicNote() {
   previewOpenMode.value = 'append';
   // @ts-ignore
   notePreviewElem.value?.openNotePreview('append');

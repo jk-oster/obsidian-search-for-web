@@ -47,6 +47,10 @@ class TabService {
     async openFirefoxSideBar() {
         await browser.sidebarAction.open();
     }
+
+    async getManifest() {
+        return await browser.runtime.getManifest();
+    }
 }
 
 export const [registerTabService, getTabService] = defineProxyService(

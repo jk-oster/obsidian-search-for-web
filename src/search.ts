@@ -1,4 +1,4 @@
-import {useStore} from "./store.js";
+import {store} from "./store.js";
 import {Status, SearchModes, pageOptions} from "./config.js";
 import type {NoteMatch} from "./types.js";
 import {ref, computed} from 'vue';
@@ -11,7 +11,6 @@ const noteService = getNoteService();
 const badgeService = getBadgeService();
 
 export function useSearch(isLoadingInitial: boolean = false) {
-    const store = useStore();
     const config = store;
 
     const {connectionStatus, connectionInfo, restApiStatus, isConnected, isRestApiConnected} = useObsidianConnection();

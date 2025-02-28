@@ -69,7 +69,6 @@ import Logo from "./Logo.vue";
 import {getTabService} from "../background-services/TabService.js";
 import LoadingSpinner from "./LoadingSpinner.vue";
 import NotePreview from "./NotePreview.vue";
-import {useStore} from "../store";
 import {ref} from "vue";
 defineProps({
   layout: {

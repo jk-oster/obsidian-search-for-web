@@ -99,6 +99,13 @@ export interface ExtensionConfig {
     dedicatedNoteNotifications: boolean,
     linkHoverDedicatedNoteBadge: boolean,
     linkHoverNoteMentions: boolean,
+    
+    pinHotKeyConfig: string,
+    openPeriodicHotKeyConfig: string,
+    appendPeriodicHotKeyConfig: string,
+    newNoteHotKeyConfig: string,
+    settingsHotKeyConfig: string,
+    searchHotKeyConfig: string,
 
     currentUrl: string,
     searchString: string,

@@ -32,13 +32,11 @@
 import SearchResults from './SearchResults.vue';
 import Logo from './Logo.vue';
 import {computed, onMounted, ref, watch, watchEffect} from 'vue'
-import {useStore} from '../store.js';
+import {store} from '../store.js';
 import {NoteMatch} from "../types.js";
 import {useElementHover, useDraggable, useWindowSize, useElementSize} from '@vueuse/core';
 import {useObsidianConnection} from "../connection";
 import DedicatedNote from './DedicatedNote.vue';
-
-const store = useStore();
 
 const searchResults = ref<NoteMatch[]>([]);
 const toggleButton = ref<HTMLElement | null>(null);

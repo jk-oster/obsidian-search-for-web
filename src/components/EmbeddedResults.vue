@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import {defineAsyncComponent, computed, onMounted, ref} from 'vue'
 import {pageOptions} from "../config.js";
-import {useStore} from "../store.js";
-
-const store = useStore();
+import {store} from "../store.js";
 
 const props = defineProps({
   location: {

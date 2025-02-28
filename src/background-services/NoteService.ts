@@ -127,6 +127,14 @@ class NoteService {
         return data;
     }
 
+    async fetchMetaData({apiKey, restApiProtocol, restApiPort}:{apiKey: string, restApiProtocol: string, restApiPort: number}): Promise<any> {
+        const options = this.getLocalRestApiOptions(apiKey);
+        const url = restApiProtocol + '127.0.0.1:' + restApiPort;
+        const resp = await fetch(url, options);
+        const data: any = await resp.json();
+        return data;
+    }
+
     // async fetchCommands({apiKey, protocol, obsidianRestUrl, port}:{apiKey: string, protocol: string, obsidianRestUrl: string, port: number, vault: string})Promise<Command[]> {
     //
     // }

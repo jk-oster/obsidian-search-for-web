@@ -1,4 +1,5 @@
 <template>
+  <!-- @vue-ignore -->
   <img :class="class" :style="style" :src="browser.runtime.getURL(src)" />
 </template>
 

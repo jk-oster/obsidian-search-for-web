@@ -1,9 +1,7 @@
-import {useStore} from "./store.js";
+import {store} from "./store.js";
 
 
 export function useHighlight() {
-    const store = useStore();
-
     function regex(searchString: string): RegExp {
         // build a regex from the search string: "foo bar" => (foo|bar)
         const string = ('(' + searchString.split(' ').join('|') + ')').replace('|)', ')');

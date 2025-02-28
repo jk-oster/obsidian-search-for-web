@@ -1,4 +1,4 @@
-import {useStore} from "./store.js";
+import {store} from "./store.js";
 import {ref} from 'vue';
 import {getNoteService} from "./background-services/NoteService.js";
 import {useObsidianConnection} from "./connection";
@@ -7,7 +7,6 @@ import { Period } from "./types.js";
 const noteService = getNoteService();
 
 export function usePreview() {
-    const store = useStore();
 
     const {restApiStatus} = useObsidianConnection();
 

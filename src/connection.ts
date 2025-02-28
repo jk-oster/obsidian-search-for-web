@@ -1,6 +1,6 @@
 import {getBadgeService} from "./background-services/BadgeService.js";
 import {getConnectionService} from "./background-services/ConnectionService.js";
-import {storeInitialized, useStore} from "./store.js";
+import {storeInitialized, store} from "./store.js";
 import {Status} from "./config.js";
 import {computed, ref} from "vue";
 import {useThrottleFn, watchImmediate} from "@vueuse/core";
@@ -12,7 +12,6 @@ const connectionInfo = ref<string>('🔄️ Checking your local Obsidian connect
 const restApiStatus = ref<string>('');
 
 export function useObsidianConnection(delay: number = 0) {
-    const store = useStore();
 
     const detectConnection = async () => {
         connectionInfo.value = store.provider === 'omni-search' ? '🔄️ Checking your Obsidian Omnisearch connection' : '🔄️ Checking your Obsidian REST API connection';

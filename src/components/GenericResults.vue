@@ -63,9 +63,7 @@ import Logo from "./Logo.vue";
 import {getTabService} from "../background-services/TabService.js";
 import LoadingSpinner from "./LoadingSpinner.vue";
 import ResultCard from "./ResultCard.vue";
-import {useStore} from "../store.js";
-
-const store = useStore();
+import {store} from "../store.js";
 
 defineProps({
   layout: {

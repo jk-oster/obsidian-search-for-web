@@ -87,10 +87,9 @@ import Toast from './Toast.vue';
 import { useDedicatedNote } from '../dedicatedNote.js';
 import { computed, onMounted, ref, watchEffect } from 'vue';
 import { Note } from '../types.js';
-import { storeInitialized, useStore } from '../store.js';
+import { storeInitialized, store } from '../store.js';
 import NotePreview from './NotePreview.vue';
 
-const store = useStore();
 const { x, y } = useMouse();
 const {hoveredLink} = useHoveredLink();
 const {searchForDedicatedNotes, isRestApiConnected, dedicatedNote, searchResults, searchString} = useDedicatedNote();
