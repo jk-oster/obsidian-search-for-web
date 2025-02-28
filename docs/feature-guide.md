@@ -40,8 +40,7 @@ As soon as you leave the extension sidebar with your mouse again it will be hidd
 
 ### Pinning the Sidebar <Badge type="tip" text="^2.0.0" />
 
-You can keep the sidebar permanently opened by "pinning" it. You can toggle the "pinned"/"unpinned" states by clicking
-the button in the sidebar header, clicking the extension icon in the browser toolbar or by clicking the extension icon on the page.
+You can keep the sidebar permanently opened by "pinning" it. You can toggle the "pinned"/"unpinned" states by using the configured hotkey (default "Alt+Shift+K"), clicking the button in the sidebar header, clicking the extension icon in the browser toolbar or by clicking the extension icon on the page.
 
 ![](./img/sidebar-toggles.png)
 
@@ -197,6 +196,18 @@ Some frontmatter fields can be used to control what information is shown in this
 - ``web-badge-message``: This short message will be displayed in the hover message alongside the longer web-message.
 
 For details and examples of the use of frontmatter fields read the [Special Frontmatter Fields page](./frontmatter-fields.md).
+
+## ⌨️ Hotkeys <Badge type="tip" text="^2.5.0" />
+
+The extension provides hotkeys for the following actions:
+
+- **Toggle Sidebar**: default keys "Alt+Shift+K"
+- **Start Search**: default keys "Alt+Shift+F"
+- **Open Periodic Note**: default keys "Alt+Shift+D"
+- **Append Periodic Note**: default keys "Alt+Shift+M"
+- **Open Settings**: default keys "Alt+Shift+S"
+
+The hotkeys can be configured in the extension settings.
 
 ## ⭐ Choose Search Provider <Badge type="tip" text="^1.4.0" />
 

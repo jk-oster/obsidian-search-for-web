@@ -11,26 +11,29 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
 - ⌛ **Firefox Support**
 - ⌛ Quick access for specific notes
 - ⌛ Better Note Editing
-- ⌛ Configurable Hotkeys
-- ⌛ Settings JSON import / export
-- ⌛ Bug Reporting Log
-- ⌛ User Guide on First Installation 
+- ⌛ User Guide on First Installation
 - ⌛ Full screen mode for Note Preview
-- ⌛ Show dedicated Page Notes featured in search results (`web-message`)
+- ⌛ Show dedicated Page Notes featured in search results (`web-message` text)
 - ⌛ Search / dedicated Note Caching
 - ⌛ Create new note from sidebar
 
-## Current Work in Progress >= 2.3.4
+## Current Work in Progress >= 2.4.0
 
-- ⚒️ Dedicated Page Notes compatible with [Obsidian Web](https://github.com/coddingtonbear/obsidian-web)
-    - ⚒️ Notifications Messages when Page has dedicated Page Note `url` & `web-message`
-    - ⚒️ Url aliases & wildcards for matching `url-aliases`
-    - ⚒️ Link Hover Badge Messages `web-badge-color`
-    - ⚒️ Extension Badge Color Messages `web-badge-message`
-- ⚒️ Better Edit Mode Saving
-- ⚒️ Dailynote Quick Access
-- ⚒️ Better Documentation
-- ⚒️ Better Connection Check (caching + waiting for config & store initialisation)
+- ⚒️ Configurable Hotkeys
+- ⚒️ Settings JSON import / export
+- ⚒️ Bug Reporting
+
+## Version >= 2.3.4
+
+- ✅ Dedicated Page Notes compatible with [Obsidian Web](https://github.com/coddingtonbear/obsidian-web)
+    - ✅ Notifications Messages when Page has dedicated Page Note `url` & `web-message`
+    - ✅ Url aliases & wildcards for matching `url-aliases`
+    - ✅ Link Hover Badge Messages `web-badge-color`
+    - ✅ Extension Badge Color Messages `web-badge-message`
+- ✅ Better Edit Mode Saving
+- ✅ Dailynote Quick Access
+- ✅ Better Documentation
+- ✅ Better Connection Check (caching + waiting for config & store initialisation)
 
 ## Version >=2.0.0
 
