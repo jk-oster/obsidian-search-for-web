@@ -26,24 +26,6 @@ browser.runtime.setUninstallURL('https://docs.google.com/forms/d/e/1FAIpQLSdKiff
         migrate(config, (oldConf) => {
             return {
                 version: MIGRATION,
-                restApiPort: 27123,
-                restApiProtocol: oldConf?.protocol ?? "http://",
-                show: false,
-                showSidebarWhenNoResults: true,
-                liveSearch: true,
-                showInPageIcon: true,
-                showInPageIconWhenNoResults: true,
-                sidePanelOpen: false,
-                minChars: 2,
-                contextLength: 50,
-                matchCount: 3,
-                noteNumber: 6,
-                highlight: true,
-                embeddedResults: true,
-                highlighting: true,
-                nativeResults: true,
-                preferSidebarEmbeddings: true,
-                theme: 'auto',
             };
         }).then()
     };

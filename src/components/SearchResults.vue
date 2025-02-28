@@ -141,6 +141,7 @@ import CalendarPlusIcon from "./CalendarPlusIcon.vue";
 import NotePreview from "./NotePreview.vue";
 import OpenLink from "./OpenLink.vue";
 import { useHotkeys } from "../hotkeys.js";
+import { whenever } from "@vueuse/core";
 
 const tabService = getTabService();
 
@@ -155,7 +156,10 @@ const searchHotkey = useHotkeys(store.searchHotKeyConfig, () => {
     store.show = true;
   }
   if(searchInput.value) {
-    setTimeout(() => searchInput.value?.focus(), 300);
+    setTimeout(() => {
+      searchInput.value?.focus();
+      searchInput.value?.select();
+    }, 300);
   }
 });
 
@@ -171,8 +175,13 @@ const {
   displayNotesNumber,
   totalMatches,
   connectionStatus,
-  isRestApiConnected
+  isRestApiConnected,
+  debouncedFetchNotes,
 } = useSearch();
+
+whenever(searchString, () => {
+  debouncedFetchNotes();
+});
 
 const emit = defineEmits(['update:matches']);
 watchEffect(() => {

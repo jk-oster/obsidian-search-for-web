@@ -1,6 +1,6 @@
 import type {Mode, State, Color, ExtensionConfig} from "./types.js";
 
-export const MIGRATION = '2.0.0';
+export const MIGRATION = '2.4.0';
 
 export const SearchModes = {
     search: 'search' as Mode,

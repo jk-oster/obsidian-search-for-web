@@ -64,6 +64,15 @@
         Need some help setting up the extension? Check out the quickstart.
         To find out more about the extension features check out the feature guide.
       </p>
+
+      <div class="mb-6 rounded-md bg-gray-200 dark:bg-gray-700 p-4">
+        <p>New Features since v2.4.0</p>
+        <ul>
+          <li>🆕 <a class="underline" href="#hotkey-settings">Hotkeys</a> for key functionalities</li>
+          <li>🆕 <a class="underline" href="#upload">Import / Export Settings</a></li>
+        </ul>
+      </div>
+
       <div class="w-full flex justify-center mb-6">
         <a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html" traget="_blank" class="font-bold text-lg mr-2 inline-flex items-center py-2.5 px-4 focus:outline-hidden text-white bg-purple-700 focus:ring-4 focus:ring-purple-300 rounded-lg dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
           Feature Guide
@@ -120,7 +129,7 @@
 
       <form class="mb-6" id="upload" @submit.prevent="importSettings">
 
-        <label for="file" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Settings file (*.json)</label>
+        <label for="file" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">(optional) Settings file to import *.json</label>
         <input  ref="file" type="file" id="file" accept=".json" class="block mb-2 w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help">
 
         <div class="w-full flex justify-between mb-6">
@@ -557,7 +566,7 @@
             </span>
           </div>
 
-          <h3>Hotkeys</h3>
+          <h3 id="hotkey-settings">Hotkeys</h3>
 
           <div class="grid grid-cols-3 gap-2">
             <div class="mb-6">

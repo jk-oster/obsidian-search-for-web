@@ -137,6 +137,7 @@ export function useSearch(isLoadingInitial: boolean = false) {
         totalMatches: totalMatches,
         fetchNotes,
         detectSearchString,
+        debouncedFetchNotes,
         displayNotesNumber,
         isConnected,
         connectionInfo,
