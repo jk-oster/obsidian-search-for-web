@@ -563,7 +563,7 @@
             <div class="mb-6">
               <label for="pinHotKeyConfig"
                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                Toggle sidebar (default <kbd>{{ config.pinHotKeyConfig }}</kbd>) (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%E2%9A%A1-instant-live-search" class="underline text-purple-600" target="_blank">docs</a>)
+                Toggle sidebar (default <kbd>{{ config.pinHotKeyConfig }}</kbd>) (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#⌨%EF%B8%8F-hotkeys" class="underline text-purple-600" target="_blank">docs</a>)
               </label>
               <input v-model="store.pinHotKeyConfig" type="text" id="pinHotKeyConfig" name="pinHotKeyConfig"
                      placeholder="...additional search domains..."
@@ -573,7 +573,7 @@
             <div class="mb-6">
               <label for="openPeriodicHotKeyConfig"
                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                Open periodic note (default <kbd>{{ config.openPeriodicHotKeyConfig }}</kbd>) (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%E2%9A%A1-instant-live-search" class="underline text-purple-600" target="_blank">docs</a>)
+                Open periodic note (default <kbd>{{ config.openPeriodicHotKeyConfig }}</kbd>) (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#⌨%EF%B8%8F-hotkeys" class="underline text-purple-600" target="_blank">docs</a>)
               </label>
               <input v-model="store.openPeriodicHotKeyConfig" type="text" id="openPeriodicHotKeyConfig" name="openPeriodicHotKeyConfig"
                      placeholder="...additional search domains..."
@@ -583,7 +583,7 @@
             <div class="mb-6">
               <label for="appendPeriodicHotKeyConfig"
                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                Append periodic note (default <kbd>{{ config.appendPeriodicHotKeyConfig }}</kbd>) (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%E2%9A%A1-instant-live-search" class="underline text-purple-600" target="_blank">docs</a>)
+                Append periodic note (default <kbd>{{ config.appendPeriodicHotKeyConfig }}</kbd>) (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#⌨%EF%B8%8F-hotkeys" class="underline text-purple-600" target="_blank">docs</a>)
               </label>
               <input v-model="store.appendPeriodicHotKeyConfig" type="text" id="appendPeriodicHotKeyConfig" name="appendPeriodicHotKeyConfig"
                      placeholder="...additional search domains..."
@@ -593,7 +593,7 @@
             <div class="mb-6">
               <label for="settingsHotKeyConfig"
                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                Open settings (default <kbd>{{ config.settingsHotKeyConfig }}</kbd>) (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%E2%9A%A1-instant-live-search" class="underline text-purple-600" target="_blank">docs</a>)
+                Open settings (default <kbd>{{ config.settingsHotKeyConfig }}</kbd>) (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#⌨%EF%B8%8F-hotkeys" class="underline text-purple-600" target="_blank">docs</a>)
               </label>
               <input v-model="store.settingsHotKeyConfig" type="text" id="settingsHotKeyConfig" name="settingsHotKeyConfig"
                      placeholder="...additional search domains..."
@@ -603,7 +603,7 @@
             <div class="mb-6">
               <label for="searchHotKeyConfig"
                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                Search vault (default <kbd>{{ config.searchHotKeyConfig }}</kbd>) (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%E2%9A%A1-instant-live-search" class="underline text-purple-600" target="_blank">docs</a>)
+                Search vault (default <kbd>{{ config.searchHotKeyConfig }}</kbd>) (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#⌨%EF%B8%8F-hotkeys" class="underline text-purple-600" target="_blank">docs</a>)
               </label>
               <input v-model="store.searchHotKeyConfig" type="text" id="searchHotKeyConfig" name="searchHotKeyConfig"
                      placeholder="...additional search domains..."
