@@ -1,4 +1,4 @@
-# Obsidian Web Search
+# Vault Lens (formerly Obsidian Web Search)
 
 ![release badge](https://github.com/jk-oster/obsidian-search-for-web/actions/workflows/release.yaml/badge.svg)
 
