@@ -30,7 +30,7 @@ In case of connection issues refer to the [FAQ](./faq.md#how-can-i-troubleshoot-
 ## 📑 Sidebar <Badge type="tip" text="^1.0.0" />
 
 The sidebar is always reachable on any webpage you browse.
-In it you find search [results matching the page](#⚡-instant-live-search), [quick access to daily notes](#📅-daily-note-quick-access) and options and the search bar. You can also use it to type a search query directly in the sidebar.
+In it you find search [results matching the page](#⚡-instant-live-search), [quick access to daily notes](#📅-daily-note-quick-access), options and the search bar. You can also use it to type a search query directly in the sidebar.
 
 ![Screenshot Sidebar](./img/sidebar.png)
 
