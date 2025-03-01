@@ -143,6 +143,7 @@ If "light" or "dark" mode are selected then the respective color scheme is enfor
 
 You can quickly open up your current daily note in "Preview" mode or if you just need to quickly jot down something you can use the "Append" mode.
 For both modes there are dedicated buttons in the sidebar menu.
+The periodic notes can also be opened by using the dedicated hotkeys.
 
 ![](./img/periodic-note-quickaccess.png)
 
