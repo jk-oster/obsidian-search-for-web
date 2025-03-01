@@ -1,5 +1,6 @@
 ---
 editLink: true
+lastUpdated: true
 ---
 
 # Feature Guide
