@@ -16,6 +16,8 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
 - ⌛ Show dedicated Page Notes featured in search results (`web-message` text)
 - ⌛ Search / dedicated Note Caching
 - ⌛ Create new note from sidebar
+- ⌛ Dragging & full screen mode for note preview
+- ⌛ Opening note preview in link hover + hotkey
 
 ## Current Work in Progress >= 2.4.0
 
