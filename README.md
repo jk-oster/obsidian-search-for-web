@@ -41,7 +41,7 @@ Find the full feature list [in the docs](https://jk-oster.github.io/obsidian-sea
 This extension just communicates between your local Obsidian REST Api and the browser.
 The only data that is stored permanently in the browser are the settings including the Obsidian REST API-Key. For details read the [privacy statement](https://jk-oster.github.io/obsidian-search-for-web/privacy.html).
 
-Also find details about the [permission this extension requires](https://jk-oster.github.io/obsidian-search-for-web/permissions.html) in the docs.
+Also find details about the [permission this extension requires](https://jk-oster.github.io/obsidian-search-for-web/privacy.html#extension-permissions) in the docs.
 
 ### 🌐 Browser compatibility
 
