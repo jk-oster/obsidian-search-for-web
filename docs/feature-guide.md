@@ -67,6 +67,8 @@ The extension automatically recognizes the following **live search domains** wit
 - ecosia.org
 - yandex.com
 
+If the search engine you are using is not on that list you may still be able to use instant live search by adding the domain of the page e.g. "eu.startpage.com" to the custom live search domains in the extension settings.
+
 ## 💡 Note Recall / URL Matching  <Badge type="tip" text="^1.0.0" />
 
 If you are currently on a page and you have saved its URL somewhere in your Obsidian Vault, the extension will automatically show you all notes that mention that URL in the sidebar. This feature is particularly helpful for locating notes tied to specific websites. Or if you want to see if you have already taken notes on a page you are currently reading. The URL matching is only triggered if the current page does NOT match a configured [**live search domain**](#⚡-instant-live-search).
