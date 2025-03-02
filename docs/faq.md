@@ -132,6 +132,6 @@ The Extension only requires permissions that are necessary to function properly.
 
 The extension does all the note processing offline locally on your machine. There is no data sent anywhere other than between your browser and Obsidian. Read more details about the use of data in the [privacy policy](./privacy.md#use-of-user-data).
 
-## How can I use the extension with a search engine that is not on the officially supported list?
+## How can I use the extension with a search engine that is not officially supported?
 
-For this case there exists a extension setting. First you should try to add the domain of the search engine to "custom search domains" in the settings and check if search triggers now after reloading the page. If it is still not working then you can [open an issue on GitHub](https://github.com/jk-oster/obsidian-search-for-web/issues).
+For this case there exists an extension setting. First you should try to add the domain of the search engine to "custom search domains" in the settings and check if search triggers now after reloading the page. If it is still not working then please [open an issue on GitHub](https://github.com/jk-oster/obsidian-search-for-web/issues).
