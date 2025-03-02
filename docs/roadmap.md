@@ -1,5 +1,6 @@
 ---
 editLink: true
+lastUpdated: true
 ---
 
 # Roadmap
@@ -18,6 +19,7 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
 - ⌛ Create new note from sidebar
 - ⌛ Dragging & full screen mode for note preview
 - ⌛ Opening note preview in link hover + hotkey
+- ⌛ Create new notes from the sidebar
 
 ## Current Work in Progress >= 2.4.0
 
