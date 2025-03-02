@@ -5,7 +5,7 @@ editLink: true
 # FAQ and Troubleshooting
 
 > [!warning] Work in Progress 🏗️
-> This page is a work in progress. If you don't find an answer to your questions here or in the [guide](./feature-guide.md), feel free to [reach out](https://jakobosterberger.com/contact) or to open up an [issue on github](https://github.com/jk-oster/obsidian-search-for-web/issues) (preferably create a bug-report.json in the Extension settings and include it in the issued for easier debugging and context)!
+> This page is a work in progress. If you don't find an answer to your questions here or in the [guide](./feature-guide.md), feel free to [reach out](https://jakobosterberger.com/contact) or to open up an [issue on github](https://github.com/jk-oster/obsidian-search-for-web/issues) (preferably create a bug-report.json in the extension settings and include it in the issue for easier debugging and context)!
 
 > Thanks [@coddingtonbear](https://github.com/coddingtonbear) for inspiration and writing awesome guides on how to tackle certain issues especially regarding the Local REST API plugin.
 
