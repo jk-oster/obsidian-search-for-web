@@ -116,7 +116,7 @@ Most of the time, your changes will be automatically detected by the build scrip
 
 ###### The Bad News
 
-If you modify the service worker or any files it depends on, a simple refresh won’t be enough. You’ll need to manually update the extension:
+If you modify the service worker or any files it depends on, a simple page refresh won’t be enough. You’ll need to manually update the extension:
 
 1. Go to [chrome://extensions/](chrome://extensions/)
 2. Locate your development version (it typically has a red background)
@@ -128,7 +128,7 @@ This ensures your latest updates take effect properly.
 
 The Extension only requires permissions that are necessary to function properly. Read all the details about the permissions [here](./privacy.md#extension-permissions).
 
-## How does Vault Lense use my note data?
+## How does Vault Lens use my note data?
 
 The extension does all the note processing offline locally on your machine. There is no data sent anywhere other than between your browser and Obsidian. Read more details about the use of data in the [privacy policy](./privacy.md#use-of-user-data).
 
