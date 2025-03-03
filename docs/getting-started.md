@@ -7,7 +7,7 @@ editLink: true
 
 # Setup
 
-Follow these quick instructions to start using the [Vault Lens](https://chromewebstore.google.com/detail/ikdemlfoilfdmcdiegelchlhfnkpmaee/) extension in just a minute.
+Follow these quick instructions to start using the [Vault Lens](https://vaultlens.com) extension in just a minute.
 
 ## Pre-Requisites
 
@@ -34,11 +34,11 @@ If you want to use Local REST API and you simply use it locally on your PC over 
 
 If you want to use ``https`` with Local REST API follow [this guide by @coddintonbear](https://github.com/coddingtonbear/obsidian-web/wiki/How-do-I-get-my-browser-trust-my-Obsidian-Local-REST-API-certificate%3F) to enable it and install the necessary certificates.
 
-
-
 ## Installation
 
-[Download and install](https://chromewebstore.google.com/detail/ikdemlfoilfdmcdiegelchlhfnkpmaee/) the extension from the Chrome Web Store.
+Download and install the extension:
+- for Chrome, Edge, Brave, Opera or Arc users from the [Chrome Web Store](https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee)
+- for Firefox users from the [Mozilla Add-on Store](https://addons.mozilla.org/de/firefox/addon/vault-lens/)
 
 ## Browser Extension Configuration
 

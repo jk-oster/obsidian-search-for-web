@@ -51,9 +51,7 @@ The latest development [releases are available on Github](https://github.com/jk-
 
 ## Is Vault Lens also available for Firefox?
 
-**Short answer**: Not yet.
-
-**Long answer**: For now the extension is being developed and tested for Chrome on Windows only. By using the [webextension-polyfill](https://github.com/mozilla/webextension-polyfill) library of mozilla.org it is aiming for Firefox compatibility. However, there are still a few things to clear up and implement before Firefox is fully supported.
+Yes, since version >= 2.5.2 firefox is supported. You can install the firefox plugin through trough the [Mozilla Add-on Store](https://addons.mozilla.org/de/firefox/addon/vault-lens/). The extension is being developed and tested with Chrome and Firefox on Windows only. By using the [webextension-polyfill](https://github.com/mozilla/webextension-polyfill) library of mozilla.org it is aiming for Firefox compatibility.
 
 ## How do I build my own version of Obsidian Brwoser Search?
 

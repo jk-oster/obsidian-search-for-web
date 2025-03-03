@@ -40,7 +40,7 @@ export default defineConfig({
       { text: 'Home', link: '/' },
       { text: 'Getting Started', link: '/getting-started' },
       { text: 'Feature Guide', link: '/feature-guide' },
-      { text: 'Install', link: 'https://chromewebstore.google.com/detail/obsidian-browser-search/ikdemlfoilfdmcdiegelchlhfnkpmaee' },
+      { text: 'Install', link: 'https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee' },
       { text: 'Creator', link: 'https://www.jakobosterberger.com' }
     ],
 

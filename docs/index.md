@@ -14,7 +14,7 @@ hero:
   actions:
     - theme: brand
       text: Install now
-      link: https://chromewebstore.google.com/detail/obsidian-browser-search/ikdemlfoilfdmcdiegelchlhfnkpmaee
+      link: https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee
     - theme: alt
       text: Getting Started
       link: /getting-started
@@ -55,6 +55,11 @@ features:
 > [!important] Disclaimer
 > This is an unofficial browser extension for Obsidian. The project is not sponsored, endorsed or affiliated with Dynalist Inc, the makers of [Obsidian.md](https://obsidian.md). The obsidian logo is property of https://obsidian.md.
 
+## Supported Browsers
+
+- [Download for Chrome, Edge, Brave, Arc or Opera](https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee)
+- [Download for Firefox](https://addons.mozilla.org/de/firefox/addon/vault-lens/)
+
 ## Screenshot Instant Live Search
 
 ![](./img/live-search.png)
@@ -66,3 +71,34 @@ features:
 ## Screenshot Page Note Notifications
 
 ![](./img/page-note-messages.png)
+
+<script setup lang="ts">
+import {onMounted} from "vue";
+import {usePlatform} from "./platform.js";
+
+const storeLinks = {
+  chrome: 'https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee',
+  firefox: 'https://addons.mozilla.org/de/firefox/addon/vault-lens/',
+  edge: 'https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee',
+  opera: 'https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee',
+  arc: 'https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee',
+  brave: 'https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee',
+  safari: 'https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee',
+};
+
+const {os, browser, version} = usePlatform();
+
+onMounted(() => {
+  const downloadBtns = document.querySelectorAll(`a.VPLink[href="${storeLinks.chrome}"], a.VPButton[href="${storeLinks.chrome}"]`);
+  if (!downloadBtns || downloadBtns.length <= 0) {
+    return;
+  }
+
+  if(storeLinks[browser]) {
+    downloadBtns.forEach(btn => {
+      btn.href = storeLinks[browser];
+    });
+  }
+})
+
+</script>
