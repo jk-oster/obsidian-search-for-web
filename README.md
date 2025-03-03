@@ -1,11 +1,10 @@
-# Vault Lens 
+# Vault Lens
 
 ## (formerly Obsidian Browser Search)
 
 ![release badge](https://github.com/jk-oster/obsidian-search-for-web/actions/workflows/release.yaml/badge.svg)
 
 >❗note that this extension requires the [Local REST API](https://github.com/coddingtonbear/obsidian-local-rest-api) or [Omnisearch](https://github.com/scambier/obsidian-omnisearch) Plugin installed!
-
 
 ## Quickstart
 
@@ -64,8 +63,8 @@ For now only Chrome is supported. Firefox support is on the [roadmap](https://jk
 Clone the repository, install dependencies `npm install` (or better use `pnpm install`) and run `npm run dev` / `pnpm dev`.
 This should automatically start chrome with the extension installed.
 
-
 ## Disclaimer
+
 This is an unofficial browser extension for Obsidian. The project is not sponsored, endorsed or affiliated with Dynalist Inc, the makers of [Obsidian.md](https://obsidian.md). The obsidian logo is property of https://obsidian.md.
 
 ## Contact & contribution
