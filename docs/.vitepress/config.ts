@@ -16,6 +16,8 @@ export default defineConfig({
     head.push(['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' }])
     head.push(['link', { rel: 'shortcut icon', href: '/favicon.ico' }])
     head.push(['link', { rel: 'manifest', href: '/site.webmanifest' }])
+    head.push(['script', { id: 'matomo', src: '/matomo.js' }])
+    head.push(['script', { id: 'link', type: 'module', src: '/link.js' }])
     
     return head
   },
@@ -68,5 +70,5 @@ export default defineConfig({
       message: 'Released under the GPLv3 License.',
       copyright: 'Copyright © 2023-present Jakob Osterberger'
     }
-  }
+  },
 })

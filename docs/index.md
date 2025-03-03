@@ -10,7 +10,7 @@ hero:
   # text: "Connect your Obsidian Notes to the Browser"
   text: "Connect Obsidian with your Browser"
 #  text: "Your Webclipper Companion"
-  tagline: Search your Obsidian vault simultaneously as you type your search in your favorite search engine. Show relevant Obsidian notes alongside web search results.
+  tagline: Search your Obsidian vault simultaneously as you type your search in your favorite search engine.
   actions:
     - theme: brand
       text: Install now
@@ -71,34 +71,3 @@ features:
 ## Screenshot Page Note Notifications
 
 ![](./img/page-note-messages.png)
-
-<script setup lang="ts">
-import {onMounted} from "vue";
-import {usePlatform} from "./platform.js";
-
-const storeLinks = {
-  chrome: 'https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee',
-  firefox: 'https://addons.mozilla.org/de/firefox/addon/vault-lens/',
-  edge: 'https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee',
-  opera: 'https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee',
-  arc: 'https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee',
-  brave: 'https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee',
-  safari: 'https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee',
-};
-
-const {os, browser, version} = usePlatform();
-
-onMounted(() => {
-  const downloadBtns = document.querySelectorAll(`a.VPLink[href="${storeLinks.chrome}"], a.VPButton[href="${storeLinks.chrome}"]`);
-  if (!downloadBtns || downloadBtns.length <= 0) {
-    return;
-  }
-
-  if(storeLinks[browser]) {
-    downloadBtns.forEach(btn => {
-      btn.href = storeLinks[browser];
-    });
-  }
-})
-
-</script>
