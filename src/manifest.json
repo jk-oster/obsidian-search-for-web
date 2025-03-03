@@ -42,7 +42,7 @@
 
   "{{firefox}}.browser_specific_settings": {
     "gecko": {
-      "id": "extension@vaultlens.com",
+      "id": "{59dbda35-faa2-4edb-b62a-bc71452a7202}",
       "strict_min_version": "58.0"
     }
   },
