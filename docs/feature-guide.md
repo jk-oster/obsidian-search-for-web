@@ -1,4 +1,7 @@
 ---
+title: Feature Guide
+description: Learn everything about Vault Lens (Browser Search for Obsdidian) and how to use all its powerfull features.
+
 editLink: true
 lastUpdated: true
 ---

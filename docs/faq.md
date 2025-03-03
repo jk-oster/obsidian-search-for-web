@@ -1,4 +1,7 @@
 ---
+title: FAQ & Troubleshooting Guide
+description: Find answers to common questions and solutions to issues with Vault Lens (Browser Search for Obsdidian).
+
 editLink: true
 ---
 

@@ -2,15 +2,15 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
 
-title: Vault Lens - Connect Obsidian with your Browser
-description: Search your Obsidian vault simultaneously as you type your search in your favorite search engine.
+title: Connect Obsidian with your Browser
+description: Search your Obsidian vault simultaneously as you type your search in your favorite search engine. Show relevant Obsidian notes alongside web search results.
 
 hero:
   name: "Vault Lens"
   # text: "Connect your Obsidian Notes to the Browser"
   text: "Connect Obsidian with your Browser"
 #  text: "Your Webclipper Companion"
-  tagline: Search your Obsidian vault simultaneously as you type your search in your favorite search engine.
+  tagline: Search your Obsidian vault simultaneously as you type your search in your favorite search engine. Show relevant Obsidian notes alongside web search results.
   actions:
     - theme: brand
       text: Install now

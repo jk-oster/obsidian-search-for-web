@@ -1,4 +1,7 @@
 ---
+title: Getting Started
+description: Start using Vault Lens (Browser Search for Obsdidian) in just a minute and learn how to use its powerfull features.
+
 editLink: true
 ---
 
