@@ -66,7 +66,7 @@
       </p>
 
       <div class="mb-6 rounded-md bg-gray-200 dark:bg-gray-700 p-4">
-        <p>News since v2.4.0</p>
+        <p>News since v2.5.0</p>
         <ul>
           <li>🆕 Firefox support</li>
           <li>🆕 Extension renamed to "<a class="underline" href="https://vaultlens.com">Vault Lens</a>"</li>
