@@ -459,7 +459,7 @@
               </span>
             </label>
             <div class="text-xs text-gray-700 dark:text-gray-400">
-              Native embeddings are currently available for Google, Bing, Kagi and DuckDuckGo. Turn this off if embedded search results look ugly. This may happen due to updates & changes on your search engine.
+              Native embeddings are currently available for Google, Bing, Kagi and DuckDuckGo. Turn this off if the results take up to much space or if embedded search results look ugly. This may happen due to updates & changes on your search engine.
             </div>
           </div>
 
@@ -545,10 +545,10 @@
                    placeholder="...additional search domains..."
                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
             <span class="text-xs text-gray-700 dark:text-gray-400">
-              Pages on which to look for search input, all others will be matched by URL instead of search input.
+              You are using a search engine that is not on the suppurted list? Instant live search not triggering or embedded results don't show up? Add the respective search engine URLs here.
             </span>
             <span class="text-xs text-gray-700 dark:text-gray-400">
-              The following Domains are currently supported by default:
+              The following domains are currently supported by default:
               <template v-for="(page, index) in pageOptions.filter(p => p.regex)">
                 <a :href="page.url" class="underline">{{ page.url.replace('https://', '') }}</a>{{ index + 1 >= pageOptions.length ? '' : ', ' }}
               </template>
