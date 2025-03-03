@@ -68,10 +68,11 @@
       <div class="mb-6 rounded-md bg-gray-200 dark:bg-gray-700 p-4">
         <p>News since v2.4.0</p>
         <ul>
+          <li>🆕 Firefox support</li>
           <li>🆕 Extension renamed to "<a class="underline" href="https://vaultlens.com">Vault Lens</a>"</li>
-          <li>🆕 Updated and added extension and feature documentation</li>
           <li>🆕 <a class="underline" href="#hotkey-settings">Hotkey</a> functionalities</li>
           <li>🆕 <a class="underline" href="#upload">Import / export settings</a> and bug reporting in the settings</li>
+          <li>🆕 Updated and added extension and feature documentation</li>
         </ul>
       </div>
 
