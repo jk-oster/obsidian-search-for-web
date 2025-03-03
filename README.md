@@ -47,7 +47,8 @@ Also find details about the [permission this extension requires](https://jk-oste
 
 ### 🌐 Browser compatibility
 
-For now only Chrome is supported. Firefox supported since version >=2.5.2 and can be installed through the [add-on store](https://addons.mozilla.org/de/android/addon/vault-lens/). For details read the [FAQ](https://jk-oster.github.io/obsidian-search-for-web/faq.html#is-obsidian-browser-search-also-available-for-firefox).
+Firefox supported since version >=2.5.2 and can be installed through the [add-on store](https://addons.mozilla.org/de/android/addon/vault-lens/). For details read the [FAQ](https://jk-oster.github.io/obsidian-search-for-web/faq.html#is-obsidian-browser-search-also-available-for-firefox).
+
 
 ## 🚧 Test the extension
 
