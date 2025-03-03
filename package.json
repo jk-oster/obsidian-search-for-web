@@ -7,7 +7,7 @@
     "dev": "vite",
     "dev-firefox": "cross-env TARGET=firefox vite",
     "check-types": "vue-tsc",
-    "build": "npm run check-types && npm run build-chrome && npm run build-firefox",
+    "build": "npm run check-types && npm run build-chrome && npm run build-firefox && npm run zip",
     "build-chrome": "vite build",
     "build-firefox": "cross-env TARGET=firefox vite build",
     "rename": "mv $(find ./dist/ -name '_plugin-vue_export-helper.js') ./dist/plugin-vue_export-helper.js",
