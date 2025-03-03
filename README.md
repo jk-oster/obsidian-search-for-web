@@ -9,6 +9,7 @@
 ## Quickstart
 
 - [Install now on Chrome Web Store](https://chromewebstore.google.com/detail/obsidian-browser-search/ikdemlfoilfdmcdiegelchlhfnkpmaee)
+- [Install now on Mozilla Add-on Store](https://addons.mozilla.org/de/android/addon/vault-lens/)
 - Follow the [quickstart manual](https://jk-oster.github.io/obsidian-search-for-web/getting-started.html).
 
 ## 🔗 Connect your Vault to the Browser
@@ -46,7 +47,8 @@ Also find details about the [permission this extension requires](https://jk-oste
 
 ### 🌐 Browser compatibility
 
-For now only Chrome is supported. Firefox support is on the [roadmap](https://jk-oster.github.io/obsidian-search-for-web/roadmap.html). For details read the [FAQ](https://jk-oster.github.io/obsidian-search-for-web/faq.html#is-obsidian-browser-search-also-available-for-firefox).
+Firefox supported since version >=2.5.2 and can be installed through the [add-on store](https://addons.mozilla.org/de/android/addon/vault-lens/). For details read the [FAQ](https://jk-oster.github.io/obsidian-search-for-web/faq.html#is-obsidian-browser-search-also-available-for-firefox).
+
 
 ## 🚧 Test the extension
 
