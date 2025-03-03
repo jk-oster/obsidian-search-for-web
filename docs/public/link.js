@@ -10,15 +10,12 @@ const storeLinks = {
   safari: 'https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee',
 };
 
-const {os, browser, version} = usePlatform();
-
-const downloadBtns = document.querySelectorAll(`a.VPLink[href="${storeLinks.chrome}"], a.VPButton[href="${storeLinks.chrome}"]`);
-if (!downloadBtns || downloadBtns.length <= 0) {
-  return;
-}
-
-if(storeLinks[browser]) {
-  downloadBtns.forEach(btn => {
-    btn.href = storeLinks[browser];
-  });
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const {browser} = usePlatform();
+    const downloadBtns = document.querySelectorAll(`a.VPLink[href="${storeLinks.chrome}"], a.VPButton[href="${storeLinks.chrome}"]`);
+    if (downloadBtns && downloadBtns.length > 0 && storeLinks[browser]) {
+    downloadBtns.forEach(btn => {
+        btn.href = storeLinks[browser];
+    });
+    }
+});
