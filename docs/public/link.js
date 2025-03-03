@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const {browser} = usePlatform();
     const downloadBtns = document.querySelectorAll(`a.VPLink[href="${storeLinks.chrome}"], a.VPButton[href="${storeLinks.chrome}"]`);
     if (downloadBtns && downloadBtns.length > 0 && storeLinks[browser]) {
-    downloadBtns.forEach(btn => {
-        btn.href = storeLinks[browser];
-    });
+        downloadBtns.forEach(btn => {
+            btn.href = storeLinks[browser];
+        });
     }
 });
