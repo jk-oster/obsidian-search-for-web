@@ -30,7 +30,7 @@ const desktops = {
  * @see https://github.com/julienetie/detect-browser/blob/main/detect-browser.js
  * @license MIT (https://github.com/julienetie/detect-browser/blob/main/LICENSE)
  */
-export function usePlatform(customUserAgent: any, customUserAgentData: any) {
+export function usePlatform(customUserAgent: any = null, customUserAgentData: any = null) {
   // Use a provided UA string instead of the browser's UA  
   userAgent = typeof customUserAgent === 'string' ? customUserAgent : userAgent
 

@@ -738,7 +738,7 @@ async function exportBugReport() {
 
   try {
     localRest = await noteService.fetchMetaData(proxyToPlainObject(store));
-    console.log(meta);
+    console.log(localRest);
   } catch (e) {
     console.error(e);
   }
