@@ -4,6 +4,7 @@ import { useDebounceFn } from '@vueuse/core';
 import { getNoteService } from './background-services/NoteService.js';
 import { Note } from './types.js';
 import { useObsidianConnection } from './connection.js';
+import { proxyToPlainObject } from './firefox-util.js';
 
 const noteService = getNoteService();
 
@@ -100,7 +101,7 @@ export function useDedicatedNote() {
         }
 
         try {
-            const dedicatedNotes = await noteService.fetchJsonQuery(jsonQuery, config);
+            const dedicatedNotes = await noteService.fetchJsonQuery(jsonQuery, proxyToPlainObject(config));
             searchResults.value = dedicatedNotes;
 
             // console.log(dedicatedNotes);
@@ -108,7 +109,7 @@ export function useDedicatedNote() {
             if (dedicatedNotes?.length === 0) {
                 dedicatedNote.value = null;
 
-                const mentionedNotes = await noteService.fetchLocalRest(query, config);
+                const mentionedNotes = await noteService.fetchLocalRest(query, proxyToPlainObject(config));
 
                 if (mentionedNotes?.length > 0) {
                     searchResults.value = mentionedNotes;
@@ -118,7 +119,7 @@ export function useDedicatedNote() {
             } else {
                 const fileName = searchResults.value[0].filename;
                 // @ts-ignore
-                const noteResp = await noteService.fetchNote(fileName, config, 'application/vnd.olrapi.note+json');
+                const noteResp = await noteService.fetchNote(fileName, proxyToPlainObject(config), 'application/vnd.olrapi.note+json');
                 note = JSON.parse(noteResp);
 
                 // console.log(note);

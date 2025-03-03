@@ -703,9 +703,9 @@ import {config, pageOptions,  permissions} from "../config.js";
 import {detectPreferredColorScheme, setColorScheme} from "../theme.js";
 import { getTabService } from '../background-services/TabService.js';
 import { getNoteService } from '../background-services/NoteService.js';
-import ExportIcon from './ExportIcon.vue';
-import BugIcon from './BugIcon.vue';
-import ImportIcon from './ImportIcon.vue';
+import ExportIcon from './icons/ExportIcon.vue';
+import BugIcon from './icons/BugIcon.vue';
+import ImportIcon from './icons/ImportIcon.vue';
 
 const tabService = getTabService();
 const noteService = getNoteService();

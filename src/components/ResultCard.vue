@@ -48,9 +48,9 @@
 <script setup lang="ts">
 import NotePreview from "./NotePreview.vue";
 import {useHighlight} from "../highlighter.js";
-import Logo from "./Logo.vue";
+import Logo from "./icons/Logo.vue";
 import {ref} from "vue";
-import OpenLink from "./OpenLink.vue";
+import OpenLink from "./icons/OpenLink.vue";
 import type {NoteMatch} from "../types.js";
 
 const props = defineProps<{

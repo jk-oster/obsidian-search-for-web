@@ -19,17 +19,26 @@ function generateManifest() {
   };
 }
 
+const target = process.env.TARGET || "chrome";
+
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    __BROWSER__: JSON.stringify(target),
+  },
   resolve: {
     alias: {
       "@": resolve(_dirname, "src")
     }
   },
+  build: {
+    outDir: './dist/' + target,
+    emptyOutDir: true,
+  },
   plugins: [
     vue(),
     webExtension({
-      browser: process.env.TARGET || "chrome",
+      browser: target,
       manifest: generateManifest,
       watchFilePaths: ["package.json", "manifest.json"],
     }),

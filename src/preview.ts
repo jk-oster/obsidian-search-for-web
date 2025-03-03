@@ -3,6 +3,7 @@ import {ref} from 'vue';
 import {getNoteService} from "./background-services/NoteService.js";
 import {useObsidianConnection} from "./connection";
 import { Period } from "./types.js";
+import { proxyToPlainObject } from "./firefox-util.js";
 
 const noteService = getNoteService();
 
@@ -20,7 +21,7 @@ export function usePreview() {
         if (restApiStatus.value === 'search') {
             isLoading.value = true;
             try {
-                const noteContent = await noteService.fetchPeriodic(config, period);
+                const noteContent = await noteService.fetchPeriodic(proxyToPlainObject(config), period);
 
                 try {
                     const json = JSON.parse(noteContent);
@@ -49,7 +50,7 @@ export function usePreview() {
         if (restApiStatus.value === 'search') {
             isLoading.value = true;
             try {
-                const noteContent = await noteService.fetchNote(fileName, config);
+                const noteContent = await noteService.fetchNote(fileName, proxyToPlainObject(config));
                 if (noteContent !== previewNote.value) {
                     previewNote.value = noteContent;
                 }
@@ -64,7 +65,7 @@ export function usePreview() {
         if (restApiStatus.value === 'search') {
             isLoading.value = true;
             try {
-                activeNote.value = await noteService.fetchActiveNote(config);
+                activeNote.value = await noteService.fetchActiveNote(proxyToPlainObject(config));
             } catch (e) {
                 activeNote.value = '### Oouups! An Error occurred when trying to fetch the active note :/ \n\n > Try refreshing the page or check your extension settings.'
             }
@@ -74,22 +75,22 @@ export function usePreview() {
     }
 
     const saveNote = async (fileName: string, content: string) => {
-        await noteService.writeNote(fileName, content, config);
+        await noteService.writeNote(fileName, content, proxyToPlainObject(config));
         previewNote.value = content;
     }
 
     const savePeriodicNote = async (content: string, period: Period =  store.period) => {
-        await noteService.writePeriodicNote(content, config, period);
+        await noteService.writePeriodicNote(content, proxyToPlainObject(config), period);
         previewNote.value = content;
     }
 
     const appendNote = async (fileName: string, content: string) => {
-        await noteService.appendNote(fileName, content, config);
+        await noteService.appendNote(fileName, content, proxyToPlainObject(config));
         previewNote.value += '\n' + content;
     }
 
     const appendPeriodicNote = async (content: string, period: Period =  store.period) => {
-        await noteService.appendPeriodicNote(content, config, period);
+        await noteService.appendPeriodicNote(content, proxyToPlainObject(config), period);
         previewNote.value += '\n' + content;
     }
 

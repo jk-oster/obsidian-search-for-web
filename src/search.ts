@@ -6,6 +6,7 @@ import {useDebounceFn, watchImmediate} from "@vueuse/core";
 import {getNoteService} from "./background-services/NoteService.js";
 import {getBadgeService} from "./background-services/BadgeService.js";
 import {useObsidianConnection} from "./connection";
+import { proxyToPlainObject } from "./firefox-util.js";
 
 const noteService = getNoteService();
 const badgeService = getBadgeService();
@@ -89,9 +90,9 @@ export function useSearch(isLoadingInitial: boolean = false) {
 
             let notes: NoteMatch[] = [];
             if (store.provider === 'local-rest') {
-                notes = await noteService.fetchLocalRest(query, config);
+                notes = await noteService.fetchLocalRest(query, proxyToPlainObject(config));
             } else if (store.provider === 'omni-search') {
-                notes = await noteService.fetchOmniSearch(query, config);
+                notes = await noteService.fetchOmniSearch(query, proxyToPlainObject(config));
             }
 
             if (store.excludes && store.excludes.split(',')[0] != '') {

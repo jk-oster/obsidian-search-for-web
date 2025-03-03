@@ -30,12 +30,12 @@
 <script setup lang="ts">
 
 import SearchResults from './SearchResults.vue';
-import Logo from './Logo.vue';
+import Logo from './icons/Logo.vue';
 import {computed, onMounted, ref, watch, watchEffect} from 'vue'
 import {store} from '../store.js';
 import {NoteMatch} from "../types.js";
 import {useElementHover, useDraggable, useWindowSize, useElementSize} from '@vueuse/core';
-import {useObsidianConnection} from "../connection";
+import {useObsidianConnection} from "../connection.js";
 import DedicatedNote from './DedicatedNote.vue';
 
 const searchResults = ref<NoteMatch[]>([]);

@@ -79,17 +79,17 @@
 
 <script setup lang="ts">
 import {marked} from "marked";
-import OpenLink from "./OpenLink.vue";
-import Close from "./Close.vue";
+import OpenLink from "./icons/OpenLink.vue";
+import Close from "./icons/Close.vue";
 import LoadingSpinner from "./LoadingSpinner.vue";
 import {onUnmounted, ref, watch} from "vue";
 import {usePreview} from "../preview.js";
 import {useHighlight} from "../highlighter.js";
 import EasyMDE from "easymde";
-import EditIcon from "./EditIcon.vue";
-import AddCommentIcon from "./AddCommentIcon.vue";
-import OpenEye from "./OpenEye.vue";
-import { PreviewOpenMode, PreviewType } from "../types";
+import EditIcon from "./icons/EditIcon.vue";
+import AddCommentIcon from "./icons/AddCommentIcon.vue";
+import OpenEye from "./icons/OpenEye.vue";
+import { PreviewOpenMode, PreviewType } from "../types.js";
 
 const props = defineProps<{
   filename: string,

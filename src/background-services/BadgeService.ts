@@ -3,9 +3,12 @@ import browser from "webextension-polyfill";
 import type {Color, SearchProvider, State} from "../types.js";
 import {Status, StatusColorMapping} from "../config.js";
 
+// Firefox Manifest v2 does not support action.setBadgeText
+const browserAction = browser?.action || browser?.browserAction;
+
 class BadgeService {
     async getCurrTabId(matches = null) {
-        return browser.tabs.query({active: true, currentWindow: true}).then((tabs) => {
+        return browser?.tabs.query({active: true, currentWindow: true}).then((tabs) => {
             const currTab = tabs[0];
             // @ts-ignore
             if (currTab && (!matches || matches.test(currTab.url))) {
@@ -18,13 +21,15 @@ class BadgeService {
     async setBadgeText(text: string) {
         if (!text || text === '') text = ' ';
         const tabId = await this.getCurrTabId();
-        browser.action.setBadgeText({text, tabId}).then();
+
+        browserAction?.setBadgeText({text, tabId}).then();
     }
 
     async setBadgeColor(color: Color) {
         const tabId = await this.getCurrTabId();
         if (!tabId) return;
-        browser.action.setBadgeBackgroundColor({color, tabId}).then();
+
+        browserAction?.setBadgeBackgroundColor({color, tabId}).then();
     }
 
     async setBadge({color, text, status}: { color: Color | null, text: string | null, status: State | null }) {

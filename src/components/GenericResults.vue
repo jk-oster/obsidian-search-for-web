@@ -59,7 +59,7 @@
 <script lang="ts" setup>
 
 import {useSearch} from "../search.js";
-import Logo from "./Logo.vue";
+import Logo from "./icons/Logo.vue";
 import {getTabService} from "../background-services/TabService.js";
 import LoadingSpinner from "./LoadingSpinner.vue";
 import ResultCard from "./ResultCard.vue";

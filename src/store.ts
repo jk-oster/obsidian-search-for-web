@@ -3,6 +3,7 @@ import {useDebounceFn} from '@vueuse/core';
 import browser from "webextension-polyfill";
 import {config} from "./config.js";
 import type {ExtensionConfig} from "./types.js";
+import { proxyToPlainObject } from "./firefox-util.js";
 
 /**
  * Store for all data that needs to be shared across components & synced with extension storage
@@ -33,13 +34,13 @@ once(syncStoreWithExtStorage)();
  * Two-Way-Sync extension storage with store variable (ext<->store)
  */
 async function syncStoreWithExtStorage() {
-    console.log('store syncing');
+    // console.log('store syncing');
     if (!storeInitialized.value) {
         await loadAllFromExtStorageToStore();
         setExtStorageListeners(saveExtStorageChangesToStore, saveExtStorageChangesToStore);
         await initDebouncedReactiveStoreListener();
         storeInitialized.value = true;
-        console.log('store initialized');
+        // console.log('store initialized');
     }
 }
 
@@ -73,15 +74,19 @@ async function loadAllFromExtStorageToStore() {
         store.vault = data.vault;
         store.matchCount = Number(data.matchCount);
         store.highlight = Boolean(data.highlight);
-        store.embeddedResults = Boolean(data.embeddedResults);
         store.highlighting = Boolean(data.highlighting);
+        
+        store.embeddedResults = Boolean(data.embeddedResults);
         store.nativeResults = Boolean(data.nativeResults);
         store.preferSidebarEmbeddings = Boolean(data.preferSidebarEmbeddings);
+        
         store.theme = data.theme;
         store.period = data.period;
+        
         store.dedicatedNoteNotifications = Boolean(data.dedicatedNoteNotifications);
         store.linkHoverDedicatedNoteBadge = Boolean(data.linkHoverDedicatedNoteBadge);
         store.linkHoverNoteMentions = Boolean(data.linkHoverNoteMentions);
+        
         store.pinHotKeyConfig = data.pinHotKeyConfig;
         store.openPeriodicHotKeyConfig = data.openPeriodicHotKeyConfig;
         store.appendPeriodicHotKeyConfig = data.appendPeriodicHotKeyConfig;
@@ -99,7 +104,7 @@ async function initDebouncedReactiveStoreListener() {
     watch(
         () => state.store, // Getter function to access the reactive object
         async (newVal: any, oldVal: any) => {
-            debouncedSet(newVal).then();
+            debouncedSet(proxyToPlainObject(newVal)).then();
         },
         {deep: true} // Set deep to true if you want to watch nested properties
     );

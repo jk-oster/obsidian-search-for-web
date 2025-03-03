@@ -8,27 +8,31 @@ import {registerConnectionService} from "./background-services/ConnectionService
 
 const {migrate, extensionStorage} = useExtensionStorage();
 
+// Firefox Manifest v2 does not support action.setBadgeText
+const browserAction = browser?.action || browser?.browserAction;
+
 registerBadgeService();
 registerTabService();
 registerNoteService();
 registerConnectionService();
 
+const runMigration = () => {
+    browser.storage.local.set({version: MIGRATION});
+
+    migrate(config, (oldConf) => {
+        return {
+            version: MIGRATION,
+        };
+    }).then()
+};
+
 // Runs every time  the browser is opened / restarted
 browser.runtime.onInstalled.addListener(async () => {
-    browser.action.setBadgeText({text: ' '}).then();
-    browser.action.setBadgeBackgroundColor({color: Colors.gray}).catch(console.log);
 
-browser.runtime.setUninstallURL('https://docs.google.com/forms/d/e/1FAIpQLSdKiffrH7BhdbpTx8PU0E8bCoDkIBu1tI70TYT852tdF5KQFQ/viewform?usp=dialog');
+    browserAction.setBadgeText({text: ' '}).then();
+    browserAction.setBadgeBackgroundColor({color: Colors.gray}).catch(console.log);
 
-    const runMigration = () => {
-        browser.storage.local.set({version: MIGRATION});
-
-        migrate(config, (oldConf) => {
-            return {
-                version: MIGRATION,
-            };
-        }).then()
-    };
+    browser.runtime.setUninstallURL('https://docs.google.com/forms/d/e/1FAIpQLSdKiffrH7BhdbpTx8PU0E8bCoDkIBu1tI70TYT852tdF5KQFQ/viewform?usp=dialog');
 
     // Set default config on first launch & install
     // Open Settings Page on FIRST installation only
@@ -42,7 +46,14 @@ browser.runtime.setUninstallURL('https://docs.google.com/forms/d/e/1FAIpQLSdKiff
 });
 
 // Toggle Pinning Sidebar
-browser.action.onClicked.addListener(async (tab) => {
+browserAction?.onClicked?.addListener(async (tab) => {
+    const {version} = await browser.storage.local.get('version');
+
+    if (version !== MIGRATION) {
+        await runMigration();
+        browser.runtime.openOptionsPage().then();
+    }
+
     const show = await extensionStorage.getItem('show');
     browser.storage.sync.set({show: !show}).then();
 });
