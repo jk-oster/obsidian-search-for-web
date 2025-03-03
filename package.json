@@ -1,7 +1,7 @@
 {
   "name": "obsidian-browser-search",
   "description": "Search your Obsidian vault simultaneously as you type your search in your favorite search engine.",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,9 +14,9 @@
     "rewrite": "cd ./dist && grep -Ril '_plugin-vue_export-helper\\.js' | xargs sed -i 's/_plugin-vue_export-helper\\.js/plugin-vue_export-helper\\.js/g' && cd ../",
     "zip": "zip -r dist.zip dist/",
     "post-version": "git push && git push --tags",
-    "version-patch": "npm run build && npm version patch --force -m \"[RELEASE] patch version %s\"",
-    "version-minor": "npm run build && npm version minor --force -m \"[RELEASE] minor version %s\"",
-    "version-major": "npm run build && npm version major --force -m \"[RELEASE] major version %s\"",
+    "version-patch": "npm version patch --force -m \"[RELEASE] patch version %s\" && npm run build",
+    "version-minor": "npm version minor --force -m \"[RELEASE] minor version %s\" && npm run build",
+    "version-major": "npm version major --force -m \"[RELEASE] major version %s\" && npm run build",
     "deploy": "npm run ./deploy.js",
     "upload": "npm run ./upload.js",
     "postinstall": "patch-package",
