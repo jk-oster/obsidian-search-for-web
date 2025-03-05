@@ -9,7 +9,6 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
 
 ## Future
 
-- ⌛ **Firefox Support**
 - ⌛ Quick access for specific notes
 - ⌛ Better Note Editing
 - ⌛ User Guide on First Installation
@@ -18,11 +17,14 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
 - ⌛ Search / dedicated Note Caching
 - ⌛ Create new note from sidebar
 - ⌛ Dragging & full screen mode for note preview
-- ⌛ Opening note preview in link hover + hotkey
+- ⌛ Opening note preview on link hover + hotkey
 - ⌛ Create new notes from the sidebar
+- ⌛ Advanced instant live search configuration
+- ⌛ Instant live search fallback to page title in case URL is not found
 
-## Current Work in Progress >= 2.4.0
+## Current Work in Progress >= 2.5.0
 
+- ⚒️ **Firefox Support**
 - ⚒️ Configurable Hotkeys
 - ⚒️ Settings JSON import / export
 - ⚒️ Bug Reporting
