@@ -3,7 +3,7 @@ import {usePlatform} from "./platform.js";
 const storeLinks = {
   chrome: 'https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee',
   firefox: 'https://addons.mozilla.org/de/firefox/addon/vault-lens/',
-  edge: 'https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee',
+  edge: 'https://microsoftedge.microsoft.com/addons/detail/vault-lens/famedkcjbljkkabgpphnioagamckhmcj',
   opera: 'https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee',
   arc: 'https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee',
   brave: 'https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee',
