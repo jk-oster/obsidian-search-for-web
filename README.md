@@ -10,7 +10,7 @@
 
 - [Install now on Chrome Web Store](https://chromewebstore.google.com/detail/obsidian-browser-search/ikdemlfoilfdmcdiegelchlhfnkpmaee)
 - [Install now on Mozilla Add-on Store](https://addons.mozilla.org/de/android/addon/vault-lens/)
-- [Install nö on Microsoft Edge Add-on Store](https://microsoftedge.microsoft.com/addons/detail/vault-lens/famedkcjbljkkabgpphnioagamckhmcj)
+- [Install now on Microsoft Edge Add-on Store](https://microsoftedge.microsoft.com/addons/detail/vault-lens/famedkcjbljkkabgpphnioagamckhmcj)
 - Follow the [quickstart manual](https://jk-oster.github.io/obsidian-search-for-web/getting-started.html).
 
 ## 🔗 Connect your Vault to the Browser
