@@ -57,8 +57,9 @@ features:
 
 ## Supported Browsers
 
-- [Download for Chrome, Edge, Brave, Arc or Opera](https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee)
+- [Download for Chrome, Brave, Arc or Opera](https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee)
 - [Download for Firefox](https://addons.mozilla.org/de/firefox/addon/vault-lens/)
+- [Download for Edge](https://microsoftedge.microsoft.com/addons/detail/vault-lens/famedkcjbljkkabgpphnioagamckhmcj)
 
 ## Screenshot Instant Live Search
 
