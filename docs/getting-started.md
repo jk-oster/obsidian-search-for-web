@@ -38,7 +38,8 @@ If you want to use ``https`` with Local REST API follow [this guide by @coddinto
 
 Download and install the extension:
 - for Chrome, Edge, Brave, Opera or Arc users from the [Chrome Web Store](https://chromewebstore.google.com/detail/vault-lens/ikdemlfoilfdmcdiegelchlhfnkpmaee)
-- for Firefox users from the [Mozilla Add-on Store](https://addons.mozilla.org/de/firefox/addon/vault-lens/)
+- for Firefox from the [Mozilla Add-on Store](https://addons.mozilla.org/de/firefox/addon/vault-lens/)
+- for Edge from the [Microsoft Edge Add-on Store](https://microsoftedge.microsoft.com/addons/detail/vault-lens/famedkcjbljkkabgpphnioagamckhmcj)
 
 ## Browser Extension Configuration
 
