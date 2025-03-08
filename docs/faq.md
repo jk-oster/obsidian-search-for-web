@@ -53,7 +53,7 @@ The latest development [releases are available on Github](https://github.com/jk-
 
 Yes, since version >= 2.5.2 firefox is supported. You can install the firefox plugin through trough the [Mozilla Add-on Store](https://addons.mozilla.org/de/firefox/addon/vault-lens/). The extension is being developed and tested with Chrome and Firefox on Windows only. By using the [webextension-polyfill](https://github.com/mozilla/webextension-polyfill) library of mozilla.org it is aiming for Firefox compatibility.
 
-## How do I build my own version of Obsidian Brwoser Search?
+## How do I build my own version of Vault Lens?
 
 ### For the Webdevelopers
 
@@ -135,4 +135,6 @@ The extension does all the note processing offline locally on your machine. Ther
 
 ## How can I use the extension with a search engine that is not officially supported?
 
-For this case there exists an extension setting. First you should try to add the domain of the search engine to "custom search domains" in the settings and check if search triggers now after reloading the page. If it is still not working then please [open an issue on GitHub](https://github.com/jk-oster/obsidian-search-for-web/issues).
+If you want to use the live search feature on a different page than on the officially supported search engines e.g. "wikipedia.org" or "eu.startpage.com" then you can use the dedicated extension setting. 
+
+Add the domain of the search engine to "custom search domains" in the settings and check if search triggers now after reloading the page. In the best case it works out of the box. However, in case the search engine or page does not use common naming conventions for their search inputs and query strings it might not work. Feel free to [open an issue on GitHub](https://github.com/jk-oster/obsidian-search-for-web/issues) so we can find a solution or add it officially to the supported domains.
