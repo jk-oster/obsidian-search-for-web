@@ -70,7 +70,7 @@ The extension automatically recognizes the following **live search domains** wit
 - ecosia.org
 - yandex.com
 
-If the search engine you are using is not on that list you may still be able to use instant live search by adding the domain of the page e.g. "eu.startpage.com" to the custom live search domains in the extension settings. Read more about this in the [FAQ](./faq.md#)
+If the search engine you are using is not on that list you may still be able to use instant live search by adding the domain of the page e.g. "eu.startpage.com" to the custom live search domains in the extension settings. Read more about this in the [FAQ](./faq.md#how-can-i-use-the-extension-with-a-search-engine-that-is-not-officially-supported)
 
 ## 💡 Note Recall / URL Matching  <Badge type="tip" text="^1.0.0" />
 
