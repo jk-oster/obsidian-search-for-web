@@ -39,7 +39,7 @@ In it you find search [results matching the page](#⚡-instant-live-search), [qu
 
 ### Opening the Sidebar
 
-By default, the extension sidebar can be opened by hovering the extension icon on the page.
+By default, the extension sidebar can be opened by hovering the extension icon on the page or using the dedicated hotkey.
 As soon as you leave the extension sidebar with your mouse again it will be hidden again.
 
 ### Pinning the Sidebar <Badge type="tip" text="^2.0.0" />
