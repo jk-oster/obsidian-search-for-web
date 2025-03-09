@@ -11,7 +11,8 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
 
 - ⌛ Quick access for specific notes
 - ⌛ Better Note Editing
-- ⌛ User Guide on First Installation
+- ⌛ User guide on first installation
+- ⌛ Better extension option-page & defaults
 - ⌛ Full screen mode for Note Preview
 - ⌛ Show dedicated Page Notes featured in search results (`web-message` text)
 - ⌛ Search / dedicated Note Caching
@@ -19,8 +20,8 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
 - ⌛ Dragging & full screen mode for note preview
 - ⌛ Opening note preview on link hover + hotkey
 - ⌛ Create new notes from the sidebar
-- ⌛ Advanced instant live search configuration
-- ⌛ Instant live search fallback to page title in case URL is not found
+- ⌛ Advanced Instant Live Search configuration (regex support + query selector)
+- ⌛ Instant Live Search fallback to page title in case URL is not found
 
 ## Current Work in Progress >= 2.5.0
 
