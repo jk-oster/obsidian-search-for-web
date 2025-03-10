@@ -43,20 +43,21 @@ Download and install the extension:
 
 ## Browser Extension Configuration
 
-When you install the Extension for the first time the **Options page** should automatically open up (if this is not the case you can reach the options page though the extension settings of your browser).
+When you install the Extension for the first time the **Options page** should automatically open up. If this is not the case you can reach the options page though the extension settings of your browser or through the extension sidebar.
 
-On the extension Options page scroll down to "Core Settings".
+On the extension Options page scroll down to "Obsidian Connection".
+
 1. Choose your favorite Search Provider plugin
 2. Make sure the Obsidian App is running and your search provider Plugin(s) are enabled
 3. Configure the "Protocol" and "Port" settings to match the respective obsidian plugin configuration.
-   - **Omnisearch Default**: Protocol = `http`, Port = `51736`
-   - **Local REST Api**:
+   - For **Omnisearch Default**: Protocol = `http`, Port = `51736`
+   - For **Local REST Api**:
       - Protocol = `http`, Port = `27123`
       - Protocol = `https`, Port = `27124`
       - make sure to set the "API-Key"
 4. The extension will try to connect to your search provider and lets you know via a toast message once connection has been established.
 
-*✅ Everything set up!  Happy browsing and note-taking while using the extension*
+*✅ Everything set up! Happy browsing and note-taking while using the extension*
 
 _(Optional)_ Have a look further down to the "Display Settings" to explore and fine tune to your preferences.
 
