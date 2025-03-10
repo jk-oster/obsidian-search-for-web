@@ -30,7 +30,7 @@
     </nav>
   </header>
 
-  <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 lg:w-80 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+  <aside id="sidebar" class="fixed top-0 left-0 z-40 w-64 lg:w-80 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
    <div class="h-full px-3 py-4 pt-8 lg:pt-12 overflow-y-auto bg-gray-50 dark:bg-gray-800">
       <ul class="mt-14 space-y-2 font-medium">
          <li v-for="item in sidebarItems" :key="item.name">
@@ -899,7 +899,7 @@ function providerChanged() {
 }
 
 /* Hide scrollbar by default */
-::-webkit-scrollbar {
+#sidebar ::-webkit-scrollbar {
   width: 8px; /* Adjust width as needed */
   height: 4px;
   border-radius: 3px;
@@ -907,18 +907,18 @@ function providerChanged() {
 }
 
 /* Handle (thumb) */
-::-webkit-scrollbar-thumb {
+#sidebar ::-webkit-scrollbar-thumb {
   background: transparent;
   border-radius: 4px;
   transition: background 0.3s ease-in-out;
 }
 
-* {
+#sidebar * {
   scroll-margin-top: 70px;
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
 }
-* :hover {
+#sidebar * :hover {
   scrollbar-color: #666 transparent;
 }
 

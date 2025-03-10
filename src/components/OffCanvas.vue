@@ -19,9 +19,11 @@
     </div>
   </button>
   <div ref="offCanvas"
-       id="obsidian-search-for-web-offcanvas-results"
-       :class="(showPopup ? ' translate-x-0 ' : ' translate-x-full ') + ' max-h-screen w-[20em] md:w-[22em] lg:w-[24em] xl:w-[26em] popup-container shadow-sm dark:shadow-none border border-1 border-solid border-gray-200 dark:border-0 fixed duration-300 ease-in-out right-0 top-0 bg-gray-50 dark:bg-gray-800 p-2 rounded-l-[.375em] overflow-auto'">
-    <SearchResults @update:matches="childMatches($event)"></SearchResults>
+       id="obsidian-search-for-web-offcanvas-results overflow-hidden"
+       :class="(showPopup ? ' translate-x-0 ' : ' translate-x-full ')"
+       class="max-h-screen w-[20em] md:w-[22em] lg:w-[24em] xl:w-[26em] popup-container shadow-sm dark:shadow-none border border-1 border-solid border-gray-200 dark:border-0 fixed duration-300 ease-in-out right-0 top-0 bg-gray-50 dark:bg-gray-800 p-2 rounded-l-[.375em] overflow-auto">
+      <div v-if="isOnDelay && !store.show" class="animate-progress absolute top-0 right-0 w-full h-[3px] bg-gray-200 dark:bg-gray-600"></div>
+      <SearchResults @update:matches="childMatches($event)"></SearchResults>
   </div>
 
   <DedicatedNote></DedicatedNote>
@@ -33,7 +35,7 @@ import SearchResults from './SearchResults.vue';
 import Logo from './icons/Logo.vue';
 import {computed, onMounted, ref, watch, watchEffect} from 'vue'
 import {store} from '../store.js';
-import {NoteMatch} from "../types.js";
+import {Note, NoteMatch} from "../types.js";
 import {useElementHover, useDraggable, useWindowSize, useElementSize} from '@vueuse/core';
 import {useObsidianConnection} from "../connection.js";
 import DedicatedNote from './DedicatedNote.vue';
@@ -88,6 +90,8 @@ const isOffCanvasHovered = useElementHover(offCanvas, {
   delayEnter: 300,
   delayLeave: 1000,
 });
+const isOffCanvasHoveredNoDelay = useElementHover(offCanvas);
+const isOnDelay = computed(() => isOffCanvasHovered.value && !isOffCanvasHoveredNoDelay.value);
 
 const showPopup = computed(() => (store.showSidebarOnButtonHover && isToggleHovered.value) || isOffCanvasHovered.value || (store.show && (store.showSidebarWhenNoResults || searchResults.value?.length > 0)));
 const showToggle = computed(() => store.showInPageIcon && (store.showInPageIconWhenNoResults || searchResults.value?.length > 0));
@@ -150,5 +154,14 @@ function childMatches({matches, searchString}: { matches: NoteMatch[], searchStr
 .popup-container,
 .popup-button {
   z-index: 99999;
+}
+
+@keyframes progress {
+    from { width: 100%; }
+    to { width: 0%; }
+}
+
+.animate-progress {
+    animation: progress 1s linear forwards;
 }
 </style>

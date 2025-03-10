@@ -45,7 +45,9 @@ function close() {
 
 <template>
   <div v-if="show" class="fixed bottom-1 right-2" :class="additionalClasses"  style="z-index: 999999;">
-    <div class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-gray-50 rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800 border border-gray-100 dark:border-gray-600" role="alert">
+    <div class="relative overflow-hidden flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-gray-50 rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800 border border-gray-100 dark:border-gray-600" role="alert">
+    
+      <div :style="{animation: 'timeoutbar-progress ' + Math.round(props.timeout / 1000) + 's linear forwards'}" class="top-0 left-0 absolute w-full h-[2px] bg-gray-300 dark:bg-gray-600"></div>
 
       <slot name="icon">
 
@@ -128,5 +130,12 @@ function close() {
   60% {
     transform: translate3d(3px, 0, 0);
   }
+}
+</style>
+
+<style>
+@keyframes timeoutbar-progress {
+    from { width: 100%; }
+    to { width: 0%; }
 }
 </style>
