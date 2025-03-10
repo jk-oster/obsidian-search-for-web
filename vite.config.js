@@ -36,7 +36,13 @@ export default defineConfig({
     emptyOutDir: true,
   },
   plugins: [
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          whitespace: 'preserve'
+        },
+      },
+    }),
     webExtension({
       browser: target,
       manifest: generateManifest,
