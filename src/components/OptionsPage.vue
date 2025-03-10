@@ -182,8 +182,14 @@
                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                   Select Protocol
                 </label>
-                <select v-model="store.protocol" @change="checkApi();" id="protocol" name="protocol" required
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <select 
+                  v-model="store.protocol" 
+                  @change="checkApi();" 
+                  id="protocol" 
+                  name="protocol" 
+                  required
+                  :class="store.provider === 'omni-search' ? 'border border-solid border-purple-700' : 'border border-gray-300 dark:border-gray-600'"      
+                  class="bg-gray-50 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                   <option value="http://">HTTP (default - non-encrypted)</option>
                 </select>
               </div>
@@ -191,8 +197,13 @@
                   <label for="port" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                     Port number
                   </label>
-                  <input v-model="store.port" @change="checkApi();" type="number" id="port" name="port"
-                         class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
+                  <input v-model="store.port" 
+                    @change="checkApi();" 
+                    type="number" 
+                    id="port" 
+                    name="port"
+                    :class="store.provider === 'omni-search' ? 'border border-solid border-purple-700' : 'border border-gray-300 dark:border-gray-600'"      
+                    class="shadow-xs bg-gray-50 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
               </div>
             </div>
 
@@ -205,8 +216,13 @@
                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                   Select Protocol
                 </label>
-                <select v-model="store.restApiProtocol" @change="checkRestApi();" id="restApiProtocol" name="restApiProtocol" required
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <select v-model="store.restApiProtocol" 
+                  @change="checkRestApi();" 
+                  id="restApiProtocol" 
+                  name="restApiProtocol" 
+                  required
+                  class="bg-gray-50 text-gray-900 text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                  :class="store.provider === 'local-rest' ? 'border border-solid border-purple-700' : 'border border-gray-300 dark:border-gray-600'">
                   <option value="https://">HTTPS</option>
                   <option value="http://">HTTP (non-encrypted)</option>
                 </select>
@@ -215,9 +231,15 @@
                   <label for="restApiPort" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                     Port number
                   </label>
-                  <input v-model="store.restApiPort" @change="checkRestApi();" type="number" id="restApiPort" name="restApiPort"
-                         class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
-              </div>
+                  <input 
+                    v-model="store.restApiPort" 
+                    @change="checkRestApi();" 
+                    type="number" 
+                    id="restApiPort" 
+                    name="restApiPort"
+                    class="shadow-xs bg-gray-50 text-gray-900 text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700  dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 dark:shadow-sm-light"
+                    :class="store.provider === 'local-rest' ? 'border border-solid border-purple-700' : 'border border-gray-300 dark:border-gray-600'" />
+                  </div>
             </div>
 
           </div>
@@ -226,11 +248,14 @@
             <label for="apiKey"
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
               Your Obsidian REST Api Key * (Local REST API only)</label>
-            <input v-model="store.apiKey" @change="checkRestApi();" type="text"
+            <input v-model="store.apiKey" 
+                   @change="checkRestApi();" 
+                   type="text"
                    id="apiKey" name="apiKey"
                    placeholder="Local REST API Key"
-                   class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                   required/>
+                   class="shadow-xs bg-gray-50 text-gray-900 text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 dark:shadow-sm-light"
+                   :class="store.provider === 'local-rest' ? 'border border-solid border-purple-700' : 'border border-gray-300 dark:border-gray-600'"      
+                   required />
           </div>
 
           <p class="mb-6">Troubles with the connection? Find help in the <a href="https://jk-oster.github.io/obsidian-search-for-web/faq.html#how-can-i-troubleshoot-connection-problems-between-obsidian-browser-search-and-obsidian-local-rest-api" class="underline text-purple-600" target="_blank">docs</a>.</p>
