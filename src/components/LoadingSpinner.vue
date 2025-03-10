@@ -13,6 +13,7 @@ export default defineComponent({
 </script>
 
 <template>
+  <!-- @vue-ignore -->
   <div :class="class">
     <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
   </div>

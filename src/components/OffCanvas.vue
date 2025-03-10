@@ -96,8 +96,6 @@ onMounted(async () => {
   store.currentUrl = location.href;
 });
 
-
-
 function toggleSidebar(): void {
   store.show = !store.show;
 }
@@ -110,47 +108,27 @@ function childMatches({matches, searchString}: { matches: NoteMatch[], searchStr
 
 <style scoped>
 @import "../style/main.css";
-
-html {
-  scrollbar-face-color: #646464;
-  scrollbar-base-color: #646464;
-  scrollbar-3dlight-color: #646464;
-  scrollbar-highlight-color: #646464;
-  scrollbar-track-color: #000;
-  scrollbar-arrow-color: #000;
-  scrollbar-shadow-color: #646464;
-  scrollbar-dark-shadow-color: #646464;
-}
-
+/* Hide scrollbar by default */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 3px;
-}
-
-::-webkit-scrollbar-button {
-  background-color: #666;
-}
-
-::-webkit-scrollbar-track {
-  background-color: #646464;
-}
-
-::-webkit-scrollbar-track-piece {
-  background-color: #000;
-}
-
-::-webkit-scrollbar-thumb {
-  height: 50px;
-  background-color: #666;
+  width: 8px; /* Adjust width as needed */
+  height: 4px;
   border-radius: 3px;
+  background: transparent;
 }
 
-::-webkit-scrollbar-corner {
-  background-color: #646464;
+/* Handle (thumb) */
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+  transition: background 0.3s ease-in-out;
 }
 
-::-webkit-resizer {
-  background-color: #666;
+* {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+* :hover {
+  scrollbar-color: #666 transparent;
 }
 
 .translate-x-0 {
