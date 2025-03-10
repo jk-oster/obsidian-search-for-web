@@ -87,13 +87,13 @@ export function useSearch(isLoadingInitial: boolean = false) {
 
         if (searchResults.value.length === 0) {
             searchSrc.value = 'document title';
-            searchString.value = document.title;
+            searchString.value = document.title.trim();
             await fetchNotes(searchString.value);
         }
 
         if (searchResults.value.length === 0) {
             searchSrc.value = 'document heading';
-            searchString.value = document.querySelector('h1')?.textContent ?? '';
+            searchString.value = document.querySelector('h1')?.textContent?.trim() ?? '';
             await fetchNotes(searchString.value);
         }
     }
