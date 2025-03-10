@@ -1,5 +1,5 @@
 <template>
-  <div ref="popover" popover style="font-size: 16px;"
+  <div ref="popover" popover style="font-size: 16px;" :class="isFullscreen ? 'fullscreen' : ''"
        class="obsidian-browser-search-popover mt-4 p-4 min-h-48 w-xl max-w-xl lg:max-w-2xl bg-white rounded-[.5em] border border-gray-200 shadow-md dark:bg-gray-900 dark:border-gray-700">
 
     <div class="absolute flex justify-between items-center top-0 right-0 left-0 border-b px-4 py-2 border-gray-200 bg-gray-50 dark:bg-gray-800">
@@ -25,6 +25,12 @@
           <OpenLink class="h-6 w-6"></OpenLink>
         </a>
 
+        <button @click="toggleFullScreen()" title="Toggle Fullscreen"
+                class=" p-1 text-xs font-medium text-gray-900 focus:outline-hidden bg-white rounded-[.5em] border border-gray-200 hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+          <ExitFullscreenIcon v-if="isFullscreen" class="h-6 w-6"></ExitFullscreenIcon>
+          <FullscreenIcon v-else class="h-6 w-6"></FullscreenIcon>
+        </button>
+
         <button @click="closeNotePreview()" title="Close Preview"
                 class=" p-1 text-xs font-medium text-gray-900 focus:outline-hidden bg-white rounded-[.5em] border border-gray-200 hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
           <Close class="h-6 w-6"></Close>
@@ -33,7 +39,7 @@
 
     </div>
 
-    <div class="w-full mt-[1.6em]">
+    <div class="w-full mt-[1.6em] max-w-[720px] mx-auto">
       <div class="w-full flex justify-center">
         <LoadingSpinner v-if="isLoading && !previewNote"></LoadingSpinner>
       </div>
@@ -69,7 +75,7 @@
 
       <div class="max-h-[85vh] overflow-y-auto">
         <!-- @vue-ignore -->
-        <div v-if="mode === 'preview'" class="obsidian-browser-search-preview-container mt-2 prose prose-slate dark:prose-invert" v-html="highlight(marked.parse(previewNote ?? ''), searchString)"></div>
+        <div v-if="mode === 'preview'" style="max-width: 100%" class="mt-2 prose prose-slate dark:prose-invert obsidian-browser-search-preview-container" v-html="highlight(marked.parse(previewNote ?? ''), searchString)"></div>
       </div>
 
     </div>
@@ -90,6 +96,8 @@ import EditIcon from "./icons/EditIcon.vue";
 import AddCommentIcon from "./icons/AddCommentIcon.vue";
 import OpenEye from "./icons/OpenEye.vue";
 import { PreviewOpenMode, PreviewType } from "../types.js";
+import FullscreenIcon from "./icons/FullscreenIcon.vue";
+import ExitFullscreenIcon from "./icons/ExitFullscreenIcon.vue";
 
 const props = defineProps<{
   filename: string,
@@ -107,6 +115,7 @@ const popover = ref<HTMLElement|null>(null);
 const editor = ref<HTMLElement|null>(null);
 const appendContent = ref<string>('');
 const mode = ref<PreviewOpenMode>(props.mode ?? 'preview');
+const isFullscreen = ref<boolean>(false);
 const unsavedChanges = ref<boolean>(false);
 let easyMDE: any;
 const {
@@ -251,6 +260,11 @@ function refreshEditor() {
   }, 1);
 }
 
+function toggleFullScreen() {
+  if(!popover.value) return;
+  isFullscreen.value = !isFullscreen.value;
+}
+
 defineExpose({
   openNotePreview,
   closeNotePreview,
@@ -260,6 +274,12 @@ defineExpose({
 
 <style>
 @import "../../node_modules/easymde/dist/easymde.min.css";
+
+.obsidian-browser-search-preview-container,
+.obsidian-browser-search-preview-container > span {
+  max-width: 100%;
+  width: 100%;
+}
 
 .obsidian-browser-search-preview-container:has(> hr:first-child + h2) > hr:first-child,
 .obsidian-browser-search-preview-container:has(> hr:first-child + h2) > h2:first-of-type,
@@ -290,6 +310,12 @@ defineExpose({
   min-width: min(28rem, 100vw);
 }
 
+[popover].fullscreen {
+  min-width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+}
+
 [popover] button[aria-pressed='true'] {
   background: rgb(228, 228, 228);
 }
@@ -297,46 +323,27 @@ defineExpose({
   background: #646464;
 }
 
-html {
-  scrollbar-face-color: #646464;
-  scrollbar-base-color: #646464;
-  scrollbar-3dlight-color: #646464;
-  scrollbar-highlight-color: #646464;
-  scrollbar-track-color: #000;
-  scrollbar-arrow-color: #000;
-  scrollbar-shadow-color: #646464;
-  scrollbar-dark-shadow-color: #646464;
-}
-
+/* Hide scrollbar by default */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 3px;
-}
-
-::-webkit-scrollbar-button {
-  background-color: #666;
-}
-
-::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
-::-webkit-scrollbar-track-piece {
-  background-color: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  height: 50px;
-  background-color: #666;
+  width: 8px; /* Adjust width as needed */
+  height: 4px;
   border-radius: 3px;
+  background: transparent;
 }
 
-::-webkit-scrollbar-corner {
-  background-color: #646464;
+/* Handle (thumb) */
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+  transition: background 0.3s ease-in-out;
 }
 
-::-webkit-resizer {
-  background-color: #666;
+* {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+* :hover {
+  scrollbar-color: #666 transparent;
 }
 
 </style>
