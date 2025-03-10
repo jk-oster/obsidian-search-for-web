@@ -1,5 +1,5 @@
 import {store} from "./store.js";
-import {Status, SearchModes, pageOptions} from "./config.js";
+import {Status, SearchModes, pageOptions, inputSelector} from "./config.js";
 import type {NoteMatch} from "./types.js";
 import {ref, computed} from 'vue';
 import {useDebounceFn, watchImmediate} from "@vueuse/core";
@@ -18,6 +18,7 @@ export function useSearch(isLoadingInitial: boolean = false) {
 
     const searchUrls = computed(() => config.searchUrls.split(',').map((url: string) => url.trim()).filter((url: string) => url.length > 0));
 
+    const searchSrc = ref<string>('');
     const searchString = ref<string>('');
     const searchResults = ref<NoteMatch[]>([]);
     const initialized = ref<boolean>(false);
@@ -28,13 +29,15 @@ export function useSearch(isLoadingInitial: boolean = false) {
     const paginatedResults = computed(() => searchResults.value?.slice(0, displayNotesNumber.value));
     const totalMatches = computed(() => searchResults.value.length ?? 0);
 
-    const debouncedFetchNotes = useDebounceFn(() => {
-        fetchNotes(searchString.value).then();
-    });
+    const debouncedFetchNotes = useDebounceFn(async () => await fetchNotes(searchString.value));
 
     const detectSearchMode = () => {
         const currentUrl = window.location.href;
-        if (searchUrls.value.some((url: string) => currentUrl.includes(url)) || pageOptions.some(page => page.regex?.test(currentUrl))) {
+        if (
+            pageOptions.some(page => page.regex?.test(currentUrl)) ||
+            searchUrls.value.some((url: string) => currentUrl.includes(url)) || 
+            searchUrls.value.some(url => (new RegExp(url)).test(currentUrl))
+        ) {
             searchMode.value = SearchModes.search;
         } else {
             searchMode.value = SearchModes.urlMatch;
@@ -43,14 +46,16 @@ export function useSearch(isLoadingInitial: boolean = false) {
     }
 
     const detectInputElement = () => {
-        const input = document.querySelector("input[placeholder='Search the web'],input[aria-label=Suche], input[aria-label=Search], input[name=q], input[data-testid='search-input'], input[type=search], input.s_ipt, input[name=wd], textarea[name=q], textarea[type=search], textarea[aria-label=Suche], textarea[aria-label=Search], textarea.mini-suggest__input, input.mini-suggest__input");
+        const input = document.querySelector(inputSelector);
         if (input && input !== searchInputElement.value) {
             searchInputElement.value = input;
 
             if(store.liveSearch) {
                 input.addEventListener('keyup', (event) => {
                     // @ts-ignore
-                    if (!event?.ctrlKey) {
+                    if (!event?.ctrlKey && !event?.metaKey && !event?.altKey) {
+                        // console.log('Input event', event);
+                        searchSrc.value = 'search input field';
                         searchString.value = (input as HTMLInputElement).value;
                         debouncedFetchNotes().then();
                     }
@@ -61,19 +66,45 @@ export function useSearch(isLoadingInitial: boolean = false) {
         return searchInputElement.value;
     }
 
-    const detectSearchString = () => {
-        if (detectSearchMode() === SearchModes.urlMatch) {
-            searchString.value = window.location.href;
-            debouncedFetchNotes().then();
-            return;
+    const detectSearchString = async () => {
+        if (detectSearchMode() === SearchModes.search) {
+            await detectInputSearchString();
+
+            if (searchResults.value.length === 0 && store.useLiveSearchFallback) {
+                await detectUrlSearchString();
+            }
+        } else {
+            await detectUrlSearchString();
+        }
+    }
+
+    const detectUrlSearchString = async () => {
+        searchSrc.value = 'page url';
+        searchString.value = window.location.href;
+        await fetchNotes(searchString.value);
+
+        if (!store.useUrlMatchFallback) return;
+
+        if (searchResults.value.length === 0) {
+            searchSrc.value = 'document title';
+            searchString.value = document.title;
+            await fetchNotes(searchString.value);
         }
 
+        if (searchResults.value.length === 0) {
+            searchSrc.value = 'document heading';
+            searchString.value = document.querySelector('h1')?.textContent ?? '';
+            await fetchNotes(searchString.value);
+        }
+    }
+
+    const detectInputSearchString = async () => {
         const searchInput = detectInputElement() as HTMLInputElement|null;
         let params = new URLSearchParams(window.location.href.split('?')[1] ?? '');
-        searchString.value = params.get('q') ?? params.get('query') ?? params.get('search') ?? searchInput?.value ?? '';
-        debouncedFetchNotes().then();
-
-        // console.log(searchString.value);
+        const urlParam = params.get('q') ?? params.get('query') ?? params.get('search');
+        searchString.value = urlParam ?? searchInput?.value ?? '';
+        searchSrc.value = urlParam ? 'url query parameter' : 'search input field';
+        await fetchNotes(searchString.value);
     }
 
     const fetchNotes = async (query: string) => {
@@ -97,7 +128,7 @@ export function useSearch(isLoadingInitial: boolean = false) {
 
             if (store.excludes && store.excludes.split(',')[0] != '') {
                 notes = notes?.filter((note: NoteMatch) => {
-                    return store.excludes.split(',').every((exclude: string) => !note.filename.includes(exclude))
+                    return store.excludes.split(',').every((exclude: string) => !note.filename.includes(exclude) && (new RegExp(exclude)).test(note.filename) === false);
                 }) ?? [];
             }
 
@@ -130,6 +161,7 @@ export function useSearch(isLoadingInitial: boolean = false) {
 
     return {
         searchString: searchString,
+        searchSrc: searchSrc,
         searchResults: searchResults,
         paginatedResults: paginatedResults,
         searchMode: searchMode,

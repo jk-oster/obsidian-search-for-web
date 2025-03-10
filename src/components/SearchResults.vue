@@ -55,7 +55,7 @@
         </span>
         <span>
           <Pin v-if="!store.show" class="h-5 w-5"></Pin>
-          <UnPin v-if="store.show" class="h-5 w-5"></UnPin>
+          <Close v-else class="h-5 w-5"></Close>
         </span>
       </button>
     </div>
@@ -80,6 +80,7 @@
         <input type="search"
                ref="searchInput"
                v-model="searchString"
+               @input="doCustomSearch"
                class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:outline-purple-700 focus:border-purple-700 dark:bg-gray-700 dark:border-gray-600 dark:focus:bg-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-600 dark:focus:border-gray-600"
                :placeholder="'Search your vault ... (' + store.searchHotKeyConfig + ')'"
                />
@@ -88,7 +89,7 @@
 
     <div
         class="text-xs tracking-tight text-gray-700 dark:text-gray-100 mb-2 break-words">
-      {{ paginatedResults.length }} result(s) of {{ totalMatches ?? 0 }}
+      {{ paginatedResults.length }} result(s) of {{ totalMatches ?? 0 }} (using {{ searchSrc }})
     </div>
     <div class="obsidian-search-highlight-area">
       <template v-for="note of paginatedResults" :key="note.score">
@@ -141,7 +142,6 @@ import CalendarPlusIcon from "./icons/CalendarPlusIcon.vue";
 import NotePreview from "./NotePreview.vue";
 import OpenLink from "./icons/OpenLink.vue";
 import { useHotkeys } from "../hotkeys.js";
-import { whenever } from "@vueuse/core";
 
 const tabService = getTabService();
 
@@ -170,6 +170,7 @@ const previewOpenMode = ref<'append'|'preview'|'edit'>('preview');
 
 const {
   searchString,
+  searchSrc,
   searchResults,
   paginatedResults,
   displayNotesNumber,
@@ -179,9 +180,10 @@ const {
   debouncedFetchNotes,
 } = useSearch();
 
-whenever(searchString, () => {
+function doCustomSearch() {
+  searchSrc.value = 'custom search';
   debouncedFetchNotes();
-});
+}
 
 const emit = defineEmits(['update:matches']);
 watchEffect(() => {
@@ -219,46 +221,27 @@ function appendPeriodicNote() {
 <style scoped>
 @import "../style/main.css";
 
-html {
-  scrollbar-face-color: #646464;
-  scrollbar-base-color: #646464;
-  scrollbar-3dlight-color: #646464;
-  scrollbar-highlight-color: #646464;
-  scrollbar-track-color: #000;
-  scrollbar-arrow-color: #000;
-  scrollbar-shadow-color: #646464;
-  scrollbar-dark-shadow-color: #646464;
-}
-
+/* Hide scrollbar by default */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 3px;
-}
-
-::-webkit-scrollbar-button {
-  background-color: #666;
-}
-
-::-webkit-scrollbar-track {
-  background-color: #646464;
-}
-
-::-webkit-scrollbar-track-piece {
-  background-color: #000;
-}
-
-::-webkit-scrollbar-thumb {
-  height: 50px;
-  background-color: #666;
+  width: 8px; /* Adjust width as needed */
+  height: 4px;
   border-radius: 3px;
+  background: transparent;
 }
 
-::-webkit-scrollbar-corner {
-  background-color: #646464;
+/* Handle (thumb) */
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+  transition: background 0.3s ease-in-out;
 }
 
-::-webkit-resizer {
-  background-color: #666;
+* {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+* :hover {
+  scrollbar-color: #666 transparent;
 }
 
 .translate-x-0 {

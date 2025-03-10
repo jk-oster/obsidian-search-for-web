@@ -80,6 +80,8 @@ export interface ExtensionConfig {
     allowDraggingButton: boolean,
     showSidebarWhenNoResults: boolean,
     liveSearch: boolean,
+    useLiveSearchFallback: boolean,
+    useUrlMatchFallback: boolean,
     sidePanelOpen: boolean,
     showInPageIcon: boolean,
     showInPageIconWhenNoResults: boolean,

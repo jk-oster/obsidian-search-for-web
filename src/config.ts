@@ -40,14 +40,16 @@ export const config: ExtensionConfig = {
     apiKey: "",
     vault: "",
     openObsidianUri: "obsidian://open?vault=",
-    restApiProtocol: "https://",
-    restApiPort: 27124,
+    restApiProtocol: "http://",
+    restApiPort: 27123,
     provider: "local-rest", // local-rest, omni-search
     protocol: "http://",
     port: 51361,
     show: false,
     showSidebarWhenNoResults: true,
     liveSearch: true,
+    useLiveSearchFallback: false,
+    useUrlMatchFallback: true,
     showInPageIcon: true,
     showSidebarOnButtonHover: true,
     allowDraggingButton: true,
@@ -80,6 +82,8 @@ export const config: ExtensionConfig = {
     currentUrl: '',
     searchString: '',
 };
+
+export const inputSelector = "input[placeholder='Search the web'], input[aria-label=Suche], input[aria-label=Search], input[name=q], input[data-testid='search-input'], input[type=search], input[name=search], input.s_ipt, input[name=wd], textarea[name=q], textarea[type=search], textarea[name=search], textarea[aria-label=Suche], textarea[aria-label=Search], textarea.mini-suggest__input, input.mini-suggest__input";
 
 export const pageOptions = [
     {

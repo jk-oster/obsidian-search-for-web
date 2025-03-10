@@ -1,4 +1,4 @@
-import {reactive, watch, UnwrapNestedRefs, onMounted, ref} from "vue";
+import {reactive, watch, UnwrapNestedRefs, ref} from "vue";
 import {useDebounceFn} from '@vueuse/core';
 import browser from "webextension-polyfill";
 import {config} from "./config.js";
@@ -66,6 +66,8 @@ async function loadAllFromExtStorageToStore() {
         store.currentUrl = data?.currentUrl ?? '';
         store.contextLength = Number(data.contextLength);
         store.liveSearch = Boolean(data.liveSearch);
+        store.useLiveSearchFallback = Boolean(data.useLiveSearchFallback);
+        store.useUrlMatchFallback = Boolean(data.useUrlMatchFallback);
         store.showSidebarOnButtonHover = Boolean(data?.showSidebarOnButtonHover);
         store.allowDraggingButton = Boolean(data?.allowDraggingButton);
         store.showInPageIcon = Boolean(data?.showInPageIcon);
