@@ -22,17 +22,17 @@ class ConnectionService {
                     statusText = "✅ Successfully connected to Obsidian OmniSearch";
                     status = Status.search;
                 } else {
-                    statusText = '❗ Could not reach Obsidian OmniSearch - Make sure Obsidian is running and check your Protocol / Port settings!';
+                    statusText = '❗ Could not reach Obsidian OmniSearch - Make sure Obsidian and OmniSearch HTTP Server are running and check your protocol / port settings!';
                     status = Status.error
                 }
             } else if (provider === 'local-rest') {
                 const resp = await fetch(url + "/", options);
                 const data = await resp.json();
                 if (resp.ok && data.status == 'OK' && data.authenticated) {
-                    statusText = "✅ Successfully connected to Obsidian REST API";
+                    statusText = "✅ Successfully connected to Obsidian Local REST API";
                     status = Status.search;
                 } else {
-                    statusText = '🔑 Could reach Obsidian REST Api - API-Key is not valid. Please check and copy the key from Obsidian REST Api Plugin Settings';
+                    statusText = '🔑 Could reach Obsidian Local REST Api - API-Key is not valid. Please check and copy the key from Local REST Api plugin settings';
                     text = '🔑';
                     status = Status.noauth;
                 }
@@ -47,9 +47,9 @@ class ConnectionService {
             status = Status.offline;
 
             if (provider === 'omni-search') {
-                statusText = '❗ Could not reach Obsidian OmniSearch - Make sure Obsidian Omnisearch HTTP Server is running and check your Protocol / Port settings!';
+                statusText = '❗ Could not reach Obsidian OmniSearch - Make sure Obsidian and Omnisearch HTTP Server are running and check your protocol / port settings!';
             } else if (provider === 'local-rest') {
-                statusText = '❗ Could not reach Obsidian REST API - Make sure Obsidian REST API is running and check your Protocol / Port settings!';
+                statusText = '❗ Could not reach Obsidian REST API - Make sure Obsidian and Local REST API are running and check your protocol / port settings!';
             } else {
                 statusText = '💡 Select a Search Provider';
                 status = Status.error;
