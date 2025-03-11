@@ -21,11 +21,10 @@ Once a note is associated with a particular URL, there are a few other fields yo
 
 | Field Name            |    Type |   Description                                                                                                               |
 | --------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------- |
-| ``web-badge-color``   |   Text  |   The color, as a hexadecimal value, to use as the background for the hover badge and Page Note notification   |
-| ``web-badge-message`` | Text    |   A short message to show on the hover badge; see ``web-message`` for an additional option                         |
-| ``web-badge-icon``    |    Text |   An emoji to show in the hover badge and Page Note notification |
 | ``web-message``       |   Text  |   A message you would like to display when landing on the specified URL (Page Note notification), also shown in the hover badge                                                    |
-
+| ``web-badge-message`` | Text    |   A short message to show on the hover badge; see ``web-message`` for an additional option                         |
+| ``web-badge-color``   |   Text  |   The color, as a hexadecimal value, to use as the background for the hover badge and Page Note notification   |
+| ``web-badge-icon``    |    Text |   An emoji to show in the hover badge and Page Note notification |
 
 See above for more information about how each of these frontmatter fields are used for particular features.
 
@@ -35,9 +34,9 @@ See above for more information about how each of these frontmatter fields are us
 ---
 url: https://de.wikipedia.org/wiki/Wiki
 url-alias: https://de.wikipedia.org/wiki/*
+web-message: Wikipedia is a Knowledge Mangement System
 web-badge-message: Dont forget that
 web-badge-color: 05fefe
-web-message: Wikipedia is a Knowledge Mangement System
 web-badge-icon: 🚀
 ---
 ```
