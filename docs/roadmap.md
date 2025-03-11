@@ -20,16 +20,19 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
 - ⌛ Opening note preview on link hover + hotkey
 - ⌛ Create new notes from the sidebar
 
-## Current Work in Progress >= 2.5.0
+## Current Work in Progress >= 2.6.0
 
-- ⚒️ **Firefox Support**
-- ⚒️ Configurable Hotkeys
-- ⚒️ Settings JSON import / export
-- ⚒️ Bug Reporting
 - ⚒️ Advanced Instant Live Search configuration (regex support + query selector)
 - ⚒️ Instant Live Search fallback to URL matching (opt-in)
 - ⚒️ URL matching fallback to page title in case URL is not found
 - ⚒️ Better extension option-page & defaults
+
+## Version >= 2.5.0
+
+- ✅ **Firefox Support**
+- ✅ Configurable Hotkeys
+- ✅ Settings JSON import / export
+- ✅ Bug Reporting
 
 ## Version >= 2.3.4
 
