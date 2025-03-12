@@ -50,6 +50,7 @@ export const config: ExtensionConfig = {
     liveSearch: true,
     useLiveSearchFallback: false,
     useUrlMatchFallback: true,
+    useUrlMatchHeadingFallback: false,
     showInPageIcon: true,
     showSidebarOnButtonHover: true,
     allowDraggingButton: true,

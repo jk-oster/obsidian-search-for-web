@@ -83,17 +83,17 @@ export function useSearch(isLoadingInitial: boolean = false) {
         searchString.value = window.location.href;
         await fetchNotes(searchString.value);
 
-        if (!store.useUrlMatchFallback) return;
+        const clearSearchStringRegex = /[\|•‣⁃○—-:]|(::)/g;
 
-        if (searchResults.value.length === 0) {
+        if (store.useUrlMatchFallback && searchResults.value.length === 0) {
             searchSrc.value = 'document title';
-            searchString.value = document.title.trim();
+            searchString.value = document.title.trim().replaceAll(clearSearchStringRegex, ' ') ?? '';
             await fetchNotes(searchString.value);
         }
 
-        if (searchResults.value.length === 0) {
+        if (store.useUrlMatchHeadingFallback && searchResults.value.length === 0) {
             searchSrc.value = 'document heading';
-            searchString.value = document.querySelector('h1')?.textContent?.trim() ?? '';
+            searchString.value = document.querySelector('h1')?.textContent?.trim().replaceAll(clearSearchStringRegex, ' ') ?? '';
             await fetchNotes(searchString.value);
         }
     }

@@ -81,6 +81,7 @@ export interface ExtensionConfig {
     showSidebarWhenNoResults: boolean,
     liveSearch: boolean,
     useLiveSearchFallback: boolean,
+    useUrlMatchHeadingFallback: boolean,
     useUrlMatchFallback: boolean,
     sidePanelOpen: boolean,
     showInPageIcon: boolean,

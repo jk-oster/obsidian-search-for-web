@@ -384,9 +384,17 @@
           <ToggleInput 
             v-model="store.useUrlMatchFallback" 
             :checked="store.useUrlMatchFallback" 
-            label="Enable Fallback for URL Match"
-            help="If enabled, the extension will use the page title or alternatively the page heading (H1) for note recall if checking the URL does not return any results initially."
+            label="Enable Page Title Fallback for URL Match"
+            help="If enabled, the extension will use the page title for note recall if checking the URL does not return any results initially."
             name="useUrlMatchFallback">
+          </ToggleInput>
+
+          <ToggleInput 
+            v-model="store.useUrlMatchHeadingFallback" 
+            :checked="store.useUrlMatchHeadingFallback" 
+            label="Enable Document Heading Fallback for URL Match"
+            help="If enabled, the extension will use the page heading (H1) for note recall if checking the URL or title does not return any results."
+            name="useUrlMatchHeadingFallback">
           </ToggleInput>
 
           <div class="mb-6">

@@ -10,7 +10,7 @@ export function useHoveredLink(delay: number = 100) {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
         // @ts-ignore
-        hoveredLink.value = event?.target?.href ? event?.target.href : event?.target.closest('a').href;
+        hoveredLink.value = (event?.target?.href ? event?.target?.href : event?.target?.closest('a')?.href) ?? '';
       }, delay);
     }
   }

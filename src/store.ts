@@ -68,6 +68,7 @@ async function loadAllFromExtStorageToStore() {
         store.liveSearch = Boolean(data.liveSearch);
         store.useLiveSearchFallback = Boolean(data.useLiveSearchFallback);
         store.useUrlMatchFallback = Boolean(data.useUrlMatchFallback);
+        store.useUrlMatchHeadingFallback = Boolean(data.useUrlMatchHeadingFallback);
         store.showSidebarOnButtonHover = Boolean(data?.showSidebarOnButtonHover);
         store.allowDraggingButton = Boolean(data?.allowDraggingButton);
         store.showInPageIcon = Boolean(data?.showInPageIcon);
