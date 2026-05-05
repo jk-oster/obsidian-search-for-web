@@ -170,11 +170,11 @@ class NoteService {
 
         const match = query?.toLowerCase();
         data?.sort((a: any, b: any) => {
-            const aIndexMatch = a.filename.toLowerCase().indexOf(match);
-            const bIndexMatch = b.filename.toLowerCase().indexOf(match);
-            if (aIndexMatch > bIndexMatch) return -1;
-            if (aIndexMatch < bIndexMatch) return 1;
-            return 0;
+            const aRaw = a.filename.toLowerCase().indexOf(match);
+            const bRaw = b.filename.toLowerCase().indexOf(match);
+            const aScore = aRaw === -1 ? Infinity : aRaw;
+            const bScore = bRaw === -1 ? Infinity : bRaw;
+            return aScore - bScore;
         });
 
         return data.map(note => this.mapLocalRestToNoteMatch(note, {matchCount, vault}))

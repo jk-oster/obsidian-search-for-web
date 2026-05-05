@@ -17,32 +17,40 @@ export function useObsidianConnection(delay: number = 0) {
         connectionInfo.value = store.provider === 'omni-search' ? '🔄️ Checking your Obsidian Omnisearch connection' : '🔄️ Checking your Obsidian REST API connection';
         const url = (store.provider === 'omni-search' ? store.protocol : store.restApiProtocol) + (store.provider === 'omni-search' ? 'localhost' : '127.0.0.1') + ':' + (store.provider === 'omni-search' ? store.port : store.restApiPort);
 
-        const {status, statusText, text, provider} = await connectionService.checkApiStatus(url, store.apiKey, store.provider);
+        try {
+            const {status, statusText, text, provider} = await connectionService.checkApiStatus(url, store.apiKey, store.provider);
 
-        if (status !== connectionStatus.value) {
-            badgeService.setBadgeStatus(status).then();
-            badgeService.setBadgeText(text).then();
-        }
+            if (status !== connectionStatus.value) {
+                badgeService.setBadgeStatus(status).catch(console.warn);
+                badgeService.setBadgeText(text).catch(console.warn);
+            }
 
-        if(provider === store.provider) {
-            connectionStatus.value = status ?? Status.unknown;
-            connectionInfo.value = statusText;
+            if(provider === store.provider) {
+                connectionStatus.value = status ?? Status.unknown;
+                connectionInfo.value = statusText;
+            }
+        } catch (e) {
+            console.warn('Connection check failed:', e);
         }
     }
 
     const detectRestApiConnection = async () => {
         const url = store.restApiProtocol + '127.0.0.1:' + store.restApiPort;
-        const {status, statusText} = await connectionService.checkApiStatus(url, store.apiKey, 'local-rest');
-        restApiStatus.value = status ?? Status.unknown;
-        connectionInfo.value = statusText;
+        try {
+            const {status, statusText} = await connectionService.checkApiStatus(url, store.apiKey, 'local-rest');
+            restApiStatus.value = status ?? Status.unknown;
+            connectionInfo.value = statusText;
+        } catch (e) {
+            console.warn('REST API connection check failed:', e);
+        }
     }
 
     const throttledRestApiConnectionCheck = useThrottleFn(async () => {
-        detectRestApiConnection().then();
+        await detectRestApiConnection();
     }, 100);
 
     const throttledConnectionCheck = useThrottleFn(async () => {
-        detectConnection().then();
+        await detectConnection();
     }, 100);
 
     // onMounted(() => {
@@ -55,10 +63,10 @@ export function useObsidianConnection(delay: number = 0) {
     watchImmediate(storeInitialized, async () => {
         if(storeInitialized.value) {
             if(restApiStatus.value !== Status.search) {
-                await throttledRestApiConnectionCheck().then();
+                await throttledRestApiConnectionCheck();
             }
             if(connectionStatus.value !== Status.search) {
-                await throttledConnectionCheck().then();
+                await throttledConnectionCheck();
             }
         }
     });

@@ -13,7 +13,7 @@ class TabService {
             if (currTab && (!matches || matches.test(currTab.url))) {
                 return currTab.id;
             }
-            return -1;
+            return undefined;
         })
     }
 

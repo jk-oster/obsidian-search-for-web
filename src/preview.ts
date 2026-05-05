@@ -86,12 +86,12 @@ export function usePreview() {
 
     const appendNote = async (fileName: string, content: string) => {
         await noteService.appendNote(fileName, content, proxyToPlainObject(config));
-        previewNote.value += '\n' + content;
+        previewNote.value = (previewNote.value ?? '') + '\n' + content;
     }
 
     const appendPeriodicNote = async (content: string, period: Period =  store.period) => {
         await noteService.appendPeriodicNote(content, proxyToPlainObject(config), period);
-        previewNote.value += '\n' + content;
+        previewNote.value = (previewNote.value ?? '') + '\n' + content;
     }
 
     return {

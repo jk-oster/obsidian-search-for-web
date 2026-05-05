@@ -47,6 +47,13 @@ export default defineConfig({
       browser: target,
       manifest: generateManifest,
       watchFilePaths: ["package.json", "manifest.json"],
+
+      // If you develop on Linux / WSL2 and want to test on Chromium-based browsers, you can specify the path to the Chromium binary here. 
+      // This is necessary because web-ext uses the `web-ext-chrome` package to launch Chromium, which does not support WSL2 paths.
+      // For development on Windows or macOS, you can omit this option and web-ext will use the default path to the Chromium binary.
+      webExtConfig: {
+        chromiumBinary: '/usr/bin/chromium-browser',
+      },
     }),
   ]
 });

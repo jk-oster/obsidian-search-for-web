@@ -16,14 +16,14 @@ registerTabService();
 registerNoteService();
 registerConnectionService();
 
-const runMigration = () => {
-    browser.storage.local.set({version: MIGRATION});
+const runMigration = async () => {
+    await browser.storage.local.set({version: MIGRATION});
 
-    migrate(config, (oldConf) => {
+    await migrate(config, (oldConf) => {
         return {
             version: MIGRATION,
         };
-    }).then()
+    });
 };
 
 // Runs every time  the browser is opened / restarted

@@ -83,7 +83,7 @@ export function useSearch(isLoadingInitial: boolean = false) {
         searchString.value = window.location.href;
         await fetchNotes(searchString.value);
 
-        const clearSearchStringRegex = /[\|•‣⁃○—-:]|(::)/g;
+        const clearSearchStringRegex = /[|•‣⁃○—\-:]|(::)/g;
 
         if (store.useUrlMatchFallback && searchResults.value.length === 0) {
             searchSrc.value = 'document title';
