@@ -110,6 +110,7 @@ export interface ExtensionConfig {
     settingsHotKeyConfig: string,
     searchHotKeyConfig: string,
 
+    stripUrlParams: string,
     currentUrl: string,
     searchString: string,
 }

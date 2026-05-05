@@ -516,6 +516,19 @@
             </span>
           </div>
 
+          <div class="mb-6">
+            <label for="stripUrlParams"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+              URL parameters to strip before URL matching *separate by <code>,</code>
+            </label>
+            <input v-model="store.stripUrlParams" type="text" id="stripUrlParams" name="stripUrlParams"
+                    placeholder="t,si,utm_source,utm_medium"
+                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
+            <span class="text-xs text-gray-700 dark:text-gray-400">
+              These URL query parameters will be removed from the current page URL before searching for matching notes. Useful for stripping timestamps (e.g. <code>t</code> on YouTube) or tracking parameters (e.g. <code>utm_source</code>) that would prevent URL matching. Leave empty to disable stripping.
+            </span>
+          </div>
+
           <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
           <h3 id="hotkey-settings" class="text-center mb-6 font-bold text-gray-800 dark:text-gray-200">Hotkeys</h3>
 

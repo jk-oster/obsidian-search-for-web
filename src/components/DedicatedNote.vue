@@ -88,6 +88,7 @@ import { useDedicatedNote } from '../dedicatedNote.js';
 import { computed, onMounted, ref, watchEffect } from 'vue';
 import { Note } from '../types.js';
 import { storeInitialized, store } from '../store.js';
+import { stripUrlParameters } from '../url.js';
 import NotePreview from './NotePreview.vue';
 
 const { x, y } = useMouse();
@@ -141,7 +142,8 @@ const currentDedicatedNoteUrl = computed(() => {
 });
 watchEffect(async () => {
     if(storeInitialized.value && isRestApiConnected.value && store.dedicatedNoteNotifications) {
-        currentPageDedicatedNote.value = await searchForDedicatedNotes(document.location.href ?? '');
+        const stripParams = store.stripUrlParams.split(',').map((p: string) => p.trim()).filter(Boolean);
+        currentPageDedicatedNote.value = await searchForDedicatedNotes(stripUrlParameters(document.location.href ?? '', stripParams));
         // console.log('currentPageDedicatedNote', currentPageDedicatedNote.value);
     }
 });

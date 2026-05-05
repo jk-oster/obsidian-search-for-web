@@ -1,6 +1,7 @@
 import {store} from "./store.js";
 import {Status, SearchModes, pageOptions, inputSelector} from "./config.js";
 import type {NoteMatch} from "./types.js";
+import {stripUrlParameters} from "./url.js";
 import {ref, computed} from 'vue';
 import {useDebounceFn, watchImmediate} from "@vueuse/core";
 import {getNoteService} from "./background-services/NoteService.js";
@@ -80,7 +81,8 @@ export function useSearch(isLoadingInitial: boolean = false) {
 
     const detectUrlSearchString = async () => {
         searchSrc.value = 'page url';
-        searchString.value = window.location.href;
+        const stripParams = store.stripUrlParams.split(',').map(p => p.trim()).filter(Boolean);
+        searchString.value = stripUrlParameters(window.location.href, stripParams);
         await fetchNotes(searchString.value);
 
         const clearSearchStringRegex = /[|•‣⁃○—\-:]|(::)/g;

@@ -164,6 +164,8 @@ public/                                  # Static assets bundled into the extens
 
 `docs/` is a VitePress site deployed to GitHub Pages via `.github/workflows/deploy-docs.yaml`. Source lives in `docs/*.md` with config in `docs/.vitepress/`.
 
+See @docs/roadmap.md for planned features, work in progress, and the full version history of completed work.
+
 ### Release flow
 
 1. Run `pnpm version-patch|minor|major` — bumps `package.json`, commits with `[RELEASE]` prefix, builds and zips.

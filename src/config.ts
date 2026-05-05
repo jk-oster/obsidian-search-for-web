@@ -80,6 +80,7 @@ export const config: ExtensionConfig = {
     searchHotKeyConfig: 'Alt+Shift+Q',
 
 
+    stripUrlParams: 't',
     currentUrl: '',
     searchString: '',
 };

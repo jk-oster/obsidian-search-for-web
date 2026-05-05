@@ -96,6 +96,7 @@ async function loadAllFromExtStorageToStore() {
         store.newNoteHotKeyConfig = data.newNoteHotKeyConfig;
         store.settingsHotKeyConfig = data.settingsHotKeyConfig;
         store.searchHotKeyConfig = data.searchHotKeyConfig;
+        store.stripUrlParams = data.stripUrlParams ?? 't';
     });
 }
 
