@@ -15,16 +15,16 @@
     </div>
 
     <div v-for="(item, index) of paginatedResults" class="MjjYud" data-obsidian-result>
-      <div class="g Ww4FFb vt6azd tF2Cxc asEBEc relative" style="width: 100%">
-        <div class="N54PNb BToiNc cvP2Ce">
-          <div class="kb0PBd cvP2Ce jGGQ5e">
+      <div class="wHYlTd Ww4FFb tF2Cxc asEBEc vt6azd" style="width: 100%">
+        <div class="N54PNb BToiNc">
+          <div class="kb0PBd A9Y9g jGGQ5e">
             <div class="yuRUbf">
-              <div>
-                <span>
+              <div class="b8lM7">
+                <span class="V9tjod">
                     <a :href="item.url" @click="openNotePreview($event, index)" style="cursor: pointer;">
+                        <h3 class="LC20lb MBeuO DKV0Md" style="font-size: 20px;">{{ item.basename }}</h3>
                         <br/>
-                        <h3 class="LC20lb MBeuO DKV0Md" style="margin-top: 18px; font-size: 20px;">{{ item.basename }}</h3>
-                        <div class="notranslate TbwUpd NJjxre iUh30 ojE3Fb">
+                        <div class="notranslate ESMNde HGLrXd ojE3Fb">
                             <div class="q0vns">
                                 <span class="H9lube">
                                     <div class="eqA2re NjwKYd Vwoesf" aria-hidden="true">
@@ -34,10 +34,10 @@
 
                                 <div class="CA5RN">
                                   <div>
-                                    <span class="VuuXrf">Obisidan</span>
+                                    <span class="VuuXrf">Obsidian</span>
                                   </div>
                                   <div class="byrV5b">
-                                    <cite  style="font-size: 12px" class="qLRx3b tjvcx GvPZzd cHaqb" role="text">{{ item.filename ? item.filename : '/' }}</cite>
+                                    <cite style="font-size: 12px" class="qLRx3b tjvcx GvPZzd dTxz9 cHaqb" role="text">{{ item.filename ? item.filename : '/' }}</cite>
                                   </div>
                                 </div>
                             </div>
@@ -47,9 +47,9 @@
               </div>
             </div>
           </div>
-          <div class="kb0PBd cvP2Ce">
+          <div class="kb0PBd A9Y9g">
             <div
-                class="VwiC3b yXK7lf p4wth r025kc hJNv6b Hdw6tb"
+                class="VwiC3b yXK7lf p4wth r025kc Hdw6tb"
                 style="-webkit-line-clamp: 3"
             >
               <span> {{ item.excerpt }} </span>
@@ -77,7 +77,6 @@
 import {useSearch} from "../search.js";
 import Logo from "./icons/Logo.vue";
 import {getTabService} from "../background-services/TabService.js";
-import LoadingSpinner from "./LoadingSpinner.vue";
 import NotePreview from "./NotePreview.vue";
 import {ref} from "vue";
 defineProps({
@@ -91,7 +90,7 @@ defineProps({
   }
 });
 const tabService = getTabService();
-const {connectionStatus, restApiStatus, paginatedResults, totalMatches, displayNotesNumber, isLoading, searchString} = useSearch(true);
+const {restApiStatus, paginatedResults, totalMatches, displayNotesNumber, isLoading, searchString} = useSearch(true);
 
 const notePreviews = ref<HTMLElement[]>([]);
 
