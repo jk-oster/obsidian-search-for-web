@@ -2,6 +2,7 @@ import {store} from "./store.js";
 import {Status, SearchModes, pageOptions, inputSelector} from "./config.js";
 import type {NoteMatch} from "./types.js";
 import {stripUrlParameters} from "./url.js";
+import {parseSearchKeywords, hasKeywords, type ParsedQuery} from "./keywords.js";
 import {ref, computed} from 'vue';
 import {useDebounceFn, watchImmediate} from "@vueuse/core";
 import {getNoteService} from "./background-services/NoteService.js";
@@ -109,6 +110,49 @@ export function useSearch(isLoadingInitial: boolean = false) {
         await fetchNotes(searchString.value);
     }
 
+    const fetchWithKeywords = async (parsed: ParsedQuery): Promise<NoteMatch[]> => {
+        const hasText = parsed.text.length >= store.minChars;
+        const hasTags = parsed.tags.length > 0;
+        const hasFm = parsed.frontmatter.length > 0;
+        const hasPaths = parsed.paths.length > 0;
+        const hasJsonLogicFilters = hasTags || hasFm;
+        let notes: NoteMatch[] = [];
+
+        if (store.provider === 'local-rest') {
+            if (hasText) {
+                notes = await noteService.fetchLocalRest(parsed.text, proxyToPlainObject(config));
+            }
+
+            if (hasJsonLogicFilters) {
+                const metaMatches = await noteService.fetchByMetadata(parsed.tags, [], parsed.frontmatter, proxyToPlainObject(config));
+                const metaFilenames = new Set(metaMatches.map(n => n.filename));
+                notes = hasText
+                    ? notes.filter(n => metaFilenames.has(n.filename))
+                    : metaMatches;
+            }
+
+            if (!hasText && !hasJsonLogicFilters && hasPaths) {
+                notes = await noteService.fetchByMetadata([], parsed.paths, [], proxyToPlainObject(config));
+            } else if (hasPaths) {
+                notes = notes.filter(n =>
+                    parsed.paths.every(p => n.filename.toLowerCase().includes(p.toLowerCase()))
+                );
+            }
+        } else {
+            if (hasText) {
+                notes = await noteService.fetchOmniSearch(parsed.text, proxyToPlainObject(config));
+            }
+            if (hasPaths) {
+                notes = notes.filter(n =>
+                    parsed.paths.every(p => n.filename.toLowerCase().includes(p.toLowerCase()))
+                );
+            }
+            // tag and frontmatter filtering not available for omni-search
+        }
+
+        return notes;
+    }
+
     const fetchNotes = async (query: string) => {
         isLoading.value = true;
 
@@ -120,9 +164,12 @@ export function useSearch(isLoadingInitial: boolean = false) {
         }
 
         try {
-
+            const parsed = parseSearchKeywords(query);
             let notes: NoteMatch[] = [];
-            if (store.provider === 'local-rest') {
+
+            if (hasKeywords(parsed)) {
+                notes = await fetchWithKeywords(parsed);
+            } else if (store.provider === 'local-rest') {
                 notes = await noteService.fetchLocalRest(query, proxyToPlainObject(config));
             } else if (store.provider === 'omni-search') {
                 notes = await noteService.fetchOmniSearch(query, proxyToPlainObject(config));

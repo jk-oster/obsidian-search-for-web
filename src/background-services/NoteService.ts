@@ -233,11 +233,37 @@ class NoteService {
             filename: data.filename,
             path: data.filename?.replace(baseName + '.md', ''),
             basename: baseName,
-            score: data.score,
+            score: data.score ?? 0,
             matchesCount: data.matchesCount ?? 1,
-            excerpt: data.matches.map((match: any) => match.context).slice(0, matchCount).join(' ... ').replaceAll(/<br.?\/?>|\\n/g, ' '),
+            excerpt: (data.matches ?? []).map((match: any) => match.context).slice(0, matchCount).join(' ... ').replaceAll(/<br.?\/?>|\\n/g, ' '),
             url: 'obsidian://open?vault=' + encodeURIComponent(vault ?? '') + '&file=' + encodeURIComponent(baseName ? baseName + '.md' : '')
         }
+    }
+
+    async fetchByMetadata(tags: string[], paths: string[], frontmatter: { key: string; value: string }[], {apiKey, restApiProtocol, restApiPort, matchCount, vault}: {
+        apiKey: string,
+        restApiProtocol: string,
+        restApiPort: number,
+        matchCount: number,
+        vault: string,
+    }): Promise<NoteMatch[]> {
+        const conditions: any[] = [];
+
+        for (const tag of tags) {
+            conditions.push({ in: [tag, { var: 'tags' }] });
+        }
+        for (const path of paths) {
+            conditions.push({ in: [path, { var: 'path' }] });
+        }
+        for (const fm of frontmatter) {
+            conditions.push({ '===': [{ var: `frontmatter.${fm.key}` }, fm.value] });
+        }
+
+        if (conditions.length === 0) return [];
+
+        const query = conditions.length === 1 ? conditions[0] : { and: conditions };
+        const rawResults = await this.fetchJsonQuery(query, { apiKey, restApiProtocol, restApiPort });
+        return rawResults.map((r: any) => this.mapLocalRestToNoteMatch(r, { matchCount, vault }));
     }
 }
 

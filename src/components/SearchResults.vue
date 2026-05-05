@@ -82,7 +82,7 @@
                v-model="searchString"
                @input="doCustomSearch"
                class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:outline-purple-700 focus:border-purple-700 dark:bg-gray-700 dark:border-gray-600 dark:focus:bg-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-600 dark:focus:border-gray-600"
-               :placeholder="'Search your vault ... (' + store.searchHotKeyConfig + ')'"
+               :placeholder="'Search vault... path:folder tag:name fm:key:value (' + store.searchHotKeyConfig + ')'"
                />
       </div>
     </form>
