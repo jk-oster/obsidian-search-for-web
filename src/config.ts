@@ -73,11 +73,11 @@ export const config: ExtensionConfig = {
     linkHoverDedicatedNoteBadge: true,
     linkHoverNoteMentions: true,
     pinHotKeyConfig: 'Alt+Shift+K',
-    openPeriodicHotKeyConfig: 'Alt+Shift+D',
+    openPeriodicHotKeyConfig: 'Alt+Shift+P',
     appendPeriodicHotKeyConfig: 'Alt+Shift+M',
-    newNoteHotKeyConfig: 'Alt+Shift+N',
+    newNoteHotKeyConfig: 'Alt+Shift+C',
     settingsHotKeyConfig: 'Alt+Shift+S',
-    searchHotKeyConfig: 'Alt+Shift+F',
+    searchHotKeyConfig: 'Alt+Shift+Q',
 
 
     currentUrl: '',

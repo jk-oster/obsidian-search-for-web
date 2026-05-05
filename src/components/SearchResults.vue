@@ -128,7 +128,7 @@
 
 <script lang="ts" setup>
 
-import {watchEffect, defineEmits, ref} from "vue";
+import {watchEffect, ref, computed} from "vue";
 import {store} from '../store.js';
 import {useSearch} from '../search.js';
 import ResultCard from './ResultCard.vue';
@@ -147,11 +147,11 @@ const tabService = getTabService();
 
 const searchInput = ref<HTMLInputElement | null>(null);
 
-const pinHotkey = useHotkeys(store.pinHotKeyConfig, toggleSidebar);
-const openPeriodicHotkey = useHotkeys(store.openPeriodicHotKeyConfig, openPeriodicNote);
-const appendPeriodicHotkey = useHotkeys(store.appendPeriodicHotKeyConfig, appendPeriodicNote);
-const settingsHotkey = useHotkeys(store.settingsHotKeyConfig, openOptionsPage);
-const searchHotkey = useHotkeys(store.searchHotKeyConfig, () => {
+const pinHotkey = useHotkeys(computed(() => store.pinHotKeyConfig), toggleSidebar);
+const openPeriodicHotkey = useHotkeys(computed(() => store.openPeriodicHotKeyConfig), openPeriodicNote);
+const appendPeriodicHotkey = useHotkeys(computed(() => store.appendPeriodicHotKeyConfig), appendPeriodicNote);
+const settingsHotkey = useHotkeys(computed(() => store.settingsHotKeyConfig), openOptionsPage);
+const searchHotkey = useHotkeys(computed(() => store.searchHotKeyConfig), () => {
   if (!store.show) {
     store.show = true;
   }
@@ -162,6 +162,7 @@ const searchHotkey = useHotkeys(store.searchHotKeyConfig, () => {
     }, 300);
   }
 });
+const newNoteHotkey = useHotkeys(computed(() => store.newNoteHotKeyConfig), openNewNote);
 
 const todaysDate = new Date();
 const dailyNoteNameString = `${todaysDate.getFullYear()}-${(todaysDate.getMonth() + 1).toString().padStart(2, '0')}-${todaysDate.getDate().toString().padStart(2, '0')}`;
@@ -203,6 +204,11 @@ function showMore() {
 
 function openOptionsPage() {
   tabService.openOptionsPage();
+}
+
+function openNewNote() {
+  const vaultParam = store.vault ? 'vault=' + encodeURIComponent(store.vault) : '';
+  tabService.openUrl('obsidian://new?' + vaultParam);
 }
 
 function openPeriodicNote() {

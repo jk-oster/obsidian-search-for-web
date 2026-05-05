@@ -90,10 +90,10 @@
       </MarkdownRenderer>
 
       <div class="w-full flex justify-center mb-6">
-        <a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html" target="_blank" class="font-bold text-lg mr-2 inline-flex items-center py-2 px-4 focus:outline-hidden text-white bg-purple-700 focus:ring-4 focus:ring-purple-300 rounded-lg dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+        <a href="https://vaultlens.com/feature-guide.html" target="_blank" class="font-bold text-lg mr-2 inline-flex items-center py-2 px-4 focus:outline-hidden text-white bg-purple-700 focus:ring-4 focus:ring-purple-300 rounded-lg dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
           Feature Guide
         </a>
-        <a href="https://jk-oster.github.io/obsidian-search-for-web/getting-started.html" target="_blank" class="font-bold text-lg inline-flex items-center py-2 px-4 focus:outline-hidden text-white bg-purple-700 focus:ring-4 focus:ring-purple-300 rounded-lg dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+        <a href="https://vaultlens.com/getting-started.html" target="_blank" class="font-bold text-lg inline-flex items-center py-2 px-4 focus:outline-hidden text-white bg-purple-700 focus:ring-4 focus:ring-purple-300 rounded-lg dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
           Quickstart Manual
         </a>
       </div>
@@ -131,14 +131,14 @@
             <ImportIcon class="ml-1 w-4 h-4 text-gray-900 dark:text-gray-400"></ImportIcon>
           </button>
 
-          <button @click="exportSettings"
+          <button type="button" @click="() => exportSettings()"
             class="flex items-center p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-gray-50 rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
             <span>
               Export Settings to JSON
             </span>
             <ExportIcon class="ml-1 w-4 h-4 text-gray-900 dark:text-gray-400"></ExportIcon>
           </button>
-          <button @click="exportBugReport"
+          <button type="button" @click="exportBugReport"
             class="flex items-center p-1.5 mb-2 text-sm font-medium text-gray-900 focus:outline-hidden bg-gray-50 rounded-lg hover:bg-gray-100 hover:text-purple-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-500">
             <span>
               Generate Bug-Report
@@ -258,7 +258,7 @@
                    required />
           </div>
 
-          <p class="mb-6">Troubles with the connection? Find help in the <a href="https://jk-oster.github.io/obsidian-search-for-web/faq.html#how-can-i-troubleshoot-connection-problems-between-obsidian-browser-search-and-obsidian-local-rest-api" class="underline text-purple-600" target="_blank">docs</a>.</p>
+          <p class="mb-6">Troubles with the connection? Find help in the <a href="https://vaultlens.com/faq.html#how-can-i-troubleshoot-connection-problems-between-obsidian-browser-search-and-obsidian-local-rest-api" class="underline text-purple-600" target="_blank">docs</a>.</p>
 
           <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
           <h3 id="display-settings" class="text-center mb-6 font-bold text-gray-800 dark:text-gray-200">Display Settings</h3>
@@ -278,13 +278,13 @@
           </div>
 
           <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
-          <h3 id="sidebar" class="text-center mb-6 font-bold text-gray-800 dark:text-gray-200">Sidebar & Page Icon</h3>
+          <h3 id="sidebar-settings" class="text-center mb-6 font-bold text-gray-800 dark:text-gray-200">Sidebar & Page Icon</h3>
 
           <ToggleInput
             class="mb-6"
             name="showInPageIcon"
             label="Enable toggle icon on page (used to open sidebar)?"
-            docs="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%F0%9F%93%91-sidebar"
+            docs="https://vaultlens.com/feature-guide.html#%F0%9F%93%91-sidebar"
             v-model="store.showInPageIcon"
             :checked="store.showInPageIcon">
           </ToggleInput>
@@ -334,27 +334,27 @@
             class="mb-6"
             name="dedicatedNoteNotifications"
             label="Enable dedicated Page Notes notifications?"
-            docs="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%F0%9F%94%97-link-hover-messages"
+            docs="https://vaultlens.com/feature-guide.html#%F0%9F%94%97-link-hover-messages"
             v-model="store.dedicatedNoteNotifications"
             :checked="store.dedicatedNoteNotifications">
-              If enabled, a tooltip notification will be displayed when hovering over links targeting pages you have created Page Notes. The displayed message can be customized using e.g. "web-message" and other <a class="underline" target="_blank" href="https://jk-oster.github.io/obsidian-search-for-web/frontmatter-fields.html">frontmatter fields</a>.
+              If enabled, a tooltip notification will be displayed when hovering over links targeting pages you have created Page Notes. The displayed message can be customized using e.g. "web-message" and other <a class="underline" target="_blank" href="https://vaultlens.com/frontmatter-fields.html">frontmatter fields</a>.
           </ToggleInput>
 
           <ToggleInput
             class="mb-6"
             name="linkHoverDedicatedNoteBadge"
             label="Enable notifications on Link Hover?"
-            docs="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%F0%9F%94%97-link-hover-messages"
+            docs="https://vaultlens.com/feature-guide.html#%F0%9F%94%97-link-hover-messages"
             v-model="store.linkHoverDedicatedNoteBadge"
             :checked="store.linkHoverDedicatedNoteBadge">
-              If enabled, a tooltip notification will be displayed when hovering over links targeting pages you have created Page Notes. The displayed message can be customized using e.g. "web-message" and other <a class="underline" target="_blank" href="https://jk-oster.github.io/obsidian-search-for-web/frontmatter-fields.html">frontmatter fields</a>.
+              If enabled, a tooltip notification will be displayed when hovering over links targeting pages you have created Page Notes. The displayed message can be customized using e.g. "web-message" and other <a class="underline" target="_blank" href="https://vaultlens.com/frontmatter-fields.html">frontmatter fields</a>.
           </ToggleInput>
 
           <ToggleInput
             class="mb-6"
             name="linkHoverNoteMentions"
             label="Enable link hover notifications when URL is mentioned somewhere in the notes?"
-            docs="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%F0%9F%94%97-link-hover-messages"
+            docs="https://vaultlens.com/feature-guide.html#%F0%9F%94%97-link-hover-messages"
             v-model="store.linkHoverNoteMentions"
             :checked="store.linkHoverNoteMentions">
             If enabled, a tooltip notification will be displayed when hovering over links targeting pages have mentioned in a note.
@@ -367,7 +367,7 @@
             class="mb-6"
             name="liveSearch"
             label="Enable Instant Live Search?"
-            docs="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%E2%9A%A1-instant-live-search"
+            docs="https://vaultlens.com/feature-guide.html#%E2%9A%A1-instant-live-search"
             v-model="store.liveSearch"
             :checked="store.liveSearch"
             help="Fetch search results already while typing in the searchbar of your search engine">
@@ -408,7 +408,7 @@
 
           <div class="mb-6">
             <label for="searchUrls" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-              Additional Live-Search-Domains *separate urls by <code>,</code> **supports <a class="underline" href="https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_expressions" target="_blank">RegExp</a> (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%E2%9A%A1-instant-live-search" class="underline text-purple-600" target="_blank">docs</a>)
+              Additional Live-Search-Domains *separate urls by <code>,</code> **supports <a class="underline" href="https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_expressions" target="_blank">RegExp</a> (<a href="https://vaultlens.com/feature-guide.html#%E2%9A%A1-instant-live-search" class="underline text-purple-600" target="_blank">docs</a>)
             </label>
             <input v-model="store.searchUrls" type="text" id="searchUrls" name="searchUrls"
                    placeholder="...additional search domains..."
@@ -431,7 +431,7 @@
             class="mb-6"
             name="embeddedResults"
             label="Enable embed search results on Search-Engines?"
-            docs="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%F0%9F%96%A5%EF%B8%8F-embedded-search-results"
+            docs="https://vaultlens.com/feature-guide.html#%F0%9F%96%A5%EF%B8%8F-embedded-search-results"
             v-model="store.embeddedResults"
             :checked="store.embeddedResults">
             Currently supported are:
@@ -445,7 +445,7 @@
             class="mb-6"
             name="nativeResults"
             label="Enable native search embeddings style?"
-            docs="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%F0%9F%96%A5%EF%B8%8F-embedded-search-results"
+            docs="https://vaultlens.com/feature-guide.html#%F0%9F%96%A5%EF%B8%8F-embedded-search-results"
             v-model="store.nativeResults"
             :checked="store.nativeResults">
             Native embeddings are currently available for Google, Bing, Kagi and DuckDuckGo. Turn this off if the results take up to much space or if embedded search results look ugly. This may happen due to updates & changes on your search engine.
@@ -506,7 +506,7 @@
           <div class="mb-6">
             <label for="excludes"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-              Paths to exclude *separate segments by<code>,</code> **supports <a class="underline" href="https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_expressions" target="_blank">RegExp</a> (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%F0%9F%94%8D-exclude-files" class="underline text-purple-600" target="_blank">docs</a>)
+              Paths to exclude *separate segments by<code>,</code> **supports <a class="underline" href="https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_expressions" target="_blank">RegExp</a> (<a href="https://vaultlens.com/feature-guide.html#%F0%9F%94%8D-exclude-files" class="underline text-purple-600" target="_blank">docs</a>)
             </label>
             <input v-model="store.excludes" type="text" id="excludes" name="excludes"
                     placeholder="Assets,Template,.excalidraw"
@@ -523,7 +523,7 @@
             <div class="mb-6">
               <label for="pinHotKeyConfig"
                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                Toggle sidebar (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#⌨%EF%B8%8F-hotkeys" class="underline text-purple-600" target="_blank">docs</a>)
+                Toggle sidebar (<a href="https://vaultlens.com/feature-guide.html#⌨%EF%B8%8F-hotkeys" class="underline text-purple-600" target="_blank">docs</a>)
               </label>
               <input v-model="store.pinHotKeyConfig" type="text" id="pinHotKeyConfig" name="pinHotKeyConfig"
                      placeholder="...additional search domains..."
@@ -536,7 +536,7 @@
             <div class="mb-6">
               <label for="openPeriodicHotKeyConfig"
                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                Open periodic note (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#⌨%EF%B8%8F-hotkeys" class="underline text-purple-600" target="_blank">docs</a>)
+                Open periodic note (<a href="https://vaultlens.com/feature-guide.html#⌨%EF%B8%8F-hotkeys" class="underline text-purple-600" target="_blank">docs</a>)
               </label>
               <input v-model="store.openPeriodicHotKeyConfig" type="text" id="openPeriodicHotKeyConfig" name="openPeriodicHotKeyConfig"
                      placeholder="...additional search domains..."
@@ -549,7 +549,7 @@
             <div class="mb-6">
               <label for="appendPeriodicHotKeyConfig"
                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                Append periodic note (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#⌨%EF%B8%8F-hotkeys" class="underline text-purple-600" target="_blank">docs</a>)
+                Append periodic note (<a href="https://vaultlens.com/feature-guide.html#⌨%EF%B8%8F-hotkeys" class="underline text-purple-600" target="_blank">docs</a>)
               </label>
               <input v-model="store.appendPeriodicHotKeyConfig" type="text" id="appendPeriodicHotKeyConfig" name="appendPeriodicHotKeyConfig"
                      placeholder="...additional search domains..."
@@ -562,7 +562,7 @@
             <div class="mb-6">
               <label for="settingsHotKeyConfig"
                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                Open settings (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#⌨%EF%B8%8F-hotkeys" class="underline text-purple-600" target="_blank">docs</a>)
+                Open settings (<a href="https://vaultlens.com/feature-guide.html#⌨%EF%B8%8F-hotkeys" class="underline text-purple-600" target="_blank">docs</a>)
               </label>
               <input v-model="store.settingsHotKeyConfig" type="text" id="settingsHotKeyConfig" name="settingsHotKeyConfig"
                      placeholder="...additional search domains..."
@@ -575,13 +575,26 @@
             <div class="mb-6">
               <label for="searchHotKeyConfig"
                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                Search vault (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#⌨%EF%B8%8F-hotkeys" class="underline text-purple-600" target="_blank">docs</a>)
+                Search vault (<a href="https://vaultlens.com/feature-guide.html#⌨%EF%B8%8F-hotkeys" class="underline text-purple-600" target="_blank">docs</a>)
               </label>
               <input v-model="store.searchHotKeyConfig" type="text" id="searchHotKeyConfig" name="searchHotKeyConfig"
                      placeholder="...additional search domains..."
                      class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
               <span class="text-xs text-gray-700 dark:text-gray-400">
                 Default <kbd>{{ config.searchHotKeyConfig }}</kbd>
+              </span>
+            </div>
+
+            <div class="mb-6">
+              <label for="newNoteHotKeyConfig"
+                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                New note (<a href="https://vaultlens.com/feature-guide.html#⌨%EF%B8%8F-hotkeys" class="underline text-purple-600" target="_blank">docs</a>)
+              </label>
+              <input v-model="store.newNoteHotKeyConfig" type="text" id="newNoteHotKeyConfig" name="newNoteHotKeyConfig"
+                     placeholder="...hotkey config..."
+                     class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
+              <span class="text-xs text-gray-700 dark:text-gray-400">
+                Default <kbd>{{ config.newNoteHotKeyConfig }}</kbd>
               </span>
             </div>
 
@@ -593,18 +606,18 @@
           <div class="mb-6">
             <label for="period"
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-              Select Period for Periodic Notes * (<a href="https://jk-oster.github.io/obsidian-search-for-web/feature-guide.html#%F0%9F%93%85-daily-note-quick-access" class="underline text-purple-600" target="_blank">docs</a>)
+              Select Period for Periodic Notes * (<a href="https://vaultlens.com/feature-guide.html#%F0%9F%93%85-daily-note-quick-access" class="underline text-purple-600" target="_blank">docs</a>)
             </label>
             <select v-model="store.period" id="period" name="period" required
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               <option value="daily">daily</option>
               <option value="weekly">weekly</option>
               <option value="monthly">monthly</option>
-              <option value="quaterly">quaterly</option>
+              <option value="quarterly">quarterly</option>
               <option value="yearly">yearly</option>
             </select>
             <div class="text-xs text-gray-700 dark:text-gray-400 mt-2">
-              If you want to use anything other than "daily" you need to install the <a class="underline" href="obsidian://show-plugin?id=periodic-notes">Periodic Notes Plugin</a> and enable the respecetive periods in its settings.
+              If you want to use anything other than "daily" you need to install the <a class="underline" href="obsidian://show-plugin?id=periodic-notes">Periodic Notes Plugin</a> and enable the respective periods in its settings.
             </div>
           </div>
 
@@ -637,7 +650,7 @@
           and the browser. The only data that is stored permanently in the
           browser are the settings you find below. Feel free to check out the
           code base on [GitHub](https://github.com/jk-oster/obsidian-search-for-web).
-          You can read the full privacy policy [here](https://jk-oster.github.io/obsidian-search-for-web/privacy.html).
+          You can read the full privacy policy [here](https://vaultlens.com/privacy.html).
         </MarkdownRenderer>
 
         <h3 id="permissions" class="my-2 text-xl font-semibold text-gray-900 dark:text-white">
@@ -651,7 +664,7 @@
             </li>
           </ul>
           <p>
-            You can read more about the permissions in the <a class="underline" href="https://jk-oster.github.io/obsidian-search-for-web/privacy.html#extension-permissions" target="_blank">here</a>.
+            You can read more about the permissions in the <a class="underline" href="https://vaultlens.com/privacy.html#extension-permissions" target="_blank">here</a>.
           </p>
         </div>
 
@@ -665,9 +678,9 @@
           very welcome.
 
           If you encounter any issues with the extension feel free to open an issue on [GitHub](https://github.com/jk-oster/obsidian-search-for-web/issues).         
-          Looking for documentation? You can find all the details about the extension [here](https://jk-oster.github.io/obsidian-search-for-web).
+          Looking for documentation? You can find all the details about the extension [here](https://vaultlens.com).
 
-          If you like the extension and want to support me and the project you can do so by [buying me a coffee](https://www.kofi.com/jakobosterberger) and giving the extension some good reviews.
+          If you like the extension and want to support me and the project you can do so by [buying me a coffee](https://ko-fi.com/jakobosterberger) and giving the extension some good reviews.
 
           ### Disclaimer
 
@@ -706,7 +719,7 @@ import {useObsidianConnection} from '../connection.js';
 import {config, pageOptions,  permissions} from '../config.js';
 import {detectPreferredColorScheme, setColorScheme} from '../theme.js';
 import {usePlatform} from '../platform.js';
-import { getTabService } from '../background-services/TabService.js';
+import browser from 'webextension-polyfill';
 import { getNoteService } from '../background-services/NoteService.js';
 import ExportIcon from './icons/ExportIcon.vue';
 import BugIcon from './icons/BugIcon.vue';
@@ -762,7 +775,7 @@ const sidebarItems: NavItem[] = [
       },
       {
         name: 'Sidebar & Page Icon',
-        href: '#sidebar'
+        href: '#sidebar-settings'
       },
       {
         name: 'Page Notes & Link Hover Notifications',
@@ -787,6 +800,10 @@ const sidebarItems: NavItem[] = [
       {
         name: 'Periodic Notes',
         href: '#periodic-notes'
+      },
+      {
+        name: 'Multiple Vaults',
+        href: '#multiple-vaults'
       }
     ]
   },
@@ -819,24 +836,29 @@ const navbarItems: NavItem[] = [
   }
 ];
 
-const tabService = getTabService();
 const noteService = getNoteService();
 
 const file = ref<HTMLInputElement | null>(null);
 
 async function exportBugReport() {
-  const manifest = await tabService.getManifest();
-  const browserDetails = navigator.userAgent;
-  const platform = usePlatform();
-  const dateTime = new Date().toISOString();
+  let manifest = null;
   let localRest = null;
 
   try {
-    localRest = await noteService.fetchMetaData(proxyToPlainObject(store));
-    console.log(localRest);
+    manifest = browser.runtime.getManifest();
   } catch (e) {
-    console.error(e);
+    console.error('Failed to get manifest:', e);
   }
+
+  try {
+    localRest = await noteService.fetchMetaData(proxyToPlainObject(store));
+  } catch (e) {
+    console.error('Failed to fetch REST metadata:', e);
+  }
+
+  const browserDetails = navigator.userAgent;
+  const platform = usePlatform();
+  const dateTime = new Date().toISOString();
 
   exportSettings({
     meta: {
@@ -886,10 +908,10 @@ const url = computed(()=> {
 });
 
 async function checkApi() {
-  throttledConnectionCheck().then();
+  await throttledConnectionCheck();
 }
 async function checkRestApi() {
-  throttledRestApiConnectionCheck().then();
+  await throttledRestApiConnectionCheck();
 }
 
 function setTheme(theme: Theme | null = null) {
@@ -908,7 +930,7 @@ function providerChanged() {
     } else {
       connectionInfo.value = '🔄️ Checking your Obsidian Omnisearch connection'
     }
-    checkApi().then();
+    checkApi();
   }, 1);
 }
 
