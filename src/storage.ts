@@ -21,8 +21,8 @@ export function useExtensionStorage() {
         const newKeys = Object.keys(defaultExtensionConfig);
         const keysToRemove = currentKeys.filter(key => !newKeys.includes(key));
 
-        for (const key of keysToRemove) {
-            await browser.storage.sync.remove(key);
+        if (keysToRemove.length > 0) {
+            await browser.storage.sync.remove(keysToRemove);
         }
 
         const newStorageData = newKeys.reduce((obj: object, key: string) =>

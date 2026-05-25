@@ -14,21 +14,7 @@ const state: UnwrapNestedRefs<{ store: ExtensionConfig }> = reactive({
 export const store: UnwrapNestedRefs<ExtensionConfig> = state.store;
 export const storeInitialized = ref<boolean>(false);
 
-function once(fn: Function|null, context: any = null) { 
-    let result: any = undefined;
-    let called = false;
-    return function() { 
-        if (fn && !called) {
-            called = true;
-            // @ts-ignore
-            result = fn.apply(context || this, arguments);
-            fn = null;
-        }
-        return result;
-    };
-}
-
-once(syncStoreWithExtStorage)();
+syncStoreWithExtStorage().catch(console.warn);
 
 /**
  * Two-Way-Sync extension storage with store variable (ext<->store)
@@ -107,8 +93,8 @@ async function initDebouncedReactiveStoreListener() {
 
     watch(
         () => state.store, // Getter function to access the reactive object
-        async (newVal: any, oldVal: any) => {
-            debouncedSet(proxyToPlainObject(newVal)).then();
+        (newVal: any) => {
+            debouncedSet(proxyToPlainObject(newVal)).catch(console.warn);
         },
         {deep: true} // Set deep to true if you want to watch nested properties
     );
@@ -125,7 +111,7 @@ const saveExtStorageChangesToStore = (changes: any) => {
 }
 
 // Set listeners for extension storage changes
-function setExtStorageListeners(syncFunction: (changes: any) => void, localFunction: (changes: any) => void | undefined) {
+function setExtStorageListeners(syncFunction: (changes: any) => void, localFunction: ((changes: any) => void) | undefined) {
     browser.storage.onChanged.addListener((changes, areaName) => {
         // console.log('changes', changes, 'areaName', areaName);
 
