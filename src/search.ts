@@ -175,13 +175,18 @@ export function useSearch(isLoadingInitial: boolean = false) {
                 notes = await noteService.fetchOmniSearch(query, proxyToPlainObject(config));
             }
 
-            if (store.excludes && store.excludes.split(',')[0] != '') {
-                notes = notes?.filter((note: NoteMatch) => {
-                    return store.excludes.split(',').every((exclude: string) => {
-                        if (note.filename.includes(exclude)) return false;
-                        try { return !new RegExp(exclude).test(note.filename); } catch { return true; }
-                    });
-                }) ?? [];
+            const excludePatterns = store.excludes
+                .split(',')
+                .map(e => e.trim())
+                .filter(Boolean);
+
+            if (excludePatterns.length > 0) {
+                notes = notes.filter((note: NoteMatch) =>
+                    !excludePatterns.some(pattern => {
+                        if (note.filename.includes(pattern)) return true;
+                        try { return new RegExp(pattern).test(note.filename); } catch { return false; }
+                    })
+                );
             }
 
             badgeService.setBadgeStatus(Status.search).catch(console.warn);

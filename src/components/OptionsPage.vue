@@ -248,8 +248,8 @@
             <label for="apiKey"
                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
               Your Obsidian REST Api Key * (Local REST API only)</label>
-            <input v-model="store.apiKey" 
-                   @change="checkRestApi();" 
+            <input v-model="store.apiKey"
+                   @change="normalizeApiKey(); checkRestApi();"
                    type="text"
                    id="apiKey" name="apiKey"
                    placeholder="Local REST API Key"
@@ -919,6 +919,10 @@ const {throttledConnectionCheck, throttledRestApiConnectionCheck, connectionInfo
 const url = computed(()=> {
     return (store.provider === 'local-rest' ? store.restApiProtocol : store.protocol)  + (store.provider === 'local-rest' ? '127.0.0.1' : 'localhost') + ":" + (store.provider === 'local-rest' ? store.restApiPort : store.port) ;
 });
+
+function normalizeApiKey() {
+  store.apiKey = store.apiKey.trim().replace(/^Bearer\s+/i, '');
+}
 
 async function checkApi() {
   await throttledConnectionCheck();

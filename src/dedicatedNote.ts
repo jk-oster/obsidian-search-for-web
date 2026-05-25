@@ -109,7 +109,21 @@ export function useDedicatedNote() {
             if (!dedicatedNotes?.length) {
                 dedicatedNote.value = null;
 
-                const mentionedNotes = await noteService.fetchLocalRest(query, proxyToPlainObject(config));
+                let mentionedNotes = await noteService.fetchLocalRest(query, proxyToPlainObject(config));
+
+                const excludePatterns = config.excludes
+                    .split(',')
+                    .map(e => e.trim())
+                    .filter(Boolean);
+
+                if (excludePatterns.length > 0) {
+                    mentionedNotes = mentionedNotes.filter(note =>
+                        !excludePatterns.some(pattern => {
+                            if (note.filename.includes(pattern)) return true;
+                            try { return new RegExp(pattern).test(note.filename); } catch { return false; }
+                        })
+                    );
+                }
 
                 if (mentionedNotes?.length > 0) {
                     searchResults.value = mentionedNotes;
