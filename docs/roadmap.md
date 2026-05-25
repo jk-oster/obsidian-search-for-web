@@ -32,8 +32,8 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
 
 ## Version >= 2.5.0
 
-- ✅ **Firefox Support**
-- ✅ Configurable Hotkeys
+- ✅ **Firefox Support** [requested by @SebastianAtWork](https://github.com/jk-oster/obsidian-search-for-web/issues/5)
+- ✅ **Configurable Hotkeys** [requested by @matlinuxer2](https://github.com/jk-oster/obsidian-search-for-web/issues/14)
 - ✅ Settings JSON import / export
 - ✅ Bug Reporting
 
@@ -51,7 +51,7 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
 
 ## Version >=2.0.0
 
-- ✅ **NOTE PREIVEW**: Preview full notes
+- ✅ **NOTE PREIVEW**: Preview full notes [requested by @dominikmayer](https://github.com/jk-oster/obsidian-search-for-web/issues/11)
 - ✅ **NOTE EDITING**: Edit the note in a Markdown editor
 - ✅ **QUICK APPEND**: quickly append content to notes
 - ✅ **Generic Search Result Embeddings**: search engines without dedicated embedding template can now also have search results embeded
@@ -63,7 +63,7 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
     - qwant
     - ecosia
     - yandex
-- ✅ **Adaptive Light/Dark Mode**: auto detect current color scheme based on page background and set theme accordingly
+- ✅ **Adaptive Light/Dark Mode**: auto detect current color scheme based on page background and set theme accordingly [requested by @fornewfork](https://github.com/jk-oster/obsidian-search-for-web/issues/9)
 - ✅ **UI Improvements**:
     - show sidebar on button hover
     - pin/unpin sidebar
