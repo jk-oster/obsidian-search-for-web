@@ -38,7 +38,7 @@ export function useSearch(isLoadingInitial: boolean = false) {
         if (
             pageOptions.some(page => page.regex?.test(currentUrl)) ||
             searchUrls.value.some((url: string) => currentUrl.includes(url)) || 
-            searchUrls.value.some(url => (new RegExp(url)).test(currentUrl))
+            searchUrls.value.some(url => { try { return new RegExp(url).test(currentUrl); } catch { return false; } })
         ) {
             searchMode.value = SearchModes.search;
         } else {
@@ -103,7 +103,7 @@ export function useSearch(isLoadingInitial: boolean = false) {
 
     const detectInputSearchString = async () => {
         const searchInput = detectInputElement() as HTMLInputElement|null;
-        let params = new URLSearchParams(window.location.href.split('?')[1] ?? '');
+        const params = new URLSearchParams(window.location.search);
         const urlParam = params.get('q') ?? params.get('query') ?? params.get('search');
         searchString.value = urlParam ?? searchInput?.value ?? '';
         searchSrc.value = urlParam ? 'url query parameter' : 'search input field';
@@ -159,7 +159,7 @@ export function useSearch(isLoadingInitial: boolean = false) {
         if (!query || query.length < store.minChars) {
             searchResults.value = [];
             isLoading.value = false;
-            badgeService.setBadgeText(' ').then();
+            badgeService.setBadgeText(' ').catch(console.warn);
             return;
         }
 
@@ -177,19 +177,22 @@ export function useSearch(isLoadingInitial: boolean = false) {
 
             if (store.excludes && store.excludes.split(',')[0] != '') {
                 notes = notes?.filter((note: NoteMatch) => {
-                    return store.excludes.split(',').every((exclude: string) => !note.filename.includes(exclude) && (new RegExp(exclude)).test(note.filename) === false);
+                    return store.excludes.split(',').every((exclude: string) => {
+                        if (note.filename.includes(exclude)) return false;
+                        try { return !new RegExp(exclude).test(note.filename); } catch { return true; }
+                    });
                 }) ?? [];
             }
 
-            badgeService.setBadgeStatus(Status.search).then();
-            badgeService.setBadgeText(notes ? notes?.length.toString() : '0').then();
+            badgeService.setBadgeStatus(Status.search).catch(console.warn);
+            badgeService.setBadgeText(notes ? notes?.length.toString() : '0').catch(console.warn);
 
             searchResults.value = notes;
         } catch (error) {
             console.warn(error);
 
-            badgeService.setBadgeStatus(Status.offline).then();
-            badgeService.setBadgeText('off').then();
+            badgeService.setBadgeStatus(Status.offline).catch(console.warn);
+            badgeService.setBadgeText('off').catch(console.warn);
 
             searchResults.value = [];
         } finally {

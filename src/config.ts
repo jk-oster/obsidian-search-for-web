@@ -2,6 +2,8 @@ import type {Mode, State, Color, ExtensionConfig} from "./types.js";
 
 export const MIGRATION = '2.4.0';
 
+export const UninstallUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdKiffrH7BhdbpTx8PU0E8bCoDkIBu1tI70TYT852tdF5KQFQ/viewform?usp=dialog';
+
 export const SearchModes = {
     search: 'search' as Mode,
     urlMatch: 'urlMatch' as Mode,

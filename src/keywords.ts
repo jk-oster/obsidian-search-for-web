@@ -24,9 +24,10 @@ export function parseSearchKeywords(query: string): ParsedQuery {
         text = text.replace(match[0], '');
     }
 
-    // path:segment and tag:/tags:name
+    // path:segment and tag:/tags:name — scan post-fm text so fm: values aren't double-parsed as path:/tag:
+    const textAfterFm = text;
     const prefixRegex = /\b(path|tags?):(\S+)/gi;
-    while ((match = prefixRegex.exec(query)) !== null) {
+    while ((match = prefixRegex.exec(textAfterFm)) !== null) {
         const prefix = match[1].toLowerCase().replace(/s$/, '');
         const value = match[2];
         if (prefix === 'path') {

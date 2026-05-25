@@ -1,5 +1,5 @@
 import browser from "webextension-polyfill";
-import {config, Colors, MIGRATION, Status} from './config.js';
+import {config, Colors, MIGRATION, UninstallUrl} from './config.js';
 import {useExtensionStorage} from "./storage.js";
 import {registerBadgeService} from "./background-services/BadgeService.js";
 import {registerNoteService} from "./background-services/NoteService.js";
@@ -32,7 +32,7 @@ browser.runtime.onInstalled.addListener(async () => {
     browserAction.setBadgeText({text: ' '}).catch(console.log);
     browserAction.setBadgeBackgroundColor({color: Colors.gray}).catch(console.log);
 
-    browser.runtime.setUninstallURL('https://docs.google.com/forms/d/e/1FAIpQLSdKiffrH7BhdbpTx8PU0E8bCoDkIBu1tI70TYT852tdF5KQFQ/viewform?usp=dialog');
+    browser.runtime.setUninstallURL(UninstallUrl);
 
     // Set default config on first launch & install
     // Open Settings Page on FIRST installation only
