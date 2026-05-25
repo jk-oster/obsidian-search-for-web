@@ -27,8 +27,8 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
 
 - ✅ Full screen mode for Note Preview
 - ✅ Better extension option-page & defaults
-- ✅ Strip configurable URL parameters before URL matching  e.g. YouTube timestamps (requested by [@digilum](https://github.com/jk-oster/obsidian-search-for-web/issues/19))
-- ✅ Add keyword search syntax: path:, tag:, fm:key:value (requested by [@craziedde](https://github.com/jk-oster/obsidian-search-for-web/issues/18))
+- ✅ Strip configurable URL parameters before URL matching  e.g. YouTube timestamps ([requested by @digilum](https://github.com/jk-oster/obsidian-search-for-web/issues/19))
+- ✅ Add keyword search syntax: path:, tag:, fm:key:value ([requested by @craziedde](https://github.com/jk-oster/obsidian-search-for-web/issues/18))
 
 ## Version >= 2.5.0
 
@@ -51,7 +51,7 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
 
 ## Version >=2.0.0
 
-- ✅ **NOTE PREIVEW**: Preview full notes [requested by @dominikmayer](https://github.com/jk-oster/obsidian-search-for-web/issues/11)
+- ✅ **NOTE PREIVEW**: Preview full notes ([requested by @dominikmayer](https://github.com/jk-oster/obsidian-search-for-web/issues/11))
 - ✅ **NOTE EDITING**: Edit the note in a Markdown editor
 - ✅ **QUICK APPEND**: quickly append content to notes
 - ✅ **Generic Search Result Embeddings**: search engines without dedicated embedding template can now also have search results embeded
@@ -63,7 +63,7 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
     - qwant
     - ecosia
     - yandex
-- ✅ **Adaptive Light/Dark Mode**: auto detect current color scheme based on page background and set theme accordingly [requested by @fornewfork](https://github.com/jk-oster/obsidian-search-for-web/issues/9)
+- ✅ **Adaptive Light/Dark Mode**: auto detect current color scheme based on page background and set theme accordingly ([requested by @fornewfork](https://github.com/jk-oster/obsidian-search-for-web/issues/9))
 - ✅ **UI Improvements**:
     - show sidebar on button hover
     - pin/unpin sidebar
