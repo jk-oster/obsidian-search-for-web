@@ -171,3 +171,5 @@ See @docs/roadmap.md for planned features, work in progress, and the full versio
 1. Run `pnpm version-patch|minor|major` — bumps `package.json`, commits with `[RELEASE]` prefix, builds and zips.
 2. Push the tag — CI (`release.yaml`) rebuilds and creates a GitHub Release with `dist.zip`.
 3. Manual upload to Chrome Web Store / Firefox Add-on Store via `upload.js` / `deploy.js`.
+
+**Pre-release / experimental:** The extension manifest only accepts plain numeric versions (`2.6.3`), not semver pre-release strings. Use `npm version patch --no-git-tag-version`, commit manually, then tag as `v2.6.3-beta.0` — CI detects `-beta`/`-alpha`/`-rc` in the tag and marks the GitHub Release as pre-release.
