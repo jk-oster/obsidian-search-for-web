@@ -93,7 +93,11 @@ const isOffCanvasHovered = useElementHover(offCanvas, {
 const isOffCanvasHoveredNoDelay = useElementHover(offCanvas);
 const isOnDelay = computed(() => isOffCanvasHovered.value && !isOffCanvasHoveredNoDelay.value);
 
-const showPopup = computed(() => (store.showSidebarOnButtonHover && isToggleHovered.value) || isOffCanvasHovered.value || (store.show && (store.showSidebarWhenNoResults || searchResults.value?.length > 0)));
+const showPopup = computed(() =>
+  store.show ||
+  (((store.showSidebarOnButtonHover && isToggleHovered.value) || isOffCanvasHovered.value) &&
+    (store.showSidebarWhenNoResults || searchResults.value?.length > 0))
+);
 const showToggle = computed(() => store.showInPageIcon && (store.showInPageIconWhenNoResults || searchResults.value?.length > 0));
 
 onMounted(async () => {

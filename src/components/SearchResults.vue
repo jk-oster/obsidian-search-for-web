@@ -55,7 +55,7 @@
         </span>
         <span>
           <Pin v-if="!store.show" class="h-5 w-5"></Pin>
-          <Close v-else class="h-5 w-5"></Close>
+          <UnPin v-else class="h-5 w-5"></UnPin>
         </span>
       </button>
     </div>
