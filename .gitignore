@@ -9,6 +9,8 @@ lerna-debug.log*
 
 node_modules
 dist.zip
+dist-chrome.zip
+dist-firefox.zip
 dist/chrome/*
 dist/firefox/*
 dist-ssr

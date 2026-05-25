@@ -48,4 +48,4 @@ jobs:
             - Add release notes here.
           draft: false
           prerelease: ${{ env.prerelease }}
-          artifacts: dist.zip  # Ensure the path is correct
+          artifacts: dist-chrome.zip,dist-firefox.zip,dist.zip
