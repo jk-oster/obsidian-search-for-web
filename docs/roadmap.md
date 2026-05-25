@@ -9,16 +9,13 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
 
 ## Future
 
-- ⌛ Quick access for specific notes
+- ⌛ Quick access / bookmarks for specific notes
 - ⌛ Better Note Editing
 - ⌛ User guide on first installation
-- ⌛ Full screen mode for Note Preview
 - ⌛ Show dedicated Page Notes featured in search results (`web-message` text)
-- ⌛ Search / dedicated Note Caching
 - ⌛ Create new note from sidebar
-- ⌛ Dragging & full screen mode for note preview
+- ⌛ Dragging for note preview
 - ⌛ Opening note preview on link hover + hotkey
-- ⌛ Create new notes from the sidebar
 
 ## Current Work in Progress
 
@@ -27,6 +24,8 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
 - ⚒️ URL matching fallback to page title in case URL is not found
 
 ## Version >= 2.7.0
+
+- ✅ Full screen mode for Note Preview
 - ✅ Better extension option-page & defaults
 - ✅ Strip configurable URL parameters before URL matching  e.g. YouTube timestamps (requested by [@digilum](https://github.com/jk-oster/obsidian-search-for-web/issues/19))
 - ✅ Add keyword search syntax: path:, tag:, fm:key:value (requested by [@craziedde](https://github.com/jk-oster/obsidian-search-for-web/issues/18))
