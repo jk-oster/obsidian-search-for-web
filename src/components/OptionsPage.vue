@@ -718,7 +718,7 @@
 
   <footer class="bg-white dark:bg-gray-900 p-4 shadow-sm md:p-6">
     <div class="text-sm text-gray-500 dark:text-gray-400 text-right">
-      © 2025 <a href="https://jakobosterberger.com/" target="_blank" class="hover:underline">Jakob Osterberger</a>. All Rights Reserved. Released under the <a href="https://github.com/jk-oster/obsidian-search-for-web/blob/master/LICENSE" target="_blank" class="hover:underline">GPLv3 License</a>.
+      © 2022-2026 <a href="https://jakobosterberger.com/" target="_blank" class="hover:underline">Jakob Osterberger</a>. All Rights Reserved. Released under the <a href="https://github.com/jk-oster/obsidian-search-for-web/blob/master/LICENSE" target="_blank" class="hover:underline">GPLv3 License</a>.
     </div>
   </footer>
 </template>

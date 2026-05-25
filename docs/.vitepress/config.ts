@@ -68,7 +68,7 @@ export default defineConfig({
 
     footer: {
       message: 'Released under the GPLv3 License.',
-      copyright: 'Copyright © 2023-present Jakob Osterberger'
+      copyright: 'Copyright © 2022-2026 Jakob Osterberger'
     }
   },
 })
