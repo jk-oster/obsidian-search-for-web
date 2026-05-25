@@ -20,12 +20,11 @@ export function useObsidianConnection(delay: number = 0) {
         try {
             const {status, statusText, text, provider} = await connectionService.checkApiStatus(url, store.apiKey, store.provider);
 
-            if (status !== connectionStatus.value) {
-                badgeService.setBadgeStatus(status).catch(console.warn);
-                badgeService.setBadgeText(text).catch(console.warn);
-            }
-
             if(provider === store.provider) {
+                if (status !== connectionStatus.value) {
+                    badgeService.setBadgeStatus(status).catch(console.warn);
+                    badgeService.setBadgeText(text).catch(console.warn);
+                }
                 connectionStatus.value = status ?? Status.unknown;
                 connectionInfo.value = statusText;
             }

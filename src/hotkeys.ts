@@ -17,10 +17,12 @@ export function useHotkeys(keyConfig: string|ComputedRef<string>, onHotKeyPresse
         if (hotkeyWatcher) hotkeyWatcher();
         if(hotKeyConfig.value) {
             const hotkey = keys[hotKeyConfig.value];
-            hotkeyWatcher = watch(hotkey, (v) => {
-                if(v) onHotKeyPressed();
-                else onHotKeyReleased();
-            });
+            if (hotkey) {
+                hotkeyWatcher = watch(hotkey, (v) => {
+                    if(v) onHotKeyPressed();
+                    else onHotKeyReleased();
+                });
+            }
         }
     }
 

@@ -5,11 +5,11 @@ export function proxyToPlainObject(proxy: T): T {
     if (typeof proxy !== 'object') {
         return proxy;
     }
-    
+      
     // @ts-ignore
-  const obj: T = {};
-  for (const key of Object.keys(proxy)) {
-    obj[key] = proxyToPlainObject(proxy[key]);
-  }
-  return obj;
+    const obj: T = {};
+    for (const key of Object.keys(proxy)) {
+        obj[key] = proxyToPlainObject(proxy[key]);
+    }
+    return obj;
 }

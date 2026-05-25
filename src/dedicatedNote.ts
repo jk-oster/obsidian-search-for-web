@@ -1,5 +1,5 @@
-import { ref, onMounted, onUnmounted } from 'vue';
-import { store, storeInitialized } from './store.js';
+import { ref } from 'vue';
+import { store } from './store.js';
 import { useDebounceFn } from '@vueuse/core';
 import { getNoteService } from './background-services/NoteService.js';
 import { Note } from './types.js';
@@ -106,7 +106,7 @@ export function useDedicatedNote() {
 
             // console.log(dedicatedNotes);
 
-            if (dedicatedNotes?.length === 0) {
+            if (!dedicatedNotes?.length) {
                 dedicatedNote.value = null;
 
                 const mentionedNotes = await noteService.fetchLocalRest(query, proxyToPlainObject(config));
@@ -147,10 +147,12 @@ export function useDedicatedNote() {
         searchForDedicatedNotes(searchString.value).then();
     });
 
-    return { 
-        searchString, 
+    return {
+        searchString,
         dedicatedNote,
         searchResults,
+        isLoading,
+        error,
         restApiStatus,
         isRestApiConnected,
         debouncedFetchDedicatedNotes,

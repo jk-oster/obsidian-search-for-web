@@ -29,7 +29,7 @@ const runMigration = async () => {
 // Runs every time  the browser is opened / restarted
 browser.runtime.onInstalled.addListener(async () => {
 
-    browserAction.setBadgeText({text: ' '}).then();
+    browserAction.setBadgeText({text: ' '}).catch(console.log);
     browserAction.setBadgeBackgroundColor({color: Colors.gray}).catch(console.log);
 
     browser.runtime.setUninstallURL('https://docs.google.com/forms/d/e/1FAIpQLSdKiffrH7BhdbpTx8PU0E8bCoDkIBu1tI70TYT852tdF5KQFQ/viewform?usp=dialog');
@@ -40,8 +40,6 @@ browser.runtime.onInstalled.addListener(async () => {
     if (version !== MIGRATION) {
         await runMigration();
         browser.runtime.openOptionsPage().then();
-    } else {
-        await runMigration();
     }
 });
 
@@ -52,6 +50,7 @@ browserAction?.onClicked?.addListener(async (tab) => {
     if (version !== MIGRATION) {
         await runMigration();
         browser.runtime.openOptionsPage().then();
+        return;
     }
 
     const show = await extensionStorage.getItem('show');
