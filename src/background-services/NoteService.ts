@@ -242,7 +242,21 @@ class NoteService {
             conditions.push({ in: [path, { var: 'path' }] });
         }
         for (const fm of frontmatter) {
-            conditions.push({ '===': [{ var: `frontmatter.${fm.key}` }, fm.value] });
+            const strVal = fm.value;
+            const numVal = Number(strVal);
+            const isNum = strVal.trim() !== '' && !isNaN(numVal);
+
+            const varRef = { var: `frontmatter.${fm.key}` };
+            // Match string scalar, string in array, and optionally numeric variants
+            const alternatives: any[] = [
+                { '===': [varRef, strVal] },
+                { in: [strVal, varRef] },
+            ];
+            if (isNum) {
+                alternatives.push({ '===': [varRef, numVal] });
+                alternatives.push({ in: [numVal, varRef] });
+            }
+            conditions.push({ or: alternatives });
         }
 
         if (conditions.length === 0) return [];
