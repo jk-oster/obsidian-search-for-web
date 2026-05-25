@@ -1,12 +1,11 @@
 import {defineProxyService} from '@webext-core/proxy-service';
 import browser from "webextension-polyfill";
 
-// Firefox Manifest v2 does not support action.setBadgeText
 const browserAction = browser?.action || browser?.browserAction;
 
 class TabService {
 
-    async getCurrTabId(matches = null) {
+    async getCurrTabId(matches: RegExp | null = null) {
         return browser.tabs.query({active: true, currentWindow: true}).then((tabs) => {
             const currTab = tabs[0];
             // @ts-ignore
@@ -39,8 +38,10 @@ class TabService {
     }
 
     async openChromeSidePanel() {
-        const tabId = await this.getCurrTabId() ?? 0;
-        await chrome.sidePanel.open({windowId: tabId})
+        const window = await chrome.windows.getCurrent();
+        if (window.id !== undefined) {
+            await chrome.sidePanel.open({windowId: window.id});
+        }
     }
 
     async getExtensionId() {
@@ -51,8 +52,8 @@ class TabService {
         await browser.sidebarAction?.open();
     }
 
-    async getManifest() {
-        return await browser.runtime.getManifest();
+    getManifest() {
+        return browser.runtime.getManifest();
     }
 }
 

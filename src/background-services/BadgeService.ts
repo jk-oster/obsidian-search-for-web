@@ -1,13 +1,13 @@
 import {defineProxyService} from '@webext-core/proxy-service';
 import browser from "webextension-polyfill";
-import type {Color, SearchProvider, State} from "../types.js";
-import {Status, StatusColorMapping} from "../config.js";
+import type {Color, State} from "../types.js";
+import {StatusColorMapping} from "../config.js";
 
 // Firefox Manifest v2 does not support action.setBadgeText
 const browserAction = browser?.action || browser?.browserAction;
 
 class BadgeService {
-    async getCurrTabId(matches = null) {
+    async getCurrTabId(matches: RegExp | null = null) {
         return browser?.tabs.query({active: true, currentWindow: true}).then((tabs) => {
             const currTab = tabs[0];
             // @ts-ignore
@@ -21,33 +21,34 @@ class BadgeService {
     async setBadgeText(text: string) {
         if (!text || text === '') text = ' ';
         const tabId = await this.getCurrTabId();
+        if (!tabId) return;
 
-        browserAction?.setBadgeText({text, tabId}).then();
+        browserAction?.setBadgeText({text, tabId})?.then();
     }
 
     async setBadgeColor(color: Color) {
         const tabId = await this.getCurrTabId();
         if (!tabId) return;
 
-        browserAction?.setBadgeBackgroundColor({color, tabId}).then();
+        browserAction?.setBadgeBackgroundColor({color, tabId})?.then();
     }
 
     async setBadge({color, text, status}: { color: Color | null, text: string | null, status: State | null }) {
         if (color) {
-            this.setBadgeColor(color).then();
+            void this.setBadgeColor(color);
         }
         if (text) {
-            this.setBadgeText(text).then();
+            void this.setBadgeText(text);
         }
         if (status) {
-            this.setBadgeStatus(status).then();
+            void this.setBadgeStatus(status);
         }
     }
 
     async setBadgeStatus(status: State) {
         const colorName: Color = StatusColorMapping[status];
         if (!colorName) return;
-        this.setBadgeColor(colorName).then();
+        void this.setBadgeColor(colorName);
     }
 }
 

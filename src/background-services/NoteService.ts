@@ -1,5 +1,6 @@
 import {defineProxyService} from '@webext-core/proxy-service';
 import type {AcceptHeader, ContentTypeHeader, LocalRestNoteMatch, NoteMatch, OmniSearchNoteMatch} from "../types.js";
+import {fetchWithTimeout} from "../fetch.js";
 
 class NoteService {
 
@@ -15,7 +16,8 @@ class NoteService {
         const options = {...this.getLocalRestApiOptions(apiKey), method: 'POST', body: typeof query === 'object' ? JSON.stringify(query) : query};
         options.headers['Content-Type'] = contentType;
         const url = restApiProtocol + '127.0.0.1:' + restApiPort + '/search/';
-        const resp = await fetch(url, options);
+        const resp = await fetchWithTimeout(url, options);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
         return await resp.json();
     }
 
@@ -27,12 +29,9 @@ class NoteService {
     }): Promise<string> {
         const options = this.getLocalRestApiOptions(apiKey);
         const url = restApiProtocol + '127.0.0.1:' + restApiPort + '/active';
-        const resp = await fetch(url, options);
+        const resp = await fetchWithTimeout(url, options);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
         return await resp.text();
-
-        // const data = await resp.text();
-        // console.log(data);
-        // return data;
     }
 
     async fetchNote(fileName: string, {apiKey, restApiProtocol, restApiPort}: {
@@ -45,12 +44,9 @@ class NoteService {
         // @ts-ignore
         options.headers['Accept'] = accept;
         const url = restApiProtocol + '127.0.0.1:' + restApiPort + '/vault/' + encodeURIComponent(fileName);
-        const resp = await fetch(url, options);
+        const resp = await fetchWithTimeout(url, options);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
         return await resp.text();
-
-        // const data = await resp.text();
-        // console.log(data);
-        // return data;
     }
 
     async writeNote(fileName: string, content: string, {apiKey, restApiProtocol, restApiPort}: {
@@ -62,11 +58,8 @@ class NoteService {
         const options = { ...this.getLocalRestApiOptions(apiKey), method: 'PUT', body: content};
         options.headers['Content-Type'] = 'text/markdown';
         const url = restApiProtocol + '127.0.0.1:' + restApiPort + '/vault/' + encodeURIComponent(fileName);
-        const resp = await fetch(url, options);
-
-        // const data = await resp.json();
-        // console.log(data);
-        // return data;
+        const resp = await fetchWithTimeout(url, options);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
     }
 
     async appendNote(fileName: string, content: string, {apiKey, restApiProtocol, restApiPort}: {
@@ -78,11 +71,8 @@ class NoteService {
         const options = { ...this.getLocalRestApiOptions(apiKey), method: 'POST', body: content};
         options.headers['Content-Type'] = 'text/markdown';
         const url = restApiProtocol + '127.0.0.1:' + restApiPort + '/vault/' + encodeURIComponent(fileName);
-        const resp = await fetch(url, options);
-
-        // const data = await resp.json();
-        // console.log(data);
-        // return data;
+        const resp = await fetchWithTimeout(url, options);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
     }
 
     async writePeriodicNote(content: string, {apiKey, restApiProtocol, restApiPort}: {
@@ -94,11 +84,8 @@ class NoteService {
         const options = { ...this.getLocalRestApiOptions(apiKey), method: 'PUT', body: content};
         options.headers['Content-Type'] = 'text/markdown';
         const url = restApiProtocol + '127.0.0.1:' + restApiPort + '/periodic/' + period;
-        const resp = await fetch(url, options);
-
-        // const data = await resp.json();
-        // console.log(data);
-        // return data;
+        const resp = await fetchWithTimeout(url, options);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
     }
 
     async appendPeriodicNote(content: string, {apiKey, restApiProtocol, restApiPort}: {
@@ -110,11 +97,8 @@ class NoteService {
         const options = { ...this.getLocalRestApiOptions(apiKey), method: 'POST', body: content};
         options.headers['Content-Type'] = 'text/markdown';
         const url = restApiProtocol + '127.0.0.1:' + restApiPort + '/periodic/' + period;
-        const resp = await fetch(url, options);
-
-        // const data = await resp.json();
-        // console.log(data);
-        // return data;
+        const resp = await fetchWithTimeout(url, options);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
     }
 
     async fetchPeriodic({apiKey, restApiProtocol, restApiPort}:{apiKey: string, restApiProtocol: string, restApiPort: number}, period: string = 'daily', accept: AcceptHeader = 'text/markdown'): Promise<string> {
@@ -122,17 +106,17 @@ class NoteService {
         // @ts-ignore
         options.headers['Accept'] = accept;
         const url = restApiProtocol + '127.0.0.1:' + restApiPort + '/periodic/' + period + '/';
-        const resp = await fetch(url, options);
-        const data: string = await resp.text();
-        return data;
+        const resp = await fetchWithTimeout(url, options);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
+        return await resp.text();
     }
 
     async fetchMetaData({apiKey, restApiProtocol, restApiPort}:{apiKey: string, restApiProtocol: string, restApiPort: number}): Promise<any> {
         const options = this.getLocalRestApiOptions(apiKey);
         const url = restApiProtocol + '127.0.0.1:' + restApiPort;
-        const resp = await fetch(url, options);
-        const data: any = await resp.json();
-        return data;
+        const resp = await fetchWithTimeout(url, options);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
+        return await resp.json();
     }
 
     // async fetchCommands({apiKey, protocol, obsidianRestUrl, port}:{apiKey: string, protocol: string, obsidianRestUrl: string, port: number, vault: string})Promise<Command[]> {
@@ -165,7 +149,8 @@ class NoteService {
         options.method = 'POST';
         const url = restApiProtocol + '127.0.0.1:' + restApiPort + '/search/simple/?query=' + encodeURIComponent(query) + '&contextLength=' + contextLength;
 
-        const resp = await fetch(url, options);
+        const resp = await fetchWithTimeout(url, options);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
         const data: LocalRestNoteMatch[] = await resp.json();
 
         const match = query?.toLowerCase();
@@ -193,8 +178,9 @@ class NoteService {
             }
         };
 
-        const url = protocol + 'localhost:' + port + '/search?q=' + query;
-        const resp = await fetch(url, options);
+        const url = protocol + 'localhost:' + port + '/search?q=' + encodeURIComponent(query);
+        const resp = await fetchWithTimeout(url, options);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
         const data: OmniSearchNoteMatch[] = await resp.json();
 
         return data.map(note => this.mapOmniSearchToNoteMatch(note, {matchCount, vault}));
