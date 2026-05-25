@@ -21,32 +21,35 @@ export function useHoveredAndPressed(elem: HTMLElement | null, keys: string[]) {
 
         if (result !== isSpecifiedKeyPressed.value) {
             isSpecifiedKeyPressed.value = result;
-            console.log(requiresSpecialKey, specialKeysPressed, isSpecifiedKeyPressed.value);
         }
     }
 
-    function init(elem: HTMLElement | null) {
-        element = elem ?? element;
-        console.log(element);
+    const onMouseEnter = () => { isHovered.value = true; };
+    const onMouseLeave = () => { isHovered.value = false; };
+    const onKeyDown = (event: KeyboardEvent) => { isKeyPressed.value = true; checkCondition(event); };
+    const onKeyUp = () => { isKeyPressed.value = false; isSpecifiedKeyPressed.value = false; };
 
-        // Mouse hover tracking
-        element?.addEventListener("mouseenter", () => isHovered.value = true);
-        element?.addEventListener("mouseleave", () => isHovered.value = false);
+    function cleanup() {
+        element?.removeEventListener("mouseenter", onMouseEnter);
+        element?.removeEventListener("mouseleave", onMouseLeave);
+        document.removeEventListener("keydown", onKeyDown);
+        document.removeEventListener("keyup", onKeyUp);
+    }
 
-        // Key press tracking
-        document.addEventListener("keydown", (event) => {
-            isKeyPressed.value = true;
-            checkCondition(event);
-        });
+    function init(newElem: HTMLElement | null) {
+        cleanup();
+        element = newElem ?? element;
 
-        document.addEventListener("keyup", () => {
-            isKeyPressed.value = false;
-            isSpecifiedKeyPressed.value = false;
-        });
+        element?.addEventListener("mouseenter", onMouseEnter);
+        element?.addEventListener("mouseleave", onMouseLeave);
+
+        document.addEventListener("keydown", onKeyDown);
+        document.addEventListener("keyup", onKeyUp);
     }
 
     return {
         init,
+        cleanup,
         isHovered,
         isKeyPressed,
         isSpecifiedKeyPressed,

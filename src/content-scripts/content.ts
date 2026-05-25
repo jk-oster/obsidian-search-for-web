@@ -92,5 +92,5 @@ async function setupSidebar() {
     createApp(OffCanvas).mount(isolatedElement);
 }
 
-setupEmbeddedResults().then();
-setupSidebar().then();
+void setupEmbeddedResults();
+void setupSidebar();

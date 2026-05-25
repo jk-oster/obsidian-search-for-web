@@ -1,8 +1,8 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 
 export function useHoveredLink(delay: number = 100) {
-  const hoveredLink = ref(null);
-  let timeout = 0;
+  const hoveredLink = ref<string | null>(null);
+  let timeout: ReturnType<typeof setTimeout> | undefined;
 
   function handleMouseOver(event: Event) {
     // @ts-ignore
@@ -31,6 +31,7 @@ export function useHoveredLink(delay: number = 100) {
   });
 
   onUnmounted(() => {
+    clearTimeout(timeout);
     document.removeEventListener('mouseover', handleMouseOver);
     document.removeEventListener('mouseout', handleMouseOut);
   });

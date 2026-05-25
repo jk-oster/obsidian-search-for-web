@@ -17,4 +17,4 @@ async function setupOptionsPage() {
     createApp(OffCanvas).mount(document.body);
 }
 
-setupOptionsPage().then();
+void setupOptionsPage();

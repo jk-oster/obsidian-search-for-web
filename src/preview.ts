@@ -28,8 +28,7 @@ export function usePreview() {
                     // Periodic note does not exist for the specified period
                     if (json?.errorCode === 40461) {
                         previewNote.value = 'No note found for the specified period. Creating one now...';
-                        savePeriodicNote('', period);
-                        isLoading.value = false;
+                        await savePeriodicNote('', period);
                         return;
                     }
                 } catch (e) {
@@ -41,8 +40,9 @@ export function usePreview() {
                 }
             } catch (e) {
                 previewNote.value = '### Oouups! An Error occurred when trying to fetch the active note :/ \n\n > Try refreshing the page or check your extension settings.'
+            } finally {
+                isLoading.value = false;
             }
-            isLoading.value = false;
         }
     }
 
@@ -56,8 +56,9 @@ export function usePreview() {
                 }
             } catch (e) {
                 previewNote.value = '### Oouups! An Error occurred when trying to fetch the note preview :/ \n\n > Try refreshing the page or check your extension settings.'
+            } finally {
+                isLoading.value = false;
             }
-            isLoading.value = false;
         }
     }
 
@@ -68,8 +69,9 @@ export function usePreview() {
                 activeNote.value = await noteService.fetchActiveNote(proxyToPlainObject(config));
             } catch (e) {
                 activeNote.value = '### Oouups! An Error occurred when trying to fetch the active note :/ \n\n > Try refreshing the page or check your extension settings.'
+            } finally {
+                isLoading.value = false;
             }
-            isLoading.value = false;
 
         }
     }
