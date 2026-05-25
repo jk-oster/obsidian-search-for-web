@@ -20,14 +20,16 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
 - ⌛ Opening note preview on link hover + hotkey
 - ⌛ Create new notes from the sidebar
 
-## Current Work in Progress >= 2.6.0
+## Current Work in Progress
 
 - ⚒️ Advanced Instant Live Search configuration (regex support + query selector)
 - ⚒️ Instant Live Search fallback to URL matching (opt-in)
 - ⚒️ URL matching fallback to page title in case URL is not found
-- ⚒️ Better extension option-page & defaults
-- ⚒️ Strip configurable URL parameters before URL matching  e.g. YouTube timestamps (requested by [@digilum](https://github.com/jk-oster/obsidian-search-for-web/issues/19))
-- ⚒️ Add keyword search syntax: path:, tag:, fm:key:value (requested by [@craziedde](https://github.com/jk-oster/obsidian-search-for-web/issues/18))
+
+## Version >= 2.7.0
+- ✅ Better extension option-page & defaults
+- ✅ Strip configurable URL parameters before URL matching  e.g. YouTube timestamps (requested by [@digilum](https://github.com/jk-oster/obsidian-search-for-web/issues/19))
+- ✅ Add keyword search syntax: path:, tag:, fm:key:value (requested by [@craziedde](https://github.com/jk-oster/obsidian-search-for-web/issues/18))
 
 ## Version >= 2.5.0
 
