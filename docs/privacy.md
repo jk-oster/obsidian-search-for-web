@@ -5,7 +5,7 @@ editLink: false
 
 # Data Privacy Statement
 
-> This extension is an **open source project**. Users are invited to inspect the source code themselves in the [extensions github repository](https://github.com/jk-oster/obsidian-search-for-web).
+> This extension is an **open source project**. Users are invited to inspect the source code themselves in the [extension's GitHub repository](https://github.com/jk-oster/obsidian-search-for-web).
 
 This Data Privacy Statement outlines the handling of user data by the **Vault Lens** extension. It is essential to review and understand this policy, as it governs the collection, use, and sharing of user data. By using the extension, you agree to the terms outlined below.
 
@@ -21,13 +21,13 @@ This extension uses the following extension permission to work correctly:
 
 The extension does not collect any user data, such as personal information or usage statistics. It does not store any data on the user's device, and all data is handled in memory.
 
-It only sends the search query to a obsidian service locally running on the users machine to retrieve the search results.
+It only sends the search query to an Obsidian service locally running on the user's machine to retrieve the search results.
 
 ## Use of User Data
 
 The extension does not use any user data for any purpose other than to provide its functionality. No user data except extension settings is stored on the user's device, and all data from the obsidian notes is handled locally in memory.
 
-Search results and note content are embedded in the host page on purpose and are therefore accessibile to the host page or any scripts running on it.
+Search results and note content are embedded in the host page on purpose and are therefore accessible to the host page or any scripts running on it.
 
 ## Access to Privacy Policy
 

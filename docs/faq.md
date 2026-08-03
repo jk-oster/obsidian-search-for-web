@@ -1,6 +1,6 @@
 ---
 title: FAQ & Troubleshooting Guide
-description: Find answers to common questions and solutions to issues with Vault Lens (Browser Search for Obsdidian).
+description: Find answers to common questions and solutions to issues with Vault Lens (Browser Search for Obsidian).
 
 editLink: true
 ---
@@ -8,7 +8,7 @@ editLink: true
 # FAQ and Troubleshooting
 
 > [!warning] Work in Progress 🏗️
-> This page is a work in progress. If you don't find an answer to your questions here or in the [guide](./feature-guide.md), feel free to [reach out](https://jakobosterberger.com/contact) or to open up an [issue on github](https://github.com/jk-oster/obsidian-search-for-web/issues) (preferably create a bug-report.json in the extension settings and include it in the issue for easier debugging and context)!
+> This page is a work in progress. If you don't find an answer to your questions here or in the [guide](./feature-guide.md), feel free to [reach out](https://jakobosterberger.com/contact) or to open up an [issue on GitHub](https://github.com/jk-oster/obsidian-search-for-web/issues) (preferably create a bug-report.json in the extension settings and include it in the issue for easier debugging and context)!
 
 > Thanks [@coddingtonbear](https://github.com/coddingtonbear) for inspiration and writing awesome guides on how to tackle certain issues especially regarding the Local REST API plugin.
 
@@ -16,11 +16,11 @@ editLink: true
 
 ## How can I troubleshoot connection problems between Vault Lens and Obsidian Local REST API?
 
-In general, connection between Vault Lens and the Obsidian Local REST API are quite simple to set up. Usually it is just a matter of entering the API Key in the correct field, but sometimes things don't go smoothly.
+In general, the connection between Vault Lens and the Obsidian Local REST API is quite simple to set up. Usually it is just a matter of entering the API Key in the correct field, but sometimes things don't go smoothly.
 
 See [this discussion](https://github.com/coddingtonbear/obsidian-web/discussions/174#discussioncomment-8740665) by [@coddingtonbear](https://github.com/coddingtonbear) for steps you can take to troubleshoot connection errors.
 
-## How do I get my browser trust my Obsidian Local REST API certificate?
+## How do I get my browser to trust my Obsidian Local REST API certificate?
 
 [@coddingtonbear](https://github.com/coddingtonbear) has written an [extensive guide](https://github.com/coddingtonbear/obsidian-web/wiki/How-do-I-get-my-browser-trust-my-Obsidian-Local-REST-API-certificate%3F) about this issue. Look it up to find out how to get it to work.
 
@@ -39,7 +39,7 @@ Done!
 
 ## How do I test the latest extension version from Github?
 
-The latest development [releases are available on Github](https://github.com/jk-oster/obsidian-search-for-web/releases). You can try them out already before they will be published in the Chrome Web Store and use new Features earlier.
+The latest development [releases are available on GitHub](https://github.com/jk-oster/obsidian-search-for-web/releases). You can try them out before they are published in the Chrome Web Store and use new features earlier.
 
 0. open your obsidian vault in the app and install either the local REST API plugin or the omnisearch plugin
 1. test this extension by downloading the [latest released](https://github.com/jk-oster/obsidian-search-for-web/releases) zip file
@@ -51,7 +51,7 @@ The latest development [releases are available on Github](https://github.com/jk-
 
 ## Is Vault Lens also available for Firefox?
 
-Yes, since version >= 2.5.2 firefox is supported. You can install the firefox plugin through trough the [Mozilla Add-on Store](https://addons.mozilla.org/de/firefox/addon/vault-lens/). The extension is being developed and tested with Chrome and Firefox on Windows only. By using the [webextension-polyfill](https://github.com/mozilla/webextension-polyfill) library of mozilla.org it is aiming for Firefox compatibility.
+Yes, since version >= 2.5.2 Firefox is supported. You can install the Firefox plugin through the [Mozilla Add-on Store](https://addons.mozilla.org/de/firefox/addon/vault-lens/). The extension is being developed and tested with Chrome and Firefox on Windows only. By using the [webextension-polyfill](https://github.com/mozilla/webextension-polyfill) library of mozilla.org, it aims for Firefox compatibility.
 
 ## How do I build my own version of Vault Lens?
 
@@ -81,7 +81,7 @@ With this setup, you'll be able to experiment efficiently and improve your exten
 
 ##### Getting a compatible version of Node
 
-You need node Version ``>=18``. Probably the easiest way to install it is using https://asdf-vm.com/.
+You need Node.js version ``>=18``. Probably the easiest way to install it is using https://asdf-vm.com/.
 
 ##### Installing necessary dependencies
 
@@ -91,7 +91,7 @@ Clone the repository using ``git``. Then run the installation command in the pro
 npm install
 ```
 
-This will download an install all code dependencies into the ``node_modules` folder.
+This will download and install all code dependencies into the ``node_modules`` folder.
 
 ##### Building the Project
 
@@ -103,7 +103,7 @@ npm run dev
 
 Whenever you make changes to any files this will rebuild the project into the folder ``dist/``
 
-If you have Chrome installed this will automatically launch a Browser Window with the extension installed.
+If you have Chrome installed, this will automatically launch a browser window with the extension installed.
 
 You have now loaded the extension so you can try out your changes to see if they work!
 
@@ -135,6 +135,6 @@ The extension does all the note processing offline locally on your machine. Ther
 
 ## How can I use the extension with a search engine that is not officially supported?
 
-If you want to use the live search feature on a different page than on the officially supported search engines e.g. "wikipedia.org" or "eu.startpage.com" then you can use the dedicated extension setting. 
+If you want to use the live search feature on a different page than on the officially supported search engines e.g. "wikipedia.org" or "eu.startpage.com" then you can use the dedicated extension setting.
 
 Add the domain of the search engine to "custom search domains" in the settings and check if search triggers now after reloading the page. In the best case it works out of the box. However, in case the search engine or page does not use common naming conventions for their search inputs and query strings it might not work. Feel free to [open an issue on GitHub](https://github.com/jk-oster/obsidian-search-for-web/issues) so we can find a solution or add it officially to the supported domains.

@@ -34,3 +34,6 @@ src.zip
 //wsl.*
 \\wsl.*
 \/\/wsl.*
+
+# local recording material for the showcase video, not product content
+demo-vault/

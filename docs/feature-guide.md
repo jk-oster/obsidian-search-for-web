@@ -1,6 +1,6 @@
 ---
 title: Feature Guide
-description: Learn everything about Vault Lens (Browser Search for Obsdidian) and how to use all its powerfull features.
+description: Learn everything about Vault Lens (Browser Search for Obsidian) and how to use all its powerful features.
 
 editLink: true
 lastUpdated: true
@@ -82,7 +82,7 @@ If you are currently on a page and you have saved its URL somewhere in your Obsi
 ## 🖥️ Embedded Search Results <Badge type="tip" text="^1.4.0" />
 
 > [!info] Info
-> Be aware that this feature can potentially break if the search engines change their layout or general structure of their search pages. The extension tries to be up-to-date on these changes. However, it can not be guaranteed.
+> Be aware that this feature can potentially break if the search engines change their layout or general structure of their search pages. The extension tries to stay up-to-date on these changes. However, it cannot be guaranteed.
 
 ![Screenshot embedded search results](./img/embedded-results.png)
 
@@ -97,7 +97,7 @@ This extension supports embedded search results on the following search engines:
 - ecosia.org (generic embeddings)
 - yandex.com (generic embeddings)
 
-If the extension detects that a the user is on one of those search engines it will automatically embed the search results in the search page sidebar or main content block. Embedded search results can be toggled on or off in the settings.
+If the extension detects that the user is on one of those search engines it will automatically embed the search results in the search page sidebar or main content block. Embedded search results can be toggled on or off in the settings.
 
 Evaluated and not supported are:
 - search.brave.com
@@ -117,9 +117,9 @@ Upon clicking a search result the note will be opened in the preview panel. This
 ## ✒️ Note Editing <Badge type="tip" text="^2.1.0" /> <Badge type="warn" text="* Local REST API required" />
 
 > [!danger] ⚠️ Warning
-> Saving the note content using the "Edit" mode overwrites the whole file content in Obsidian. This could potentially lead to loss of data. Always make sure to backup your vault! Better be safe than sorry - you are responsbile for your own notes.
+> Saving the note content using the "Edit" mode overwrites the whole file content in Obsidian. This could potentially lead to loss of data. Always make sure to backup your vault! Better be safe than sorry - you are responsible for your own notes.
 
-Opened notes can be edited by clicking the "Edit" button in the preview panel. A [codemirror](https://codemirror.net/) view of your note will be loaded in which you can conviniently change the content of your note. The edited content will be saved automatically if the panel is closed with the "X"-close button or when the mode is changed to "Preview" or "Append". Additonally a "Save" button will be visible if the edited content differs from the current note content.
+Opened notes can be edited by clicking the "Edit" button in the preview panel. A [codemirror](https://codemirror.net/) view of your note will be loaded in which you can conveniently change the content of your note. The edited content will be saved automatically if the panel is closed with the "X"-close button or when the mode is changed to "Preview" or "Append". Additionally a "Save" button will be visible if the edited content differs from the current note content.
 
 ![Screenshot note editing](./img/editing.png)
 
@@ -155,7 +155,7 @@ The periodic notes can also be opened by using the dedicated hotkeys.
 
 ### Choose time periods <Badge type="tip" text="^2.3.4" /> <Badge type="warn" text="* Local REST API and Periodic Notes required" />
 
-If you want to open up a note of a different time period you need to install the [Periodic Notes Plugin](obsidian://show-plugin?id=periodic-notes) and enable the respective periods in the plugin settings. Then choose one of the options ("daily", "weekly", "monthly", "quaterly" or "yearly") in the extension settings.
+If you want to open up a note of a different time period you need to install the [Periodic Notes Plugin](obsidian://show-plugin?id=periodic-notes) and enable the respective periods in the plugin settings. Then choose one of the options ("daily", "weekly", "monthly", "quarterly" or "yearly") in the extension settings.
 
 
 ## 🗒️ Page Notes <Badge type="tip" text="^2.2.0" /> <Badge type="warn" text="* Local REST API required" />
@@ -199,7 +199,7 @@ Some frontmatter fields can be used to control what information is shown in this
 
 - ``web-message``: This message will be displayed in the hover and page note message.
 - ``web-badge-color``: By default, there is no badge color show. You can set this color explicitly by setting this color; see [Special Frontmatter Fields](./frontmatter-fields.md) for more information.
-- ``web-badge-icon``: You can define an emoji / text that will be displayes inside the badge.
+- ``web-badge-icon``: You can define an emoji / text that will be displayed inside the badge.
 - ``web-badge-message``: This short message will be displayed in the hover message alongside the longer web-message.
 
 For details and examples of the use of frontmatter fields read the [Special Frontmatter Fields page](./frontmatter-fields.md).
@@ -218,11 +218,11 @@ The hotkeys can be configured in the extension settings.
 
 ## ⭐ Choose Search Provider <Badge type="tip" text="^1.4.0" />
 
-To fetch search results from your Obsidian Vault you can choose between the Obsidian Local REST API Plugin or the Omni Search Plugin. The extensions requires one of these plugins to be installed and enabled in your Obsidian Vault.
+To fetch search results from your Obsidian Vault you can choose between the Obsidian Local REST API Plugin or the Omni Search Plugin. The extension requires one of these plugins to be installed and enabled in your Obsidian Vault.
 
 If you use the Omni Search Plugin make sure to enable the HTTP Server API in the settings of the plugin.
 
-In case you are using the Obsidian Local REST API Plugin you need to copy the API-Key from the obsidian plugin the settings and enter it in the extension options.
+In case you are using the Obsidian Local REST API Plugin you need to copy the API-Key from the Obsidian plugin settings and enter it in the extension options.
 
 In case of troubles with the connection refer to the [FAQ](./faq.md#how-can-i-troubleshoot-connection-problems-between-obsidian-browser-search-and-obsidian-local-rest-api) or read up on [configuring the extension](./getting-started.md).
 
@@ -236,4 +236,4 @@ In case of troubles with the connection refer to the [FAQ](./faq.md#how-can-i-tr
 ---
 
 > [!important] Disclaimer
-> This is an unofficial browser extension for Obsidian. The project is not sponsored, endorsed or affiliated with Dynalist Inc, the makers of [Obsidian.md](https://obsidian.md). The obsidian logo is property of https://obsidian.md.
+> This is an unofficial browser extension for Obsidian. The project is not sponsored, endorsed or affiliated with Dynalist Inc, the makers of [Obsidian.md](https://obsidian.md). The Obsidian logo is the property of https://obsidian.md.

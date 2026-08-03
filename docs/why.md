@@ -1,5 +1,5 @@
 ---
-title: Why using VaultLense for Obsidian?
+title: Why use Vault Lens for Obsidian?
 description: The extension resurfaces notes from your Obsidian vault while you browse the web, making your workflow smoother and more intuitive.
 ---
 

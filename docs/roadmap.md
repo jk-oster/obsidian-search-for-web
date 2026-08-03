@@ -5,7 +5,7 @@ lastUpdated: true
 
 # Roadmap
 
-Want to have a say in the future of Vault Lens? You have a great idea for a feature the extension is still missing? Please open up a [FEATURE REQUEST] on [github issues](https://github.com/jk-oster/obsidian-search-for-web/issues). Any feedback and suggestions are welcome.
+Want to have a say in the future of Vault Lens? You have a great idea for a feature the extension is still missing? Please open up a ``[FEATURE REQUEST]`` on [GitHub issues](https://github.com/jk-oster/obsidian-search-for-web/issues). Any feedback and suggestions are welcome.
 
 ## Future
 
@@ -27,13 +27,13 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
 
 - ✅ Full screen mode for Note Preview
 - ✅ Better extension option-page & defaults
-- ✅ Strip configurable URL parameters before URL matching  e.g. YouTube timestamps ([requested by @digilum](https://github.com/jk-oster/obsidian-search-for-web/issues/19))
+- ✅ Strip configurable URL parameters before URL matching, e.g. YouTube timestamps ([requested by @digilum](https://github.com/jk-oster/obsidian-search-for-web/issues/19))
 - ✅ Add keyword search syntax: path:, tag:, fm:key:value ([requested by @craziedde](https://github.com/jk-oster/obsidian-search-for-web/issues/18))
 
 ## Version >= 2.5.0
 
-- ✅ **Firefox Support** [requested by @SebastianAtWork](https://github.com/jk-oster/obsidian-search-for-web/issues/5)
-- ✅ **Configurable Hotkeys** [requested by @matlinuxer2](https://github.com/jk-oster/obsidian-search-for-web/issues/14)
+- ✅ **Firefox Support** ([requested by @SebastianAtWork](https://github.com/jk-oster/obsidian-search-for-web/issues/5))
+- ✅ **Configurable Hotkeys** ([requested by @matlinuxer2](https://github.com/jk-oster/obsidian-search-for-web/issues/14))
 - ✅ Settings JSON import / export
 - ✅ Bug Reporting
 
@@ -45,16 +45,16 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
     - ✅ Link Hover Badge Messages `web-badge-color`
     - ✅ Extension Badge Color Messages `web-badge-message`
 - ✅ Better Edit Mode Saving
-- ✅ Dailynote Quick Access
+- ✅ Daily Note Quick Access
 - ✅ Better Documentation
 - ✅ Better Connection Check (caching + waiting for config & store initialisation)
 
 ## Version >=2.0.0
 
-- ✅ **NOTE PREIVEW**: Preview full notes ([requested by @dominikmayer](https://github.com/jk-oster/obsidian-search-for-web/issues/11))
+- ✅ **NOTE PREVIEW**: Preview full notes ([requested by @dominikmayer](https://github.com/jk-oster/obsidian-search-for-web/issues/11))
 - ✅ **NOTE EDITING**: Edit the note in a Markdown editor
 - ✅ **QUICK APPEND**: quickly append content to notes
-- ✅ **Generic Search Result Embeddings**: search engines without dedicated embedding template can now also have search results embeded
+- ✅ **Generic Search Result Embeddings**: search engines without dedicated embedding template can now also have search results embedded
 - ✅ **Support more Search Engines**:
     - baidu
     - brave
@@ -93,4 +93,4 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
 - ✅ **Live Search**: Recognize search engines like Google and use their current search input
     - Google
     - Bing
-- ✅ **Configurable Search**: Exclude files, adapat context & number of shown results
+- ✅ **Configurable Search**: Exclude files, adapt context & number of shown results

@@ -13,7 +13,7 @@ The two most important frontmatter fields are ``url`` and ``url-aliases``. These
 | Field Name                       | Type | Description                                                            |
 | -------------------------------- | ---- | ---------------------------------------------------------------------- |
 | ``url`` / `link`                 | Text | Marks this note as being "owned" by the specified URL                  |
-| ``url-aliases`` / `link-aliases` | List | Like `url`, marks the the note as being "owned" by all URLs in this list |
+| ``url-aliases`` / `link-aliases` | List | Like `url`, marks the note as being "owned" by all URLs in this list |
 
 See Page Notes for more information about how the ``url`` and ``url-aliases`` fields work.
 
@@ -26,7 +26,7 @@ Once a note is associated with a particular URL, there are a few other fields yo
 | ``web-badge-color``   |   Text  |   The color, as a hexadecimal value, to use as the background for the hover badge and Page Note notification   |
 | ``web-badge-icon``    |    Text |   An emoji to show in the hover badge and Page Note notification |
 
-See above for more information about how each of these frontmatter fields are used for particular features.
+See above for more information about how each of these frontmatter fields is used for particular features.
 
 ## Example
 
@@ -34,8 +34,8 @@ See above for more information about how each of these frontmatter fields are us
 ---
 url: https://de.wikipedia.org/wiki/Wiki
 url-alias: https://de.wikipedia.org/wiki/*
-web-message: Wikipedia is a Knowledge Mangement System
-web-badge-message: Dont forget that
+web-message: Wikipedia is a Knowledge Management System
+web-badge-message: Don't forget that
 web-badge-color: 05fefe
 web-badge-icon: 🚀
 ---

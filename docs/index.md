@@ -46,14 +46,14 @@ features:
     details: Preview your notes and open them directly in your browser without switching context.
   - title: Configurable Search
     icon: 🔍
-    details: Exclude files and folders you don't want to show show up in the search results.
+    details: Exclude files and folders you don't want to show up in the search results.
   - title: Daily Note Quick Access
     icon: 📅
-    details: Open yopur daily note with one click or append content to it on the fly.
+    details: Open your daily note with one click or append content to it on the fly.
 ---
 
 > [!important] Disclaimer
-> This is an unofficial browser extension for Obsidian. The project is not sponsored, endorsed or affiliated with Dynalist Inc, the makers of [Obsidian.md](https://obsidian.md). The obsidian logo is property of https://obsidian.md.
+> This is an unofficial browser extension for Obsidian. The project is not sponsored, endorsed or affiliated with Dynalist Inc, the makers of [Obsidian.md](https://obsidian.md). The Obsidian logo is the property of https://obsidian.md.
 
 ## Supported Browsers
 
