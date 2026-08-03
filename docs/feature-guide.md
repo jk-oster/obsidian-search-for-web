@@ -142,7 +142,26 @@ If "light" or "dark" mode are selected then the respective color scheme is enfor
 
 ## 🔍 Configurable Search
 
-... details coming soon ...
+You can exclude files and folders you don't want to show up in the search results in the extension settings.
+
+### Keyword Search Syntax <Badge type="tip" text="^2.7.0" />
+
+Besides plain full-text search, you can narrow down results using a few special keywords directly in the search bar:
+
+- ``path:segment`` — only show notes whose file path contains "segment"
+- ``tag:name`` / ``tags:name`` — only show notes tagged with "name" (the leading ``#`` is optional, ``tag:#name`` also works)
+- ``fm:key:value`` — only show notes whose frontmatter field "key" equals "value"
+
+Keywords can be freely combined with each other and with regular search text, e.g.:
+
+```
+typescript path:projects tag:work
+```
+
+This finds notes containing "typescript" AND located under a "projects" path AND tagged "work". Combining multiple keywords of the same kind is possible too, but note that they are combined with **AND**, not **OR** — e.g. ``tag:work tag:urgent`` requires both tags to be present on the same note, and ``fm:status:done fm:status:archived`` can never match since a note can't have both values at once.
+
+> [!warning]
+> ``tag:`` and ``fm:key:value`` filters require the [Obsidian Local REST Api](obsidian://show-plugin?id=obsidian-local-rest-api) plugin. When using Omnisearch as your search provider, only ``path:`` is supported — ``tag:`` and ``fm:`` keywords are silently ignored.
 
 
 ## 📅 Daily Note Quick Access  <Badge type="tip" text="^2.2.0" /> <Badge type="warn" text="* Local REST API required" />
