@@ -41,7 +41,7 @@ Done!
 
 The latest development [releases are available on GitHub](https://github.com/jk-oster/obsidian-search-for-web/releases). You can try them out before they are published in the Chrome Web Store and use new features earlier.
 
-0. open your obsidian vault in the app and install either the local REST API plugin or the omnisearch plugin
+0. open your obsidian vault in the app and install either the Local REST API plugin or the Omnisearch plugin
 1. test this extension by downloading the [latest released](https://github.com/jk-oster/obsidian-search-for-web/releases) zip file
 2. extract the files
 3. [install the folder from the chrome extension tab](https://bashvlas.com/blog/install-chrome-extension-in-developer-mode/)

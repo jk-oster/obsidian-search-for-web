@@ -218,9 +218,9 @@ The hotkeys can be configured in the extension settings.
 
 ## ⭐ Choose Search Provider <Badge type="tip" text="^1.4.0" />
 
-To fetch search results from your Obsidian Vault you can choose between the Obsidian Local REST API Plugin or the Omni Search Plugin. The extension requires one of these plugins to be installed and enabled in your Obsidian Vault.
+To fetch search results from your Obsidian Vault you can choose between the Obsidian Local REST API Plugin or the Omnisearch Plugin. The extension requires one of these plugins to be installed and enabled in your Obsidian Vault.
 
-If you use the Omni Search Plugin make sure to enable the HTTP Server API in the settings of the plugin.
+If you use the Omnisearch Plugin make sure to enable the HTTP Server in the settings of the plugin.
 
 In case you are using the Obsidian Local REST API Plugin you need to copy the API-Key from the Obsidian plugin settings and enter it in the extension options.
 

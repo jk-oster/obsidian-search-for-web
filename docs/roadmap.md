@@ -28,7 +28,7 @@ Want to have a say in the future of Vault Lens? You have a great idea for a feat
 - ✅ Full screen mode for Note Preview
 - ✅ Better extension option-page & defaults
 - ✅ Strip configurable URL parameters before URL matching, e.g. YouTube timestamps ([requested by @digilum](https://github.com/jk-oster/obsidian-search-for-web/issues/19))
-- ✅ Add keyword search syntax: path:, tag:, fm:key:value ([requested by @craziedde](https://github.com/jk-oster/obsidian-search-for-web/issues/18))
+- ✅ Add keyword search syntax: ``path:``, ``tag:``, ``fm:key:value`` ([requested by @craziedde](https://github.com/jk-oster/obsidian-search-for-web/issues/18))
 
 ## Version >= 2.5.0
 
